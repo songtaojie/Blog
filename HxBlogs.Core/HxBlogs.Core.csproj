@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27197B2A-8D33-43DB-A853-0E004D85E93E}</ProjectGuid>
+    <ProjectGuid>{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HxBlogs.Framework</RootNamespace>
-    <AssemblyName>HxBlogs.Framework</AssemblyName>
+    <RootNamespace>HxBlogs.Core</RootNamespace>
+    <AssemblyName>HxBlogs.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,12 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="Common">
+      <HintPath>C:\AIO5Server\Common\Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,14 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Log\ILogger.cs" />
-    <Compile Include="Log\ILoggerManager.cs" />
-    <Compile Include="Log\Log4NetLogger.cs" />
-    <Compile Include="Log\Log4NetManager.cs" />
+    <Compile Include="Enum\LoginMethod.cs" />
+    <Compile Include="Model\ValidateUserPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validate\BaseUserValidate.cs" />
+    <Compile Include="Validate\IUserValidate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Exception\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

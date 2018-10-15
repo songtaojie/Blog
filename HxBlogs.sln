@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Model", "HxBlogs.Model\HxBlogs.Model.csproj", "{387E4865-27E0-4681-A9FB-CBB7E9523AC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Framework", "HxBlogs.Framework\HxBlogs.Framework.csproj", "{27197B2A-8D33-43DB-A853-0E004D85E93E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Core", "HxBlogs.Core\HxBlogs.Core.csproj", "{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{27197B2A-8D33-43DB-A853-0E004D85E93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27197B2A-8D33-43DB-A853-0E004D85E93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27197B2A-8D33-43DB-A853-0E004D85E93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
