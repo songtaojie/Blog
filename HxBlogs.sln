@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Framework", "HxBlog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Core", "HxBlogs.Core\HxBlogs.Core.csproj", "{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HxBlogs.Test", "HxBlogs.Test\HxBlogs.Test.csproj", "{530C591E-B8B6-4333-AD04-4D627B621218}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01BB789B-8FA3-4C8A-9DB5-D2F4C208F6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{530C591E-B8B6-4333-AD04-4D627B621218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530C591E-B8B6-4333-AD04-4D627B621218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530C591E-B8B6-4333-AD04-4D627B621218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530C591E-B8B6-4333-AD04-4D627B621218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
