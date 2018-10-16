@@ -17,6 +17,11 @@ namespace HxBlogs.Framework.Log
         /// </summary>
         private string group;
         private ILog log;
+        public Log4NetLogger(Type type, string group)
+        {
+            this.group = group;
+            this.log = LogManager.GetLogger(type);
+        }
 
         public void Debug(string message)
         {
