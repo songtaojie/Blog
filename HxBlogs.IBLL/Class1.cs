@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HxBlogs.Core.Validate
+namespace HxBlogs.IBLL
 {
-    public interface IUserValidate
+    public class Class1
     {
-        // bool ValidateUser(ValidateUserPackage p);
     }
 }
