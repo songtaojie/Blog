@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using HxBlogs.Framework.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,16 +23,20 @@ namespace HxBlogs.Framework
         /// </summary>
         public void Start()
         {
-            Type baseType = typeof(IDependency);
+            Type baseType = typeof(ITransientDependency);
 
             // 获取所有相关类库的程序集
             Assembly[] assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
             containerBuilder.RegisterAssemblyTypes(assemblies).Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
                 .AsImplementedInterfaces().InstancePerDependency();//每次解析获得新实例
 
-            Type singletonType = typeof(ISignleton);
+            Type singletonType = typeof(ISingletonDependency);
             containerBuilder.RegisterAssemblyTypes(assemblies).Where(type => singletonType.IsAssignableFrom(type) && !type.IsAbstract)
                 .AsImplementedInterfaces().SingleInstance();// 保证对象生命周期基于单例
+
+            Type requestType = typeof(IRequestDependency);
+            containerBuilder.RegisterAssemblyTypes(assemblies).Where(type => singletonType.IsAssignableFrom(type) && !type.IsAbstract)
+                .AsImplementedInterfaces().InstancePerRequest();// 保证对象生命周期基于单例
 
             containerBuilder.RegisterAssemblyModules(assemblies);//所有继承module中的类都会被注册
 

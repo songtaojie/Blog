@@ -49,8 +49,9 @@
   <ItemGroup>
     <Compile Include="ContainerManager.cs" />
     <Compile Include="DefaultContainer.cs" />
-    <Compile Include="IDependency.cs" />
-    <Compile Include="ISignleton.cs" />
+    <Compile Include="Dependency\ITransientDependency.cs" />
+    <Compile Include="Dependency\IRequestDependency.cs" />
+    <Compile Include="Dependency\ISingletonDependency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
