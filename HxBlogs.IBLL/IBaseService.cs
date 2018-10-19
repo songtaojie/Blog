@@ -6,10 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HxBlogs.IDAL
+namespace HxBlogs.IBLL
 {
-    public interface IBaseDal<T>:ITransientDependency 
-        where T:class,new()
+    public interface IBaseService<T>: ITransientDependency where T : class, new()
     {
         #region 查询
         /// <summary>
