@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -180,9 +181,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
+    <Content Include="Content\Css\index.css" />
+    <Content Include="Content\Images\articlebg.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\star.png" />
+    <Content Include="Content\Images\t01.jpg" />
+    <Content Include="Content\Images\t02.jpg" />
+    <Content Include="Content\Images\t03.jpg" />
     <Content Include="Content\Images\top.jpg" />
+    <Content Include="Content\Images\yu.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -223,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\" />
     <Folder Include="Filters\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Default\" />
