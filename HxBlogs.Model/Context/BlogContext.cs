@@ -41,5 +41,7 @@ namespace HxBlogs.Model.Context
                 throw new DbEntityValidationException(fullErrMsg, ex.EntityValidationErrors);
             }
         }
+
+        public DbSet<Blog> Blog { get; set; } 
     }
 }

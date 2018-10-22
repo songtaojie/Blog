@@ -33,6 +33,16 @@ namespace HxBlogs.DAL
         }
 
         /// <summary>
+        /// 根据ID获取指定的数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public T QueryEntityByID(object id)
+        {
+            return Context.Set<T>().Find(id);
+        }
+
+        /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
@@ -51,47 +61,24 @@ namespace HxBlogs.DAL
         /// <param name="pageSize">每页显示多少条数据</param>
         /// <param name="totalCount">输出参数，输出总共的条数，为了在页面分页栏显示</param>
         /// <param name="isAsc">true升序排序，false降序排序，false时需给出排序的lambda表达式</param>
-        /// <param name="oederLambdaWhere">排序的lambda表达式</param>
+        /// <param name="orderLambdaWhere">排序的lambda表达式</param>
         /// <param name="lambdaWhere">获取数据的lambda</param>
         /// <returns></returns>
-        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere)
+        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere)
         {
             var items = Context.Set<T>().Where(lambdaWhere);
             if (isAsc)
             {
-                items = items.OrderBy(oederLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+                items = items.OrderBy(orderLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             }
             else
             {
-                items = items.OrderByDescending(oederLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+                items = items.OrderByDescending(orderLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             }
             totalCount = items.Count();
             return items;
         }
-
-        /// <summary>
-        /// 根据记录的ID判断数据库中是否存在某条记录
-        /// </summary>
-        /// <param name="id">记录的ID</param>
-        /// <returns>true代表存在;false代表不存在</returns>
-        public virtual bool Exists(object id)
-        {
-            T model = Context.Set<T>().Find(id);
-            if (model != null)
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// 根据表达式来判断是否存在某条记录
-        /// </summary>
-        /// <param name="lambdaWhere"></param>
-        /// <returns>true代表存在;false代表不存在</returns>
-        public virtual bool Exist(Expression<Func<T, bool>> lambdaWhere)
-        {
-            T model = this.QueryEntity(lambdaWhere);
-            return model == null;
-        }
+        
         #endregion
 
         #region 添加
@@ -154,7 +141,7 @@ namespace HxBlogs.DAL
         /// </summary>
         /// <param name="lambdaWhere">lambda表达式</param>
         /// <returns></returns>
-        void Delete(Expression<Func<T, bool>> lambdaWhere)
+        public void Delete(Expression<Func<T, bool>> lambdaWhere)
         {
             var list = this.QueryEntities(lambdaWhere);
             if (list != null && list.Count() > 0)

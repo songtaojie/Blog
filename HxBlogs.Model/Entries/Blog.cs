@@ -65,6 +65,8 @@ namespace HxBlogs.Model
         [DataType(DataType.DateTime)]
         public DateTime? OldPublishTime { get; set; }
 
+        // public int? UserId { get; set; }
+
         /// <summary>
         /// 博客标签
         /// </summary>       
@@ -86,7 +88,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 用户
         /// </summary>
-        [ForeignKey("UserId")]
+        [ForeignKey("CreatorId")]
         public virtual UserInfo User { get; set; }
     }
 }

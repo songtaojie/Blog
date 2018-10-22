@@ -11,7 +11,7 @@ namespace HxBlogs.Model
     /// 博客的类型
     /// </summary>
     [Table("BlogType")]
-    public class BlogType
+    public class BlogType: BaseEntity
     {
         /// <summary>
         /// 名字

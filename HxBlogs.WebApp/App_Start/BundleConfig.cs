@@ -13,6 +13,8 @@ namespace HxBlogs.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/Scripts/App/scrollReveal.js"));
 
             // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -25,7 +27,8 @@ namespace HxBlogs.WebApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/Css/base.css"));
         }
     }
 }

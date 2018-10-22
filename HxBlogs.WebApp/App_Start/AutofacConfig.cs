@@ -1,8 +1,7 @@
 ﻿using HxBlogs.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Common.Logs;
 
 namespace HxBlogs.WebApp
 {
@@ -16,9 +15,13 @@ namespace HxBlogs.WebApp
         {
             DefaultContainer container = new DefaultContainer();
             container.Start();
-
+            ContainerBuilder builder = DefaultContainer.CurrentContainer;
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
+            //builder.RegisterFilterProvider();
             //将MVC的控制器对象实例 交由autofac来创建
             // ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
+
         }
     }
 }

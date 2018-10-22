@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">
+      <Project>{27197b2a-8d33-43db-a853-0e004d85e93e}</Project>
+      <Name>HxBlogs.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HxBlogs.IDAL\HxBlogs.IDAL.csproj">
       <Project>{06ecd477-443d-4db9-9e07-b51dfc18b05e}</Project>
       <Name>HxBlogs.IDAL</Name>

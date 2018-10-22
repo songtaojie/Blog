@@ -26,6 +26,13 @@ namespace HxBlogs.IBLL
         T QueryEntity(Expression<Func<T, bool>> lambdaWhere);
 
         /// <summary>
+        /// 根据ID获取指定的数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        T QueryEntityByID(object id);
+
+        /// <summary>
         /// 分页形式的数据获取
         /// </summary>
         /// <typeparam name="S">在isAsc为false时，指定按什么类型的字段排序</typeparam>
