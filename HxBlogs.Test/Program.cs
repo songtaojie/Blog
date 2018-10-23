@@ -22,14 +22,15 @@ namespace HxBlogs.Test
             //        Console.WriteLine(type.Namespace+"名称："+type.Name);
             //    }
             //}
-            BlogContext c = new BlogContext();
-            c.Blog.Add(new Blog()
-            {
-                Title="这是一篇测试",
-                Content="测试"
-            });
-            c.SaveChanges();
-            Console.WriteLine("成功");
+            //BlogContext c = new BlogContext();
+            //c.Blog.Add(new Blog()
+            //{
+            //    Title="这是一篇测试",
+            //    Content="测试"
+            //});
+            //c.SaveChanges();
+            //Console.WriteLine("成功");
+            Console.WriteLine('5'.ToString());
             Console.ReadLine();
         }
     }

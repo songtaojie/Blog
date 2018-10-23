@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.Model.Context
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class BlogContext:DbContext
     {
         public BlogContext() : base("name=MyContext")
@@ -21,7 +22,7 @@ namespace HxBlogs.Model.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
+            modelBuilder.Conventions.Add(new DecimalPrecisionAttributeConvention());
             base.OnModelCreating(modelBuilder);
         }
         /// <summary>

@@ -25,14 +25,20 @@ namespace HxBlogs.Model
         public string Content { get; set; }
 
         /// <summary>
+        /// 内容，html格式
+        /// </summary>
+        [Column(TypeName = "text")]
+        public string ContentHtml { get; set; }
+
+        /// <summary>
         /// 阅读量
         /// </summary>
-        public int ReadNumber { get; set; } = 0;
+        public int? ReadCount { get; set; } = 0;
 
         /// <summary>
         /// 评论数量
         /// </summary>
-        public int CommentNumber { get; set; } = 0;
+        public int? CommentCount { get; set; } = 0;
 
         /// <summary>
         /// 是否显示在首页
@@ -53,7 +59,31 @@ namespace HxBlogs.Model
         [StringLength(1)]
         [Column(TypeName = "char")]
         public string IsForward { get; set; } = "N";
+        /// <summary>
+        /// 是否发布，Y代表发布，N代表不发布即是草稿
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string IsShare { get; set; }
 
+        /// <summary>
+        /// 发布日期
+        /// </summary>
+        [DataType(DataType.DateTime)]
+        public DateTime? ShareDate { get; set; }
+
+        /// <summary>
+        /// 置顶 Y权值加10年
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string IsTop { get; set; }
+        /// <summary>
+        /// 精华 Y权值加10天
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string IsEssence { get; set; }
         /// <summary>
         /// 原链接
         /// </summary>
@@ -86,9 +116,65 @@ namespace HxBlogs.Model
         public virtual ICollection<Comment> Comments { get; set; }
 
         /// <summary>
+        /// 允许评论
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string CanCmt { get; set; } = "Y";
+        /// <summary>
         /// 用户
         /// </summary>
         [ForeignKey("CreatorId")]
         public virtual UserInfo User { get; set; }
+
+        /// <summary>
+        /// 博客被推荐的次数
+        /// </summary>
+        public int? LikeCount { get; set; }
+
+        /// <summary>
+        /// 被收藏次数
+        /// </summary>
+        public int? FavCount { get; set; }
+        ///// <summary>
+        ///// 被评论次数
+        ///// </summary>
+        //public int? CmtCount { get; set; }
+        /// <summary>
+        /// 个人置顶 标识该文档是否置顶,置顶的文章在个人主页中排序靠前
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string PersonTop { get; set; }
+        ///// <summary>
+        ///// 浏览数
+        ///// </summary>
+        //public int? ViewCount { get; set; }
+
+        /// <summary>
+        /// 主题中的第一张图的地址
+        /// </summary>
+        [StringLength(255)]
+        public string ImgUrl { get; set; }
+        /// <summary>
+        /// 主题中第一张图的名字
+        /// </summary>
+        [StringLength(100)]
+        public string ImgName { get; set; }
+
+        /// <summary>
+        /// 发改主题时的坐标
+        /// </summary>
+        [StringLength(255)]
+        public string Location { get; set; }
+
+        [StringLength(50)]
+        public string City { get; set; }
+        /// <summary>
+        /// 热门程度
+        /// </summary>
+        [Column]
+        [DecimalPrecision]
+        public decimal? OrderFactor { get; set; }
     }
 }
