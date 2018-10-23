@@ -187,6 +187,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
     <Content Include="Content\Css\index.css" />
+    <Content Include="Content\Font\fonts\icomoon.svg" />
+    <Content Include="Content\Font\font.css" />
     <Content Include="Content\Images\articlebg.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\star.png" />
@@ -205,6 +207,12 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
+    <Content Include="Content\Font\fonts\icomoon.eot" />
+    <Content Include="Content\Font\fonts\icomoon.ttf" />
+    <Content Include="Content\Font\fonts\icomoon.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -232,6 +240,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Layout\_Header.cshtml" />
     <Content Include="Views\Layout\_Footer.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

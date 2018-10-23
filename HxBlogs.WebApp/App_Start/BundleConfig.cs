@@ -29,7 +29,8 @@ namespace HxBlogs.WebApp
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/app").Include(
-                      "~/Content/Css/base.css"
+                      "~/Content/Css/base.css",
+                      "~/Content/Font/font.css"
                       ));
         }
     }

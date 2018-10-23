@@ -1,10 +1,10 @@
-﻿body {
+﻿/*body {
     font: 14px "微软雅黑", Arial, Helvetica, sans-serif;
     background: url(../Images/top.jpg) no-repeat center top #075498;
     color: #fff;
     padding-top: inherit;
     padding-bottom:inherit;
-}
+}*/
 /**共同的Css*/
 * {
     margin: 0;
@@ -39,7 +39,7 @@ header, article, footer {
     overflow: hidden
 }
 .logo {
-    margin: 40px 0
+    margin: 25px 0
 }
 nav {
     margin-bottom: 40px
