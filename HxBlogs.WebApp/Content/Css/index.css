@@ -1,225 +1,35 @@
-﻿.blog {
-    margin: 30px 20px;
-    overflow: hidden
+﻿body {
+    line-height: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #dbc1a7;
+    background: #110915;
 }
-    .blog figure {
-        background: #ececec;
-        border: #FFF 10px solid;
-        width: 270px;
-        height: 430px;
-        float: left;
-        margin: 0 8px 0;
-        overflow: hidden
-    }
-        .blog figure p {
-            font-size: 14px;
-            text-shadow: #fff 1px 1px 0px;
-            line-height: 2px;
-            text-align: center;
-            font-weight: bold
-        }
-            .blog figure p a {
-                color: #226039;
-            }
-
-        .blog figure figcaption {
-            padding: 10px;
-            line-height: 22px;
-            color: #666;
-        }
-        .blog figure div {
-            background: url(../Images/yu.png) no-repeat center;
-            overflow: hidden;
-            height: 256px;
-            margin-bottom: 20px
-        }
-            .blog figure div span {
-                opacity: 0
-            }
-
-            .blog figure div:hover span {
-                opacity: 1
-            }
-
-            .blog figure div a {
-                position: relative;
-                display: block
-            }
-
-            .blog figure div span {
-                position: absolute;
-                left: 0px;
-                top: 0px;
-                background: rgba(0,0,0,0.5) url(../Images/yu.png) no-repeat center 10px;
-                color: #FFF;
-                display: block;
-                width: 100%;
-                height: 100%;
-                line-height: 256px;
-                text-align: center;
-                -webkit-transition: all 0.5s;
-                -moz-transition: all 0.5s;
-                -o-transition: all 0.5s;
-                -ms-transition: all 0.5s;
-                text-decoration: underline
-            }
-        /* cbp_tmtimeline */
-        .blog figure img {
-            display: block;
-            margin: auto;
-            height: 256px;
-            overflow: hidden;
-        }
-/*timeline*/
-.cbp_tmtimeline {
-    margin: 30px 0 0 0;
-    padding: 0;
+ul, li {
     list-style: none;
-    position: relative;
 }
-
-    .cbp_tmtimeline:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 5px;
-        background: #afdcf8;
-        left: 158px;
-        margin-left: -10px;
-    }
-
-    .cbp_tmtimeline > li {
-        position: relative;
-    }
-
-        .cbp_tmtimeline > li .cbp_tmtime {
-            display: block;
-            width: 100px;
-            padding-right: 30px;
-            position: absolute;
-            margin-left: 20px
-        }
-
-            .cbp_tmtimeline > li .cbp_tmtime span {
-                display: block;
-                text-align: right;
-            }
-
-                .cbp_tmtimeline > li .cbp_tmtime span:first-child {
-                    font-size: 14px;
-                    color: #bdd0db;
-                }
-
-                .cbp_tmtimeline > li .cbp_tmtime span:last-child {
-                    font-size: 22px;
-                    color: #3594cb;
-                }
-
-        .cbp_tmtimeline > li:nth-child(odd) .cbp_tmtime span:last-child {
-            color: #6cbfee;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmlabel {
-            margin: 0 30px 15px 180px;
-            background: #3594cb;
-            color: #fff;
-            padding: 2em;
-            position: relative;
-            border-radius: 5px;
-            height: 200px;
-        }
-
-        .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel {
-            background: #579dc5;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmlabel h2 {
-            margin-top: 0px;
-            padding: 0 0 10px 0;
-            font-size: 16px;
-            font-weight: bold;
-            text-shadow: rgba(7, 84, 152, 0.71) 1px 1px 1px;
-        }
-        .cbp_tmtimeline > li .cbp_tmlabel:after {
-            right: 100%;
-            border: solid transparent;
-            content: " ";
-            height: 0;
-            width: 0;
-            position: absolute;
-            pointer-events: none;
-            border-right-color: #3594cb;
-            border-width: 10px;
-            top: 10px;
-        }
-
-        .cbp_tmtimeline > li:nth-child(odd) .cbp_tmlabel:after {
-            border-right-color: #579dc5;
-        }
-
-        .cbp_tmtimeline > li .cbp_tmicon {
-            width: 10px;
-            height: 10px;
-            font-family: 'ecoico';
-            speak: none;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            text-transform: none;
-            font-size: 1.4em;
-            line-height: 40px;
-            -webkit-font-smoothing: antialiased;
-            position: absolute;
-            color: #fff;
-            background: #46a4da;
-            border-radius: 50%;
-            box-shadow: 0 0 0 3px #afdcf8;
-            text-align: center;
-            left: 170px;
-            top: 15px;
-            margin: 0 0 0 -25px;
-        }
-
-.blogpic {
-    width: 200px;
-    height: 120px;
-    overflow: hidden;
-    display: block;
+* {
+    margin: 0;
+    padding: 0
+}
+header .header-panel {
+    padding: 25px 0;
+    margin: auto;
+    background: url(../Images/head/headerpanel.jpg) center top no-repeat;
+}
+header .header-title {
+    font-size: 50px;
+    color: #d3c2f9;
     float: left;
-    margin-right: 20px;
+    padding: 55px 0 33px;
 }
-
-    .blogpic img {
-        width: 100%;
-        height: auto;
-        margin: auto;
-    }
-
-a.readmore {
-    background: #075498;
-    color: #fff;
-    padding: 5px 10px;
-    float: right;
-    margin: 20px 0 0 0;
-    border-radius: 5px;
+header .header-search {
+    padding: 39px 0 0;
 }
-
-.cbp_tmtimeline li .cbp_tmtime {
-    -webkit-transition: all 1s;
-    -moz-transition: all 1s;
-    -o-transition: all 1s;
+header .header-search-input {
+    background: none;
+    border: 1px solid #874d76;
+    color: #ffffff;
+    font-variant: normal;
+    padding-right: 10px;
 }
-
-.cbp_tmtimeline li:hover .cbp_tmicon {
-    box-shadow: 0 0 0 3px #ececec;
-}
-
-.cbp_tmtimeline li:hover .cbp_tmtime {
-    background: #afdcf8;
-    border-radius: 20px 0 0 20px;
-}
-
-    .cbp_tmtimeline li:hover .cbp_tmtime span {
-        color: #fff;
-    }

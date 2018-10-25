@@ -1,42 +1,31 @@
 ﻿
-@*<div class="container">*@
-    <div class="row">
-        @*<div class="logo col-md-6 col-sm-6 additional-shop-info" data-scroll-reveal="enter right over 1s">
-            <a href="/">
-                <img src="~/Content/Images/logo.png">
-            </a>
+<header class="container">
+    <div class="row header-panel">
+        <div class="col-sm-6 col-md-6 pull-left header-title ">
+            海·星の博客
         </div>
-        <div class="col-md-6 col-sm-6 logo">*@
-            <ul class="list-inline pull-right">
-                <li><span class="i-hxblog-writeblog"></span><a href="/admin">写博客</a></li>
-                <li><a href="/admin">登录</a></li>
-                <li><a href="/register">注册</a></li>
-            </ul>
-        @*</div>*@
-    </div>
-@*</div>*@
-@*<div class="pre-header">
-        <div class="container">
+        <div class="col-sm-6 col-md-6 pull-right header-search text-center" >
             <div class="row">
-                <div class="col-md-6 col-sm-6 additional-nav">
-                    <ul class="list-unstyled list-inline pull-right">
-                            <li><a href="/admin">登录</a></li>
-                            <li><a href="/register">注册</a></li>
-                    </ul>
+                <label class="radio-inline">
+                    <input type="radio" name="search" value="thissite" checked>站内
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="search" value="theweb" />全网<br />
+                </label>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-3">
+                    <input type="text" name="q" size="10" class="form-control header-search-input" title="searchfield" />
+                </div>
+                <div class="col-md-3 col-md-pull-1">
+                    <input type="button" class="btn btn-default" name="Search" value="搜索" alt="搜索" title="Search" />
                 </div>
             </div>
+            @*<ul class="pull-right">
+                <li><a href="/admin">登录</a></li>
+                <li><a href="/register">注册</a></li>
+            </ul>*@
         </div>
     </div>
-    <div class="header">
-        <div class="container">
-            <a class="site-logo" href="/"><img src="~/Content/assets/frontend/layout/img/logos/logo-corp-red.png" alt="Metronic FrontEnd"></a>
-            <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
-            <div class="header-navigation  font-transform-inherit">
-                <ul>
-                    <li><a href="/" target="_blank">首页</a></li>
-                    <li><a href="/blog" target="_blank">博客</a></li>
-                    <li><a href="/essay" target="_blank">随笔</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
+</header>
+
