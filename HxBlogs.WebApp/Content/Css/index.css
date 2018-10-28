@@ -5,31 +5,95 @@
     color: #dbc1a7;
     background: #110915;
 }
+
 ul, li {
     list-style: none;
+}
+a:link, a:visited, a:active {
+    text-decoration: none;
+    color: #fff
 }
 * {
     margin: 0;
     padding: 0
 }
 header .header-panel {
-    padding: 25px 0;
+    padding-bottom:15px;
     margin: auto;
-    background: url(../Images/head/headerpanel.jpg) center top no-repeat;
+    background: url(../Images/head/headerpanel.jpg) center no-repeat;
 }
+
 header .header-title {
-    font-size: 50px;
+    font-size: 25px;
     color: #d3c2f9;
     float: left;
-    padding: 55px 0 33px;
+    padding-top:25px;
 }
-header .header-search {
-    padding: 39px 0 0;
-}
+
 header .header-search-input {
     background: none;
     border: 1px solid #874d76;
     color: #ffffff;
     font-variant: normal;
     padding-right: 10px;
+}
+/*导航栏*/
+header nav {
+    color: #03a0a6;
+    padding-top: 10px;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 30px
+}
+
+.topnav {
+    margin: 0 auto;
+    background: url(../Images/head/menu_panel.jpg) center no-repeat;
+}
+
+    .topnav a span:first-child {
+        z-index: 2;
+        display: block;
+    }
+
+    .topnav a span:last-child {
+        z-index: 1;
+        display: block;
+        color: #fff;
+        opacity: 0;
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        transform: translateY(-100%);
+        text-align: center
+    }
+
+    .topnav a:hover span:last-child, .topnav a:focus span:last-child {
+        opacity: 1;
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        transform: translateY(0%);
+    }
+
+.en {
+    color: #d3c2f9;
+    font-size: 14px;
+    z-index: 1;
+    display: block;
+}
+.content-container {
+    background: url('../Images/content/content_top.jpg') center no-repeat;
+}
+footer {
+    margin: auto;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px 0;
+    background: url('../Images/footer/footer.jpg') no-repeat;
 }

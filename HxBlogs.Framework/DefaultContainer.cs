@@ -35,7 +35,7 @@ namespace HxBlogs.Framework
             // 获取所有相关类库的程序集
             Assembly[] assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
             builder.RegisterAssemblyTypes(assemblies).Where(type => baseType.IsAssignableFrom(type) && !type.IsAbstract)
-                .AsImplementedInterfaces().InstancePerDependency();//每次解析获得新实例
+                .AsImplementedInterfaces().InstancePerLifetimeScope();//每次解析获得新实例
 
             Type singletonType = typeof(ISingletonDependency);
             builder.RegisterAssemblyTypes(assemblies).Where(type => singletonType.IsAssignableFrom(type) && !type.IsAbstract)

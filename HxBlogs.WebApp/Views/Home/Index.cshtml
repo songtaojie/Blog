@@ -1,5 +1,15 @@
-﻿@{
+﻿@model List<HxBlogs.Model.Blog>
+@{
     ViewBag.Title = "海·星の博客";
 }
-
+<article>
+    <figure>
+        @foreach (HxBlogs.Model.Blog blog in Model)
+        {
+            <div>
+                <a target="_blank" href="/Home/Blog/@blog.Id">@blog.Title</a>
+            </div>
+        }
+    </figure>
+</article>
 

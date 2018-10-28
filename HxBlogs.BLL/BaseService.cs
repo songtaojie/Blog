@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.BLL
 {
-    internal abstract class BaseService<T> where T:class,new()
+    public abstract class BaseService<T> where T:class,new()
     {
         private static IDbSession _dbSession;
         protected internal IBaseDal<T> baseDal;
-
+        //public BaseService(IBaseDal<T> baseDal)
+        //{
+        //    this.baseDal = baseDal;
+        //}
         protected internal IDbSession DbSession
         {
             get {

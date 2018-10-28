@@ -45,7 +45,7 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsHome { get; set; } = "N";
+        public string IsHome { get; set; } = "Y";
 
         /// <summary>
         /// 是否显示在个人主页

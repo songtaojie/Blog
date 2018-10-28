@@ -40,7 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\IBlogDal.cs" />
     <Compile Include="IBaseDal.cs" />
+    <Compile Include="IDal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDal.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +54,19 @@
       <Project>{27197b2a-8d33-43db-a853-0e004d85e93e}</Project>
       <Name>HxBlogs.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HxBlogs.Model\HxBlogs.Model.csproj">
+      <Project>{387E4865-27E0-4681-A9FB-CBB7E9523AC3}</Project>
+      <Name>HxBlogs.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IDal.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDal.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

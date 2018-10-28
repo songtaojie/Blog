@@ -1,4 +1,7 @@
-﻿using HxBlogs.Framework;
+﻿using Common.Helper;
+using HxBlogs.Framework;
+using HxBlogs.IBLL;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +12,17 @@ namespace HxBlogs.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private IBlogService _blogService;
+        public HomeController(IBlogService blogService)
+        {
+            this._blogService = blogService;
+        }
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Blog> blogs = _blogService.QueryEntities(m => m.IsHome == "Y" && m.IsShare =="Y")
+                 .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
+                
+            return View(blogs.ToList());
         }
 
         public ActionResult About()

@@ -2,6 +2,12 @@
 using Autofac;
 using Autofac.Integration.Mvc;
 using Common.Logs;
+using System.Web.Mvc;
+using System.Reflection;
+using System;
+using HxBlogs.Framework.Dependency;
+using System.Web.Compilation;
+using System.Linq;
 
 namespace HxBlogs.WebApp
 {
@@ -16,12 +22,13 @@ namespace HxBlogs.WebApp
             DefaultContainer container = new DefaultContainer();
             container.Start();
             ContainerBuilder builder = DefaultContainer.CurrentContainer;
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            
+            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();
-            //builder.RegisterFilterProvider();
+            ////builder.RegisterFilterProvider();
+            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             //将MVC的控制器对象实例 交由autofac来创建
-            // ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
-
+            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
         }
     }
 }

@@ -1,11 +1,20 @@
 ﻿
 <header class="container">
     <div class="row header-panel">
-        <div class="col-sm-6 col-md-6 pull-left header-title ">
+        <div class="pull-left header-title ">
             海·星の博客
         </div>
-        <div class="col-sm-6 col-md-6 pull-right header-search text-center" >
+        <div class="col-sm-6 col-md-6 pull-right text-center">
             <div class="row">
+                <div class="col-md-5 col-md-offset-3"></div>
+                <div class="col-md-3 col-md-pull-1">
+                    <ul class="pull-right nav nav-pills">
+                        <li><a href="#">登录</a></li>
+                        <li><a href="#">注册</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" style="padding-top:3px;">
                 <label class="radio-inline">
                     <input type="radio" name="search" value="thissite" checked>站内
                 </label>
@@ -14,7 +23,7 @@
                 </label>
             </div>
             <div class="row">
-                <div class="col-md-5 col-md-offset-3">
+                <div class="col-md-5 col-md-offset-3" style="right:3%;">
                     <input type="text" name="q" size="10" class="form-control header-search-input" title="searchfield" />
                 </div>
                 <div class="col-md-3 col-md-pull-1">
@@ -22,10 +31,42 @@
                 </div>
             </div>
             @*<ul class="pull-right">
-                <li><a href="/admin">登录</a></li>
-                <li><a href="/register">注册</a></li>
-            </ul>*@
+                    <li><a href="/admin">登录</a></li>
+                    <li><a href="/register">注册</a></li>
+                </ul>*@
         </div>
+    </div>
+    <div class="topnav">
+        <nav data-scroll-reveal="enter bottom over 0.5s">
+            <a href="index.html">
+                <span>首页</span>
+                <span class="en">Home</span>
+            </a>
+            <a href="about.html">
+                <span>关于我</span>
+                <span class="en">About</span>
+            </a>
+            <a href="manshenghuo.html">
+                <span>慢生活</span>
+                <span class="en">Life</span>
+            </a>
+            <a href="learn.html">
+                <span>碎言碎语</span>
+                <span class="en">Doing</span>
+            </a>
+            <a href="mbfx.html">
+                <span>模板分享</span>
+                <span class="en">Share</span>
+            </a>
+            <a href="learn.html">
+                <span>学无止境</span>
+                <span class="en">Learn</span>
+            </a>
+            <a href="gbook.html">
+                <span>留言</span>
+                <span class="en">Saying</span>
+            </a>
+        </nav>
     </div>
 </header>
 

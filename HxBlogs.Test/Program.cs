@@ -30,7 +30,17 @@ namespace HxBlogs.Test
             //});
             //c.SaveChanges();
             //Console.WriteLine("成功");
-            Console.WriteLine('5'.ToString());
+            Assembly assembly = Assembly.GetAssembly(typeof(BaseModel));
+            //Assembly ass = Assembly.GetExecutingAssembly();
+            //Assembly.
+            Type[] types = assembly.GetExportedTypes();
+            foreach (Type type in types)
+            {
+                if (typeof(BaseModel).IsAssignableFrom(type) && !type.IsAbstract)
+                {
+                    Console.WriteLine(type.FullName);
+                }
+            }
             Console.ReadLine();
         }
     }

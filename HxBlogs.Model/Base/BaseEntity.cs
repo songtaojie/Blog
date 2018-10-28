@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.Model
 {
-    public class BaseEntity : BaseModel, IEntity<int>
+    public abstract class BaseEntity : BaseModel, IEntity<int>
     {
         [Key]
         public virtual int Id { get; set; }
