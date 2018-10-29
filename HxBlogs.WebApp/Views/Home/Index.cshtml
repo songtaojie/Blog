@@ -1,15 +1,32 @@
 ﻿@model List<HxBlogs.Model.Blog>
+@using Common.Helper
 @{
     ViewBag.Title = "海·星の博客";
 }
-<article>
-    <figure>
+@section styles{
+    @Styles.Render("~/Content/Css/home.css")
+}
+<article  class="col-md-9 col-sm-9">
+    <ul class="ul-home">
         @foreach (HxBlogs.Model.Blog blog in Model)
         {
-            <div>
-                <a target="_blank" href="/Home/Blog/@blog.Id">@blog.Title</a>
-            </div>
+            <li class="clear">
+                <div>
+                     <div class="title">
+                         <h4>
+                             <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
+                         </h4>
+                     </div> 
+                    <div class="content-home content-nowrap">
+                        @blog.Content
+                    </div>
+                    <dl>
+                        <dt>
+                        </dt>
+                    </dl>
+                </div>
+            </li>
         }
-    </figure>
+    </ul>
 </article>
 

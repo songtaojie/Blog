@@ -5,7 +5,12 @@
     color: #dbc1a7;
     background: #110915;
 }
-
+/*公共的样式*/
+.content-nowrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 ul, li {
     list-style: none;
 }
@@ -96,4 +101,7 @@ footer {
     text-align: center;
     padding: 10px 0;
     background: url('../Images/footer/footer.jpg') no-repeat;
+}
+.clearfix {
+    clear: both;
 }

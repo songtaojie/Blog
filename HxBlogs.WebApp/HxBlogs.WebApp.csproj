@@ -172,6 +172,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Common\CookieInfo.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
@@ -188,12 +190,15 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
+    <Content Include="Content\Css\home.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
     <Content Include="Content\Font\fonts\icomoon.svg" />
     <Content Include="Content\Font\font.css" />
     <Content Include="Content\Images\articlebg.png" />
     <Content Include="Content\Images\content\content_top.jpg" />
+    <Content Include="Content\Images\content\content_list_item.jpg" />
+    <Content Include="Content\Images\content\content_right.jpg" />
     <Content Include="Content\Images\footer\footer.jpg" />
     <Content Include="Content\Images\footer\footer_repeat.jpg" />
     <Content Include="Content\Images\head\headerpanel.jpg" />
@@ -252,6 +257,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
