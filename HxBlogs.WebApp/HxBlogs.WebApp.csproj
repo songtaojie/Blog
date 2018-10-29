@@ -273,7 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HxBlogs.BLL\HxBlogs.BLL.csproj">
-      <Project>{4999BFAA-1E6E-4863-9D4B-4713E818FBF2}</Project>
+      <Project>{4999bfaa-1e6e-4863-9d4b-4713e818fbf2}</Project>
       <Name>HxBlogs.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\HxBlogs.Core\HxBlogs.Core.csproj">
@@ -281,7 +281,7 @@
       <Name>HxBlogs.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\HxBlogs.DAL\HxBlogs.DAL.csproj">
-      <Project>{09F678BA-112B-4A1E-AE3A-8A345CE2176E}</Project>
+      <Project>{09f678ba-112b-4a1e-ae3a-8a345ce2176e}</Project>
       <Name>HxBlogs.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">
@@ -291,10 +291,6 @@
     <ProjectReference Include="..\HxBlogs.IBLL\HxBlogs.IBLL.csproj">
       <Project>{6D0EB00C-23C2-428D-9389-84D76E7A2205}</Project>
       <Name>HxBlogs.IBLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HxBlogs.IDAL\HxBlogs.IDAL.csproj">
-      <Project>{06ECD477-443D-4DB9-9E07-B51DFC18B05E}</Project>
-      <Name>HxBlogs.IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\HxBlogs.Model\HxBlogs.Model.csproj">
       <Project>{387e4865-27e0-4681-a9fb-cbb7e9523ac3}</Project>

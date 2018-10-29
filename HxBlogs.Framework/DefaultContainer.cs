@@ -10,10 +10,10 @@ using System.Web.Compilation;
 
 namespace HxBlogs.Framework
 {
-
     public class DefaultContainer
     {
         private static ContainerBuilder builder;
+        public event Action<ContainerBuilder> BeforeRegister;
         static DefaultContainer()
         {
             builder = new ContainerBuilder();
@@ -45,8 +45,8 @@ namespace HxBlogs.Framework
             builder.RegisterAssemblyTypes(assemblies).Where(type => singletonType.IsAssignableFrom(type) && !type.IsAbstract)
                 .AsImplementedInterfaces().InstancePerRequest();// 保证对象生命周期基于单例
 
-            builder.RegisterAssemblyModules(assemblies);//所有继承module中的类都会被注册
-
+            // builder.RegisterAssemblyModules(assemblies);//所有继承module中的类都会被注册
+            BeforeRegister?.Invoke(builder);
             IContainer container = builder.Build();
             ContainerManager.SetContainer(container);
         }
