@@ -9,7 +9,12 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
     public class AccountController : Controller
     {
         // GET: Admin/Account
-        public ActionResult Login()
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Register()
         {
             return View();
         }

@@ -173,7 +173,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\AdminBaseController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Common\CookieInfo.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
@@ -203,6 +202,7 @@
     <Content Include="Content\Images\footer\footer_repeat.jpg" />
     <Content Include="Content\Images\head\headerpanel.jpg" />
     <Content Include="Content\Images\head\menu_panel.jpg" />
+    <Content Include="Content\Images\head\logo.png" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\star.png" />
     <Content Include="Content\Images\t01.jpg" />
@@ -220,12 +220,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
     <Content Include="Content\Font\fonts\icomoon.eot" />
     <Content Include="Content\Font\fonts\icomoon.ttf" />
     <Content Include="Content\Font\fonts\icomoon.woff" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -257,7 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Account\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
