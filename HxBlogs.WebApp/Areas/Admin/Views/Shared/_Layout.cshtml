@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Admin/Css/index.css")
     @Scripts.Render("~/bundles/modernizr")
+   @RenderSection("styles", required: false)
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,14 +25,22 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>*@
 
-    <div class="container body-content">
+    <div class="container body-content blog-account">
+        <header class="text-center">
+            <div>
+                <a href="/">
+                    <img src="~/Content/Images/head/logo.png" />
+                </a>
+            </div>
+        </header>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+       @*<footer class="panel-footer navbar-fixed-bottom text-center" >
+           <div>
+               @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
+           </div>
+       </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")

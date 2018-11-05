@@ -186,6 +186,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Admin\Css\index.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
@@ -204,6 +205,7 @@
     <Content Include="Content\Images\head\menu_panel.jpg" />
     <Content Include="Content\Images\head\logo.png" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\newbg.png" />
     <Content Include="Content\Images\star.png" />
     <Content Include="Content\Images\t01.jpg" />
     <Content Include="Content\Images\t02.jpg" />

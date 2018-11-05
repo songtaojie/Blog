@@ -1,0 +1,65 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    background: #110915 url(../../Images/newbg.png) center bottom no-repeat;
+}
+
+.blog-account {
+    margin: 60px auto 0;
+    width: 450px;
+}
+
+    .blog-account .blog-register {
+        width: 100%;
+        margin-top: 50px;
+        background-color: #3a4554;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        -ms-border-radius: 7px;
+        -o-border-radius: 7px;
+        border-radius: 7px;
+    }
+
+    .blog-account .lock-head {
+        display: block;
+        background-color: #323d4b;
+        text-align: center;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 22px;
+        font-weight: 400;
+        color: #4db3a5;
+        -webkit-border-radius: 7px 7px 0 0;
+        -moz-border-radius: 7px 7px 0 0;
+        -ms-border-radius: 7px 7px 0 0;
+        -o-border-radius: 7px 7px 0 0;
+        border-radius: 7px 7px 0 0;
+    }
+    .blog-account .lock-body {
+        margin: 35px;
+        overflow: hidden;
+    }
+    .blog-account .lock-bottom {
+        display: block;
+        background-color: #323d4b;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-border-radius: 0 0 7px 7px;
+        -moz-border-radius: 0 0 7px 7px;
+        -ms-border-radius: 0 0 7px 7px;
+        -o-border-radius: 0 0 7px 7px;
+        border-radius: 0 0 7px 7px;
+    }
+    .blog-account .form-actions .btn-success:hover {
+        background-color: #d75464 !important;
+    }
+
+    .blog-account .form-actions .btn-success {
+        background-color: #e76070 !important;
+        width: 220px;
+        font-weight: 600;
+        padding: 10px;
+    }
