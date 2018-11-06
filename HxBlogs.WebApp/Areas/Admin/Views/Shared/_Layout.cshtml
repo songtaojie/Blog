@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Metronic/font")*@
+    @Styles.Render("~/Metronic/css")
+    @Styles.Render("~/Content/Metronic/admin/login.css")
     @Styles.Render("~/Content/Admin/Css/index.css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/modernizr")*@
    @RenderSection("styles", required: false)
 </head>
-<body>
+<body class="login">
     @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -27,19 +30,23 @@
         </div>
     </div>*@
 
-    <div class="container body-content blog-account">
-        <header class="text-center">
+    <div class="container body-content ">
+        <div class="logo">
+            <img src="~/Content/Images/head/logo.png" />
+        </div>
+        @*<header class="text-center">
             <div>
                 <a href="/">
                     <img src="~/Content/Images/head/logo.png" />
                 </a>
             </div>
-        </header>
+        </header>*@
         @RenderBody()
-       @*<footer class="panel-footer navbar-fixed-bottom text-center" >
-           <div>
-               @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
-           </div>
+        <div class="copyright">
+            @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
+        </div>
+       @*<footer class="panel-footer text-center" >
+           
        </footer>*@
     </div>
 

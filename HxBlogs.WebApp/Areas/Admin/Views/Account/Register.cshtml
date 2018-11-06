@@ -3,7 +3,7 @@
     ViewBag.Title = "注册";
 }
 
-<div class="blog-register">
+<div class="content">
     <div class="lock-head">
         用户注册
     </div>
@@ -11,29 +11,29 @@
         @*<div class="pull-left lock-avatar-block" style="padding-left:50px;">
                 &nbsp;
             </div>*@
-        <form class="form-horizontal" role="form" action="/" id="loginForm">
+        <form class="lock-form pull-left" role="form" action="/" id="loginForm">
             <div class="form-group">
                 @*<label class="col-sm-3 control-label">用户名</label>*@
-                <div class="col-sm-8 col-lg-offset-2">
+                @*<div class="col-sm-8 col-lg-offset-2">*@
                     <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请输入用户名" name="@Html.NameFor(m=>m.UserName)" />
-                </div>
+                @*</div>*@
             </div>
             <div class="form-group">
                 @*<label class="col-sm-3 control-label">邮箱</label>*@
-                <div class="col-sm-8 col-lg-offset-2">
+                @*<div class="col-sm-8 col-lg-offset-2">*@
                     <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="请输入邮箱" name="@Html.NameFor(m=>m.Email)" />
-                </div>
+                @*</div>*@
             </div>
             <div class="form-group">
                 @*<label class="col-sm-3 control-label" >密码</label>*@
-                <div class="col-sm-8 col-lg-offset-2">
+                @*<div class="col-sm-8 col-lg-offset-2">*@
                     <input class="form-control placeholder-no-fix" type="password" id="password" autocomplete="off" placeholder="请输入密码" name="@Html.NameFor(m=>m.PassWord)" />
-                </div>
+                @*</div>*@
             </div>
             <div class="form-actions">
-                <div class="col-sm-8 col-lg-offset-2">
+                @*<div class="col-sm-8 col-lg-offset-2">*@
                     <button id="btnReg" type="button" class="btn btn-success uppercase">注册</button>
-                </div>
+                @*</div>*@
             </div>
             <p id="errorDiv" class="alert-borderless  " style="display:none;color:#F3565D;">
                 <br />
