@@ -193,6 +193,9 @@
     <Content Include="Content\Css\home.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
+    <Content Include="Content\FontAwesome\css\font-awesome.css" />
+    <Content Include="Content\FontAwesome\css\font-awesome.min.css" />
+    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Font\fonts\icomoon.svg" />
     <Content Include="Content\Font\font.css" />
     <Content Include="Content\Images\articlebg.png" />
@@ -238,8 +241,6 @@
     <Content Include="Content\Metronic\css\DT_bootstrap.css" />
     <Content Include="Content\Metronic\css\email.css" />
     <Content Include="Content\Metronic\css\error.css" />
-    <Content Include="Content\Metronic\css\font-awesome.css" />
-    <Content Include="Content\Metronic\css\font-awesome.min.css" />
     <Content Include="Content\Metronic\css\fullcalendar.css" />
     <Content Include="Content\Metronic\css\glyphicons.css" />
     <Content Include="Content\Metronic\theme\grey.css" />
@@ -268,10 +269,10 @@
     <Content Include="Content\Metronic\theme\purple.css" />
     <Content Include="Content\Metronic\css\search.css" />
     <Content Include="Content\Metronic\css\select2_metro.css" />
-    <Content Include="Content\Metronic\css\style-metro.css" />
-    <Content Include="Content\Metronic\css\style-non-responsive.css" />
-    <Content Include="Content\Metronic\css\style-responsive.css" />
-    <Content Include="Content\Metronic\css\style.css" />
+    <Content Include="Content\Metronic\style\style-metro.css" />
+    <Content Include="Content\Metronic\style\style-non-responsive.css" />
+    <Content Include="Content\Metronic\style\style-responsive.css" />
+    <Content Include="Content\Metronic\style\style.css" />
     <Content Include="Content\Metronic\css\timeline.css" />
     <Content Include="Content\Metronic\css\timepicker.css" />
     <Content Include="Content\Metronic\css\uniform.default.css" />
@@ -490,6 +491,11 @@
     <Content Include="Content\Metronic\image\glyphiconshalflings-regular.ttf" />
     <Content Include="Content\Metronic\image\glyphiconshalflings-regular.woff" />
     <Content Include="Content\Metronic\image\js" />
+    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\FontAwesome\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -629,6 +635,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\Metronic\fonts\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />

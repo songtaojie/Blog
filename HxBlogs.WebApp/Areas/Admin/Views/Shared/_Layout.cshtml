@@ -4,53 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @*@Styles.Render("~/Metronic/font")*@
+    @*@Styles.Render("~/Content/css")*@
+    @Styles.Render("~/Content/font")
     @Styles.Render("~/Metronic/css")
     @Styles.Render("~/Content/Metronic/admin/login.css")
-    @Styles.Render("~/Content/Admin/Css/index.css")
     @*@Scripts.Render("~/bundles/modernizr")*@
    @RenderSection("styles", required: false)
 </head>
 <body class="login">
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
-        </div>
-    </div>*@
-
     <div class="container body-content ">
         <div class="logo">
-            <img src="~/Content/Images/head/logo.png" />
+            <a href="/">
+                <img src="~/Content/Images/head/logo.png" />
+            </a>
         </div>
-        @*<header class="text-center">
-            <div>
-                <a href="/">
-                    <img src="~/Content/Images/head/logo.png" />
-                </a>
-            </div>
-        </header>*@
         @RenderBody()
         <div class="copyright">
             @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
         </div>
-       @*<footer class="panel-footer text-center" >
-           
-       </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

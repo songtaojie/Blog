@@ -27,13 +27,15 @@ namespace HxBlogs.WebApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css"));
-            bundles.Add(new StyleBundle("~/Metronic/font").Include(
-                     "~/Content/Metronic/css/font-awesome.min.css"));
+            bundles.Add(new StyleBundle("~/Content/font").Include(
+                     "~/Content/FontAwesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Metronic/css").Include(
+                    "~/Content/Metronic/bootstrap/bootstrap.min.css",
                       "~/Content/Metronic/bootstrap/bootstrap-responsive.min.css",
-                      "~/Content/Metronic/css/style.css",
-                      "~/Content/Metronic/css/style-responsive.css"));
+                      "~/Content/Metronic/style/style-metro.css",
+                      "~/Content/Metronic/style/style.css",
+                      "~/Content/Metronic/style/style-responsive.css"));
             bundles.Add(new StyleBundle("~/Content/app").Include(
                       "~/Content/Css/index.css",
                       "~/Content/Font/font.css"

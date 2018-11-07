@@ -29,6 +29,7 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(50)]
         [Required]
+        [Display(Name = "用户名")]
         public string UserName
         {
             get;set;
@@ -42,11 +43,21 @@ namespace HxBlogs.Model
         /// 密码
         /// </summary>
         [Required]
+        [Display(Name ="密码")]
         [StringLength(40)]
         public string PassWord
         {
             set;
             get;
+        }
+        [Required]
+        [StringLength(40)]
+        [Display(Name = "确认密码")]
+        [Compare("PassWord",ErrorMessage ="两次所输密码不一样")]
+        [NotMapped]
+        public string PwdConfirm
+        {
+            get;set;
         }
         /// <summary>
         /// 真实的名字
@@ -74,6 +85,9 @@ namespace HxBlogs.Model
         /// 邮箱
         /// </summary>
         [StringLength(80)]
+        [Required]
+        [EmailAddress(ErrorMessage ="邮箱格式不正确")]
+        [Display(Name = "邮箱")]
         public string Email
         {
             set; get;
