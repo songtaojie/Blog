@@ -1,17 +1,21 @@
-﻿@model HxBlogs.WebApp.Models.RegisterInfo
+﻿@model HxBlogs.WebApp.Models.RegisterViewModel
 @{
     ViewBag.Title = "注册";
 }
 
 <div class="content">
-    @using (Ajax.BeginForm("Register", "Account", new { }, new AjaxOptions()
+    @using (Ajax.BeginForm("RegisterUser", "Account", new { }, 
+        new AjaxOptions()
     {
-        HttpMethod = "post"
+        OnBegin="beforeRegister",
+        HttpMethod = "post",
+        OnSuccess="afterRegister",
+        OnComplete="finishRegister"
     }, new
     {
         @class = "form-vertical login-form",
         role = "form",
-        id = "loginForm"
+        id = "registerForm"
     }))
     {
         <h3 class="form-title">用户注册</h3>
@@ -65,15 +69,44 @@
             </div>
         </div>
         <div class="form-actions">
-            <input type="submit" class="btn" value="注册" />
+            <input type="submit" class="btn" id="btnReg" value="注册" />
             @*<button id="btnReg" type="button" class="btn">注册</button>*@
         </div>
     }
 </div>
 @section scripts{
    <script type="text/javascript">
-       $(function () {
-           console.log("注册");
-       });
+       //如果按钮时禁用状态，禁止提交
+       function beforeRegister() {
+           var btnReg = $('#btnReg');
+           if (btnReg.hasClass('disabled')) {
+               return false;
+           }
+           btnReg.addClass('disabled');
+       }
+       function afterRegister(data) {
+           debugger
+           if (data.IsSuccess) {
+               alert(`注册成功!${data.Message}`);
+               window.location.href = "/"
+           } else {
+               var html = `<div id="myAlert" class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert"></a>
+        <strong>注册失败！</strong>${data.Message}
+    </div>`;
+               var myAlert = $(html);
+               myAlert.appendTo('.content');
+               window.setTimeout(function () {
+                   myAlert.alert('close');
+               }, 3000);
+           }
+       }
+       //修改按钮状态为可用
+       function finishRegister() {
+           var btnReg = $('#btnReg');
+           if (btnReg.hasClass('disabled')) {
+               btnReg.addClass('disabled');
+           }
+       }
     </script>
 }

@@ -1,5 +1,6 @@
 ﻿namespace HxBlogs.Model.Migrations
 {
+    using Common.Security;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -22,8 +23,8 @@
             UserInfo info = context.Set<UserInfo>().FirstOrDefault(u => u.UserName == "Admin");
             if (info == null)
             {
-                string pwd = Common.Security.SafeHelper.MD5Encrypt("123456");
-                context.Set<UserInfo>().AddOrUpdate(new UserInfo()
+                string pwd = SafeHelper.MD5Encrypt(SafeHelper.MD5Encrypt("123456"));
+                info = new UserInfo()
                 {
                     UserName = "Admin",
                     PassWord = pwd,
@@ -32,7 +33,8 @@
                     RealName = "管理员",
                     Email = "stjworkemail@163.com",
                     IsRoot = "Y"
-                });
+                };
+                context.Set<UserInfo>().AddOrUpdate(info);
             }
         }
     }

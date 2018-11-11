@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.BLL
 {
-    public abstract class BaseService<T> where T:class,new()
+    public abstract class BaseService<T> where T: Model.BaseModel, new()
     {
         private static IDbSession _dbSession;
         protected internal IBaseDal<T> baseDal;
@@ -80,7 +80,7 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="id">记录的ID</param>
         /// <returns>true代表存在;false代表不存在</returns>
-        public virtual bool Exists(object id)
+        public virtual bool Exist(object id)
         {
             T model = this.QueryEntityByID(id);
             return model !=null;
@@ -117,6 +117,7 @@ namespace HxBlogs.BLL
         /// <param name="model">要添加的模型数据</param>
         public virtual T BeforeInsert(T model)
         {
+
             return model;
         }
         /// <summary>
@@ -134,6 +135,10 @@ namespace HxBlogs.BLL
         #region 修改
         public virtual T BeforeUpdate(T model)
         {
+            if (model != null)
+            {
+                model["LastModifyTime"] = DateTime.Now;
+            }
             return model;
         }
         /// <summary>
@@ -152,6 +157,10 @@ namespace HxBlogs.BLL
         #region 删除
         public virtual T BeforeDelete(T model)
         {
+            if (model != null)
+            {
+                model["DeleteTime"] = DateTime.Now;
+            }
             return model;
         }
         /// <summary>

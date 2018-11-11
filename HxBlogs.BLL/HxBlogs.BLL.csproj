@@ -48,6 +48,7 @@
       <DependentUpon>Service.tt</DependentUpon>
     </Compile>
     <Compile Include="Service\BlogService.cs" />
+    <Compile Include="Service\UserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">

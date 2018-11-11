@@ -153,5 +153,31 @@ namespace HxBlogs.Model
         {
             get; set;
         } = "N";
+        /// <summary>
+        /// 是否激活
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string IsActivate
+        {
+            get; set;
+        } = "N";
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        [DataType(DataType.DateTime)]
+        public virtual DateTime? CreateTime { get; set; } = DateTime.Now;
+        /// <summary>
+        /// 是否被删除,假删除，数据库中还有记录
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public virtual string IsDeleted { get; set; } = "N";
+
+        /// <summary>
+        /// 删除时间
+        /// </summary>
+        [DataType(DataType.DateTime)]
+        public virtual DateTime? DeleteTime { get; set; }
     }
 }

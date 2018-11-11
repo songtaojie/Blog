@@ -50,7 +50,7 @@ namespace HxBlogs.IBLL
         /// </summary>
         /// <param name="id">记录的ID</param>
         /// <returns>true代表存在;false代表不存在</returns>
-        bool Exists(object id);
+        bool Exist(object id);
 
         /// <summary>
         /// 根据表达式来判断是否存在某条记录

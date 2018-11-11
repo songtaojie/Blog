@@ -54,6 +54,7 @@
       <DependentUpon>Dal.tt</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\BlogDal.cs" />
+    <Compile Include="DataAccess\UserInfoDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

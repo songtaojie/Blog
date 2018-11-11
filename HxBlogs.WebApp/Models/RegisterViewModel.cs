@@ -6,7 +6,7 @@ using System.Web;
 
 namespace HxBlogs.WebApp.Models
 {
-    public class RegisterInfo
+    public class RegisterViewModel
     {
         [StringLength(50)]
         [MinLength(2,ErrorMessage ="用户名最少是两位数据")]

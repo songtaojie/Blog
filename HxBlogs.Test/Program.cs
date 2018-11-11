@@ -33,14 +33,15 @@ namespace HxBlogs.Test
             Assembly assembly = Assembly.GetAssembly(typeof(BaseModel));
             //Assembly ass = Assembly.GetExecutingAssembly();
             //Assembly.
-            Type[] types = assembly.GetExportedTypes();
-            foreach (Type type in types)
-            {
-                if (typeof(BaseModel).IsAssignableFrom(type) && !type.IsAbstract)
-                {
-                    Console.WriteLine(type.FullName);
-                }
-            }
+            //Type[] types = assembly.GetExportedTypes();
+            //foreach (Type type in types)
+            //{
+            //    if (typeof(BaseModel).IsAssignableFrom(type) && !type.IsAbstract)
+            //    {
+            //        Console.WriteLine(type.FullName);
+            //    }
+            //}
+            Console.WriteLine(Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")));
             Console.ReadLine();
         }
     }

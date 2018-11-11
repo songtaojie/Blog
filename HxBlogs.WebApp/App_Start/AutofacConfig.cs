@@ -18,7 +18,13 @@ namespace HxBlogs.WebApp
             container.BeforeRegister += (builder) =>
             {
                 builder.RegisterControllers(typeof(MvcApplication).Assembly); // 注册Mvc控制器实例
-                builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();//注册日志对象
+                // builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();//注册日志对象
+                ILoggerFactory factory = new LoggerFactory()
+                {
+                    UseConfig = true
+                };
+                builder.RegisterInstance(factory).As<ILoggerFactory>().SingleInstance();
+                builder.RegisterInstance(factory.CreateLogger("Logger")).As<ILogger>().SingleInstance();
             };
             container.Start();
             ////builder.RegisterFilterProvider();
