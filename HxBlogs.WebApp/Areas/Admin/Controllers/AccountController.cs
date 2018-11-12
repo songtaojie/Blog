@@ -160,7 +160,10 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                     userInfo.IsActivate = "Y";
                     this._userService.Update(userInfo);
                     result.IsSuccess = true;
+                    string sessionId = Guid.NewGuid().ToString();
+                    Response.Cookies["SessionID"].Value = sessionId.ToString();
                 }
+                MemcachedHelper.Delete(key);
             }
             else
             {
@@ -168,6 +171,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 result.Message = "此激活链接已失效!";
 
             }
+            
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
