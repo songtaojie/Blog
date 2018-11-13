@@ -32,12 +32,13 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         // GET: Admin/Account
         public ActionResult Index()
         {
-            return View("Register");
+            return View();
         }
         public ActionResult Register()
         {
             return View();
         }
+        #region 用户登录注册
         /// <summary>
         /// 用户注册
         /// </summary>
@@ -46,6 +47,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         public async Task<JsonResult> RegisterUser(RegisterViewModel info)
         {
             ReturnResult result = new ReturnResult();
+            UserInfo userInfo = null;
             bool success = true;
             if (ModelState.IsValid)
             {
@@ -65,24 +67,35 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                     result.Message = "此邮箱已被注册!";
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-                await SendEmail(info.UserName,info.Email);
-                //UserInfo userInfo = MapperHelper.Map<UserInfo>(info);
-                //userInfo = this._userService.Insert(userInfo);
+                await SendEmail(info.UserName, info.Email);
+                userInfo = MapperHelper.Map<UserInfo>(info);
+                userInfo = this._userService.Insert(userInfo);
             }
             if (success)
             {
                 result.IsSuccess = true;
                 result.Message = "已发送激活链接到邮箱，请尽快激活。";
+                //成功以后直接到主页，即在登录状态
+                string sessionId = Guid.NewGuid().ToString();
+                Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
+                string jsonData = JsonConvert.SerializeObject(userInfo);
+                MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
             }
             else
             {
                 result.IsSuccess = false;
                 result.Message = "注册账户失败!";
             }
-            return Json(result,JsonRequestBehavior.AllowGet);
-            
+            return Json(result, JsonRequestBehavior.AllowGet);
+
         }
-        public async Task<bool> SendEmail(string userName,string toEmail)
+        /// <summary>
+        /// 发送邮件，激活账号
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="toEmail"></param>
+        /// <returns></returns>
+        public async Task<bool> SendEmail(string userName, string toEmail)
         {
             Guid key = Guid.NewGuid();
             MemcachedHelper.Set(key.ToString(), userName, DateTime.Now.AddMinutes(30));
@@ -108,6 +121,12 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             });
             return true;
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        #endregion
         #region 验证用户输入的信息
         /// <summary>
         /// 检查用户名是否存在
@@ -160,8 +179,6 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                     userInfo.IsActivate = "Y";
                     this._userService.Update(userInfo);
                     result.IsSuccess = true;
-                    string sessionId = Guid.NewGuid().ToString();
-                    Response.Cookies["SessionID"].Value = sessionId.ToString();
                 }
                 MemcachedHelper.Delete(key);
             }
@@ -169,7 +186,6 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             {
                 result.IsSuccess = false;
                 result.Message = "此激活链接已失效!";
-
             }
             
             return Json(result, JsonRequestBehavior.AllowGet);

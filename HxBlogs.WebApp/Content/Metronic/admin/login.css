@@ -70,9 +70,9 @@ body {
             display: none;
         }
 
-        .login .content .register-form {
+        /*.login .content .register-form {
             display: none;
-        }
+        }*/
 
         .login .content .form-title {
             font-weight: 300;
@@ -85,7 +85,7 @@ body {
             clear: both;
             border: 0px;
             border-bottom: 1px solid #eee;
-            padding: 0px 30px;
+            padding: 0px 30px 15px 30px;
             margin-left: -30px;
             margin-right: -30px;
         }
@@ -109,17 +109,20 @@ body {
 
         .login .content .form-actions .btn {
             margin-top: 1px;
-            width:100%;
+            
+        }
+        .login .content .form-actions .btn-register {
+            width: 100%;
         }
 
         .login .content .forget-password {
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .login .content .create-account {
             border-top: 1px dotted #eee;
-            padding-top: 10px;
-            margin-top: 15px;
+            /*padding-top: 10px;
+            margin-top: 15px;*/
         }
 
             .login .content .create-account a {

@@ -29,6 +29,12 @@
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/Scripts/App/jquery-extendsion.js")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/metronic")
     @RenderSection("scripts", required: false)
+    <script>
+        $(function () {
+            App.init();
+        })
+    </script>
 </body>
 </html>

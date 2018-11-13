@@ -8,10 +8,13 @@ namespace HxBlogs.WebApp.Controllers
 {
     public class BaseController : Controller
     {
-        // GET: Base
-        public ActionResult Index()
+        /// <summary>
+        /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
+        /// </summary>
+        /// <param name="filterContext"></param>
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            return View();
+            base.OnActionExecuting(filterContext);
         }
 
         /// <summary>

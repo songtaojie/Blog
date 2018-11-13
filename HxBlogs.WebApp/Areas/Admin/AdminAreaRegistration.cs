@@ -20,6 +20,12 @@ namespace HxBlogs.WebApp.Areas.Admin
                 controller = "Account",
                 action = "Register"
             });
+            context.MapRoute("HxBlogs_Login", "Login", new
+            {
+                area = "Admin",
+                controller = "Account",
+                action = "Index"
+            });
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",

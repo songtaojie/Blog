@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
+using Common.Security;
 
 namespace HxBlogs.BLL
 {
@@ -17,6 +18,11 @@ namespace HxBlogs.BLL
             UserInfo info = this._dal.QueryUserByName(userName);
             return info != null;
         }
-
+        public override UserInfo BeforeInsert(UserInfo model)
+        {
+            //密码加密
+            model.PassWord = SafeHelper.MD5TwoEncrypt(model.PassWord);
+            return base.BeforeInsert(model);
+        }
     }
 }
