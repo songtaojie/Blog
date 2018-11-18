@@ -13,7 +13,13 @@
                 }
                 return undefined;
             }
-        }
+        },
+        isEmpty: function (value, allowEmptyString) {
+            return (value == null) || (!allowEmptyString ? value === '' : false) || ($.isArray(value) && value.length === 0);
+        },
+        isString: function (value) {
+            return typeof value === 'string';
+        },
     });
 
 })(jQuery, window)

@@ -1,4 +1,4 @@
-/**
+﻿/**
 Core script to handle the entire layout and base functions
 **/
 var App = function () {
@@ -13,6 +13,9 @@ var App = function () {
     var sidebarCollapsedWidth = 35;
 
     var responsiveHandlers = [];
+
+
+    var globalImgPath = 'Content/Metronic/image/';
 
     // theme layout color set
     var layoutColorCodes = {
@@ -121,7 +124,7 @@ var App = function () {
                     clearTimeout(resize);
                 }   
                 resize = setTimeout(function() {
-                    console.log('resize');
+                    // console.log('resize');
                     handleResponsive();    
                 }, 50); // wait 50ms until window resize finishes.
             });
@@ -782,32 +785,108 @@ var App = function () {
         },
 
         // wrapper function to  block element(indicate loading)
-        blockUI: function (el, centerY) {
-            var el = jQuery(el); 
-            el.block({
-                    message: '<img src="./assets/img/ajax-loading.gif" align="">',
-                    centerY: centerY != undefined ? centerY : true,
+        //blockUI: function (el, centerY) {
+        //    var me = this,
+        //        el = jQuery(el); 
+        //    el.block({
+        //        message: `<img src="${me.getGlobalImgPath()}ajax-loading.gif" align="">`,
+        //            centerY: centerY != undefined ? centerY : true,
+        //            css: {
+        //                top: '10%',
+        //                border: 'none',
+        //                padding: '2px',
+        //                backgroundColor: 'none'
+        //            },
+        //            overlayCSS: {
+        //                backgroundColor: '#000',
+        //                opacity: 0.05,
+        //                cursor: 'wait'
+        //            }
+        //        });
+        //},
+        blockUI(options) {
+            options = $.extend(true, {}, options);
+            var me = this,
+                html = '',
+                boxed = options.boxed ? 'loading-message-boxed' : '';
+
+            if (options.animate) {
+                html = `<div class="loading-message ${boxed}">
+                            <div class="block-spinner-bar">
+                                <div class="bounce1"></div>
+                                <div class="bounce2"></div>
+                                <div class="bounce3"></div>
+                                <span style='display:block;'>&nbsp;&nbsp;${options.message ? options.message : ''}
+                            </div>
+                        </div>`;
+            } else if (options.textOnly) {
+                html = `<div class="loading-message ${boxed}"><span>&nbsp;&nbsp;${options.message ? options.message : 'LOADING...'}</span></div>`;
+            } else {
+                html = `<div class="loading-message ${boxed}">
+                    <img src="${me.getGlobalImgPath()}ajax-loading.gif" align="">
+                    <span style='display:block;'>&nbsp;&nbsp;${options.message ? options.message : 'LOADING...'}
+                    </span>
+                </div>`;
+            }
+             // element blocking
+            if (options.target) {
+                var el = $(options.target);
+                if (el.height() <= ($(window).height())) {
+                    options.cenrerY = true;
+                }
+                el.block({
+                    message: html,
+                    baseZ: options.zIndex ? options.zIndex : 1000,
+                    centerY: options.cenrerY !== undefined ? options.cenrerY : false,
                     css: {
                         top: '10%',
-                        border: 'none',
-                        padding: '2px',
+                        border: '0',
+                        padding: '0',
                         backgroundColor: 'none'
                     },
                     overlayCSS: {
-                        backgroundColor: '#000',
-                        opacity: 0.05,
+                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
+                        opacity: options.boxed ? 0.05 : 0.1,
                         cursor: 'wait'
                     }
                 });
+            } else { // page blocking
+                $.blockUI({
+                    message: html,
+                    baseZ: options.zIndex ? options.zIndex : 1000,
+                    css: {
+                        border: '0',
+                        padding: '0',
+                        backgroundColor: 'none'
+                    },
+                    overlayCSS: {
+                        backgroundColor: options.overlayColor ? options.overlayColor : '#555',
+                        opacity: options.boxed ? 0.05 : 0.1,
+                        cursor: 'wait'
+                    }
+                });
+            }
         },
 
         // wrapper function to  un-block element(finish loading)
-        unblockUI: function (el) {
-            jQuery(el).unblock({
+        //unblockUI: function (el) {
+        //    jQuery(el).unblock({
+        //            onUnblock: function () {
+        //                jQuery(el).removeAttr("style");
+        //            }
+        //        });
+        //},
+        unblockUI(el) {
+            if (el) {
+                $(el).unblock({
                     onUnblock: function () {
-                        jQuery(el).removeAttr("style");
+                        $(el).css('position', '');
+                        $(el).css('zoom', '');
                     }
                 });
+            } else {
+                $.unblockUI();
+            }
         },
 
         // initializes uniform elements
@@ -872,11 +951,21 @@ var App = function () {
         isIE8: function () {
             return isIE8;
         },
-
+        // check IE9 mode
+        isIE9: function () {
+            return isIE9;
+        },
         isRTL: function () {
             return isRTL;
         },
-
+        getGlobalImgPath() {
+            return globalImgPath;
+        },
+        setGlobalImgPath(path) {
+            if (path) {
+                globalImgPath = path;
+            }
+        },
         getLayoutColorCode: function (name) {
             if (layoutColorCodes[name]) {
                 return layoutColorCodes[name];

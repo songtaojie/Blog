@@ -53,10 +53,16 @@ body {
             width: 249px;
             border-left: 0 !important;
         }
-
-        .login .content .input-icon {
-            border-left: 2px solid #35aa47 !important;
+        .login .content .m-wrap.input-validate{
+            width:149px;
         }
+        .login .content .img-validate {
+            height: 28px;
+            cursor: pointer;
+        } 
+            .login .content .input-icon {
+                border-left: 2px solid #35aa47 !important;
+            }
 
         .login .content .control-group {
             margin-bottom: 15px !important;
@@ -140,7 +146,10 @@ body {
         color: #999;
         font-size: 11px;
     }
-
+.page-spinner-bar > div,
+.block-spinner-bar > div {
+    background: #20c5ad;
+}
 @media (max-width: 480px) {
     /***
   Login page
@@ -161,7 +170,12 @@ body {
         .login .content .m-wrap {
             width: 180px;
         }
-
+            .login .content .m-wrap.input-validate {
+                width: 90px;
+            }
+        .login .content .img-validate {
+            height: 25px;
+        } 
     .login .checkbox {
         font-size: 13px;
     }

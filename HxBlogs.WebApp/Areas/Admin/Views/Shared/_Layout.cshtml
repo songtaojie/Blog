@@ -3,12 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @*@Styles.Render("~/Content/css")*@
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/font")
     @Styles.Render("~/Metronic/css")
     @Styles.Render("~/Content/Metronic/admin/login.css")
-    @*@Scripts.Render("~/bundles/modernizr")*@
    @RenderSection("styles", required: false)
 </head>
 <body class="login">
@@ -27,9 +25,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive")
-    @Scripts.Render("~/Scripts/App/jquery-extendsion.js")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/metronic")
+    <script src="~/Scripts/Metronic/jquery/jquery.blockui.min.js"></script>
     @RenderSection("scripts", required: false)
     <script>
         $(function () {

@@ -1,7 +1,9 @@
 ﻿using Common.Email;
+using Common.Helper;
 using Common.Logs;
-using Common.Map;
-using Common.Memcached;
+using Common.Mapper;
+using Common.Cache;
+using Common.Web;
 using HxBlogs.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
@@ -48,43 +50,20 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             ReturnResult result = new ReturnResult();
             UserInfo userInfo = null;
-            bool success = true;
             if (ModelState.IsValid)
             {
-                //服务器端名字验证
-                success = !(_userService.Exist(info.UserName));
-                if (!success)
-                {
-                    result.IsSuccess = false;
-                    result.Message = string.Format("用户名{0}已存在!");
-                    return Json(result, JsonRequestBehavior.AllowGet);
-                }
-                //服务器端邮箱验证
-                success = !(_userService.Exist(u => u.Email == info.Email));
-                if (!success)
-                {
-                    result.IsSuccess = false;
-                    result.Message = "此邮箱已被注册!";
-                    return Json(result, JsonRequestBehavior.AllowGet);
-                }
-                await SendEmail(info.UserName, info.Email);
                 userInfo = MapperHelper.Map<UserInfo>(info);
-                userInfo = this._userService.Insert(userInfo);
+                userInfo = this._userService.Insert(userInfo,out result);
             }
-            if (success)
+            if (result.IsSuccess)
             {
-                result.IsSuccess = true;
+                await SendEmail(info.UserName, info.Email);
                 result.Message = "已发送激活链接到邮箱，请尽快激活。";
                 //成功以后直接到主页，即在登录状态
                 string sessionId = Guid.NewGuid().ToString();
                 Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
                 string jsonData = JsonConvert.SerializeObject(userInfo);
                 MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
-            }
-            else
-            {
-                result.IsSuccess = false;
-                result.Message = "注册账户失败!";
             }
             return Json(result, JsonRequestBehavior.AllowGet);
 
@@ -122,9 +101,32 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             return true;
         }
 
+        [HttpPost]
         public ActionResult Login()
         {
-            return View();
+            string validateCode = Request["ValidateCode"];
+            string code = Session["validateCode"].ToString();
+            ReturnResult result = new ReturnResult();
+            if (!Helper.AreEqual(code, validateCode))
+            {
+                result.IsSuccess = false;
+                result.Message = "验证码不正确";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true,JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ShowValidateCode()
+        {
+            ValidateCode validate = new ValidateCode()
+            {
+                MultValue = 2,
+                NPhase = Math.PI
+            };
+            string code = validate.GetRandomNumberString(4);
+            Session["validateCode"] = code;
+            byte[] bytes = validate.CreateValidateGraphic(code);
+            return File(bytes, "image/jpeg");
         }
         #endregion
         #region 验证用户输入的信息
@@ -143,6 +145,11 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             return Json(true);
         }
+        /// <summary>
+        /// 检查邮箱是否被注册了
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult CheckEmail(string email)
         {
@@ -153,7 +160,21 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             return Json(true);
         }
-
+        /// <summary>
+        /// 检查验证码是否正确
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult CheckCode(string validateCode)
+        {
+            string code = Session["validateCode"].ToString();
+            // ReturnResult result = new ReturnResult();
+            if (Helper.AreEqual(code, validateCode))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
         #endregion
         #region 激活用户
         [HttpGet]

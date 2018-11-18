@@ -1,4 +1,4 @@
-/***
+﻿/***
 Modify bootstrap buttons
 ***/
 
@@ -239,7 +239,7 @@ Metro icons
 }
 
 .m-icon-white {
-  background-image: url(../image/syncfusion-icons-white.png);
+    background-image: url(../image/syncfusion-icons-white.png);
 }
 
 /*  Misc */

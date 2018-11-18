@@ -57,8 +57,13 @@ body {
             width: 249px;
             background-color: #fff;
         }
-
-
+            .login .content .m-wrap.input-validate {
+                width: 149px;
+            }
+        .login .content .img-validate {
+            height:28px;
+            cursor:pointer;
+        } 
         .login .content .control-group {
             margin-bottom: 15px !important;
         }
@@ -140,7 +145,10 @@ body {
         color: #eee;
         font-size: 12px;
     }
-
+.page-spinner-bar > div,
+.block-spinner-bar > div {
+    background: #54dac7;
+}
 @media (max-width: 480px) {
     /***
   Login page
@@ -161,7 +169,13 @@ body {
         .login .content .m-wrap {
             width: 180px;
         }
+            .login .content .m-wrap.input-validate {
+                width: 90px;
+            }
 
+        .login .content .img-validate {
+            height: 25px;
+        } 
     .login .checkbox {
         font-size: 13px;
     }

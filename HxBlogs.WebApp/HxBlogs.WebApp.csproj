@@ -185,7 +185,6 @@
     </Compile>
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Models\ReturnResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,8 +218,13 @@
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\yu.png" />
     <Content Include="Content\Metronic\admin\about-us.css" />
+    <Content Include="Content\Metronic\components-md.css" />
+    <Content Include="Content\Metronic\components-rounded.css" />
+    <Content Include="Content\Metronic\components.css" />
     <Content Include="Content\Metronic\css\animate.css" />
     <Content Include="Content\Metronic\css\blog.css" />
+    <Content Include="Content\Metronic\image\ajax-loading.gif" />
+    <Content Include="Content\Metronic\image\loading-spinner-blue.gif" />
     <Content Include="Content\Metronic\theme\blue.css" />
     <Content Include="Content\Metronic\bootstrap\bootstrap-fileupload.css" />
     <Content Include="Content\Metronic\bootstrap\bootstrap-modal.css" />
@@ -258,7 +262,7 @@
     <Content Include="Content\Metronic\jquery\jquery.nestable.css" />
     <Content Include="Content\Metronic\jquery\jquery.tagsinput.css" />
     <Content Include="Content\Metronic\jquery\jquery.ui.slider.css" />
-    <Content Include="Content\Metronic\css\jqvmap.css" />
+    <Content Include="Content\Metronic\jquery\jqvmap.css" />
     <Content Include="Content\Metronic\theme\light.css" />
     <Content Include="Content\Metronic\css\lock.css" />
     <Content Include="Content\Metronic\admin\login-soft.css" />
@@ -278,7 +282,7 @@
     <Content Include="Content\Metronic\style\style.css" />
     <Content Include="Content\Metronic\css\timeline.css" />
     <Content Include="Content\Metronic\css\timepicker.css" />
-    <Content Include="Content\Metronic\css\uniform.default.css" />
+    <Content Include="Content\Metronic\uniform\uniform.default.css" />
     <Content Include="Content\Metronic\image\1.jpg" />
     <Content Include="Content\Metronic\image\10.jpg" />
     <Content Include="Content\Metronic\image\11.jpg" />
@@ -322,7 +326,6 @@
     <Content Include="Content\Metronic\image\fancybox_overlay.png" />
     <Content Include="Content\Metronic\image\fancybox_sprite.png" />
     <Content Include="Content\Metronic\image\favicon.ico" />
-    <Content Include="Content\Metronic\image\fontawesome-webfont.svg" />
     <Content Include="Content\Metronic\image\forrst.png" />
     <Content Include="Content\Metronic\image\github.png" />
     <Content Include="Content\Metronic\image\glyphicons-halflings-white.png" />
@@ -469,7 +472,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\App\jquery-extendsion.js" />
+    <Content Include="Scripts\App\jquery.extendsion.js" />
     <Content Include="Scripts\App\scrollReveal.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -485,9 +488,6 @@
     <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
     <Content Include="Content\Metronic\image\css" />
-    <Content Include="Content\Metronic\image\fontawesome-webfont.eot" />
-    <Content Include="Content\Metronic\image\fontawesome-webfont.ttf" />
-    <Content Include="Content\Metronic\image\fontawesome-webfont.woff" />
     <Content Include="Content\Metronic\image\glyphicons-regular.eot" />
     <Content Include="Content\Metronic\image\glyphicons-regular.ttf" />
     <Content Include="Content\Metronic\image\glyphicons-regular.woff" />
@@ -543,18 +543,17 @@
     <Content Include="Scripts\Metronic\DT_bootstrap.js" />
     <Content Include="Scripts\Metronic\excanvas.js" />
     <Content Include="Scripts\Metronic\excanvas.min.js" />
-    <Content Include="Scripts\Metronic\form-components.js" />
-    <Content Include="Scripts\Metronic\form-fileupload.js" />
-    <Content Include="Scripts\Metronic\form-samples.js" />
-    <Content Include="Scripts\Metronic\form-validation.js" />
-    <Content Include="Scripts\Metronic\form-wizard.js" />
+    <Content Include="Scripts\Metronic\form\form-components.js" />
+    <Content Include="Scripts\Metronic\form\form-fileupload.js" />
+    <Content Include="Scripts\Metronic\form\form-samples.js" />
+    <Content Include="Scripts\Metronic\form\form-validation.js" />
+    <Content Include="Scripts\Metronic\form\form-wizard.js" />
     <Content Include="Scripts\Metronic\fullcalendar.min.js" />
     <Content Include="Scripts\Metronic\gallery.js" />
     <Content Include="Scripts\Metronic\gmaps.js" />
     <Content Include="Scripts\Metronic\inbox.js" />
     <Content Include="Scripts\Metronic\index.js" />
     <Content Include="Scripts\Metronic\jquery\jquery-1.10.1.min.js" />
-    <Content Include="Scripts\Metronic\jquery\jquery-1.8.3.min.js" />
     <Content Include="Scripts\Metronic\jquery\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\Metronic\jquery\jquery-ui-1.10.1.custom.min.js" />
     <Content Include="Scripts\Metronic\jquery\jquery.backstretch.min.js" />
@@ -605,8 +604,6 @@
     <Content Include="Scripts\Metronic\maps-google.js" />
     <Content Include="Scripts\Metronic\maps-vector.js" />
     <Content Include="Scripts\Metronic\portlet-draggable.js" />
-    <Content Include="Scripts\Metronic\respond.js" />
-    <Content Include="Scripts\Metronic\respond.min.js" />
     <Content Include="Scripts\Metronic\search.js" />
     <Content Include="Scripts\Metronic\select2.min.js" />
     <Content Include="Scripts\Metronic\table-advanced.js" />
