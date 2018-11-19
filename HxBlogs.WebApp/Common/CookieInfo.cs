@@ -15,6 +15,10 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 用来模拟session的标志
         /// </summary>
-        public static readonly string SessionID = "sessionId";
+        public const string SessionID = "sessionId";
+        /// <summary>
+        /// 验证码存储在Session中的标志
+        /// </summary>
+        public const string VCode = "validateCode";
     }
 }

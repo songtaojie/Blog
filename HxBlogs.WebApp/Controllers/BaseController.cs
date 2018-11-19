@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Common.Cache;
+using HxBlogs.Model;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +11,7 @@ namespace HxBlogs.WebApp.Controllers
 {
     public class BaseController : Controller
     {
+
         /// <summary>
         /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
         /// </summary>
@@ -15,6 +19,25 @@ namespace HxBlogs.WebApp.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
+            bool isSuccess = false;
+            string pageUrl = filterContext.HttpContext.Request.Url.AbsolutePath;
+            if (Request.Cookies[CookieInfo.SessionID] != null)
+            {
+                string sessionId = Request.Cookies[CookieInfo.SessionID].ToString();
+                object value = MemcachedHelper.Get(sessionId);
+                if (value != null)
+                {
+                    isSuccess = true;
+                    string jsonData = value.ToString();
+                    UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
+                    //模拟滑动过期时间，就像Session中默认20分钟那这样
+                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddMinutes(20));
+                }
+            }
+            if (!isSuccess)
+            {
+                filterContext.Result = Redirect("/login");
+            }
         }
 
         /// <summary>

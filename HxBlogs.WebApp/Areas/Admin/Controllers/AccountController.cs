@@ -31,11 +31,19 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             this._userService = userService;
         }
+        /// <summary>
+        /// 登录页面
+        /// </summary>
+        /// <returns></returns>
         // GET: Admin/Account
         public ActionResult Index()
         {
             return View();
         }
+        /// <summary>
+        /// 注册页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Register()
         {
             return View();
@@ -101,11 +109,15 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             return true;
         }
 
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Login()
         {
             string validateCode = Request["ValidateCode"];
-            string code = Session["validateCode"].ToString();
+            string code = Session[CookieInfo.VCode].ToString();
             ReturnResult result = new ReturnResult();
             if (!Helper.AreEqual(code, validateCode))
             {
@@ -113,8 +125,21 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 result.Message = "验证码不正确";
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(true,JsonRequestBehavior.AllowGet);
+            string userName = Request["UserName"];
+            string pwd = Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
+            UserInfo userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
+            if (userInfo == null)
+            {
+                result.IsSuccess = false;
+                result.Message = "用户名或密码错误!";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            result.IsSuccess = true;
+            string sessionId = Guid.NewGuid().ToString();
+            Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
+            string jsonData = JsonConvert.SerializeObject(userInfo);
+            MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ShowValidateCode()
         {
@@ -124,7 +149,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 NPhase = Math.PI
             };
             string code = validate.GetRandomNumberString(4);
-            Session["validateCode"] = code;
+            Session[CookieInfo.VCode] = code;
             byte[] bytes = validate.CreateValidateGraphic(code);
             return File(bytes, "image/jpeg");
         }
@@ -167,7 +192,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult CheckCode(string validateCode)
         {
-            string code = Session["validateCode"].ToString();
+            string code = Session[CookieInfo.VCode].ToString();
             // ReturnResult result = new ReturnResult();
             if (Helper.AreEqual(code, validateCode))
             {

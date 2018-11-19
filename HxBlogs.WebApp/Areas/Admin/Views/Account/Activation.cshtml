@@ -10,7 +10,7 @@ font-weight:800;margin:150px auto;text-align:center;">正在激活账号...</div
     <script>
         $(function () {
             $.ajax({
-                url: '/Admin/Account/ActiveUser',
+                url: '/admin/account/activeuser',
                 type: 'post',
                 data: {
                     key: $.queryString("key")

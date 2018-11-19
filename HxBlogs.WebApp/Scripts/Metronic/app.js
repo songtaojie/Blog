@@ -209,7 +209,7 @@ var App = function () {
                     });
                 $(this).parents('li').addClass('active');
 
-                App.blockUI(pageContent, false);
+                App.blockUI({ target: pageContent, centerY:false});
 
                 $.post(url, {}, function (res) {
                         App.unblockUI(pageContent);
@@ -409,7 +409,7 @@ var App = function () {
         jQuery('body').on('click', '.portlet .tools a.reload', function (e) {
             e.preventDefault();
                 var el = jQuery(this).parents(".portlet");
-                App.blockUI(el);
+                App.blockUI({ target: el });
                 window.setTimeout(function () {
                         App.unblockUI(el);
                     }, 1000);

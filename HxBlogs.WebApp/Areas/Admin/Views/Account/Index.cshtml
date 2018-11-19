@@ -4,9 +4,10 @@
 }
 @section styles{
 <link href="~/Content/Metronic/uniform/uniform.default.css" rel="stylesheet" />
+<link href="~/Content/Metronic/components.css" rel="stylesheet" />
 }
 <div class="content">
-    @using (Ajax.BeginForm("Login", "Account", new { },
+    @using (Ajax.BeginForm("login", "account", new { },
             new AjaxOptions()
             {
                 OnBegin = "Login.beforeLogin",
@@ -85,8 +86,12 @@
                 finishLogin:function() {
                     App.unblockUI();
                 },
-                afterLogin:function() {
+                afterLogin: function (data) {
+                    if (data.IsSuccess) {
+                        window.location.href = "/";
+                    } else {
 
+                    }
                 },
                 init:function() {
                     $('.login-form').validate({
@@ -99,7 +104,7 @@
                             ValidateCode: {
                                 required: true,
                                 remote: {
-                                    url: 'Admin/Account/CheckCode',
+                                    url: 'admin/account/checkcode',
                                     type:'post',
                                     data: {
                                         code: function () {
@@ -134,9 +139,9 @@
                             error.addClass('help-small no-left-padding').insertAfter(element.closest('.input-icon'));
                         },
 
-                        submitHandler: function (form) {
-                            window.location.href = "/";
-                        }
+                        //submitHandler: function (form) {
+                        //    window.location.href = "/";
+                        //}
                     });
                 }
             };
