@@ -1,4 +1,6 @@
 ﻿using Common.Cache;
+using Common.Logs;
+using HxBlogs.Framework;
 using HxBlogs.Model;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +13,13 @@ namespace HxBlogs.WebApp.Controllers
 {
     public class BaseController : Controller
     {
-
+        public ILogger Logger
+        {
+            get
+            {
+                return ContainerManager.Resolve<ILogger>();
+            }
+        }
         /// <summary>
         /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
         /// </summary>
@@ -23,7 +31,7 @@ namespace HxBlogs.WebApp.Controllers
             string pageUrl = filterContext.HttpContext.Request.Url.AbsolutePath;
             if (Request.Cookies[CookieInfo.SessionID] != null)
             {
-                string sessionId = Request.Cookies[CookieInfo.SessionID].ToString();
+                string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
                 object value = MemcachedHelper.Get(sessionId);
                 if (value != null)
                 {
