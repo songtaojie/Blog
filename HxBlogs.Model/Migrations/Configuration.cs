@@ -23,12 +23,12 @@
             UserInfo info = context.Set<UserInfo>().FirstOrDefault(u => u.UserName == "Admin");
             if (info == null)
             {
-                string pwd = SafeHelper.MD5Encrypt(SafeHelper.MD5Encrypt("123456"));
+                string pwd = SafeHelper.MD5TwoEncrypt("123456");
                 info = new UserInfo()
                 {
                     UserName = "Admin",
                     PassWord = pwd,
-                    PwdConfirm = pwd,
+                    // PwdConfirm = pwd,
                     NickName = "超级管理员",
                     RealName = "管理员",
                     Email = "stjworkemail@163.com",

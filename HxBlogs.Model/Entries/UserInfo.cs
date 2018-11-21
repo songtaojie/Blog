@@ -50,15 +50,15 @@ namespace HxBlogs.Model
             set;
             get;
         }
-        [Required]
-        [StringLength(40)]
-        [Display(Name = "确认密码")]
-        [Compare("PassWord",ErrorMessage ="两次所输密码不一样")]
-        [NotMapped]
-        public string PwdConfirm
-        {
-            get;set;
-        }
+        //[Required]
+        //[StringLength(40)]
+        //[Display(Name = "确认密码")]
+        //[Compare("PassWord",ErrorMessage ="两次所输密码不一样")]
+        //[NotMapped]
+        //public string PwdConfirm
+        //{
+        //    get;set;
+        //}
         /// <summary>
         /// 真实的名字
         /// </summary>
