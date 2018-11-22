@@ -20,5 +20,6 @@ namespace HxBlogs.WebApp
         /// 验证码存储在Session中的标志
         /// </summary>
         public const string VCode = "validateCode";
+        public const string LoginUser = "loginUser";
     }
 }

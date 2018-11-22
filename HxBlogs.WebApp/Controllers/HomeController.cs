@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         private IBlogService _blogService;
         public HomeController(IBlogService blogService)

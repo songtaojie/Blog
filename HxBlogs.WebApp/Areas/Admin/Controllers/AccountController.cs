@@ -141,6 +141,10 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// 显示验证码
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ShowValidateCode()
         {
             ValidateCode validate = new ValidateCode()
@@ -152,6 +156,16 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             Session[CookieInfo.VCode] = code;
             byte[] bytes = validate.CreateValidateGraphic(code);
             return File(bytes, "image/jpeg");
+        }
+
+        public ActionResult Logout()
+        {
+            if (Request.Cookies[CookieInfo.SessionID] != null)
+            {
+                string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
+                MemcachedHelper.Delete(sessionId);
+            }
+            return Redirect("/login");
         }
         #endregion
         #region 验证用户输入的信息

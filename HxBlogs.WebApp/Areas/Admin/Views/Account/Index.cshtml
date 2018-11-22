@@ -22,6 +22,7 @@
             }))
     {
         <h3 class="form-title">用户登录</h3>
+        
         <div class="control-group">
 
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -52,6 +53,10 @@
                 </div>
             </div>
         </div>
+        <div id="loginAlert" class="alert alert-warning hide">
+            <a href="#" class="close" data-dismiss="alert"></a>
+            <strong>登录失败! </strong><span></span>
+        </div>
         <div class="form-actions">
             <label class="checkbox">
                 <input type="checkbox" name="Remember" value="1" /> 记住我
@@ -60,6 +65,7 @@
                 登录 <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
+        
         <div class="forget-password">
             <h4>忘记密码?</h4>
             <p>
@@ -90,7 +96,13 @@
                     if (data.IsSuccess) {
                         window.location.href = "/";
                     } else {
-
+                        var alert = $('#loginAlert'),
+                            span = alert.find('span');
+                        span.html(data.Message);
+                        alert.show();
+                        setTimeout(function () {
+                            alert.hide();
+                        }, 2000);
                     }
                 },
                 init:function() {

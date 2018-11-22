@@ -20,6 +20,10 @@ namespace HxBlogs.WebApp.Controllers
                 return ContainerManager.Resolve<ILogger>();
             }
         }
+        public UserInfo LoginUser
+        {
+            get;set;
+        }
         /// <summary>
         /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
         /// </summary>
@@ -38,6 +42,7 @@ namespace HxBlogs.WebApp.Controllers
                     isSuccess = true;
                     string jsonData = value.ToString();
                     UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
+                    UserContext.LoginUser = userInfo;
                     //模拟滑动过期时间，就像Session中默认20分钟那这样
                     MemcachedHelper.Set(sessionId, value, DateTime.Now.AddMinutes(20));
                 }
