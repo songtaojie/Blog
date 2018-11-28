@@ -219,6 +219,7 @@
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\yu.png" />
     <Content Include="Content\Metronic\admin\about-us.css" />
+    <Content Include="Content\Metronic\admin\load.css" />
     <Content Include="Content\Metronic\components-md.css" />
     <Content Include="Content\Metronic\components-rounded.css" />
     <Content Include="Content\Metronic\components.css" />

@@ -8,6 +8,7 @@ namespace HxBlogs.WebApp
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region js文件
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/App/jquery.extendsion.js"));
@@ -28,15 +29,15 @@ namespace HxBlogs.WebApp
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+            #endregion
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            #region 样式文件
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                       "~/Content/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Content/font").Include(
                      "~/Content/FontAwesome/css/font-awesome.css"));
 
             bundles.Add(new StyleBundle("~/Metronic/css").Include(
-                    "~/Content/Metronic/bootstrap/bootstrap.min.css",
-                      "~/Content/Metronic/bootstrap/bootstrap-responsive.min.css",
                       "~/Content/Metronic/style/style-metro.css",
                       "~/Content/Metronic/style/style.css",
                       "~/Content/Metronic/style/style-responsive.css"));
@@ -44,6 +45,7 @@ namespace HxBlogs.WebApp
                       "~/Content/Css/index.css",
                       "~/Content/Font/font.css"
                       ));
+            #endregion
         }
     }
 }

@@ -23,7 +23,7 @@ body {
 
     .login .content {
         background-color: #fff;
-        width: 291px;
+        width: 300px;
         margin: 0 auto;
         margin-bottom: 0px;
         padding: 30px;
@@ -50,7 +50,7 @@ body {
         }
 
         .login .content .m-wrap {
-            width: 249px;
+            width: 100%;
             border-left: 0 !important;
         }
         .login .content .m-wrap.input-validate{
