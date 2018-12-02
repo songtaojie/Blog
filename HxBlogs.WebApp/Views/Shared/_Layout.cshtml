@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/Content/hx-site.css" rel="stylesheet" />
+    @Styles.Render("~/Content/font")
+    @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Metronic/css")
-    @*@Styles.Render("~/Content/app")*@
+    <link href="~/Content/hx-site.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
     @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
