@@ -334,6 +334,7 @@ Header and header elements.
 }
     .header.navbar {
         min-height: 40px;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
     }
     .header.navbar-fixed-top {
         z-index: 9995 !important;
@@ -344,6 +345,11 @@ Header and header elements.
     .header .navbar-form {
         margin-top:4px;
         margin-bottom:3px;
+    }
+    .header .toggle {
+        margin-top: 4px;
+        margin-bottom: 3px;
+        margin-right:10px;
     }
     .header .brand {
         display: inline-block;
@@ -415,7 +421,7 @@ Header and header elements.
                     }
 
                 .header .nav > li.dropdown.user .dropdown-toggle {
-                    padding: 6px 4px 7px 9px;
+                    padding: 5px 4px 6px 9px;
                 }
 
                     .header .nav > li.dropdown.user .dropdown-toggle:hover {

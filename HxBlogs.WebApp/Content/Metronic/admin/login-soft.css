@@ -155,18 +155,13 @@ body {
     .login .logo {
         margin-top: 10px;
     }
-
     .login .content {
         padding: 30px;
-        width: 222px;
+        width: 250px;
     }
 
         .login .content h3 {
             font-size: 22px;
-        }
-
-        .login .content .m-wrap {
-            width: 180px;
         }
             .login .content .m-wrap.input-validate {
                 width: 90px;

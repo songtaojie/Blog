@@ -1,10 +1,15 @@
-@media (min-width: 980px) and (max-width: 1280px) {  
+﻿@media (min-width: 980px) and (max-width: 1280px) {  
 
 	.page-boxed .header .dropdown .username {
 		display: none;
 	}	
 }
-
+@media (min-width: 768px)  {
+    .header .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
 @media (min-width: 980px) { 
 
  	/***

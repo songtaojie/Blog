@@ -220,9 +220,6 @@
     <Content Include="Content\Images\yu.png" />
     <Content Include="Content\Metronic\admin\about-us.css" />
     <Content Include="Content\Metronic\admin\load.css" />
-    <Content Include="Content\Metronic\components-md.css" />
-    <Content Include="Content\Metronic\components-rounded.css" />
-    <Content Include="Content\Metronic\components.css" />
     <Content Include="Content\Metronic\css\animate.css" />
     <Content Include="Content\Metronic\css\blog.css" />
     <Content Include="Content\Metronic\image\ajax-loading.gif" />
@@ -644,6 +641,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Config\" />
+    <Folder Include="Content\App\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>

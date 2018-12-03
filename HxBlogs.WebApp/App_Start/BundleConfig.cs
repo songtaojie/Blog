@@ -33,8 +33,7 @@ namespace HxBlogs.WebApp
 
             #region 样式文件
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
-                      "~/Content/Metronic/bootstrap/bootstrap.min.css",
-                      "~/Content/Metronic/bootstrap/bootstrap-responsive.min.css"));
+                      "~/Content/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Content/font").Include(
                      "~/Content/FontAwesome/css/font-awesome.css"));
 
