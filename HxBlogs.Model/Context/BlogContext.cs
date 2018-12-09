@@ -15,6 +15,7 @@ namespace HxBlogs.Model.Context
     {
         public BlogContext() : base("name=MyContext")
         {
+            Database.SetInitializer(new SeedDataInitializer());
         }
         /// <summary>
         /// 移除EF映射默认给表名添加“s“或者“es”
@@ -46,4 +47,32 @@ namespace HxBlogs.Model.Context
 
         public DbSet<Blog> Blog { get; set; } 
     }
+    public class SeedDataInitializer : CreateDatabaseIfNotExists<BlogContext>
+    {
+        protected override void Seed(BlogContext context)
+        {
+            base.Seed(context);
+            context.Set<UserInfo>().Add(new UserInfo()
+            {
+                UserName = "Admin",
+                PassWord = Common.Security.SafeHelper.MD5TwoEncrypt("123456"),
+                // PwdConfirm = pwd,
+                NickName = "超级管理员",
+                RealName = "管理员",
+                Email = "stjworkemail@163.com",
+                IsRoot = "Y"
+            });
+            context.Set<Category>().AddRange(new Category[] {
+                new Category{Name="前端",},
+                new Category{Name="后端",},
+                new Category{Name="编程语言",}
+            });
+            context.Set<BlogType>().AddRange(new BlogType[] {
+                new BlogType{Name="原创",},
+                new BlogType{Name="转载",},
+                new BlogType{Name="翻译",}
+            });
+        }
+    }
+
 }

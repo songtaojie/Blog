@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 namespace HxBlogs.Model
 {
     /// <summary>
-    /// 博客的类型
+    /// 博客分类
     /// </summary>
-    [Table("BlogType")]
     [Serializable]
-    public class BlogType: BaseEntity
+    public class Category:BaseEntity
     {
         /// <summary>
-        /// 名字
+        /// 分类名字
         /// </summary>
         [StringLength(40)]
         public string Name { get; set; }
@@ -27,6 +26,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        [Column(TypeName = "text")]
+        public string Remarks { get; set; }
     }
 }

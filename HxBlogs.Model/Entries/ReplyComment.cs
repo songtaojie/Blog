@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace HxBlogs.Model
 {
     [Table("ReplyComment")]
+    [Serializable]
     public class ReplyComment
     {
         /// <summary>

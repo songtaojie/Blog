@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace HxBlogs.Model
 {
     [Table("UserInfo")]
+    [Serializable]
     public class UserInfo:BaseModel,IEntity<int>
     {
 

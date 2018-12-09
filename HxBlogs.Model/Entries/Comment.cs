@@ -12,6 +12,7 @@ namespace HxBlogs.Model
     /// 评论
     /// </summary>
     [Table("Comment")]
+    [Serializable]
     public class Comment:BaseEntity
     {
         /// <summary>

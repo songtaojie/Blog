@@ -178,6 +178,7 @@
     <Compile Include="Common\CookieInfo.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
     <Compile Include="Common\UserContext.cs" />
+    <Compile Include="Common\WebHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
@@ -190,10 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin\Css\index.css" />
+    <Content Include="Content\App\blog-home.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
-    <Content Include="Content\Css\home.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
     <Content Include="Content\FontAwesome\css\font-awesome.css" />
@@ -641,7 +642,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Config\" />
-    <Folder Include="Content\App\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>

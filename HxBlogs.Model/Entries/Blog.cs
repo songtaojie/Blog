@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace HxBlogs.Model
 {
     [Table("Blog")]
+    [Serializable]
     public class Blog:BaseEntity
     {
         /// <summary>
@@ -64,7 +65,7 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsShare { get; set; }
+        public string IsShare { get; set; } = "N";
 
         /// <summary>
         /// 发布日期
@@ -102,12 +103,19 @@ namespace HxBlogs.Model
         /// </summary>       
         [ForeignKey("BlogId")]
         public virtual ICollection<BlogBlogTag> BlogBlogTags { get; set; }
+        public int TypeId { get; set; }
+        ///// <summary>
+        ///// 博客类型，是转发，原创，还是翻译等
+        ///// </summary> 
+        [ForeignKey("TypeId")]
+        public virtual BlogType BlogType { get; set; }
 
-        /// <summary>
-        /// 博客标签
-        /// </summary> 
-        [ForeignKey("BlogId")]
-        public virtual ICollection<BlogBlogType> BlogBlogTypes { get; set; }
+        public int CatId { get; set; }
+        ///// <summary>
+        ///// 博客类型，是转发，原创，还是翻译等
+        ///// </summary> 
+        [ForeignKey("CatId")]
+        public virtual Category Category { get; set; }
 
         /// <summary>
         /// 博客评论

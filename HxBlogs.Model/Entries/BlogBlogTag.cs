@@ -12,6 +12,7 @@ namespace HxBlogs.Model
     /// 博客和标签中间表
     /// </summary>
     [Table("BlogBlogTag")]
+    [Serializable]
     public class BlogBlogTag : IEntity<int>
     {
         [Key]

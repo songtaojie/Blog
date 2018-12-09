@@ -4,29 +4,54 @@
     ViewBag.Title = "海·星の博客";
 }
 @section styles{
-    @Styles.Render("~/Content/Css/home.css")
+    <link href="~/Content/App/blog-home.css" rel="stylesheet" />
 }
-<article  class="col-md-9 col-sm-9">
-    <ul class="ul-home">
-        @foreach (HxBlogs.Model.Blog blog in Model)
-        {
-            <li class="clear">
-                <div>
-                     <div class="title">
-                         <h4>
-                             <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
-                         </h4>
-                     </div> 
-                    <div class="content-home content-nowrap">
-                        @blog.Content
+<div class="container blog-container">
+    <article class="col-md-9 col-sm-9">
+        <div class="blog-list">
+            @foreach (HxBlogs.Model.Blog blog in Model)
+            {
+                
+                <div class="blog-item clearfix" data-id="@Helper.ToHex(blog.Id)">
+                    <div class="blog-item-content">
+                        <div class="blog-item-title">
+                            <h4>
+                                <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
+                            </h4>
+                        </div>
+                        <div class="blog-item-summary content-nowrap">
+                            @blog.Content
+                        </div>
+                        <div class="blog-item-user">
+                            <div class="blog-item-hbox">
+                                <div class="avatar">
+                                    <a>
+                                        <img src="~/Content/Metronic/image/avatar.png" /></a>
+                                </div>
+                                <div class="name">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName)?blog.User.UserName :blog.User.NickName))</div>
+                                <div class="blog-tag-data">@(blog.Category!=null? blog.Category.Name:"")</div>
+                                <div class="time">@(WebHelper.GetDispayDate(blog.ShareDate))</div>
+                                <div class="pull-right">
+                                    <div class="read">
+                                        <a>
+                                            <span class="read-num">@blog.ReadCount</span>
+                                            <span class="read-text">阅读</span>
+                                        </a>
+                                    </div>
+                                    <div class="comment">
+                                        <a>
+                                            <span class="comment-num">@blog.CommentCount</span>
+                                            <span class="comment-text">评论</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <dl>
-                        <dt>
-                        </dt>
-                    </dl>
                 </div>
-            </li>
-        }
-    </ul>
-</article>
+            }
+        </div>
+    </article>
+</div>
+
 

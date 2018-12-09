@@ -12,6 +12,7 @@ namespace HxBlogs.Model
     /// 博客标签
     /// </summary>
     [Table("BlogTag")]
+    [Serializable]
     public class BlogTag:BaseEntity
     {
         /// <summary>
