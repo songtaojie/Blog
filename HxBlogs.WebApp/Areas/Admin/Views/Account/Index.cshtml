@@ -3,7 +3,7 @@
     ViewBag.Title = "用户登录";
 }
 @section styles{
-    <link href="~/Content/Metronic/uniform/uniform.default.css" rel="stylesheet" />
+    <link href="~/Content/Plugin/Metronic/uniform/uniform.default.css" rel="stylesheet" />
 }
 <div class="content">
     @using (Ajax.BeginForm("login", "account", new { },
@@ -81,7 +81,7 @@
     }
 </div>
 @section scripts{
-    <script src="~/Scripts/Metronic/jquery/jquery.uniform.min.js"></script>
+<script src="~/Content/Plugin/Metronic/uniform/jquery.uniform.min.js"></script>
     <script>
         var Login = function () {
             return {

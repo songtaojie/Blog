@@ -4,7 +4,7 @@
     ViewBag.Title = "海·星の博客";
 }
 @section styles{
-    <link href="~/Content/App/blog-home.css" rel="stylesheet" />
+    <link href="~/Content/App/css/blog-home.css" rel="stylesheet" />
 }
 <div class="container blog-container">
     <article class="col-md-9 col-sm-9">
@@ -26,7 +26,7 @@
                             <div class="blog-item-hbox">
                                 <div class="avatar">
                                     <a>
-                                        <img src="~/Content/Metronic/image/avatar.png" /></a>
+                                        <img src="~/Content/Plugin/Metronic/image/avatar.png" />
                                 </div>
                                 <div class="name">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName)?blog.User.UserName :blog.User.NickName))</div>
                                 <div class="blog-tag-data">@(blog.Category!=null? blog.Category.Name:"")</div>
