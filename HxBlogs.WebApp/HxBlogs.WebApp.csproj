@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\App\css\blog-home.css" />
+    <Content Include="Content\App\js\neditor-api.js" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
