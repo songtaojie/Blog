@@ -4,18 +4,18 @@
 }
 <div>
     <h2>Edit</h2>
-    <script id="editor" type="text/plain" style="width:1024px;height:500px;">
-    </script>
+    <textarea name="content" id="editor" rows="30"></textarea>
 </div>
 @section scripts{
-    <script src="~/Content/Plugin/UEditor/neditor.config.js"></script>
-    <script src="~/Content/App/js/neditor-api.js"></script>
-    <script src="~/Content/Plugin/UEditor/neditor.service.js"></script>
+<script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script type="text/javascript">
-        //实例化编辑器
-        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-        debugger
-        var ue = UE.getEditor('editor');
+        ClassicEditor.create(document.querySelector('#editor'))
+            .then(editor => {
+                window.ckEditor = editor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     </script>
 }
 
