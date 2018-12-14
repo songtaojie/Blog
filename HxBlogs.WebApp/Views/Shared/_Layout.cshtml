@@ -5,10 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/font")
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Metronic/css")
-    <link href="~/Content/Css/hx-site.css" rel="stylesheet" />
+    <link href="~/Content/Css/blog-site.css" rel="stylesheet" />
+    <link href="~/Content/App/css/blog-header.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
 </head>
 <body class="page-header-fixed">
@@ -36,14 +35,14 @@
     @Html.Partial("../Layout/_Footer")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/app")
+    @*@Scripts.Render("~/bundles/app")
     <script>
         if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
             (function () {
                 window.scrollReveal = new scrollReveal({ reset: true });
             })();
         };
-    </script>
+    </script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

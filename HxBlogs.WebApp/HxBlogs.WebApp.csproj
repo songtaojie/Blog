@@ -191,6 +191,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\App\css\blog-edit.css" />
+    <Content Include="Content\App\css\blog-header.css" />
     <Content Include="Content\App\css\blog-home.css" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
@@ -521,7 +523,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Css\hx-site.css" />
+    <Content Include="Content\Css\blog-site.css" />
     <Content Include="Content\App\js\jquery.extendsion.js" />
     <Content Include="Content\App\js\scrollReveal.js" />
     <Content Include="Content\Scripts\bootstrap.js" />

@@ -1,0 +1,34 @@
+﻿
+.blog-header.navbar {
+    min-height: 40px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+}
+.blog-header .navbar-inner {
+    width: 100%;
+    margin-left: 0 0 0 110px;
+    border: 0px;
+    padding: 0px;
+    box-shadow: none;
+}
+.blog-header .toggle {
+    margin-top: 4px;
+    margin-bottom: 3px;
+    margin-right: 10px;
+}
+.blog-header .navbar-brand {
+    padding: 10px 15px;
+}
+@media (min-width: 768px) {
+    .blog-header .navbar-nav > li > a {
+        padding: 10px;
+    }
+    .blog-header .toggle {
+        display: none;
+    }
+}
+
+div, input, select, textarea, span, img, table, td, th, p, a, button, ul, li {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0 ;
+}

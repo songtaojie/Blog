@@ -1,0 +1,10 @@
+﻿.blog-edit {
+    height:100%;
+}
+    .blog-edit .ck-editor__editable {
+        min-height:500px;
+    }
+    .blog-edit textarea {
+        visibility:hidden;
+        height:100%;
+    }

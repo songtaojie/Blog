@@ -17,7 +17,7 @@ namespace HxBlogs.WebApp
                         "~/Content/Scripts/jquery.unobtrusive-ajax.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Content/Scripts/jquery.validate*"));
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+            bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
                         "~/Content/App/js/scrollReveal.js"));
             bundles.Add(new ScriptBundle("~/bundles/metronic").Include(
                         "~/Content/Plugin/Metronic/js/app.js"));
@@ -34,9 +34,6 @@ namespace HxBlogs.WebApp
             #region 样式文件
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                       "~/Content/Css/bootstrap.css"));
-            bundles.Add(new StyleBundle("~/Content/font").Include(
-                     "~/Content/FontAwesome/css/font-awesome.css"));
-
             bundles.Add(new StyleBundle("~/Metronic/css").Include(
                       "~/Content/Plugin/Metronic/style/style-metro.css",
                       "~/Content/Plugin/Metronic/style/style.css",

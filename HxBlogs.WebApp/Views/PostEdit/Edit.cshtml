@@ -2,16 +2,19 @@
 @{
     ViewBag.Title = "写文章";
 }
-<div>
+@section styles{
+    <link href="~/Content/App/css/blog-edit.css" rel="stylesheet" />
+}
+<div class="blog-edit">
     <h2>Edit</h2>
-    <textarea name="content" id="editor" rows="30"></textarea>
+    <textarea name="content" id="editor"></textarea>
 </div>
 @section scripts{
 <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script type="text/javascript">
         ClassicEditor.create(document.querySelector('#editor'))
             .then(editor => {
-                window.ckEditor = editor;
+                window._HxCkEditor = editor;
             })
             .catch(error => {
                 console.error(error);

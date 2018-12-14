@@ -1,4 +1,5 @@
 ﻿
+@import url('../FontAwesome/css/font-awesome.css');
 html {
     height:100%;
 }
@@ -6,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     background: #f5f7f7;
+    height: inherit;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -47,3 +49,4 @@ textarea {
     left: auto;
 }
 /*加载*/
+
