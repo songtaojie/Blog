@@ -30,6 +30,15 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+	public partial class CategoryService:BaseService<Category>,ICategoryService
+	{
+		private ICategoryDal _dal;
+		public CategoryService(ICategoryDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
 	public partial class CommentService:BaseService<Comment>,ICommentService
 	{
 		private ICommentDal _dal;

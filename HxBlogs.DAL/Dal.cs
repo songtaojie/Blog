@@ -11,6 +11,9 @@ namespace HxBlogs.DAL
 	public partial class BlogTypeDal:BaseDal<BlogType>,IBlogTypeDal
 	{
 	}
+	public partial class CategoryDal:BaseDal<Category>,ICategoryDal
+	{
+	}
 	public partial class CommentDal:BaseDal<Comment>,ICommentDal
 	{
 	}

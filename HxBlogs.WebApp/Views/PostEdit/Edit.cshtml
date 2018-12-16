@@ -5,12 +5,127 @@
 @section styles{
     <link href="~/Content/App/css/blog-edit.css" rel="stylesheet" />
 }
-<div class="blog-edit">
-    <h2>Edit</h2>
-    <textarea name="content" id="editor"></textarea>
+<div class="blog-edit container body-content">
+    <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label class="col-md-2 control-label blog-control-label">文章标题<span class="required">*</span></label>
+                    <div class="col-md-10 col-sm-12">
+                        <input type="text" name="Title" class="form-control" placeholder="文章标题,请控制在100字以内" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">
+                        系统分类<span class="required">*</span>
+                    </label>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control">
+                            <option value="-1" selected="selected">请选择</option>
+                            @if (ViewBag.CategoryList != null)
+                            {
+                                foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12 col-sm-12">
+                <textarea name="content" id="editor"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <label class="text-left blog-category-label">个人分类:</label>
+                <button class="btn btn-link fa fa-plus-square"> 添加分类</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-sm-push-1 blog-col-xs-pull-1">
+                <div class="form-group">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option1"> 选项 1
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option2"> 选项 2
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option3"> 选项 3
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option1"> 选项 4
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option2"> 选项 5
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="option3"> 选项 6
+                    </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <div class="form-group">
+                    <label class="col-md-4 control-label blog-control-label">
+                        文章类型<span class="required">*</span>
+                    </label>
+                    <div class="col-md-8 col-sm-12">
+                        <select class="form-control">
+                            <option value="-1" selected="selected">请选择</option>
+                            @if (ViewBag.BlogTypeList != null)
+                            {
+                                foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-xs-12">
+                <div class="form-group">
+                    <label class="col-md-1 control-label blog-control-label hidden-xs hidden-md hidden-lg" style="visibility:hidden;">
+                        选项
+                    </label>
+                    <div class="col-sm-11">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option1"> 原创
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option2"> 置顶
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option3"> 仅自己可见
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option3">禁止评论
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <div class="col-sm-3">
+                <button class="btn btn-default btn-sm btn-success">发布文章</button>
+                <button class="btn btn-default btn-sm">保存草稿</button>
+            </div>
+        </div>
+    </form>
 </div>
 @section scripts{
-<script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
+    <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script type="text/javascript">
         ClassicEditor.create(document.querySelector('#editor'))
             .then(editor => {

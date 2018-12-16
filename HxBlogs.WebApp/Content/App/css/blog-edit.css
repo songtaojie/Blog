@@ -1,10 +1,31 @@
 ﻿.blog-edit {
-    height:100%;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    min-height: calc(100vh - 4rem);
 }
-    .blog-edit .ck-editor__editable {
-        min-height:500px;
-    }
+.blog-edit .ck-editor__editable {
+    /*min-height:500px;*/
+    min-height: calc(100vh - 18rem);
+}
     .blog-edit textarea {
         visibility:hidden;
         height:100%;
     }
+    .blog-edit .blog-category-label {
+        margin-top: .26rem;
+    }
+    .blog-edit .blog-control-label {
+        width:auto;
+    }
+@media (max-width: 992px) {
+    .blog-col-pull-2 {
+        right: 20%;
+    }
+}
+@media (max-width:776px) {
+    .blog-col-xs-pull-1 {
+        left: 8.333333333333332%;
+    }
+}
+
+

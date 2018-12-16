@@ -10,6 +10,9 @@ namespace HxBlogs.IBLL
 	public partial interface IBlogTypeService:IBaseService<BlogType>
 	{
 	}
+	public partial interface ICategoryService:IBaseService<Category>
+	{
+	}
 	public partial interface ICommentService:IBaseService<Comment>
 	{
 	}

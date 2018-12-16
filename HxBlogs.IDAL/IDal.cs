@@ -13,6 +13,10 @@ namespace HxBlogs.IDAL
 	{
 
 	}
+	public partial interface ICategoryDal:IBaseDal<Category>
+	{
+
+	}
 	public partial interface ICommentDal:IBaseDal<Comment>
 	{
 
