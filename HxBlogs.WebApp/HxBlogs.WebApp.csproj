@@ -703,7 +703,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\BlogEdit\" />
     <Folder Include="Config\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />

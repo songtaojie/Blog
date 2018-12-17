@@ -6,7 +6,7 @@
 }
 .blog-header .navbar-inner {
     width: 100%;
-    margin-left: 0 0 0 110px;
+    margin-left: 0 0 0 11rem;
     border: 0px;
     padding: 0px;
     box-shadow: none;
@@ -18,6 +18,10 @@
 }
 .blog-header .navbar-brand {
     padding: 1rem 1.5rem;
+}
+.blog-header-image {
+    width:1.9rem;
+    height:1.9rem;
 }
 .blog-footer {
     position: relative;

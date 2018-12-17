@@ -2,12 +2,13 @@
 @using Common.Helper
 @{
     ViewBag.Title = "海·星の博客";
+    ViewBag.ShowFooter = false;
 }
 @section styles{
     <link href="~/Content/App/css/blog-home.css" rel="stylesheet" />
 }
 <div class="container blog-container">
-    <article class="col-md-9 col-sm-9">
+    <article >
         <div class="blog-list">
             @foreach (HxBlogs.Model.Blog blog in Model)
             {
@@ -15,7 +16,7 @@
                 <div class="blog-item clearfix" data-id="@Helper.ToHex(blog.Id)">
                     <div class="blog-item-content">
                         <div class="blog-item-title">
-                            <h4>
+                            <h4>`
                                 <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
                             </h4>
                         </div>
@@ -25,8 +26,7 @@
                         <div class="blog-item-user">
                             <div class="blog-item-hbox">
                                 <div class="avatar">
-                                    <a>
-                                        <img src="~/Content/Plugin/Metronic/image/avatar.png" />
+                                    <img src="~/Content/Plugin/Metronic/image/avatar.png" />
                                 </div>
                                 <div class="name">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName)?blog.User.UserName :blog.User.NickName))</div>
                                 <div class="blog-tag-data">@(blog.Category!=null? blog.Category.Name:"")</div>

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class PostEditController : Controller
+    public class PostEditController : BaseController
     {
         private ICategoryService _cateService;
         public PostEditController(ICategoryService cateService)

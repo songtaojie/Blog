@@ -32,7 +32,10 @@
     </div>*@
     @Html.Partial("../Layout/_Header")
     @RenderBody()
-    @Html.Partial("../Layout/_Footer")
+    @if (ViewBag.ShowFooter != false)
+    {
+        @Html.Partial("../Layout/_Footer")
+    }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @*@Scripts.Render("~/bundles/app")

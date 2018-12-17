@@ -44,7 +44,7 @@ namespace HxBlogs.WebApp.Controllers
                     UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
                     UserContext.LoginUser = userInfo;
                     //模拟滑动过期时间，就像Session中默认20分钟那这样
-                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddMinutes(20));
+                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(4));
                 }
             }
             if (!isSuccess)

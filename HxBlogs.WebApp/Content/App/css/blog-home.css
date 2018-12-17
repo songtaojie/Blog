@@ -8,7 +8,10 @@
     line-height: 1.4285em;
 }
 .blog-container {
-    background:#fff;
+    background: #fff;
+    padding-left: initial;
+    padding-right: initial;
+    margin-top:4rem;
 }
 a:hover, a:active, a:focus {
     cursor:pointer;
@@ -28,12 +31,12 @@ a:hover, a:active, a:focus {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin: 1em 0;
+    padding: 1.5rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #f4f4f4;
     width: 100%;
     min-height: 0;
     background: 0 0;
-    padding: 0;
-    border: none;
     border-radius: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -42,6 +45,10 @@ a:hover, a:active, a:focus {
     transition: box-shadow .2s ease;
     transition: box-shadow .2s ease,-webkit-box-shadow .1s ease;
 }
+    .blog-item a {
+        color: #999;
+    }
+
 .blog-item-content {
     display: block;
     -webkit-box-flex: 1;
