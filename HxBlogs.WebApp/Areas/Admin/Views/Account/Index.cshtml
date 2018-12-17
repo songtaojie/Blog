@@ -3,7 +3,7 @@
     ViewBag.Title = "用户登录";
 }
 @section styles{
-    <link href="~/Content/Plugin/Metronic/uniform/uniform.default.css" rel="stylesheet" />
+    <link href="~/Content/Plugin/Metronic/uniform/css/uniform.default.css" rel="stylesheet" />
 }
 <div class="content">
     @using (Ajax.BeginForm("login", "account", new { },
@@ -12,7 +12,7 @@
                 OnBegin = "Login.beforeLogin",
                 HttpMethod = "post",
                 OnSuccess = "Login.afterLogin",
-                OnComplete = "Login.finishLogin"
+                OnComplete = "Login.finishLogin",
             }, new
             {
                 @class = "form-vertical login-form",
@@ -85,15 +85,17 @@
     <script>
         var Login = function () {
             return {
-                beforeLogin:function() {
+                beforeLogin:function(a,b) {
                     App.blockUI({ animate: true, message: '登陆中' });
+                    b.data = b.data + '&ReturnUrl=' + $.queryString('ReturnUrl');
                 },
                 finishLogin:function() {
                     App.unblockUI();
                 },
                 afterLogin: function (data) {
                     if (data.IsSuccess) {
-                        window.location.href = "/";
+                        debugger
+                        window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
                     } else {
                         var alert = $('#loginAlert'),
                             span = alert.find('span');

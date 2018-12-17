@@ -135,6 +135,14 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             result.IsSuccess = true;
+            string returnUrl = Request["ReturnUrl"];
+            if (string.IsNullOrEmpty(returnUrl)) returnUrl = "/";
+            returnUrl = returnUrl.Trim();
+            if (!Url.IsLocalUrl(returnUrl))
+            {
+                returnUrl = "/";
+            }
+            result.ReturnUrl = returnUrl;
             string sessionId = Guid.NewGuid().ToString();
             Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
             string jsonData = JsonConvert.SerializeObject(userInfo);

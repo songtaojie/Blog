@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class PostEditController : BaseController
+    public class PostEditController : Controller
     {
         private ICategoryService _cateService;
         public PostEditController(ICategoryService cateService)
@@ -23,10 +23,10 @@ namespace HxBlogs.WebApp.Controllers
             IBlogTagService tagService = ContainerManager.Resolve<IBlogTagService>();
             IEnumerable<Category> cateList =  this._cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
             IEnumerable<BlogType> typeList = typeService.QueryEntities(t => t.IsDeleted == "N").OrderByDescending(t => t.Order);
-            tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id);
+            IEnumerable<BlogTag> tagList = tagService.QueryEntities(t => t.UserId == 0);
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
-            
+            ViewBag.BlogTagList = tagList; 
             return View();
         }
     }

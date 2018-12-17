@@ -32,7 +32,7 @@ namespace HxBlogs.WebApp.Controllers
         {
             base.OnActionExecuting(filterContext);
             bool isSuccess = false;
-            string pageUrl = filterContext.HttpContext.Request.Url.AbsolutePath;
+            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath;
             if (Request.Cookies[CookieInfo.SessionID] != null)
             {
                 string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
@@ -49,7 +49,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             if (!isSuccess)
             {
-                filterContext.Result = Redirect("/login");
+                filterContext.Result = Redirect("/login?ReturnUrl="+pageUrl);
             }
         }
 
