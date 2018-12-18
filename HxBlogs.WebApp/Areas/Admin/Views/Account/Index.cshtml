@@ -161,8 +161,18 @@
                 }
             };
         }();
-        $(function () {
+        $(document).ready(function (e) {
             Login.init();
+            if (window.history && window.history.pushState) {
+                $(window).on('popstate', function () {
+                    window.history.pushState('forward', null, '#');
+                    window.history.forward(1);
+                    location.replace(document.referrer);//刷新
+                });
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+            }
         });
+
     </script>
 }

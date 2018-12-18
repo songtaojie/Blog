@@ -43,8 +43,10 @@
         </div>
         <div class="row hidden">
             <div class="col-md-3 col-sm-4">
-                <label class="text-left blog-category-label">个人分类:</label>
-                <button class="btn btn-link fa fa-plus-square"> 添加分类</button>
+                <div class="form-group">
+                    <label class="text-left col-sm-4 blog-category-label  blog-control-label">个人分类:</label>
+                    <button class="btn btn-link fa fa-plus-square"> 添加分类</button>
+                </div>
             </div>
         </div>
         <div class="row hidden">
@@ -107,16 +109,13 @@
                     </label>
                     <div class="col-sm-11">
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="option1"> 原创
+                            <input type="checkbox" name="PersonTop" value="N"> 个人置顶
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="option2"> 置顶
+                            <input type="checkbox" name="IsPrivate" value="N"> 仅自己可见
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" value="option3"> 仅自己可见
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="option3">禁止评论
+                            <input type="checkbox" name="CanCmt" checked ="checked" value="Y">允许评论
                         </label>
                     </div>
                 </div>
@@ -133,7 +132,19 @@
 @section scripts{
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script type="text/javascript">
-        ClassicEditor.create(document.querySelector('#editor'))
+        ClassicEditor.create(document.querySelector('#editor'), {
+            fontSize: {
+                options: [
+                    9,
+                    11,
+                    13,
+                    'default',
+                    17,
+                    19,
+                    21
+                ]
+            }
+        })
             .then(editor => {
                 window._HxCkEditor = editor;
                 $('div.hidden').removeClass('hidden');

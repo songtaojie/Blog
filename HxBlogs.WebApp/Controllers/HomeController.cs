@@ -19,7 +19,7 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            IEnumerable<Blog> blogs = _blogService.QueryEntities(m => m.IsHome == "Y" && m.IsShare =="Y")
+            IEnumerable<Blog> blogs = _blogService.QueryEntities(m => m.IsPublish == "Y" && m.IsPrivate == "N")
                  .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
                 
             return View(blogs.ToList());

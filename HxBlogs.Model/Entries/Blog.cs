@@ -40,20 +40,12 @@ namespace HxBlogs.Model
         /// 评论数量
         /// </summary>
         public int? CommentCount { get; set; } = 0;
-
         /// <summary>
         /// 是否显示在首页
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsHome { get; set; } = "Y";
-
-        /// <summary>
-        /// 是否显示在个人主页
-        /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsMyHome { get; set; } = "Y";
+        public string IsPrivate { get; set; } = "N";
         /// <summary>
         /// 是否是转发文章
         /// </summary>
@@ -65,13 +57,13 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsShare { get; set; } = "N";
+        public string IsPublish { get; set; } = "N";
 
         /// <summary>
         /// 发布日期
         /// </summary>
         [DataType(DataType.DateTime)]
-        public DateTime? ShareDate { get; set; }
+        public DateTime? PublishDate { get; set; }
 
         /// <summary>
         /// 置顶 Y权值加10年
