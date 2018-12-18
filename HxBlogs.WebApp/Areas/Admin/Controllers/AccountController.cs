@@ -168,6 +168,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
 
         public ActionResult Logout()
         {
+            UserContext.LoginUser = null;
             if (Request.Cookies[CookieInfo.SessionID] != null)
             {
                 string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
