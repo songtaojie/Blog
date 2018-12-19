@@ -29,5 +29,10 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.BlogTagList = tagList; 
             return View();
         }
+
+        //public ActionResult Save()
+        //{
+
+        //}
     }
 }

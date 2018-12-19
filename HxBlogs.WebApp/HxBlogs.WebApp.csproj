@@ -180,6 +180,7 @@
     <Compile Include="Common\UserContext.cs" />
     <Compile Include="Common\WebHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostEditController.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
@@ -706,6 +707,7 @@
     <Folder Include="Config\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

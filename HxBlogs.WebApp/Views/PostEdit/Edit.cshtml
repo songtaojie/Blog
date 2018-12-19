@@ -6,7 +6,7 @@
     <link href="~/Content/App/css/blog-edit.css" rel="stylesheet" />
 }
 <div class="blog-edit container body-content">
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form" action="#">
         <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-12 col-sm-12">
-                <textarea name="content" id="editor"></textarea>
+                <textarea name="Content" id="editor"></textarea>
             </div>
         </div>
         <div class="row hidden">
@@ -59,27 +59,27 @@
                         if (i % 3 == 0)
                         {
                             <div class="form-group">
-                        }
+                                }
                                 <label class="checkbox-inline">
                                     <input type="checkbox" value="@item.Id">@item.Name
-                                </label>   
-                        if (i % 3 == 0)
-                        {
+                                </label>
+                                if (i % 3 == 0)
+                                {
                             </div>
                         }
                     }
                 }
                 @*<div class="form-group">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="option1"> 选项 1
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="option2"> 选项 2
-                    </label>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="option3"> 选项 3
-                    </label>
-                </div>*@
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option1"> 选项 1
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option2"> 选项 2
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="option3"> 选项 3
+                        </label>
+                    </div>*@
             </div>
         </div>
         <div class="row hidden">
@@ -115,16 +115,16 @@
                             <input type="checkbox" name="IsPrivate" value="N"> 仅自己可见
                         </label>
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="CanCmt" checked ="checked" value="Y">允许评论
+                            <input type="checkbox" name="CanCmt" checked="checked" value="Y">允许评论
                         </label>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group hidden" >
+        <div class="form-group hidden">
             <div class="col-sm-12">
-                <button class="btn btn-default btn-md btn-success">发布文章</button>
-                <button class="btn btn-default btn-md">保存草稿</button>
+                <button class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button class="btn btn-default btn-md btn-draft">保存草稿</button>
             </div>
         </div>
     </form>
@@ -133,6 +133,35 @@
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script type="text/javascript">
         ClassicEditor.create(document.querySelector('#editor'), {
+            removePlugins: ['mediaEmbed'],
+            toolbar: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'fontFamily',
+                'fontSize',
+                'alignment',
+                'highlight',
+                'link',
+                'bulletedList',
+                'numberedList',
+                'imageUpload',
+                'ckfinder',
+                'blockQuote',
+                'insertTable',
+                'undo',
+                'redo'
+            ],
+            ckfinder: {
+                // Upload the images to the server using the CKFinder QuickUpload command.
+                uploadUrl: '/file/upload?command=QuickUpload&type=Images&responseType=json',
+
+                // Define the CKFinder configuration (if necessary).
+                options: {
+                    resourceType: 'Images'
+                }
+            },
             fontSize: {
                 options: [
                     9,
@@ -144,14 +173,15 @@
                     21
                 ]
             }
+        }).then(editor => {
+            window._HxCkEditor = editor;
+            $('div.hidden').removeClass('hidden');
+        }).catch(error => {
+            console.error(error);
+        });
+        $('.btn.btn-save').click(function () {
+
         })
-            .then(editor => {
-                window._HxCkEditor = editor;
-                $('div.hidden').removeClass('hidden');
-            })
-            .catch(error => {
-                console.error(error);
-            });
     </script>
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -67,6 +68,16 @@ namespace HxBlogs.WebApp
             string result = string.Empty;
             if (dateTime == null || !dateTime.HasValue) return result;
             return GetDispayDate(dateTime.Value, format, showTime);
+        }
+        /// <summary>
+        /// 根据key获取
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string GetAppSetValue(string key)
+        {
+            if (string.IsNullOrEmpty(key)) return string.Empty;
+            return ConfigurationManager.AppSettings[key];
         }
     }
 }
