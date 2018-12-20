@@ -174,8 +174,8 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
-    <Compile Include="Common\ConstInfo.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
+    <Compile Include="Common\ConstInfo.cs" />
     <Compile Include="Common\UserContext.cs" />
     <Compile Include="Common\WebHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />

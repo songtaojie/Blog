@@ -17,7 +17,7 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult Upload()
         {
             HttpPostedFileBase imgFile = Request.Files["upload"];
-            string rootPath = Common.Config.ConfigManager.GetAppSetValue(ConstInfo.UploadPath);
+            string rootPath = Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.UploadPath);
             Dictionary<string, object> result = new Dictionary<string, object>();
             result.Add("uploaded ", false);
             //定义允许上传的文件扩展名
@@ -46,7 +46,7 @@ namespace HxBlogs.WebApp.Controllers
             {
                 Directory.CreateDirectory(dirPath);
             }
-            long max = Common.Config.ConfigManager.GetMaxRequestLength();
+            //long max = Common.Config.ConfigManager.GetMaxRequestLength();
             //String fileExt = Path.GetExtension(fileName).ToLower();
 
             //if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
