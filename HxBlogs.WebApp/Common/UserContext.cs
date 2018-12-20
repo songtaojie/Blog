@@ -17,18 +17,18 @@ namespace HxBlogs.WebApp
         {
             get
             {
-                UserInfo userInfo = HttpContext.Current.Items[CookieInfo.LoginUser] as UserInfo;
+                UserInfo userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as UserInfo;
                 if (userInfo == null)
                 {
-                    if (HttpContext.Current.Request.Cookies[CookieInfo.SessionID] != null)
+                    if (HttpContext.Current.Request.Cookies[ConstInfo.SessionID] != null)
                     {
-                        string sessionId = HttpContext.Current.Request.Cookies[CookieInfo.SessionID].Value;
+                        string sessionId = HttpContext.Current.Request.Cookies[ConstInfo.SessionID].Value;
                         object value = MemcachedHelper.Get(sessionId);
                         if (value != null)
                         {
                             string jsonData = value.ToString();
                             userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
-                            HttpContext.Current.Items[CookieInfo.LoginUser] = userInfo;
+                            HttpContext.Current.Items[ConstInfo.LoginUser] = userInfo;
                         }
                     }
                 }
@@ -36,7 +36,7 @@ namespace HxBlogs.WebApp
             }
             set
             {
-                HttpContext.Current.Items[CookieInfo.LoginUser] = value;
+                HttpContext.Current.Items[ConstInfo.LoginUser] = value;
             }
         }
     }

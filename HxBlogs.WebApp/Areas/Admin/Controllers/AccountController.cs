@@ -69,7 +69,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 result.Message = "已发送激活链接到邮箱，请尽快激活。";
                 //成功以后直接到主页，即在登录状态
                 string sessionId = Guid.NewGuid().ToString();
-                Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
+                Response.Cookies[ConstInfo.SessionID].Value = sessionId.ToString();
                 string jsonData = JsonConvert.SerializeObject(userInfo);
                 MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
             }
@@ -117,7 +117,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         public ActionResult Login()
         {
             string validateCode = Request["ValidateCode"];
-            string code = Session[CookieInfo.VCode].ToString();
+            string code = Session[ConstInfo.VCode].ToString();
             ReturnResult result = new ReturnResult();
             if (!Helper.AreEqual(code, validateCode))
             {
@@ -136,15 +136,12 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             result.IsSuccess = true;
             string returnUrl = Request["ReturnUrl"];
-            if (string.IsNullOrEmpty(returnUrl)) returnUrl = "/";
-            returnUrl = returnUrl.Trim();
-            if (!Url.IsLocalUrl(returnUrl))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
-                returnUrl = "/";
+                result.ReturnUrl = returnUrl.Trim();
             }
-            result.ReturnUrl = returnUrl;
             string sessionId = Guid.NewGuid().ToString();
-            Response.Cookies[CookieInfo.SessionID].Value = sessionId.ToString();
+            WebHelper.SetCookieValue(ConstInfo.SessionID, sessionId.ToString(),DateTime.Now.AddHours(2));
             string jsonData = JsonConvert.SerializeObject(userInfo);
             MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -161,7 +158,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 NPhase = Math.PI
             };
             string code = validate.GetRandomNumberString(4);
-            Session[CookieInfo.VCode] = code;
+            Session[ConstInfo.VCode] = code;
             byte[] bytes = validate.CreateValidateGraphic(code);
             return File(bytes, "image/jpeg");
         }
@@ -169,9 +166,9 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         public ActionResult Logout()
         {
             UserContext.LoginUser = null;
-            if (Request.Cookies[CookieInfo.SessionID] != null)
+            if (Request.Cookies[ConstInfo.SessionID] != null)
             {
-                string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
+                string sessionId = Request.Cookies[ConstInfo.SessionID].Value;
                 MemcachedHelper.Delete(sessionId);
             }
             return Redirect("/login");
@@ -215,7 +212,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult CheckCode(string validateCode)
         {
-            string code = Session[CookieInfo.VCode].ToString();
+            string code = Session[ConstInfo.VCode].ToString();
             // ReturnResult result = new ReturnResult();
             if (Helper.AreEqual(code, validateCode))
             {

@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="name">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName)?blog.User.UserName :blog.User.NickName))</div>
                                 <div class="blog-tag-data">@(blog.Category!=null? blog.Category.Name:"")</div>
-                                <div class="time">@(WebHelper.GetDispayDate(blog.ShareDate))</div>
+                                <div class="time">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
                                 <div class="pull-right">
                                     <div class="read">
                                         <a>

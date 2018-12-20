@@ -74,7 +74,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
-    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
@@ -94,7 +94,6 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -175,7 +174,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
-    <Compile Include="Common\CookieInfo.cs" />
+    <Compile Include="Common\ConstInfo.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
     <Compile Include="Common\UserContext.cs" />
     <Compile Include="Common\WebHelper.cs" />

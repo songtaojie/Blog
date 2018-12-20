@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HxBlogs.WebApp
 {
-    public class CookieInfo
+    public class ConstInfo
     {
         public const string CookieName = "mUSQAcsBu";
 
@@ -21,5 +21,9 @@ namespace HxBlogs.WebApp
         /// </summary>
         public const string VCode = "validateCode";
         public const string LoginUser = "loginUser";
+        /// <summary>
+        /// 文件上传时根目录
+        /// </summary>
+        public const string UploadPath = "uploadRootPath";
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -70,14 +72,123 @@ namespace HxBlogs.WebApp
             return GetDispayDate(dateTime.Value, format, showTime);
         }
         /// <summary>
-        /// 根据key获取
+        /// 设置cookie的值
         /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static string GetAppSetValue(string key)
+        /// <param name="cookieName"></param>
+        /// <param name="value"></param>
+        /// <param name="expires">过期时间</param>
+        public static void SetCookieValue(string cookieName, string value, DateTime? expires = null)
         {
-            if (string.IsNullOrEmpty(key)) return string.Empty;
-            return ConfigurationManager.AppSettings[key];
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie != null)
+            {
+                cookie.Value = value;
+                if (expires.HasValue)
+                {
+                    cookie.Expires = expires.Value;
+                }
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+            else
+            {
+                cookie = new HttpCookie(cookieName,value);
+                if (expires.HasValue)
+                {
+                    cookie.Expires = expires.Value;
+                }
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
+        /// <summary>
+        /// 获取cookie的值
+        /// </summary>
+        /// <param name="cookieName"></param>
+        /// <returns></returns>
+        public static string GetCookieValue(string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie == null)
+                return string.Empty;
+            else
+                return cookie.Value;
+        }
+        /// <summary>
+        /// 删除cookie的值
+        /// </summary>
+        /// <param name="cookieName"></param>
+        public static void RemoveCookie(string cookieName)
+        {
+            SetCookieValue(cookieName, "", DateTime.Now.AddDays(-1));
+        }
+        /// <summary>
+        /// 根据图片的全路径判断是否是图片文件,
+        /// 如果根据后缀名判断是图片，在判断是否能转换成图片对象，能转换则是图片
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        public static bool IsImage(string fullPath)
+        {
+            if (string.IsNullOrEmpty(fullPath) && !Path.HasExtension(fullPath)) return false;
+            Image img = null;
+            try
+            {
+                string ext = Path.GetExtension(fullPath).ToLower();
+                if (!IsImage(ext, true)) return false;
+                img = Image.FromFile(fullPath);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (img != null)
+                    img.Dispose();
+            }
+        }
+        /// <summary>
+        /// 根据扩展名判断是否是图片
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        public static bool IsImage(string ext,bool hasPoint)
+        {
+            string[] extList = new string[] { ".gif", ".jpg", ".jpeg", ".png", ".bmp", ".icon" };
+            bool result = false;
+            if (hasPoint)
+            {
+                if (extList.Contains(ext)) result = true;
+            }
+            else
+            {
+                if (extList.Contains("."+ext)) result = true;
+            }
+            
+            return result;
+        }
+        /// <summary>
+        /// 判断当前流是否是图片
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static bool IsImage(Stream stream)
+        {
+            Image img = null;
+            try
+            {
+                img = Image.FromStream(stream);
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                if (img != null)
+                    img.Dispose();
+            }
         }
     }
 }

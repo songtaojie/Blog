@@ -166,13 +166,13 @@ namespace HxBlogs.WebApp.Filters
         private bool VerifyCookie(HttpRequestBase request, HttpResponseBase response)
         {
 
-            if (!request.Cookies.AllKeys.Contains(CookieInfo.CookieName)
-                || !request.Cookies.AllKeys.Contains(CookieInfo.CacheKeyCookieName))
+            if (!request.Cookies.AllKeys.Contains(ConstInfo.CookieName)
+                || !request.Cookies.AllKeys.Contains(ConstInfo.CacheKeyCookieName))
             {
                 return false;
             }
 
-            var cookie = request.Cookies[CookieInfo.CookieName];
+            var cookie = request.Cookies[ConstInfo.CookieName];
             //string cacheKey = Base64Helper.Base64Decode(request.Cookies[CookieInfo.CacheKeyCookieName].Value);
 
             //ICacheManager cache = ContainerManager.Resolve<ICacheManager>();

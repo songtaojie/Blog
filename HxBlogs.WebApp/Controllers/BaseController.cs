@@ -32,10 +32,10 @@ namespace HxBlogs.WebApp.Controllers
         {
             base.OnActionExecuting(filterContext);
             bool isSuccess = false;
-            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath;
-            if (Request.Cookies[CookieInfo.SessionID] != null)
+            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath,
+                    sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
+            if (!string.IsNullOrEmpty(sessionId))
             {
-                string sessionId = Request.Cookies[CookieInfo.SessionID].Value;
                 object value = MemcachedHelper.Get(sessionId);
                 if (value != null)
                 {

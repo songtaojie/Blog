@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,38 +16,37 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Upload()
         {
-            HttpPostedFileBase file = Request.Files["upload"];
-            string rootPath = WebHelper.GetAppSetValue("uploadRootPath");
+            HttpPostedFileBase imgFile = Request.Files["upload"];
+            string rootPath = Common.Config.ConfigManager.GetAppSetValue(ConstInfo.UploadPath);
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            result.Add("uploaded ", false);
             //定义允许上传的文件扩展名
             //Hashtable extTable = new Hashtable();
             //extTable.Add("image", "gif,jpg,jpeg,png,bmp");
 
             ////最大文件大小
             //int maxSize = 1000000;
-
-            //HttpPostedFileBase imgFile = Request.Files["imgFile"];
-            //if (imgFile == null)
-            //{
-            //    return Content("error|请选择文件。");
-            //}
-
-            //String dirPath = Server.MapPath(savePath);
-            //if (!Directory.Exists(dirPath))
-            //{
-            //    Directory.CreateDirectory(dirPath);
-            //}
-
-            //String dirName = Request.QueryString["dir"];
-            //if (String.IsNullOrEmpty(dirName))
-            //{
-            //    dirName = "image";
-            //}
-            //if (!extTable.ContainsKey(dirName))
-            //{
-            //    return Content("error|目录名不正确。");
-            //}
-
-            //String fileName = imgFile.FileName;
+            if (imgFile == null)
+            {
+                result.Add("error", new Dictionary<string, string>() { { "message", "请上传文件!" } });
+                return Json(result);
+            }
+            string fileName = imgFile.FileName;
+            bool isImage = WebHelper.IsImage(imgFile.InputStream);
+            if (!isImage)
+            {
+                result.Add("error", new Dictionary<string, string>() { { "message", "请上传图片文件!" } });
+                return Json(result);
+            }
+            long length = imgFile.InputStream.Length;
+            string fileExt = Path.GetExtension(fileName).ToLower();
+            string fileNoPointExt = fileExt.Substring(1);
+            string dirPath = Server.MapPath(rootPath+"/image/"+ fileNoPointExt);
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            long max = Common.Config.ConfigManager.GetMaxRequestLength();
             //String fileExt = Path.GetExtension(fileName).ToLower();
 
             //if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
