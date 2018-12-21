@@ -25,5 +25,9 @@ namespace HxBlogs.WebApp
         /// 文件上传时根目录
         /// </summary>
         public const string UploadPath = "uploadRootPath";
+        /// <summary>
+        /// 最大上传文件大小
+        /// </summary>
+        public const string maxLength = "maxRequestLength";
     }
 }

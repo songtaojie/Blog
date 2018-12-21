@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Common.Helper;
+using Common.Web;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -38,56 +41,46 @@ namespace HxBlogs.WebApp.Controllers
                 result.Add("error", new Dictionary<string, string>() { { "message", "请上传图片文件!" } });
                 return Json(result);
             }
-            long length = imgFile.InputStream.Length;
-            string fileExt = Path.GetExtension(fileName).ToLower();
-            string fileNoPointExt = fileExt.Substring(1);
-            string dirPath = Server.MapPath(rootPath+"/image/"+ fileNoPointExt);
-            if (!Directory.Exists(dirPath))
+            long fileLength = imgFile.InputStream.Length;
+            
+            long max = Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.maxLength, 5242880);
+            if (fileLength > max)
             {
-                Directory.CreateDirectory(dirPath);
+                result.Add("error", new Dictionary<string, string>() { { "message", string.Format("上传文件大小超过限制,最大上传[{0}]!", Helper.GetFileSizeDes(fileLength)) } });
+                return Json(result);
             }
-            //long max = Common.Config.ConfigManager.GetMaxRequestLength();
-            //String fileExt = Path.GetExtension(fileName).ToLower();
+            //路径处理
+            string fileExt = Path.GetExtension(fileName).ToLower();
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/image/";
+            string ymd = DateTime.Now.ToString("yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo);
+            string sourceDirPath = dirPath + "sourceImage/" + ymd + "/";
+            string newDirPath = dirPath + "newImage/" + ymd + "/";
+            //绝对路径
+            string sourceMapPath = Server.MapPath(sourceDirPath);
+            string newMapPath = Server.MapPath(newDirPath);
+            FileHelper.TryCreateDirectory(sourceMapPath);
+            FileHelper.TryCreateDirectory(newMapPath);
 
-            //if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
-            //{
-            //    return Content("error|上传文件大小超过限制。");
-            //}
-
-            //if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
-            //{
-            //    return Content("error|上传文件扩展名是不允许的扩展名。\n只允许" + ((String)extTable[dirName]) + "格式。");
-            //}
-
-            ////创建文件夹
-            //dirPath += dirName + "/";
-            //if (!Directory.Exists(dirPath))
-            //{
-            //    Directory.CreateDirectory(dirPath);
-            //}
-            //String ymd = DateTime.Now.ToString("yyyyMMdd", DateTimeFormatInfo.InvariantInfo);
-            //dirPath += ymd + "/";
-            //if (!Directory.Exists(dirPath))
-            //{
-            //    Directory.CreateDirectory(dirPath);
-            //}
-
-            //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
-            //String filePath = dirPath + newFileName;
-
+            //文件名
+            string sourceFileName = Guid.NewGuid() + "_" + fileName;
+            string newFileName = string.Format("{0}{1}", Guid.NewGuid(), fileExt);
+            //文件全路径
+            string sourceFilePath = sourceMapPath + sourceFileName;
+            string newFilePath = newMapPath + newFileName;
             ////imgFile.SaveAs(filePath);
-
+            imgFile.SaveAs(sourceFilePath);
+            ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
+            string letter = Request.Url.Scheme +":"+ Request.Url.Authority+"/" + UserContext.LoginUser.UserName;
+            ImageManager.LetterWatermark(newFilePath, 8, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
             ////获取图片
             //Image image = System.Drawing.Image.FromStream(imgFile.InputStream);
             //var percentImage = PercentImage(image);
             //Compress(percentImage, filePath, 50);
 
             //String fileUrl = savePath + "image/" + ymd + "/" + newFileName;
-            return Json(new
-            {
-                uploaded = true,
-                url = "/upload/360wallpaper2015110162333.jpg"
-            });
+            result["uploaded"] = true;
+            result["url"] = WebHelper.ToRelativePath(newFilePath);
+            return Json(result);
         }
     }
 }

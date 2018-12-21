@@ -190,5 +190,17 @@ namespace HxBlogs.WebApp
                     img.Dispose();
             }
         }
+        /// <summary>
+        /// 把绝对路径转换成相对路径
+        /// </summary>
+        /// <param name="imagesurl1"></param>
+        /// <returns></returns>
+        public static string ToRelativePath(string imagesurl1)
+        {
+            string tmpRootDir = HttpContext.Current.Server.MapPath(HttpContext.Current.Request.ApplicationPath.ToString());//获取程序根目录
+            string imagesurl2 = imagesurl1.Replace(tmpRootDir, "/"); //转换成相对路径
+            imagesurl2 = imagesurl2.Replace(@"/", @"/");
+            return imagesurl2;
+        }
     }
 }
