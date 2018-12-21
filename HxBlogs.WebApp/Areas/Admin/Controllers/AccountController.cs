@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Common.Json;
 
 namespace HxBlogs.WebApp.Areas.Admin.Controllers
 {
@@ -116,15 +117,46 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login()
         {
+            ReturnResult result = new ReturnResult()
+            {
+                IsSuccess = true
+            };
+            result = ValidateCode(result);
+            if(!result.IsSuccess)return Json(result, JsonRequestBehavior.AllowGet);
+            result = ValidateUser(result);
+            if (!result.IsSuccess) return Json(result, JsonRequestBehavior.AllowGet);
+            string returnUrl = Request["ReturnUrl"];
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                result.ReturnUrl = returnUrl.Trim();
+            }
+           
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        /// <summary>
+        /// 验证验证码
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private ReturnResult ValidateCode(ReturnResult result)
+        {
             string validateCode = Request["ValidateCode"];
             string code = Session[ConstInfo.VCode].ToString();
-            ReturnResult result = new ReturnResult();
+            result.IsSuccess = true;
             if (!Helper.AreEqual(code, validateCode))
             {
                 result.IsSuccess = false;
                 result.Message = "验证码不正确";
-                return Json(result, JsonRequestBehavior.AllowGet);
             }
+            return result;
+        }
+        /// <summary>
+        /// 验证用户名密码是否正确
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private ReturnResult ValidateUser(ReturnResult result)
+        {
             string userName = Request["UserName"];
             string pwd = Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
             UserInfo userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
@@ -132,20 +164,14 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             {
                 result.IsSuccess = false;
                 result.Message = "用户名或密码错误!";
-                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            result.IsSuccess = true;
-            string returnUrl = Request["ReturnUrl"];
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            else
             {
-                result.ReturnUrl = returnUrl.Trim();
+                UserContext.CacheUserInfo(userInfo, Helper.IsYes(Request["Remember"]));
             }
-            string sessionId = Guid.NewGuid().ToString();
-            WebHelper.SetCookieValue(ConstInfo.SessionID, sessionId.ToString(),DateTime.Now.AddHours(2));
-            string jsonData = JsonConvert.SerializeObject(userInfo);
-            MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddMinutes(20));
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return result;
         }
+        
         /// <summary>
         /// 显示验证码
         /// </summary>
@@ -165,12 +191,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
 
         public ActionResult Logout()
         {
-            UserContext.LoginUser = null;
-            if (Request.Cookies[ConstInfo.SessionID] != null)
-            {
-                string sessionId = Request.Cookies[ConstInfo.SessionID].Value;
-                MemcachedHelper.Delete(sessionId);
-            }
+            UserContext.ClearUserInfo();
             return Redirect("/login");
         }
         #endregion

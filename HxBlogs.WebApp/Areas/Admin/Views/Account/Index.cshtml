@@ -60,7 +60,7 @@
         </div>
         <div class="form-actions">
             <label class="checkbox">
-                <input type="checkbox" name="Remember" value="1" /> 记住我
+                <input type="checkbox" name="Remember" value="Y" /> 记住我
             </label>
             <button type="submit" class="btn green pull-right">
                 登录 <i class="m-icon-swapright m-icon-white"></i>
@@ -96,15 +96,15 @@
                 },
                 afterLogin: function (data) {
                     if (data.IsSuccess) {
-                        debugger
                         window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
                     } else {
+                        debugger
                         var alert = $('#loginAlert'),
                             span = alert.find('span');
                         span.html(data.Message);
-                        alert.show();
+                        alert.removeClass('hide');
                         setTimeout(function () {
-                            alert.hide();
+                            alert.addClass('hide');
                         }, 2000);
                     }
                 },

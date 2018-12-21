@@ -22,7 +22,7 @@ namespace HxBlogs.WebApp.Controllers
         }
         public UserInfo LoginUser
         {
-            get;set;
+            get; set;
         }
         /// <summary>
         /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
@@ -32,8 +32,25 @@ namespace HxBlogs.WebApp.Controllers
         {
             base.OnActionExecuting(filterContext);
             bool isSuccess = false;
-            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath,
-                    sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
+            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath;
+            isSuccess = ValidateSession();
+            if (!isSuccess)
+            {
+                isSuccess = ValidateCookie();
+            }
+            if (!isSuccess)
+            {
+                filterContext.Result = Redirect("/login?ReturnUrl=" + pageUrl);
+            }
+        }
+        /// <summary>
+        /// 验证Session中(即Memcached中)是否有数据
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateSession()
+        {
+            bool isSuccess = false;
+            string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
             if (!string.IsNullOrEmpty(sessionId))
             {
                 object value = MemcachedHelper.Get(sessionId);
@@ -44,13 +61,38 @@ namespace HxBlogs.WebApp.Controllers
                     UserInfo userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
                     UserContext.LoginUser = userInfo;
                     //模拟滑动过期时间，就像Session中默认20分钟那这样
-                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(4));
+                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(2));
                 }
             }
-            if (!isSuccess)
+            return isSuccess;
+        }
+        /// <summary>
+        /// 验证Cookie中是否有数据(正常保存7天)
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateCookie()
+        {
+            bool isSuccess = false;
+            string cookieName = WebHelper.GetCookieValue(ConstInfo.CookieName);
+            if (!string.IsNullOrEmpty(cookieName))
             {
-                filterContext.Result = Redirect("/login?ReturnUrl="+pageUrl);
+                string jsonUser = Common.Security.SafeHelper.DESDecrypt(cookieName);
+                Dictionary<string, string> user = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonUser);
+                if (user.ContainsKey(nameof(UserInfo.UserName)) && user.ContainsKey(nameof(UserInfo.PassWord)))
+                {
+                    IBLL.IUserInfoService userService = ContainerManager.Resolve<IBLL.IUserInfoService>();
+                    string userName = user[nameof(UserInfo.UserName)];
+                    string pwd = user[nameof(UserInfo.PassWord)];
+                    UserInfo userInfo = userService.QueryEntity(u => u.UserName == userName && u.PassWord == pwd);
+                    if (userInfo != null)
+                    {
+                        isSuccess = true;
+                        UserContext.LoginUser = userInfo;
+                        UserContext.CacheUserInfo(userInfo);
+                    }
+                }
             }
+            return isSuccess;
         }
 
         /// <summary>

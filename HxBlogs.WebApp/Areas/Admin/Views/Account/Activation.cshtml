@@ -18,7 +18,7 @@ font-weight:800;margin:150px auto;text-align:center;">正在激活账号...</div
                 success(data) {
                     if (data.IsSuccess) {
                         $('.mesg').html('激活成功!<strong id="timer" style="color:aliceblue;">5</strong>秒后跳转到<a href="/">首页</a>');
-                        tartTimer();
+                        startTimer();
                     } else {
                         $('.mesg').html(`激活失败!${data.Message}`);
                     }
