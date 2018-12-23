@@ -123,14 +123,15 @@
         </div>
         <div class="form-group hidden">
             <div class="col-sm-12">
-                <button class="btn btn-default btn-md btn-success btn-save">发布文章</button>
-                <button class="btn btn-default btn-md btn-draft">保存草稿</button>
+                <button type="button" class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button type="button" class="btn btn-default btn-md btn-draft">保存草稿</button>
             </div>
         </div>
     </form>
 </div>
 @section scripts{
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
+    <script src="~/Content/App/js/blog.core.js"></script>
     <script type="text/javascript">
         ClassicEditor.create(document.querySelector('#editor'), {
             removePlugins: ['mediaEmbed'],
@@ -180,7 +181,7 @@
             console.error(error);
         });
         $('.btn.btn-save').click(function () {
-
+            
         })
     </script>
 }

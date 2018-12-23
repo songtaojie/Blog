@@ -1,4 +1,4 @@
-﻿(function ($, windoe) {
+﻿(function ($, window) {
     $.extend({
         queryString: function (name) {
             var search = decodeURIComponent(window.location.search || '');

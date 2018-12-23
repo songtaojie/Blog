@@ -1,5 +1,6 @@
 ﻿using Common.Cache;
 using Common.Helper;
+using HxBlogs.Framework;
 using HxBlogs.Model;
 using Newtonsoft.Json;
 using System;
@@ -25,16 +26,10 @@ namespace HxBlogs.WebApp
                 UserInfo userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as UserInfo;
                 if (userInfo == null)
                 {
-                    if (Request.Cookies[ConstInfo.SessionID] != null)
+                    userInfo = ValidateSession();
+                    if (userInfo == null)
                     {
-                        string sessionId = Request.Cookies[ConstInfo.SessionID].Value;
-                        object value = MemcachedHelper.Get(sessionId);
-                        if (value != null)
-                        {
-                            string jsonData = value.ToString();
-                            userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
-                            HttpContext.Current.Items[ConstInfo.LoginUser] = userInfo;
-                        }
+                        userInfo = ValidateCookie();
                     }
                 }
                 return userInfo;
@@ -43,6 +38,55 @@ namespace HxBlogs.WebApp
             {
                 HttpContext.Current.Items[ConstInfo.LoginUser] = value;
             }
+        }
+        /// <summary>
+        /// 验证Session中(即Memcached中)是否有数据
+        /// </summary>
+        /// <returns></returns>
+        public static UserInfo ValidateSession()
+        {
+            UserInfo userInfo = null;
+            string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                object value = MemcachedHelper.Get(sessionId);
+                if (value != null)
+                {
+                    string jsonData = value.ToString();
+                    userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
+                    UserContext.LoginUser = userInfo;
+                    //模拟滑动过期时间，就像Session中默认20分钟那这样
+                    MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(2));
+                }
+            }
+            return userInfo;
+        }
+        /// <summary>
+        /// 验证Cookie中是否有数据(正常保存7天)
+        /// </summary>
+        /// <returns></returns>
+        public static UserInfo ValidateCookie()
+        {
+            UserInfo userInfo = null;
+            string cookieName = WebHelper.GetCookieValue(ConstInfo.CookieName);
+            if (!string.IsNullOrEmpty(cookieName))
+            {
+                string jsonUser = Common.Security.SafeHelper.DESDecrypt(cookieName);
+                Dictionary<string, string> user = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonUser);
+                if (user.ContainsKey(nameof(UserInfo.UserName)) && user.ContainsKey(nameof(UserInfo.PassWord)))
+                {
+                    IBLL.IUserInfoService userService = ContainerManager.Resolve<IBLL.IUserInfoService>();
+                    string userName = user[nameof(UserInfo.UserName)];
+                    string pwd = user[nameof(UserInfo.PassWord)];
+                    userInfo = userService.QueryEntity(u => u.UserName == userName && u.PassWord == pwd);
+                    if (userInfo != null)
+                    {
+                        UserContext.LoginUser = userInfo;
+                        UserContext.CacheUserInfo(userInfo);
+                    }
+                }
+            }
+            return userInfo;
         }
 
         /// <summary>

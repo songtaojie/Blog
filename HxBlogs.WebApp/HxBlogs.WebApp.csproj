@@ -194,6 +194,7 @@
     <Content Include="Content\App\css\blog-edit.css" />
     <Content Include="Content\App\css\blog-header-footer.css" />
     <Content Include="Content\App\css\blog-home.css" />
+    <Content Include="Content\App\js\blog.core.js" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
@@ -603,7 +604,6 @@
     <Content Include="Content\Plugin\Metronic\js\daterangepicker.js" />
     <Content Include="Content\Plugin\Metronic\js\dropzone.js" />
     <Content Include="Content\Plugin\Metronic\js\DT_bootstrap.js" />
-    <Content Include="Content\Plugin\Metronic\js\excanvas.js" />
     <Content Include="Content\Plugin\Metronic\js\excanvas.min.js" />
     <Content Include="Content\Plugin\Metronic\form\form-components.js" />
     <Content Include="Content\Plugin\Metronic\form\form-fileupload.js" />
