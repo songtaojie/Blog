@@ -51,33 +51,25 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/image/";
-            string ymd = DateTime.Now.ToString("yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo);
-            string sourceDirPath = dirPath + "sourceImage/" + ymd + "/";
-            string newDirPath = dirPath + "newImage/" + ymd + "/";
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/image/"+ DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
             //绝对路径
-            string sourceMapPath = Server.MapPath(sourceDirPath);
-            string newMapPath = Server.MapPath(newDirPath);
-            FileHelper.TryCreateDirectory(sourceMapPath);
-            FileHelper.TryCreateDirectory(newMapPath);
-
+            string mapPath = Server.MapPath(dirPath);
+            // string newMapPath = Server.MapPath(newDirPath);
+            FileHelper.TryCreateDirectory(mapPath);
+            // FileHelper.TryCreateDirectory(newMapPath);
             //文件名
-            string sourceFileName = Guid.NewGuid() + "_" + fileName;
-            string newFileName = string.Format("{0}{1}", Guid.NewGuid(), fileExt);
+            string guid = Guid.NewGuid().ToString();
+            string sourceFileName = guid + "_" + fileName;
+            string newFileName = string.Format("{0}{1}", guid, fileExt);
             //文件全路径
-            string sourceFilePath = sourceMapPath + sourceFileName;
-            string newFilePath = newMapPath + newFileName;
-            ////imgFile.SaveAs(filePath);
+            string sourceFilePath = mapPath + sourceFileName;
+            string newFilePath = mapPath + newFileName;
             imgFile.SaveAs(sourceFilePath);
-            ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
+            imgFile.SaveAs(newFilePath);
+            // ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
             string letter = Request.Url.Scheme +":"+ Request.Url.Authority+"/" + UserContext.LoginUser.UserName;
             ImageManager.LetterWatermark(newFilePath, 8, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
-            ////获取图片
-            //Image image = System.Drawing.Image.FromStream(imgFile.InputStream);
-            //var percentImage = PercentImage(image);
-            //Compress(percentImage, filePath, 50);
 
-            //String fileUrl = savePath + "image/" + ymd + "/" + newFileName;
             result["uploaded"] = true;
             result["url"] = WebHelper.ToRelativePath(newFilePath);
             return Json(result);

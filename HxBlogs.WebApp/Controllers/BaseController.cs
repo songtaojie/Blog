@@ -31,13 +31,17 @@ namespace HxBlogs.WebApp.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            
-            UserInfo userInfo = UserContext.ValidateSession();
-            bool isSuccess = userInfo != null;
+
+            bool isSuccess = AllowAnonymous(filterContext);
             if (!isSuccess)
             {
-                userInfo = UserContext.ValidateCookie();
+                UserInfo userInfo = UserContext.ValidateSession();
                 isSuccess = userInfo != null;
+                if (!isSuccess)
+                {
+                    userInfo = UserContext.ValidateCookie();
+                    isSuccess = userInfo != null;
+                }
             }
             if (!isSuccess)
             {
@@ -45,13 +49,27 @@ namespace HxBlogs.WebApp.Controllers
                 filterContext.Result = Redirect("/login?ReturnUrl=" + pageUrl);
             }
         }
+        private bool AllowAnonymous(ActionExecutingContext filterContext)
+        {
+            if (filterContext.HttpContext.Request.Url == null)
+            {
+                throw new ArgumentNullException("filterContext");
+            }
+            // 1、允许匿名访问 用于标记在授权期间要跳过 AuthorizeAttribute 的控制器和操作的特性 
+            var actionAnonymous = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
+            var controllerAnonymous = filterContext.Controller.GetType().GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
+            if ((actionAnonymous != null && actionAnonymous.Any()) || (controllerAnonymous != null && controllerAnonymous.Any()))
+            {
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// 获取客户端ip
         /// </summary>
         /// <returns></returns>
         protected string GetClientIp()
         {
-
             string userIP = "未获取用户IP";
 
             try
