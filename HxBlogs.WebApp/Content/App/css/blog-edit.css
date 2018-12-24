@@ -3,10 +3,9 @@
     padding-bottom: 1.5rem;
     min-height: calc(100vh - 4rem);
 }
-.blog-edit .ck-editor__editable {
-    /*min-height:500px;*/
-    min-height: calc(100vh - 18rem);
-}
+    .blog-edit .ck-content {
+        min-height: calc(100vh - 18rem);
+    }
     .blog-edit textarea {
         visibility:hidden;
         height:100%;

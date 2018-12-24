@@ -6,7 +6,7 @@
     <link href="~/Content/App/css/blog-edit.css" rel="stylesheet" />
 }
 <div class="blog-edit container body-content">
-    <form class="form-horizontal" role="form" action="#">
+    <form class="form-horizontal" role="form" action="save" method="post">
         <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
@@ -123,7 +123,7 @@
         </div>
         <div class="form-group hidden">
             <div class="col-sm-12">
-                <button type="button" class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button type="submit" class="btn btn-default btn-md btn-success btn-save">发布文章</button>
                 <button type="button" class="btn btn-default btn-md btn-draft">保存草稿</button>
             </div>
         </div>
@@ -160,7 +160,7 @@
 
                 // Define the CKFinder configuration (if necessary).
                 options: {
-                    resourceType: 'Images'
+                    resourceType: 'Images',
                 }
             },
             fontSize: {
@@ -173,6 +173,10 @@
                     19,
                     21
                 ]
+            },
+            image: {
+                toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
+                styles: ['full', 'alignLeft', 'alignCenter', 'alignRight', 'side']
             }
         }).then(editor => {
             window._HxCkEditor = editor;
@@ -180,9 +184,6 @@
         }).catch(error => {
             console.error(error);
         });
-        $('.btn.btn-save').click(function () {
-            
-        })
     </script>
 }
 

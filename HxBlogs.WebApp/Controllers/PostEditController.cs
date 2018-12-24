@@ -29,10 +29,10 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.BlogTagList = tagList; 
             return View();
         }
-
-        //public ActionResult Save()
-        //{
-
-        //}
+        public ActionResult Save()
+        {
+            string content = Request["Content"];
+            return View();
+        }
     }
 }
