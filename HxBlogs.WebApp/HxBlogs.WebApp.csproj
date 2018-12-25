@@ -181,7 +181,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PostEditController.cs" />
+    <Compile Include="Controllers\EditController.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -698,7 +698,7 @@
     <Content Include="Views\Layout\_Header.cshtml" />
     <Content Include="Views\Layout\_Footer.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
-    <Content Include="Views\PostEdit\Edit.cshtml" />
+    <Content Include="Views\Edit\PostEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

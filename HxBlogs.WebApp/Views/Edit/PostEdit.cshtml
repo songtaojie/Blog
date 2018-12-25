@@ -109,7 +109,7 @@
                     </label>
                     <div class="col-sm-11">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="PersonTop" value="N"> 个人置顶
+                            <input type="checkbox" name="PersonTop" value="N" > 个人置顶
                         </label>
                         <label class="checkbox-inline">
                             <input type="checkbox" name="IsPrivate" value="N"> 仅自己可见
@@ -183,6 +183,16 @@
             $('div.hidden').removeClass('hidden');
         }).catch(error => {
             console.error(error);
+            });
+        $(function () {
+            $('input:checkbox').change(function () {
+                var $me = $(this);
+                if ($me.is(':checked')) {
+                    $me.val('Y');
+                } else {
+                    $me.val('N');
+                }
+            });
         });
     </script>
 }

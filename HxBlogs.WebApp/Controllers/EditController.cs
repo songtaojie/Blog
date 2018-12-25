@@ -9,15 +9,15 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class PostEditController : BaseController
+    public class EditController : BaseController
     {
         private ICategoryService _cateService;
-        public PostEditController(ICategoryService cateService)
+        public EditController(ICategoryService cateService)
         {
             this._cateService = cateService;
         }
         // GET: PostEdit
-        public ActionResult Edit()
+        public ActionResult PostEdit()
         {
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             IBlogTagService tagService = ContainerManager.Resolve<IBlogTagService>();
@@ -29,6 +29,7 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.BlogTagList = tagList; 
             return View();
         }
+        [ValidateInput(false)]
         public ActionResult Save()
         {
             string content = Request["Content"];
