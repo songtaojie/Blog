@@ -25,7 +25,7 @@ namespace HxBlogs.WebApp
             TimeSpan ts = nowTime.Subtract(dateTime);
             if (ts.Days <= 1)
             {
-                result = ts.Hours+"小时前";
+                result = ts.Hours + "小时前";
             }
             else if (ts.Days <= 2)
             {
@@ -54,6 +54,10 @@ namespace HxBlogs.WebApp
             else if (ts.Days <= 8)
             {
                 result = "7天前";
+            }
+            else if (ts.Days > 365)
+            {
+                result = dateTime.ToString("yyyy年MM月dd日");
             }
             else
             {

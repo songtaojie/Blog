@@ -1,6 +1,7 @@
 ﻿using HxBlogs.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,23 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Save(Models.EditViewModel editInfo)
         {
+            ReturnResult result = new ReturnResult();
+            Common.Json.JsonHelper.ToJsonInclude(result, nameof(result.IsSuccess), nameof(result.Message));
+            
             if (ModelState.IsValid)
             {
-
+                var coll = ModelState.GetEnumerator();
+            }
+            else
+            {
+                foreach (var key in ModelState.Keys)
+                {
+                    var modelstate = ModelState[key];
+                    if (modelstate.Errors.Any())
+                    {
+                        string errorMessage = modelstate.Errors.FirstOrDefault().ErrorMessage;
+                    }
+                }
             }
             return Json(new { success=true},JsonRequestBehavior.AllowGet);
         }

@@ -123,8 +123,8 @@
         </div>
         <div class="form-group hidden">
             <div class="col-sm-12">
-                <button type="button" name="IsPublish"  value="Y"  class="btn btn-default btn-md btn-success btn-save">发布文章</button>
-                <button type="button" name="IsPublish" value="Y" class="btn btn-default btn-md btn-draft">保存草稿</button>
+                <button type="button" value="Y"  class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="N" class="btn btn-default btn-md btn-draft btn-save">保存草稿</button>
             </div>
         </div>
     </form> 
@@ -172,10 +172,10 @@
             }
         }).then(editor => {
             window._HxCkEditor = editor;
-            editor.model.document.on('change:data', function (eventInfo, batch ) {
-                debugger
-                $('#editor').val(editor.getData());
-            });
+            //editor.model.document.on('change:data', function (eventInfo, batch ) {
+            //    debugger
+            //    $('#editor').val(editor.getData());
+            //});
             $('div.hidden').removeClass('hidden');
         }).catch(error => {
             console.error(error);
@@ -191,12 +191,11 @@
             });
             $('.btn-save').click(function () {
                 if (Edit.validate()) {
-                    var data = $('form').serializeArray();
-                    data.push({
-                        name: 'IsPublish',
-                        value: true
-                    });
-                    debugger
+                    var $me = $(this),
+                        data = $('form').serializeArray();
+                    data.push({ name: 'IsPublish', value: $me.val() === 'Y' });
+                    var content = data.find(d => { return d.name == 'Content'; });
+                    if (content) content.value = _HxCkEditor.getData();
                     $.post('save', data, function (r) {
                         debugger
                     });
