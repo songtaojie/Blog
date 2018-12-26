@@ -155,11 +155,11 @@
         $("body").append($dialog);
 
         //位置
+        var availWidth = document.documentElement && document.documentElement.clientWidth || document.body.clientWidth,
+            availHeight = document.documentElement && document.documentElement.clientHeight || document.body.clientHeight;
         var valign = opt.valign || 'top',
-            left = document.body.clientWidth / 2 - intWidth / 2,
-            top = 40;
-        var availHeight = document.body.clientHeight > window.screen.availHeight ?
-            window.screen.availHeight : document.body.clientHeight;
+                left = availWidth / 2 - intWidth / 2,
+                top = 40;
         if (BlogApp.isString(valign)) {
             if (valign.toLowerCase() === 'top') {
                 top = 40;
@@ -174,9 +174,9 @@
             if (halign.toLowerCase() === 'left') {
                 left = 20;
             } else if (halign.toLowerCase() === 'right') {
-                left = document.body.clientWidth - 20;
+                left = availWidth - 20;
             } else if (halign.toLowerCase() === 'center') {
-                document.body.clientWidth / 2 - intWidth / 2
+                availWidth / 2 - intWidth / 2
             }
         }
         ulStyle = `${ulStyle}transform: translate3d(${left}px,${top}px, 0);
@@ -189,9 +189,9 @@
         if (opt.timeout && BlogApp.isNumber(opt.timeout)) {
             timeout = opt.timeout;
         }
-        //setTimeout(function () {
-        //    $dialog.remove();
-        //}, timeout);
+        setTimeout(function () {
+            $dialog.remove();
+        }, timeout);
     };
     function formatString() {
         if (arguments.length < 1) {

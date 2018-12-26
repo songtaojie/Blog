@@ -1,4 +1,4 @@
-﻿
+﻿@model HxBlogs.WebApp.Models.EditViewModel
 @{
     ViewBag.Title = "写文章";
 }
@@ -10,19 +10,19 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="form-group">
-                    <label class="col-md-2 control-label blog-control-label">文章标题<span class="required">*</span></label>
+                    <label class="col-md-2 control-label blog-control-label" for="Title">文章标题<span class="required">*</span></label>
                     <div class="col-md-10 col-sm-12">
-                        <input type="text" name="Title" class="form-control" placeholder="文章标题,请控制在100字以内" />
+                        <input type="text" name="Title" required class="form-control" placeholder="文章标题,请控制在100字以内" />
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">
+                    <label class="col-md-4 control-label" for="TypeId">
                         系统分类<span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-12">
-                        <select class="form-control">
+                        <select class="form-control" required name="TypeId">
                             <option value="-1" selected="selected">请选择</option>
                             @if (ViewBag.CategoryList != null)
                             {
@@ -85,12 +85,12 @@
         <div class="row hidden">
             <div class="col-sm-4 col-xs-12">
                 <div class="form-group">
-                    <label class="col-md-4 control-label blog-control-label">
+                    <label for="CatId" class="col-md-4 control-label blog-control-label">
                         文章类型<span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-12">
-                        <select class="form-control">
-                            <option value="-1" selected="selected">请选择</option>
+                        <select class="form-control" required name="CatId">
+                            <option value="-1" selected="selected" >请选择</option>
                             @if (ViewBag.BlogTypeList != null)
                             {
                                 foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
@@ -109,7 +109,7 @@
                     </label>
                     <div class="col-sm-11">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="PersonTop" value="N" > 个人置顶
+                            <input type="checkbox" name="PersonTop" value="N"> 个人置顶
                         </label>
                         <label class="checkbox-inline">
                             <input type="checkbox" name="IsPrivate" value="N"> 仅自己可见
@@ -123,11 +123,11 @@
         </div>
         <div class="form-group hidden">
             <div class="col-sm-12">
-                <button type="submit" class="btn btn-default btn-md btn-success btn-save">发布文章</button>
-                <button type="button" class="btn btn-default btn-md btn-draft">保存草稿</button>
+                <button type="button" name="IsPublish"  value="Y"  class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button type="button" name="IsPublish" value="Y" class="btn btn-default btn-md btn-draft">保存草稿</button>
             </div>
         </div>
-    </form>
+    </form> 
 </div>
 @section scripts{
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
@@ -164,15 +164,7 @@
                 }
             },
             fontSize: {
-                options: [
-                    9,
-                    11,
-                    13,
-                    'default',
-                    17,
-                    19,
-                    21
-                ]
+                options: [9,11,13,'default',17,19,21]
             },
             image: {
                 toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
@@ -180,6 +172,10 @@
             }
         }).then(editor => {
             window._HxCkEditor = editor;
+            editor.model.document.on('change:data', function (eventInfo, batch ) {
+                debugger
+                $('#editor').val(editor.getData());
+            });
             $('div.hidden').removeClass('hidden');
         }).catch(error => {
             console.error(error);
@@ -193,6 +189,55 @@
                     $me.val('N');
                 }
             });
+            $('.btn-save').click(function () {
+                if (Edit.validate()) {
+                    var data = $('form').serializeArray();
+                    data.push({
+                        name: 'IsPublish',
+                        value: true
+                    });
+                    debugger
+                    $.post('save', data, function (r) {
+                        debugger
+                    });
+                }
+            });
+            var Edit = {
+                remind(msg) {
+                    BlogApp.remind({
+                        message: msg,
+                        valign: 'bottom',
+                        error:true
+                    });
+                },
+                validate() {
+                    var $form = $('form'),
+                        allField = $form.find('input[name][required],select[required]'),
+                        result = true;
+                    allField.each(function (index, el) {
+                        var field = $(el),
+                            isEmpty = false;
+                        if (field.is('input')) {
+                            if ($.isEmpty(field.val())) {
+                                isEmpty = true;
+                            }
+                        } else if (field.is('select')) {
+                            if (field.val() == -1) {
+                                isEmpty = true;
+                            }
+                        }
+                        if (isEmpty) {
+                            var name = field.attr('name'),
+                                label = $form.find(`label[for='${name}']`),
+                                labelText = (label.text() || '').replace(/\*/g, '');
+                            Edit.remind(`${labelText}是必填字段!`);
+                            result = false;
+                            return false;
+                        }
+                    });
+                    return result;
+                }
+            };
         });
     </script>
 }

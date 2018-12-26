@@ -29,11 +29,13 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.BlogTagList = tagList; 
             return View();
         }
-        [ValidateInput(false)]
-        public ActionResult Save()
+        public ActionResult Save(Models.EditViewModel editInfo)
         {
-            string content = Request["Content"];
-            return View();
+            if (ModelState.IsValid)
+            {
+
+            }
+            return Json(new { success=true},JsonRequestBehavior.AllowGet);
         }
     }
 }
