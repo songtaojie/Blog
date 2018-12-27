@@ -22,6 +22,11 @@ namespace HxBlogs.BLL
         {
             //密码加密
             model.PassWord = SafeHelper.MD5TwoEncrypt(model.PassWord);
+            if (string.IsNullOrEmpty(model.NickName))
+            {
+                model.NickName = model.UserName;
+            }
+             
             return base.BeforeInsert(model);
         }
 

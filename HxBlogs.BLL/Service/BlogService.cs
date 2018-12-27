@@ -11,5 +11,14 @@ namespace HxBlogs.BLL
 {
     public partial class BlogService : BaseService<Blog>, IBlogService
     {
+        public override Blog BeforeInsert(Blog model)
+        {
+            model = base.BeforeInsert(model);
+            if (Common.Helper.Helper.IsYes(model.IsPublish))
+            {
+                model.PublishDate = DateTime.Now;
+            }
+            return model;
+        }
     }
 }

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Common.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HxBlogs.WebApp.Areas.Admin.Controllers
 {
@@ -39,6 +40,11 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         // GET: Admin/Account
         public ActionResult Index()
         {
+            string returnUrl = Request[ConstInfo.returnUrl];
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                ViewBag.ReturnUrl = returnUrl;
+            }
             return View();
         }
         /// <summary>
@@ -47,6 +53,11 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// <returns></returns>
         public ActionResult Register()
         {
+            string returnUrl = Request[ConstInfo.returnUrl];
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                ViewBag.ReturnUrl = returnUrl;
+            }
             return View();
         }
         #region 用户登录注册
@@ -68,7 +79,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             {
                 await SendEmail(info.UserName, info.Email);
                 result.Message = "已发送激活链接到邮箱，请尽快激活。";
-                //成功以后直接到主页，即在登录状态
+                result.ReturnUrl = Request[ConstInfo.returnUrl];
                 string sessionId = Guid.NewGuid().ToString();
                 Response.Cookies[ConstInfo.SessionID].Value = sessionId.ToString();
                 string jsonData = JsonConvert.SerializeObject(userInfo);
@@ -125,13 +136,13 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             if(!result.IsSuccess)return Json(result, JsonRequestBehavior.AllowGet);
             result = ValidateUser(result);
             if (!result.IsSuccess) return Json(result, JsonRequestBehavior.AllowGet);
-            string returnUrl = Request["ReturnUrl"];
+            string returnUrl = Request[ConstInfo.returnUrl];
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 result.ReturnUrl = returnUrl.Trim();
             }
-           
-            return Json(result, JsonRequestBehavior.AllowGet);
+            // string jsonStr = JsonHelper.ToJsonInclude(result, nameof(ReturnResult.ReturnUrl), nameof(ReturnResult.IsSuccess), nameof(ReturnResult.Message));
+            return Json(result, string.Empty, JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 验证验证码

@@ -19,6 +19,7 @@
     }))
     {
         <h3 class="form-title">用户注册</h3>
+        <input type="hidden"  name="ReturnUrl" value="@ViewBag.ReturnUrl"/>
         <div class="control-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">用户名</label>
@@ -81,10 +82,9 @@
            btnReg.addClass('disabled');
        }
        function afterRegister(data) {
-           debugger
            if (data.IsSuccess) {
                alert(`注册成功!${data.Message}`);
-               window.location.href = "/"
+               window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
            } else {
                var html = `<div id="myAlert" class="alert alert-warning">
         <a href="#" class="close" data-dismiss="alert"></a>

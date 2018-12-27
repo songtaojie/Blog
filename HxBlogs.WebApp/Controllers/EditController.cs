@@ -12,17 +12,18 @@ namespace HxBlogs.WebApp.Controllers
 {
     public class EditController : BaseController
     {
-        private ICategoryService _cateService;
-        public EditController(ICategoryService cateService)
+        private IBlogService _blogService;
+        public EditController(IBlogService blogService)
         {
-            this._cateService = cateService;
+            _blogService = blogService;
         }
         // GET: PostEdit
         public ActionResult PostEdit()
         {
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             IBlogTagService tagService = ContainerManager.Resolve<IBlogTagService>();
-            IEnumerable<Category> cateList =  this._cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
+            ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
+            IEnumerable<Category> cateList = cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
             IEnumerable<BlogType> typeList = typeService.QueryEntities(t => t.IsDeleted == "N").OrderByDescending(t => t.Order);
             IEnumerable<BlogTag> tagList = tagService.QueryEntities(t => t.UserId == 0);
             ViewBag.CategoryList = cateList;
@@ -32,25 +33,28 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Save(Models.EditViewModel editInfo)
         {
-            ReturnResult result = new ReturnResult();
-            Common.Json.JsonHelper.ToJsonInclude(result, nameof(result.IsSuccess), nameof(result.Message));
-            
+            ReturnResult result = new ReturnResult {IsSuccess = true };
             if (ModelState.IsValid)
             {
-                var coll = ModelState.GetEnumerator();
+                Blog blogInfo = Common.Mapper.MapperHelper.Map<Blog>(editInfo);
+                blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
+                blogInfo = FillAddModel(blogInfo);
+                // _blogService.Insert(blogInfo);
             }
             else
             {
+                result.IsSuccess = false;
                 foreach (var key in ModelState.Keys)
                 {
                     var modelstate = ModelState[key];
                     if (modelstate.Errors.Any())
                     {
-                        string errorMessage = modelstate.Errors.FirstOrDefault().ErrorMessage;
+                        result.Message = modelstate.Errors.FirstOrDefault().ErrorMessage;
+                        break;
                     }
                 }
             }
-            return Json(new { success=true},JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

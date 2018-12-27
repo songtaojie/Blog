@@ -47,7 +47,7 @@ namespace HxBlogs.WebApp.Controllers
             if (!isSuccess)
             {
                 string pageUrl = filterContext.HttpContext.Request.Url.LocalPath;
-                filterContext.Result = Redirect("/login?ReturnUrl=" + pageUrl);
+                filterContext.Result = Redirect(string.Format("/login?{0}={1}", ConstInfo.returnUrl, pageUrl));
             }
         }
         
@@ -65,6 +65,37 @@ namespace HxBlogs.WebApp.Controllers
                 return true;
             }
             return false;
+        }
+
+        protected T FillAddModel<T>(T model) where T : BaseEntity
+        {
+            UserInfo userInfo = UserContext.LoginUser;
+            if (userInfo != null)
+            {
+                model.CreatorId = userInfo.Id;
+                model.CreatorName = userInfo.NickName;
+            }
+            return model;
+        }
+        protected T FillDeleteModel<T>(T model) where T : BaseEntity
+        {
+            UserInfo userInfo = UserContext.LoginUser;
+            if (userInfo != null)
+            {
+                model.DeleteId = userInfo.Id;
+                model.DeleteName = userInfo.NickName;
+            }
+            return model;
+        }
+        protected T FillModifyModel<T>(T model) where T : BaseEntity
+        {
+            UserInfo userInfo = UserContext.LoginUser;
+            if (userInfo != null)
+            {
+                model.LastModifiyId = userInfo.Id;
+                model.LastModifiyName = userInfo.NickName;
+            }
+            return model;
         }
         /// <summary>
         /// 获取客户端ip

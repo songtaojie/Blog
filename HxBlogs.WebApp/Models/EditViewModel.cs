@@ -16,7 +16,7 @@ namespace HxBlogs.WebApp.Models
         }
         [Required(ErrorMessage ="内容不能为空!")]
         [System.Web.Mvc.AllowHtml]
-        public string Content
+        public string ContentHtml
         {
             get;set;
         }
@@ -27,6 +27,14 @@ namespace HxBlogs.WebApp.Models
         }
         [Required(ErrorMessage = "文章类型不能为空!")]
         public int CatID
+        {
+            get;set;
+        }
+        public string PersonTop
+        {
+            get;set;
+        }
+        public string IsPrivate
         {
             get;set;
         }

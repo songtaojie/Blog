@@ -29,5 +29,7 @@ namespace HxBlogs.WebApp
         /// 最大上传文件大小
         /// </summary>
         public const string maxLength = "maxRequestLength";
+
+        public const string returnUrl = "returnUrl";
     }
 }

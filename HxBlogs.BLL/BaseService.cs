@@ -155,33 +155,41 @@ namespace HxBlogs.BLL
         #endregion
 
         #region 删除
-        public virtual T BeforeDelete(T model)
+        public virtual T BeforeLogicDelete(T model)
         {
             if (model != null)
             {
                 model["DeleteTime"] = DateTime.Now;
+                model["IsDelete"] = "Y";
             }
             return model;
         }
         /// <summary>
-        /// 删除一条记录
+        /// 彻底删除一条记录
         /// </summary>
         /// <param name="model">要删除的记录</param>
         /// <returns></returns>
-        public virtual void Delete(T entity)
+        public virtual void PhysicalDelete(T entity)
         {
-            entity = this.BeforeDelete(entity);
             this.baseDal.Delete(entity);
         }
 
         /// <summary>
-        /// 根据条件删除记录
+        /// 根据条件彻底删除记录
         /// </summary>
         /// <param name="lambdaWhere">lambda表达式</param>
         /// <returns></returns>
-        public void Delete(Expression<Func<T, bool>> lambdaWhere)
+        public void PhysicalDelete(Expression<Func<T, bool>> lambdaWhere)
         {
             this.baseDal.Delete(lambdaWhere);
+        }
+        /// <summary>
+        /// 逻辑删除
+        /// </summary>
+        /// <param name="entity"></param>
+        public void LogicDelete(T entity)
+        {
+            entity = BeforeLogicDelete(entity);
         }
         #endregion
     }

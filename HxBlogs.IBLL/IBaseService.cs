@@ -87,18 +87,18 @@ namespace HxBlogs.IBLL
 
         #region 删除
         /// <summary>
-        /// 删除一条记录
+        /// 彻底删除一条记录
         /// </summary>
         /// <param name="model">要删除的记录</param>
         /// <returns></returns>
-        void Delete(T model);
+        void PhysicalDelete(T model);
 
         /// <summary>
-        /// 根据条件删除记录
+        /// 根据条件彻底删除一条记录
         /// </summary>
         /// <param name="lambdaWhere">lambda表达式</param>
         /// <returns></returns>
-        void Delete(Expression<Func<T, bool>> lambdaWhere);
+        void PhysicalDelete(Expression<Func<T, bool>> lambdaWhere);
         #endregion
     }
 }

@@ -21,7 +21,7 @@
             }))
     {
         <h3 class="form-title">用户登录</h3>
-        
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <div class="control-group">
 
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
@@ -77,7 +77,7 @@
             <div class="create-account">
                 <p>
                     没有账号?&nbsp;
-                    <a href="/register" id="register-btn" class="">注册账号</a>
+                    <a href="/register@(string.IsNullOrEmpty(ViewBag.ReturnUrl)?"":"?returnUrl="+ViewBag.ReturnUrl)" id="register-btn" class="">注册账号</a>
                 </p>
             </div>
     }
@@ -89,7 +89,6 @@
             return {
                 beforeLogin:function(a,b) {
                     App.blockUI({ animate: true, message: '登陆中' });
-                    b.data = b.data + '&ReturnUrl=' + $.queryString('ReturnUrl');
                 },
                 finishLogin:function() {
                     App.unblockUI();
