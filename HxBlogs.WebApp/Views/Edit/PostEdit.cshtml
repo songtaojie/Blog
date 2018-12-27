@@ -193,8 +193,8 @@
                 if (Edit.validate()) {
                     var $me = $(this),
                         data = $('form').serializeArray();
-                    data.push({ name: 'IsPublish', value: $me.val() === 'Y' });
-                    var content = data.find(d => { return d.name == 'Content'; });
+                    data.push({ name: 'IsPublish', value: $me.val()});
+                    var content = data.find(d => { return d.name == 'ContentHtml'; });
                     if (content) content.value = _HxCkEditor.getData();
                     $.post('save', data, function (r) {
                         debugger

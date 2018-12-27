@@ -38,9 +38,9 @@ namespace HxBlogs.WebApp.Models
         {
             get;set;
         }
-        public bool IsPublish
+        public string IsPublish
         {
             get; set;
-        } = true;
+        } = "Y";
     }
 }

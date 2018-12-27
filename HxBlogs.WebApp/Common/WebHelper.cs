@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace HxBlogs.WebApp
@@ -17,7 +18,7 @@ namespace HxBlogs.WebApp
         /// <param name="format"></param>
         /// <param name="showTime"></param>
         /// <returns></returns>
-        public static string GetDispayDate(DateTime dateTime,string format = "M", bool showTime = false)
+        public static string GetDispayDate(DateTime dateTime, string format = "M", bool showTime = false)
         {
             string result = string.Empty;
             if (dateTime == null) return result;
@@ -95,7 +96,7 @@ namespace HxBlogs.WebApp
             }
             else
             {
-                cookie = new HttpCookie(cookieName,value);
+                cookie = new HttpCookie(cookieName, value);
                 if (expires.HasValue)
                 {
                     cookie.Expires = expires.Value;
@@ -141,7 +142,7 @@ namespace HxBlogs.WebApp
                 img = Image.FromFile(fullPath);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -156,7 +157,7 @@ namespace HxBlogs.WebApp
         /// </summary>
         /// <param name="fullPath"></param>
         /// <returns></returns>
-        public static bool IsImage(string ext,bool hasPoint)
+        public static bool IsImage(string ext, bool hasPoint)
         {
             string[] extList = new string[] { ".gif", ".jpg", ".jpeg", ".png", ".bmp", ".icon" };
             bool result = false;
@@ -166,9 +167,9 @@ namespace HxBlogs.WebApp
             }
             else
             {
-                if (extList.Contains("."+ext)) result = true;
+                if (extList.Contains("." + ext)) result = true;
             }
-            
+
             return result;
         }
         /// <summary>
@@ -205,6 +206,22 @@ namespace HxBlogs.WebApp
             string imagesurl2 = imagesurl1.Replace(tmpRootDir, "/"); //转换成相对路径
             imagesurl2 = imagesurl2.Replace(@"\", @"/");
             return imagesurl2;
+        }
+
+        public static string[] GetHtmlImageUrlList(string sHtmlText)
+        {
+            // 定义正则表达式用来匹配 img 标签   
+            Regex regImg = new Regex(@"<img\b[^<>]*?\bsrc[\s\t\r\n]*=[\s\t\r\n]*[""']?[\s\t\r\n]*(?<imgUrl>[^\s\t\r\n""'<>]*)[^<>]*?/?[\s\t\r\n]*>", RegexOptions.IgnoreCase);
+
+            // 搜索匹配的字符串   
+            MatchCollection matches = regImg.Matches(sHtmlText);
+            int i = 0;
+            string[] sUrlList = new string[matches.Count];
+
+            // 取得匹配项列表   
+            foreach (Match match in matches)
+                sUrlList[i++] = match.Groups["imgUrl"].Value;
+            return sUrlList;
         }
     }
 }
