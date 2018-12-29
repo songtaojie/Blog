@@ -1,4 +1,5 @@
-﻿using HxBlogs.Model;
+﻿using HxBlogs.Framework.Mappers;
+using HxBlogs.Model;
 using HxBlogs.Model.Context;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,39 @@ namespace HxBlogs.Test
     {
         static void Main(string[] args)
         {
-            //var assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            Type baseType = typeof(IAutoMapper<>);
+            foreach (Assembly ass in assemblies)
+            {
+                try
+                {
+                    var types = ass.GetExportedTypes().Where(t => !t.IsInterface && !t.IsAbstract);
+                    foreach (Type sourceType in types)
+                    {
+                        var genericTypes = sourceType.GetInterfaces().Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == baseType);
+                        if (genericTypes != null && genericTypes.Count() > 0)
+                        {
+                            foreach (Type destType in genericTypes)
+                            {
+                                if (destType.IsClass)
+                                {
+
+                                }
+                            }
+                            //Type destType = interType.GetGenericElementType();
+                            //if (destType.IsClass)
+                            //{
+                            //    CreateMap(type, destType);
+                            //}
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
             //foreach (var s in assemblies)
             //{
             //    foreach (Type type in s.GetTypes())
@@ -30,7 +63,6 @@ namespace HxBlogs.Test
             //});
             //c.SaveChanges();
             //Console.WriteLine("成功");
-            Assembly assembly = Assembly.GetAssembly(typeof(BaseModel));
             //Assembly ass = Assembly.GetExecutingAssembly();
             //Assembly.
             //Type[] types = assembly.GetExportedTypes();

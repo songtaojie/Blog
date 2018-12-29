@@ -36,10 +36,10 @@ namespace HxBlogs.WebApp.Controllers
             ReturnResult result = new ReturnResult {IsSuccess = true };
             if (ModelState.IsValid)
             {
-                Blog blogInfo = Common.Mapper.MapperHelper.Map<Blog>(editInfo);
-                string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
-                blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
-                blogInfo = FillAddModel(blogInfo);
+                //Blog blogInfo = Common.Mapper.MapperHelper.Map<Blog>(editInfo);
+                //string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
+                //blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
+                //blogInfo = FillAddModel(blogInfo);
                 // _blogService.Insert(blogInfo);
             }
             else

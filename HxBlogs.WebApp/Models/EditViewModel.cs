@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HxBlogs.Framework.Mappers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace HxBlogs.WebApp.Models
 {
-    public class EditViewModel
+    public class EditViewModel: IAutoMapper<Model.Blog>
     {
         [Required(ErrorMessage = "标题不能为空!")]
         [MaxLength(100,ErrorMessage = "请控制在100字以内")]

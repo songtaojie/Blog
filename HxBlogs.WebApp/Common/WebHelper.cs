@@ -185,7 +185,7 @@ namespace HxBlogs.WebApp
                 img = Image.FromStream(stream);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

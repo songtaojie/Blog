@@ -14,8 +14,8 @@ namespace HxBlogs.WebApp
         /// </summary>
         public static void Register()
         {
-            DefaultContainer container = new DefaultContainer();
-            container.BeforeRegister += (builder) =>
+            ContainerManager manager = new ContainerManager();
+            manager.BeforeRegister += (builder) =>
             {
                 builder.RegisterControllers(typeof(MvcApplication).Assembly); // 注册Mvc控制器实例
                 // builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();//注册日志对象
@@ -26,11 +26,19 @@ namespace HxBlogs.WebApp
                 builder.RegisterInstance(factory).As<ILoggerFactory>().SingleInstance();
                 builder.RegisterInstance(factory.CreateLogger("Logger")).As<ILogger>().SingleInstance();
             };
-            container.Start();
+            manager.Start();
             ////builder.RegisterFilterProvider();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(ContainerManager.Container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(ContainerManager.GetContainer()));
             //将MVC的控制器对象实例 交由autofac来创建
             // ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
+        }
+    }
+    public class AutoMapperConfig
+    {
+        public static void Register()
+        {
+            MapperManager manager = new MapperManager();
+            manager.Start();
         }
     }
 }

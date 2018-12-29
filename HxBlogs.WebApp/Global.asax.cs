@@ -13,6 +13,7 @@ namespace HxBlogs.WebApp
         protected void Application_Start()
         {
             AutofacConfig.Register();
+            AutoMapperConfig.Register();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

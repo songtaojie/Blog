@@ -1,7 +1,6 @@
 ﻿using Common.Email;
 using Common.Helper;
 using Common.Logs;
-using Common.Mapper;
 using Common.Cache;
 using Common.Web;
 using HxBlogs.Framework;
@@ -72,7 +71,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             UserInfo userInfo = null;
             if (ModelState.IsValid)
             {
-                userInfo = MapperHelper.Map<UserInfo>(info);
+                // userInfo = MapperHelper.Map<UserInfo>(info);
                 userInfo = this._userService.Insert(userInfo,out result);
             }
             if (result.IsSuccess)
