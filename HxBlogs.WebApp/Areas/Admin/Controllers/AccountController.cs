@@ -71,7 +71,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             UserInfo userInfo = null;
             if (ModelState.IsValid)
             {
-                // userInfo = MapperHelper.Map<UserInfo>(info);
+                userInfo = MapperManager.Map<UserInfo>(info);
                 userInfo = this._userService.Insert(userInfo,out result);
             }
             if (result.IsSuccess)

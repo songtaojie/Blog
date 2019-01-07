@@ -196,6 +196,7 @@
     <Content Include="Content\App\css\blog-header-footer.css" />
     <Content Include="Content\App\css\blog-home.css" />
     <Content Include="Content\App\js\blog.core.js" />
+    <Content Include="Content\App\js\editor.js" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
@@ -529,6 +530,10 @@
     <Content Include="Content\Plugin\Metronic\image\xing.png" />
     <Content Include="Content\Plugin\Metronic\image\yahoo.png" />
     <Content Include="Content\Plugin\Metronic\image\youtube.png" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.css" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.js" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.css" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -569,6 +574,8 @@
     <Content Include="Content\Plugin\Metronic\uniform\README.md" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\LICENSE" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\README.md" />
+    <Content Include="Content\Plugin\WangEditor\fonts\w-e-icon.woff" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js.map" />
     <None Include="Content\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.js" />

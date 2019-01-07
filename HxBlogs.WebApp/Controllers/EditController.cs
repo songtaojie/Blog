@@ -25,7 +25,7 @@ namespace HxBlogs.WebApp.Controllers
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
             IEnumerable<Category> cateList = cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
             IEnumerable<BlogType> typeList = typeService.QueryEntities(t => t.IsDeleted == "N").OrderByDescending(t => t.Order);
-            IEnumerable<BlogTag> tagList = tagService.QueryEntities(t => t.UserId == 0);
+            List<BlogTag> tagList = tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id).ToList();
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList; 
@@ -36,11 +36,12 @@ namespace HxBlogs.WebApp.Controllers
             ReturnResult result = new ReturnResult {IsSuccess = true };
             if (ModelState.IsValid)
             {
-                //Blog blogInfo = Common.Mapper.MapperHelper.Map<Blog>(editInfo);
-                //string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
-                //blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
-                //blogInfo = FillAddModel(blogInfo);
-                // _blogService.Insert(blogInfo);
+                Blog blogInfo = MapperManager.Map<Blog>(editInfo);
+                string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
+                if (imgList.Length > 0) blogInfo.ImgUrl = imgList[1];
+                blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
+                blogInfo = FillAddModel(blogInfo);
+                //_blogService.Insert(blogInfo);
             }
             else
             {

@@ -45,7 +45,7 @@
             <div class="col-md-3 col-sm-4">
                 <div class="form-group">
                     <label class="text-left col-sm-4 blog-category-label  blog-control-label">个人分类:</label>
-                    <button class="btn btn-link fa fa-plus-square"> 添加分类</button>
+                    <button type="button" class="btn btn-link fa fa-plus-square" style="margin-left:0.5rem;"> 添加分类</button>
                 </div>
             </div>
         </div>
@@ -53,15 +53,14 @@
             <div class="col-md-3 col-sm-4 col-sm-push-1 blog-col-xs-pull-1">
                 @if (ViewBag.BlogTagList != null)
                 {
-                    int i = 1;
-                    foreach (HxBlogs.Model.BlogTag item in ViewBag.BlogTagList)
+                    for(int i = 1;i<= ViewBag.BlogTagList.Count;i++)
                     {
-                        if (i % 3 == 0)
-                        {
+                            if (i % 3 == 0)
+                            {
                             <div class="form-group">
                                 }
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" value="@item.Id">@item.Name
+                                    <input type="checkbox" value="@ViewBag.BlogTagList[i -1].Id">@ViewBag.BlogTagList[i - 1].Name
                                 </label>
                                 if (i % 3 == 0)
                                 {
@@ -124,7 +123,7 @@
         <div class="form-group hidden">
             <div class="col-sm-12">
                 <button type="button" value="Y"  class="btn btn-default btn-md btn-success btn-save">发布文章</button>
-                <button type="button" value="N" class="btn btn-default btn-md btn-draft btn-save">保存草稿</button>
+                <button type="button" value="N" class="btn btn-default btn-md btn-draft btn-save" style="margin-left: .8rem;">保存草稿</button>
             </div>
         </div>
     </form> 
@@ -172,10 +171,10 @@
             }
         }).then(editor => {
             window._HxCkEditor = editor;
-            //editor.model.document.on('change:data', function (eventInfo, batch ) {
-            //    debugger
-            //    $('#editor').val(editor.getData());
-            //});
+            editor.model.document.on('change:data', function (eventInfo, batch ) {
+                debugger
+                $('#editor').val(editor.getData());
+            });
             $('div.hidden').removeClass('hidden');
         }).catch(error => {
             console.error(error);
