@@ -99,12 +99,14 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             MemcachedHelper.Set(key.ToString(), userName, DateTime.Now.AddMinutes(30));
             var checkUrl = Request.Url.Scheme + "://" + Request.Url.Host + ":" +
                 Request.Url.Port + "/Admin/Account/Activation?key=" + key;
+            string mailAccount = Common.Config.ConfigManager.GetAppSettingValue("MailAccount")
+                ,mailPwd = Common.Config.ConfigManager.GetAppSettingValue("");
             await Task.Run(() =>
             {
                 EmailHelper email = new EmailHelper()
                 {
-                    MailPwd = "tao58568470jie",
-                    MailFrom = "stjworkemail@163.com",
+                    MailPwd = mailPwd,
+                    MailFrom = mailAccount,
                     MailSubject = "欢迎您注册 海星·博客",
                     MailBody = EmailHelper.TempBody(userName, "请复制打开链接(或者右键新标签中打开)，激活账号",
                       "<a style='word-wrap: break-word;word-break: break-all;' href='" + checkUrl + "'>" + checkUrl + "</a>"),
