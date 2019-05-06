@@ -150,27 +150,5 @@ namespace HxBlogs.DAL
             }
         }
         #endregion
-
-        public void Transaction(EventHandler handler)
-        {
-            Exception inner = null;
-            using (DbContextTransaction transaction = Context.Database.BeginTransaction())
-            {
-                try
-                {
-                    handler?.Invoke(null, EventArgs.Empty);
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    inner = e;
-                    transaction.Rollback();
-                }
-            }
-            if (inner != null)
-            {
-                throw new System.Reflection.TargetInvocationException(inner);
-            }
-        }
     }
 }
