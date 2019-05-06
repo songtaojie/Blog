@@ -1,6 +1,7 @@
-﻿using HxBlogs.Framework;
+﻿using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,11 @@ namespace HxBlogs.WebApp.Controllers
                 if (imgList.Length > 0) blogInfo.ImgUrl = imgList[1];
                 blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
                 blogInfo = FillAddModel(blogInfo);
+                if (!string.IsNullOrEmpty(editInfo.PersonTags))
+                {
+                    Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(editInfo.PersonTags);
+                    //foreach()
+                }
                 //_blogService.Insert(blogInfo);
             }
             else

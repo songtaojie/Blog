@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common">
-      <HintPath>C:\AIO5Server\Common\Common.dll</HintPath>
+    <Reference Include="Hx.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\HxServer\Common\Hx.Common\Hx.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,8 +50,6 @@
     <Compile Include="Validate\BaseUserValidate.cs" />
     <Compile Include="Validate\IUserValidate.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exception\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

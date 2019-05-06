@@ -3,7 +3,8 @@
     ViewBag.Title = "写文章";
 }
 @section styles{
-    <link href="~/Content/App/css/blog-edit.css" rel="stylesheet" />
+    <link href="~/Content/App/css/blog-edit.css?v=1.0.0.3" rel="stylesheet" />
+    <link href="~/Content/Plugin/Metronic/uniform/css/uniform.default.css" rel="stylesheet" />
 }
 <div class="blog-edit container body-content">
     <form class="form-horizontal" role="form" action="save" method="post">
@@ -42,10 +43,11 @@
             </div>
         </div>
         <div class="row hidden">
-            <div class="col-md-3 col-sm-4">
-                <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="form-group form-group-tag">
                     <label class="text-left col-sm-4 blog-category-label  blog-control-label">个人分类:</label>
-                    <button type="button" class="btn btn-link fa fa-plus-square" style="margin-left:0.5rem;"> 添加分类</button>
+                    <input type="hidden" name="PersonTags" data-count="0" />
+                    <button type="button" id="addTag" class="btn btn-link fa fa-plus-square" style="margin-left:0.5rem;"> 添加分类</button>
                 </div>
             </div>
         </div>
@@ -53,10 +55,10 @@
             <div class="col-md-3 col-sm-4 col-sm-push-1 blog-col-xs-pull-1">
                 @if (ViewBag.BlogTagList != null)
                 {
-                    for(int i = 1;i<= ViewBag.BlogTagList.Count;i++)
+                    for (int i = 1; i <= ViewBag.BlogTagList.Count; i++)
                     {
-                            if (i % 3 == 0)
-                            {
+                        if (i % 3 == 0)
+                        {
                             <div class="form-group">
                                 }
                                 <label class="checkbox-inline">
@@ -68,17 +70,6 @@
                         }
                     }
                 }
-                @*<div class="form-group">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="option1"> 选项 1
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="option2"> 选项 2
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="option3"> 选项 3
-                        </label>
-                    </div>*@
             </div>
         </div>
         <div class="row hidden">
@@ -89,7 +80,7 @@
                     </label>
                     <div class="col-md-8 col-sm-12">
                         <select class="form-control" required name="CatId">
-                            <option value="-1" selected="selected" >请选择</option>
+                            <option value="-1" selected="selected">请选择</option>
                             @if (ViewBag.BlogTypeList != null)
                             {
                                 foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
@@ -122,15 +113,16 @@
         </div>
         <div class="form-group hidden">
             <div class="col-sm-12">
-                <button type="button" value="Y"  class="btn btn-default btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="Y" class="btn btn-default btn-md btn-success btn-save">发布文章</button>
                 <button type="button" value="N" class="btn btn-default btn-md btn-draft btn-save" style="margin-left: .8rem;">保存草稿</button>
             </div>
         </div>
-    </form> 
+    </form>
 </div>
 @section scripts{
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
     <script src="~/Content/App/js/blog.core.js"></script>
+    <script src="~/Content/Plugin/Metronic/uniform/jquery.uniform.js"></script>
     <script type="text/javascript">
         ClassicEditor.create(document.querySelector('#editor'), {
             removePlugins: ['mediaEmbed'],
@@ -163,7 +155,7 @@
                 }
             },
             fontSize: {
-                options: [9,11,13,'default',17,19,21]
+                options: [9, 11, 13, 'default', 17, 19, 21]
             },
             image: {
                 toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
@@ -171,14 +163,10 @@
             }
         }).then(editor => {
             window._HxCkEditor = editor;
-            editor.model.document.on('change:data', function (eventInfo, batch ) {
-                debugger
-                $('#editor').val(editor.getData());
-            });
             $('div.hidden').removeClass('hidden');
         }).catch(error => {
             console.error(error);
-            });
+        });
         $(function () {
             $('input:checkbox').change(function () {
                 var $me = $(this);
@@ -187,12 +175,13 @@
                 } else {
                     $me.val('N');
                 }
-            });
+            }).uniform();
+
             $('.btn-save').click(function () {
                 if (Edit.validate()) {
                     var $me = $(this),
                         data = $('form').serializeArray();
-                    data.push({ name: 'IsPublish', value: $me.val()});
+                    data.push({ name: 'IsPublish', value: $me.val() });
                     var content = data.find(d => { return d.name == 'ContentHtml'; });
                     if (content) content.value = _HxCkEditor.getData();
                     $.post('save', data, function (r) {
@@ -205,7 +194,7 @@
                     BlogApp.remind({
                         message: msg,
                         valign: 'bottom',
-                        error:true
+                        error: true
                     });
                 },
                 validate() {
@@ -234,8 +223,97 @@
                         }
                     });
                     return result;
+                },
+                doPersonTag(text, add) {
+                    var $tag = $('input[name=PersonTags]'),
+                        tagVal = $tag.val(),
+                        tagObj = {},
+                        result = false;
+                    if (!$.isEmpty(tagVal)) {
+                        tagObj = JSON.parse(tagVal);
+                    }
+                    if (add) {
+                        var count = $tag.data('count'),
+                            exist = false;
+                        if ($.isString(text)) {
+                            text = $.trim(text);
+                            $.each(tagObj, (key, value) => {
+                                if ($.trim(value) == text) {
+                                    exist = true;
+                                    return false;
+                                }
+                            });
+                            count++;
+                            if (!exist) {
+                                result = true;
+                                tagObj['data' + count] = text;
+                                $tag.data('count', count);
+                            }
+                        } else if ($.isObject(text)) {
+                            $.extend(tagObj, text);
+                        }
+                        if (!$.isEmptyObject(tagObj)) {
+                            $tag.val(JSON.stringify(tagObj));
+                        }
+                    } else {
+                        if ($.isString(text)) {
+                            $.each(tagObj, (key, value) => {
+                                if ($.trim(value) == text) {
+                                    delete tagObj[key];
+                                    result = true;
+                                    return false;
+                                }
+                            });
+                        } else if ($.isObject(text)) {
+                            $.each(tagObj, (key, value) => {
+                                if ($.trim(value) == $.trim(text[key])) {
+                                    delete tagObj[key];
+                                    result = true;
+                                    return false;
+                                }
+                            });
+                        }
+                        $tag.val(JSON.stringify(tagObj));
+                    }
+                    return result;
+                },
+                addTag() {
+                    var $div = $('<div class="tag-box"></div>'),
+                        $span = $(`<span class="tag" contenteditable = "true"></span>
+                                <i class="fa fa-times" aria-hidden="true"></i>`);
+                    $div.append($span).insertBefore($('#addTag'))
+                    $span.focus().
+                        blur(function () {
+                            var $me = $(this),
+                                text = $.trim($me.text()),
+                                $parent = $me.parent();
+                            if ($.isEmpty(text)) {
+                                $parent.remove();
+                            } else {
+                                $me.attr('contenteditable', 'false');
+                                if (!Edit.doPersonTag(text, true)) {
+                                    $parent.remove();
+                                }
+                            }
+                        }).keydown(function (e) {
+                            var code = (e.keyCode ? e.keyCode : e.which);
+                            if (code === 13) {
+                                $(e.target).blur();
+                            }
+                        });
+                    $div.find('i.fa-times').click(function () {
+                        var $me = $(this),
+                            $p = $me.parent(),
+                            $prev = $me.prev(),
+                            text = $prev.text();
+                        $p.remove();
+                        Edit.doPersonTag($prev.text());
+                    });
                 }
             };
+            $('#addTag').click(function () {
+                Edit.addTag();
+            });
         });
     </script>
 }

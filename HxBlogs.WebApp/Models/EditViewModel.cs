@@ -1,4 +1,4 @@
-﻿using HxBlogs.Framework.Mappers;
+﻿using Hx.Framework.Mappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -43,5 +43,9 @@ namespace HxBlogs.WebApp.Models
         {
             get; set;
         } = "Y";
+        public string PersonTags
+        {
+            get;set;
+        }
     }
 }

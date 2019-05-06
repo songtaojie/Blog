@@ -1,6 +1,6 @@
-﻿using Common.Cache;
-using Common.Logs;
-using HxBlogs.Framework;
+﻿using Hx.Common.Cache;
+using Hx.Common.Logs;
+using Hx.Framework;
 using HxBlogs.Model;
 using Newtonsoft.Json;
 using System;

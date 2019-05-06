@@ -1,6 +1,6 @@
 ﻿namespace HxBlogs.Model.Migrations
 {
-    using Common.Security;
+    using Hx.Common.Security;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

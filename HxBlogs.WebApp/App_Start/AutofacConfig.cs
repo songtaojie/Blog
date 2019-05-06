@@ -1,7 +1,7 @@
-﻿using HxBlogs.Framework;
+﻿using Hx.Framework;
 using Autofac;
 using Autofac.Integration.Mvc;
-using Common.Logs;
+using Hx.Common.Logs;
 using System.Web.Mvc;
 
 namespace HxBlogs.WebApp

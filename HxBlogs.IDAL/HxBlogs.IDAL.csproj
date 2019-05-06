@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hx.Framework">
+      <HintPath>C:\HxServer\Common\Hx.Framework\Hx.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">
-      <Project>{27197b2a-8d33-43db-a853-0e004d85e93e}</Project>
-      <Name>HxBlogs.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HxBlogs.Model\HxBlogs.Model.csproj">
       <Project>{387E4865-27E0-4681-A9FB-CBB7E9523AC3}</Project>
       <Name>HxBlogs.Model</Name>

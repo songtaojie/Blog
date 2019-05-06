@@ -46,21 +46,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\AIO5Server\Common\Common.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Hx.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\HxServer\Common\Hx.Common\Hx.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Hx.Framework">
+      <HintPath>C:\HxServer\Common\Hx.Framework\Hx.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -743,10 +746,6 @@
     <ProjectReference Include="..\HxBlogs.DAL\HxBlogs.DAL.csproj">
       <Project>{09f678ba-112b-4a1e-ae3a-8a345ce2176e}</Project>
       <Name>HxBlogs.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">
-      <Project>{27197b2a-8d33-43db-a853-0e004d85e93e}</Project>
-      <Name>HxBlogs.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\HxBlogs.IBLL\HxBlogs.IBLL.csproj">
       <Project>{6D0EB00C-23C2-428D-9389-84D76E7A2205}</Project>

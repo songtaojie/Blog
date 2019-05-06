@@ -104,7 +104,7 @@ namespace HxBlogs.Model
 
         public int CatId { get; set; }
         ///// <summary>
-        ///// 博客类型，是转发，原创，还是翻译等
+        ///// 系统分类，前端、后端、编程语言等
         ///// </summary> 
         [ForeignKey("CatId")]
         public virtual Category Category { get; set; }

@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Hx.Framework">
+      <HintPath>C:\HxServer\Common\Hx.Framework\Hx.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -62,10 +65,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HxBlogs.Framework\HxBlogs.Framework.csproj">
-      <Project>{27197B2A-8D33-43DB-A853-0E004D85E93E}</Project>
-      <Name>HxBlogs.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HxBlogs.IDAL\HxBlogs.IDAL.csproj">
       <Project>{06ECD477-443D-4DB9-9E07-B51DFC18B05E}</Project>
       <Name>HxBlogs.IDAL</Name>

@@ -1,5 +1,5 @@
-﻿using Common.Helper;
-using HxBlogs.Framework;
+﻿using Hx.Common.Helper;
+using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
 using System;

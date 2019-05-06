@@ -1,4 +1,4 @@
-﻿using HxBlogs.Framework.Mappers;
+﻿using Hx.Framework.Mappers;
 using HxBlogs.Model;
 using HxBlogs.Model.Context;
 using System;

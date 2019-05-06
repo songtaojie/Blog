@@ -10,6 +10,10 @@
     margin: 0;
     padding: 0
 }
+*, :after, :before {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+}
 img {
     border: 0;
     display: block

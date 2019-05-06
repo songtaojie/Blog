@@ -1,4 +1,4 @@
-﻿if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
+﻿if (!jQuery) { throw new Error("BlogApp requires jQuery") }
 ; (function ($, window) {
     "use strict";
     /**

@@ -1,9 +1,9 @@
-﻿using Common.Email;
-using Common.Helper;
-using Common.Logs;
-using Common.Cache;
-using Common.Web;
-using HxBlogs.Framework;
+﻿using Hx.Common.Email;
+using Hx.Common.Helper;
+using Hx.Common.Logs;
+using Hx.Common.Cache;
+using Hx.Common.Web;
+using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
 using HxBlogs.WebApp.Models;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Common.Json;
+using Hx.Common.Json;
 using Newtonsoft.Json.Linq;
 
 namespace HxBlogs.WebApp.Areas.Admin.Controllers
@@ -168,7 +168,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         private ReturnResult ValidateUser(ReturnResult result)
         {
             string userName = Request["UserName"];
-            string pwd = Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
+            string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
             UserInfo userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
             if (userInfo == null)
             {

@@ -1,5 +1,5 @@
-﻿using Common.Helper;
-using Common.Web;
+﻿using Hx.Common.Helper;
+using Hx.Common.Web;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,7 +20,7 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult Upload()
         {
             HttpPostedFileBase imgFile = Request.Files["upload"];
-            string rootPath = Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.UploadPath);
+            string rootPath = Hx.Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.UploadPath);
             Dictionary<string, object> result = new Dictionary<string, object>();
             result.Add("uploaded ", false);
             //定义允许上传的文件扩展名
@@ -43,7 +43,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             long fileLength = imgFile.InputStream.Length;
             
-            long max = Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.maxLength, 5242880);
+            long max = Hx.Common.Config.ConfigManager.GetAppSettingValue(ConstInfo.maxLength, 5242880);
             if (fileLength > max)
             {
                 result.Add("error", new Dictionary<string, string>() { { "message", string.Format("上传文件大小超过限制,最大上传[{0}]!", Helper.GetFileSizeDes(fileLength)) } });

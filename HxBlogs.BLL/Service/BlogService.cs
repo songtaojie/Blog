@@ -14,7 +14,7 @@ namespace HxBlogs.BLL
         public override Blog BeforeInsert(Blog model)
         {
             model = base.BeforeInsert(model);
-            if (Common.Helper.Helper.IsYes(model.IsPublish))
+            if (Hx.Common.Helper.Helper.IsYes(model.IsPublish))
             {
                 model.PublishDate = DateTime.Now;
             }

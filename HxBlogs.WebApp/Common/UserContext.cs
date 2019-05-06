@@ -1,6 +1,6 @@
-﻿using Common.Cache;
-using Common.Helper;
-using HxBlogs.Framework;
+﻿using Hx.Common.Cache;
+using Hx.Common.Helper;
+using Hx.Framework;
 using HxBlogs.Model;
 using Newtonsoft.Json;
 using System;
@@ -71,7 +71,7 @@ namespace HxBlogs.WebApp
             string cookieName = WebHelper.GetCookieValue(ConstInfo.CookieName);
             if (!string.IsNullOrEmpty(cookieName))
             {
-                string jsonUser = Common.Security.SafeHelper.DESDecrypt(cookieName);
+                string jsonUser = Hx.Common.Security.SafeHelper.DESDecrypt(cookieName);
                 Dictionary<string, string> user = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonUser);
                 if (user.ContainsKey(nameof(UserInfo.UserName)) && user.ContainsKey(nameof(UserInfo.PassWord)))
                 {
@@ -107,7 +107,7 @@ namespace HxBlogs.WebApp
                 user.Add(nameof(userInfo.UserName), userInfo.UserName);
                 user.Add(nameof(userInfo.PassWord), userInfo.PassWord);
                 string jsonUser = JsonConvert.SerializeObject(user);
-                string desUser = Common.Security.SafeHelper.DESEncrypt(jsonUser);
+                string desUser = Hx.Common.Security.SafeHelper.DESEncrypt(jsonUser);
                 WebHelper.SetCookieValue(ConstInfo.CookieName, desUser, DateTime.Now.AddDays(7));
             }
         }

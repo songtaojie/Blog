@@ -55,7 +55,7 @@ namespace HxBlogs.Model.Context
             context.Set<UserInfo>().Add(new UserInfo()
             {
                 UserName = "Admin",
-                PassWord = Common.Security.SafeHelper.MD5TwoEncrypt("123456"),
+                PassWord = Hx.Common.Security.SafeHelper.MD5TwoEncrypt("123456"),
                 // PwdConfirm = pwd,
                 NickName = "超级管理员",
                 RealName = "管理员",

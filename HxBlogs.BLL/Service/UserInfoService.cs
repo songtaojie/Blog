@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
-using Common.Security;
+using Hx.Common.Security;
 
 namespace HxBlogs.BLL
 {

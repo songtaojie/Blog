@@ -192,5 +192,7 @@ namespace HxBlogs.BLL
             entity = BeforeLogicDelete(entity);
         }
         #endregion
+
+        
     }
 }

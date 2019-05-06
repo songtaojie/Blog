@@ -1,4 +1,4 @@
-﻿using HxBlogs.Framework.Mappers;
+﻿using Hx.Framework.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Security;
+using Hx.Common.Security;
 namespace HxBlogs.Core.Validate
 {
     public class BaseUserValidate

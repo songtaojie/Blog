@@ -1,4 +1,4 @@
-﻿using HxBlogs.Framework.Dependency;
+﻿using Hx.Framework.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
