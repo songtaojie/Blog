@@ -31,7 +31,8 @@ namespace HxBlogs.WebApp.Controllers
             List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id && t.IsDeleted == "N").ToList();
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
-            ViewBag.BlogTagList = tagList; 
+            ViewBag.BlogTagList = tagList;
+            if (cateService != null) throw new Exception("这是一个测试");
             return View();
         }
         public ActionResult Save(Models.EditViewModel editInfo)

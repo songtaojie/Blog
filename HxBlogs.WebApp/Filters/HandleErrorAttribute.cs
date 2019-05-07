@@ -1,9 +1,8 @@
 ﻿using Hx.Common.Logs;
 using Hx.Framework;
+using HxBlogs.Model;
 using HxBlogs.WebApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -27,14 +26,15 @@ namespace HxBlogs.WebApp.Filters
             if (context.Exception is UserFriendlyException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
-                context.Result = new ContentResult { Content = new AjaxResult { type = ResultType.error, message = context.Exception.Message }.ToJson() };
+                string result = JsonConvert.SerializeObject(new AjaxResult { Type = ResultType.Error, Message = context.Exception.Message });
+                context.Result = new ContentResult { Content = result };
             }
             else if (context.Exception is NoAuthorizeException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 if (!context.HttpContext.Request.IsAjaxRequest())
                 {
-                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "Error", action = "Error401", errorUrl = context.HttpContext.Request.RawUrl });
+                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error401", errorUrl = context.HttpContext.Request.RawUrl });
                 }
                 else
                 {
@@ -45,14 +45,14 @@ namespace HxBlogs.WebApp.Filters
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 ExceptionMessage error = new ExceptionMessage(context.Exception);
-                var s = error.ToJson();
+                var s = JsonConvert.SerializeObject(error);
                 if (!context.HttpContext.Request.IsAjaxRequest())
                 {
-                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "Error", action = "Error500", data = WebHelper.UrlEncode(s) });
+                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error500", data = HttpUtility.UrlEncode(s) });
                 }
                 else
                 {
-                    context.Result = new ContentResult { Content = WebHelper.UrlEncode(s) };
+                    context.Result = new ContentResult { Content = HttpUtility.UrlEncode(s) };
                 }
             }
         }
@@ -69,12 +69,12 @@ namespace HxBlogs.WebApp.Filters
             if (context.Exception is NoAuthorizeException || context.Exception is UserFriendlyException)
             {
                 //友好错误提示,未授权错误提示，记录警告日志
-                Logger.Warn(context.Exception.Message);
+                Logger.Warn(context.Exception.Message, context.Exception);
             }
             else
             {
                 //异常错误，
-                Logger.Error(context.Exception.Message);
+                Logger.Error(context.Exception.Message, context.Exception);
                 ////TODO :写入错误日志到数据库
             }
         }

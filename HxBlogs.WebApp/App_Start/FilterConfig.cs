@@ -7,7 +7,7 @@ namespace HxBlogs.WebApp
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new HxBlogs.WebApp.Filters.HandleErrorAttribute());
         }
     }
 }

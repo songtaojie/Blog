@@ -182,6 +182,7 @@
     <Compile Include="Common\UserContext.cs" />
     <Compile Include="Common\WebHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EditController.cs" />
@@ -190,10 +191,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AjaxResult.cs" />
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\EmailManager.cs" />
+    <Compile Include="Models\ExceptionMessage.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Models\UserFriendlyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +214,9 @@
     <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\App\Font\fonts\icomoon.svg" />
     <Content Include="Content\App\Font\blog-font.css" />
+    <Content Include="Content\Images\401.png" />
+    <Content Include="Content\Images\404.png" />
+    <Content Include="Content\Images\500.png" />
     <Content Include="Content\Images\articlebg.png" />
     <Content Include="Content\Images\content\content_top.jpg" />
     <Content Include="Content\Images\content\content_list_item.jpg" />
@@ -712,6 +717,9 @@
     <Content Include="Views\Layout\_Footer.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Edit\PostEdit.cshtml" />
+    <Content Include="Views\Error\Error404.cshtml" />
+    <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Error\Error401.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
