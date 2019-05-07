@@ -19,11 +19,11 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="TypeId">
+                    <label class="col-md-4 control-label" for="CatId">
                         系统分类<span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-12">
-                        <select class="form-control" required name="TypeId">
+                        <select class="form-control" required name="CatId">
                             <option value="-1" selected="selected">请选择</option>
                             @if (ViewBag.CategoryList != null)
                             {
@@ -79,7 +79,7 @@
                         文章类型<span class="required">*</span>
                     </label>
                     <div class="col-md-8 col-sm-12">
-                        <select class="form-control" required name="CatId">
+                        <select class="form-control" required name="TypeId">
                             <option value="-1" selected="selected">请选择</option>
                             @if (ViewBag.BlogTypeList != null)
                             {

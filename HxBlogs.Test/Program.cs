@@ -43,7 +43,7 @@ namespace HxBlogs.Test
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                 }

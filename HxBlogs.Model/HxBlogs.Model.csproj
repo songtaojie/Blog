@@ -69,6 +69,7 @@
     <Compile Include="Context\BlogContext.cs" />
     <Compile Include="Context\DbSession.cs" />
     <Compile Include="Context\IDbSession.cs" />
+    <Compile Include="DbContextManager.cs" />
     <Compile Include="Entries\Blog.cs" />
     <Compile Include="Entries\BlogBlogTag.cs" />
     <Compile Include="Entries\BlogTag.cs" />

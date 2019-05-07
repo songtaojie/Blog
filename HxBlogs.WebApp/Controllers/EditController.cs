@@ -28,7 +28,7 @@ namespace HxBlogs.WebApp.Controllers
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
             IEnumerable<Category> cateList = cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
             IEnumerable<BlogType> typeList = typeService.QueryEntities(t => t.IsDeleted == "N").OrderByDescending(t => t.Order);
-            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id).ToList();
+            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id && t.IsDeleted == "N").ToList();
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList; 
@@ -42,34 +42,54 @@ namespace HxBlogs.WebApp.Controllers
                 TransactionManager.Excute(delegate
                 {
                     Blog blogInfo = MapperManager.Map<Blog>(editInfo);
+                    DbContextManager dbContext = new DbContextManager();
                     string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
                     if (imgList.Length > 0) blogInfo.ImgUrl = imgList[1];
                     blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
                     blogInfo = FillAddModel(blogInfo);
+                    blogInfo = dbContext.Add(blogInfo);
+                    //blogInfo = _blogService.Insert(blogInfo);
                     if (!string.IsNullOrEmpty(editInfo.PersonTags))
                     {
-                        Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(editInfo.PersonTags);
-                        IEnumerable<KeyValuePair<string, string>> dicts = dictionary.Where(r => r.Key.Contains("newData"));
+                        Dictionary<string, string> dicts = JsonConvert.DeserializeObject<Dictionary<string, string>>(editInfo.PersonTags);
                         foreach (KeyValuePair<string, string> item in dicts)
                         {
-                            if (!string.IsNullOrEmpty(item.Value))
+                            if (item.Key.Contains("newData") && !string.IsNullOrEmpty(item.Value))
                             {
                                 string value = item.Value.Trim();
                                 if (!_tagService.Exist(b => b.Name == value))
                                 {
-                                    BlogTag tag = new BlogTag
+                                    BlogTag tag = new BlogTag()
                                     {
-                                        Name = value
+                                        Name = value,
                                     };
+                                    if (UserContext.LoginUser != null)
+                                    {
+                                        tag.UserId = UserContext.LoginUser.Id;
+                                    }
                                     FillAddModel(tag);
-                                    tag = _tagService.Insert(tag);
+                                    tag = dbContext.Add(tag);
+
+                                    BlogBlogTag blogTag = new BlogBlogTag()
+                                    {
+                                        BlogId = blogInfo.Id,
+                                        TagId = tag.Id
+                                    };
+                                    blogTag = dbContext.Add(blogTag);
                                 }
                             }
-                            
-                            
+                            else
+                            {
+                                BlogBlogTag blogTag = new BlogBlogTag()
+                                {
+                                    BlogId = blogInfo.Id,
+                                    TagId = Convert.ToInt32(item.Key)
+                                };
+                                blogTag = dbContext.Add(blogTag);
+                            }
                         }
                     }
-                    //_blogService.Insert(blogInfo);
+                    dbContext.SaveChages();
                 });
             }
             else

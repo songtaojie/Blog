@@ -98,9 +98,9 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             Guid key = Guid.NewGuid();
             MemcachedHelper.Set(key.ToString(), userName, DateTime.Now.AddMinutes(30));
             var checkUrl = Request.Url.Scheme + "://" + Request.Url.Host + ":" +
-                Request.Url.Port + "/Admin/Account/Activation?key=" + key;
-            string mailAccount = Common.Config.ConfigManager.GetAppSettingValue("MailAccount")
-                ,mailPwd = Common.Config.ConfigManager.GetAppSettingValue("");
+                Request.Url.Port + "/admin/account/activation?key=" + key;
+            string mailAccount = Hx.Common.Config.ConfigManager.GetAppSettingValue("MailAccount")
+                ,mailPwd = Hx.Common.Config.ConfigManager.GetAppSettingValue("");
             await Task.Run(() =>
             {
                 EmailHelper email = new EmailHelper()

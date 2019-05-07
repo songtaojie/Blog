@@ -22,7 +22,7 @@ namespace HxBlogs.WebApp.Models
             get;set;
         }
         [Required(ErrorMessage = "系统分类不能为空!")]
-        public int BlogID
+        public int TypeID
         {
             get;set;
         }

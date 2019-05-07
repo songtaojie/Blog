@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace HxBlogs.Model.Context
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class BlogContext:DbContext
+    internal class BlogContext:DbContext
     {
         public BlogContext() : base("name=MyContext")
         {
@@ -47,7 +47,7 @@ namespace HxBlogs.Model.Context
 
         public DbSet<Blog> Blog { get; set; } 
     }
-    public class SeedDataInitializer : CreateDatabaseIfNotExists<BlogContext>
+    internal class SeedDataInitializer : CreateDatabaseIfNotExists<BlogContext>
     {
         protected override void Seed(BlogContext context)
         {

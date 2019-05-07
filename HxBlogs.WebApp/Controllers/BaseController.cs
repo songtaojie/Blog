@@ -21,10 +21,6 @@ namespace HxBlogs.WebApp.Controllers
                 return ContainerManager.Resolve<ILogger>();
             }
         }
-        public UserInfo LoginUser
-        {
-            get; set;
-        }
         /// <summary>
         /// 在执行控制器的方法前，先执行该方法，可以用来进行校验
         /// </summary>
@@ -50,7 +46,13 @@ namespace HxBlogs.WebApp.Controllers
                 filterContext.Result = Redirect(string.Format("/login?{0}={1}", ConstInfo.returnUrl, pageUrl));
             }
         }
-        
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            base.OnException(filterContext);
+        }
+
+
         private bool AllowAnonymous(ActionExecutingContext filterContext)
         {
             if (filterContext.HttpContext.Request.Url == null)

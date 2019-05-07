@@ -50,5 +50,13 @@ namespace HxBlogs.BLL
                 throw new System.Reflection.TargetInvocationException(inner);
             }
         }
+        /// <summary>
+        /// 事务提交时，最后一次性保存所有的更改
+        /// </summary>
+        /// <returns></returns>
+        public static bool SaveChanges()
+        {
+            return DbSession.SaveChange();
+        }
     }
 }
