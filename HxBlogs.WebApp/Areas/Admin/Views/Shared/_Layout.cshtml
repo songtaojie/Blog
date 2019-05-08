@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 海·星の博客</title>
     @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Metronic/css")
-    @Styles.Render("~/Content/App/css/login.css")
+    @Styles.Render("~/Content/font")
+    @Styles.Render("~/Content/app/css/login.css")
    @RenderSection("styles", required: false)
 </head>
 <body class="login">
@@ -26,13 +26,9 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/metronic")
-    <script src="~/Content/Plugin/Metronic/jquery/js/jquery.blockui.min.js"></script>
     @RenderSection("scripts", required: false)
     <script>
-        $(function () {
-            App.init();
-        })
+        
     </script>
 </body>
 </html>

@@ -32,7 +32,7 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList;
-            if (cateService != null) throw new Exception("这是一个测试");
+            //if (cateService != null) throw new Exception("这是一个测试");
             return View();
         }
         public ActionResult Save(Models.EditViewModel editInfo)

@@ -14,7 +14,6 @@ body {
 .login {
     background-color: #444 !important;
 }
-
     .login .logo {
         width: 247px;
         margin: 0 auto;
@@ -61,7 +60,9 @@ body {
             }
 
         .login .content .img-validate {
-            height: 28px;
+            height: 100%;
+            width: 4.68rem;
+            width: fit-content;
             cursor: pointer;
         }
 
@@ -116,12 +117,7 @@ body {
             margin-top: 8px;
             display: inline-block;
         }
-
-        .login .content .form-actions .btn {
-            margin-top: 1px;
-        }
-
-        .login .content .form-actions .btn-register {
+        .btn-register {
             width: 100%;
         }
 
@@ -152,7 +148,9 @@ body {
         color: #999;
         font-size: 11px;
     }
-
+.fa-same {
+    width: 1rem;
+}
 .page-spinner-bar > div,
 .block-spinner-bar > div {
     background: #20c5ad !important;

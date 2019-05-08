@@ -2,79 +2,85 @@
 @{
     ViewBag.Title = "用户登录";
 }
-@section styles{
-    <link href="~/Content/Plugin/Metronic/uniform/css/uniform.default.css" rel="stylesheet" />
-}
 <div class="content">
     @using (Ajax.BeginForm("login", "account", new { },
-            new AjaxOptions()
-            {
-                OnBegin = "Login.beforeLogin",
-                HttpMethod = "post",
-                OnSuccess = "Login.afterLogin",
-                OnComplete = "Login.finishLogin",
-                OnFailure="Login.doFailure"
-            }, new
-            {
-                @class = "form-vertical login-form",
-                role = "form",
-                id = "loginForm"
-            }))
+                new AjaxOptions()
+                {
+                    OnBegin = "Login.beforeLogin",
+                    HttpMethod = "post",
+                    OnSuccess = "Login.afterLogin",
+                    OnComplete = "Login.finishLogin",
+                    OnFailure = "Login.doFailure"
+                }, new
+                {
+                    @class = "form-vertical login-form",
+                    role = "form",
+                    id = "loginForm"
+                }))
     {
         <h3 class="form-title">用户登录</h3>
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
-        <div class="control-group">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-user fa-same"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="text" placeholder="用户名/邮箱" name="UserName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-lock fa-same"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="password" placeholder="密码" name="PassWord" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-drivers-license"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="password" placeholder="验证码" name="ValidateCode" />
+                <div class="input-group-append">
+                    <div class="input-group-text" style="padding:0;">
+                        <img id="img" class="img-validate" onclick="this.src=this.src+1" src="/Account/ShowValidateCode?id=1" title="看不清,点击换一张" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">用户名</label>
-            <div class="controls">
-                <div class="input-icon left">
-                    @*<i class="fa fa-user"></i>*@
-                    <i class="glyphicon glyphicon-user" style="top:initial;"></i>
-                    <input class="m-wrap placeholder-no-fix" type="text" placeholder="用户名/邮箱" name="UserName" />
-                </div>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label visible-ie8 visible-ie9">密码</label>
-            <div class="controls">
-                <div class="input-icon left">
-                    @*<i class="fa fa-lock"></i>*@
-                    <i class="glyphicon glyphicon-lock" style="top:initial;"></i>
-                    <input class="m-wrap placeholder-no-fix" type="password" placeholder="密码" name="PassWord" />
-                </div>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label visible-ie8 visible-ie9">验证码</label>
-            <div class="controls">
-                <div class="input-icon left">
-                    <i class="glyphicon glyphicon-sound-5-1" style="top:initial;"></i>
-                    <input class="m-wrap placeholder-no-fix input-validate" type="text" placeholder="验证码" name="ValidateCode" />
-                    <img id="img" class="pull-right img-validate" onclick="this.src=this.src+1" src="/Account/ShowValidateCode?id=1" title="看不清,点击换一张"/>
-                </div>
-            </div>
-        </div>
-        <div id="loginAlert" class="alert alert-warning hide">
+        <div id="loginAlert" class="alert alert-warning" hidden>
             <a href="#" class="close" data-dismiss="alert"></a>
             <strong>登录失败! </strong><span></span>
         </div>
-        <div class="form-actions">
-            <label class="checkbox">
-                <input type="checkbox" name="Remember" value="Y" /> 记住我
-            </label>
-            <button type="submit" class="btn green pull-right">
-                登录 <i class="m-icon-swapright m-icon-white"></i>
-            </button>
-        </div>
-        
-        <div class="forget-password">
-            <h4>忘记密码?</h4>
-            <p>
-                不用担心, 点击 <a href="javascript:;" class="" id="forget-password">这里</a>
-                找回密码.
-            </p>
-        </div>
+            <div class="form-row">
+                <div class="col" style="margin:auto;">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="Remember" value="Y" id="Remember">
+                        <label class="custom-control-label" for="Remember">记住我</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success pull-right">
+                        登录 <i class="fa fa-arrow-circle-o-right "></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="forget-password">
+                <h4>忘记密码?</h4>
+                <p>
+                    不用担心, 点击 <a href="javascript:;" class="" id="forget-password">这里</a>
+                    找回密码.
+                </p>
+            </div>
             <div class="create-account">
                 <p>
                     没有账号?&nbsp;
@@ -84,14 +90,13 @@
     }
 </div>
 @section scripts{
-<script src="~/Content/Plugin/Metronic/uniform/jquery.uniform.min.js"></script>
     <script>
         var Login = function () {
             return {
-                beforeLogin:function(a,b) {
+                beforeLogin: function (a, b) {
                     App.blockUI({ animate: true, message: '登陆中' });
                 },
-                finishLogin:function() {
+                finishLogin: function () {
                     App.unblockUI();
                 },
                 afterLogin: function (data) {
@@ -116,19 +121,19 @@
                         alert.addClass('hide');
                     }, 2000);
                 },
-                init:function() {
+                init: function () {
                     $('.login-form').validate({
                         errorElement: 'label',
                         errorClass: 'help-inline',
                         focusInvalid: false,
                         rules: {
-                            UserName: {required: true},
+                            UserName: { required: true },
                             PassWord: { required: true },
                             ValidateCode: {
                                 required: true,
                                 remote: {
                                     url: 'admin/account/checkcode',
-                                    type:'post',
+                                    type: 'post',
                                     data: {
                                         code: function () {
                                             $('input.input-validate').val();
@@ -142,15 +147,15 @@
                             PassWord: '密码不能为空!',
                             ValidateCode: {
                                 required: '验证码不能为空!',
-                                remote:'验证码不正确!'
+                                remote: '验证码不正确!'
                             }
                         },
-                        //display error alert on form submit   
+                        //display error alert on form submit
                         invalidHandler: function (event, validator) {
                             $('.alert-error', $('.login-form')).show();
                         },
                         // hightlight error inputs
-                        highlight: function (element) { 
+                        highlight: function (element) {
                             $(element)
                                 .closest('.control-group').addClass('error'); // set error class to the control group
                         },

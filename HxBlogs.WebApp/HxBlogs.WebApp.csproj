@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -26,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -199,21 +201,41 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\App\css\blog-edit.css" />
-    <Content Include="Content\App\css\blog-header-footer.css" />
-    <Content Include="Content\App\css\blog-home.css" />
-    <Content Include="Content\App\js\blog.core.js" />
-    <Content Include="Content\App\js\editor.js" />
+    <Content Include="Content\app\css\blog-edit.css" />
+    <Content Include="Content\app\css\blog-header-footer.css" />
+    <Content Include="Content\app\css\blog-home.css" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\app\css\hx-core.css" />
+    <Content Include="Content\app\images\hx-icons-white.png" />
+    <Content Include="Content\app\images\hx-icons.png" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\app\blog.core.js" />
+    <Content Include="Scripts\app\editor.js" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Css\bootstrap.css" />
     <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
-    <Content Include="Content\FontAwesome\css\font-awesome.css" />
-    <Content Include="Content\FontAwesome\css\font-awesome.min.css" />
-    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\App\Font\fonts\icomoon.svg" />
-    <Content Include="Content\App\Font\blog-font.css" />
+    <Content Include="Content\font\font-awesome.css" />
+    <Content Include="Content\font\font-awesome.min.css" />
+    <Content Include="Content\font\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\app\font\icomoon.svg" />
+    <Content Include="Content\app\font\blog-font.css" />
     <Content Include="Content\Images\401.png" />
     <Content Include="Content\Images\404.png" />
     <Content Include="Content\Images\500.png" />
@@ -234,7 +256,7 @@
     <Content Include="Content\Images\t03.jpg" />
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\yu.png" />
-    <Content Include="Content\App\css\about-us.css" />
+    <Content Include="Content\app\css\about-us.css" />
     <Content Include="Content\Plugin\alertifyjs\alertify.js" />
     <Content Include="Content\Plugin\alertifyjs\alertify.min.js" />
     <Content Include="Content\Plugin\alertifyjs\css\alertify.css" />
@@ -359,8 +381,8 @@
     <Content Include="Content\Plugin\Metronic\jquery\jqvmap\jqvmap.css" />
     <Content Include="Content\Plugin\Metronic\theme\light.css" />
     <Content Include="Content\Plugin\Metronic\css\lock.css" />
-    <Content Include="Content\App\css\login-soft.css" />
-    <Content Include="Content\App\css\login.css" />
+    <Content Include="Content\app\css\login-soft.css" />
+    <Content Include="Content\app\css\login.css" />
     <Content Include="Content\Plugin\Metronic\css\multi-select-metro.css" />
     <Content Include="Content\Plugin\Metronic\css\news.css" />
     <Content Include="Content\Plugin\Metronic\css\pricing-tables.css" />
@@ -563,19 +585,16 @@
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.css" />
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
     <Content Include="favicon.ico" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Css\blog-site.css" />
-    <Content Include="Content\App\js\jquery.extendsion.js" />
-    <Content Include="Content\App\js\scrollReveal.js" />
-    <Content Include="Content\Scripts\bootstrap.js" />
-    <Content Include="Content\Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\app\jquery.extendsion.js" />
+    <Content Include="Scripts\app\scrollReveal.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\App\Font\fonts\icomoon.eot" />
-    <Content Include="Content\App\Font\fonts\icomoon.ttf" />
-    <Content Include="Content\App\Font\fonts\icomoon.woff" />
+    <Content Include="Content\app\font\icomoon.eot" />
+    <Content Include="Content\app\font\icomoon.ttf" />
+    <Content Include="Content\app\font\icomoon.woff" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
@@ -589,11 +608,11 @@
     <Content Include="Content\Plugin\Metronic\image\glyphiconshalflings-regular.ttf" />
     <Content Include="Content\Plugin\Metronic\image\glyphiconshalflings-regular.woff" />
     <Content Include="Content\Plugin\Metronic\image\js" />
-    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\FontAwesome\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\FontAwesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font\fonts\FontAwesome.otf" />
     <Content Include="log4net.config" />
     <Content Include="Areas\Admin\Views\Account\Activation.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
@@ -604,16 +623,12 @@
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\README.md" />
     <Content Include="Content\Plugin\WangEditor\fonts\w-e-icon.woff" />
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.js.map" />
-    <None Include="Content\Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Content\Scripts\jquery-1.10.2.js" />
-    <Content Include="Content\Scripts\jquery-1.10.2.min.js" />
-    <None Include="Content\Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Content\Scripts\jquery.validate.js" />
-    <Content Include="Content\Scripts\jquery.validate.min.js" />
-    <Content Include="Content\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\Plugin\Metronic\js\additional-methods.min.js" />
     <Content Include="Content\Plugin\Metronic\js\app.js" />
     <Content Include="Content\Plugin\Metronic\bootstrap\js\bootstrap-colorpicker.js" />
@@ -635,7 +650,7 @@
     <Content Include="Content\Plugin\Metronic\js\ckeditor.js" />
     <Content Include="Content\Plugin\Metronic\js\clockface.js" />
     <Content Include="Content\Plugin\Metronic\js\coming-soon.js" />
-    <Content Include="Content\App\js\contact-us.js" />
+    <Content Include="Scripts\app\contact-us.js" />
     <Content Include="Content\Plugin\Metronic\js\date.js" />
     <Content Include="Content\Plugin\Metronic\js\daterangepicker.js" />
     <Content Include="Content\Plugin\Metronic\js\dropzone.js" />
@@ -650,7 +665,7 @@
     <Content Include="Content\Plugin\Metronic\js\gallery.js" />
     <Content Include="Content\Plugin\Metronic\js\gmaps.js" />
     <Content Include="Content\Plugin\Metronic\js\inbox.js" />
-    <Content Include="Content\App\js\index.js" />
+    <Content Include="Scripts\app\index.js" />
     <Content Include="Content\Plugin\Metronic\jquery\js\jquery-1.10.1.min.js" />
     <Content Include="Content\Plugin\Metronic\jquery\js\jquery-migrate-1.2.1.min.js" />
     <Content Include="Content\Plugin\Metronic\jquery\js\jquery-ui-1.10.1.custom.min.js" />
@@ -696,8 +711,8 @@
     <Content Include="Content\Plugin\Metronic\jquery\js\jquery.xdr-transport.js" />
     <Content Include="Content\Plugin\Metronic\js\load-image.min.js" />
     <Content Include="Content\Plugin\Metronic\js\lock.js" />
-    <Content Include="Content\App\js\login-soft.js" />
-    <Content Include="Content\App\js\login.js" />
+    <Content Include="Scripts\app\login-soft.js" />
+    <Content Include="Scripts\app\login.js" />
     <Content Include="Content\Plugin\Metronic\js\maps-google.js" />
     <Content Include="Content\Plugin\Metronic\js\maps-vector.js" />
     <Content Include="Content\Plugin\Metronic\js\portlet-draggable.js" />
@@ -714,9 +729,35 @@
     <Content Include="Content\Plugin\Metronic\ui\ui-sliders.js" />
     <Content Include="Content\Plugin\Metronic\ui\ui-tree.js" />
     <Content Include="Content\Plugin\Metronic\wysihtml5\wysihtml5-0.3.0.js" />
-    <Content Include="Content\Scripts\modernizr-2.6.2.js" />
-    <Content Include="Content\Scripts\respond.js" />
-    <Content Include="Content\Scripts\respond.min.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.0.0.js" />
+    <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.js" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -738,6 +779,17 @@
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\Error401.cshtml" />
+    <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.0.0.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -748,19 +800,7 @@
     <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HxBlogs.BLL\HxBlogs.BLL.csproj">
@@ -784,11 +824,18 @@
       <Name>HxBlogs.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
