@@ -13,6 +13,7 @@
                 HttpMethod = "post",
                 OnSuccess = "Login.afterLogin",
                 OnComplete = "Login.finishLogin",
+                OnFailure="Login.doFailure"
             }, new
             {
                 @class = "form-vertical login-form",
@@ -97,7 +98,6 @@
                     if (data.IsSuccess) {
                         window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
                     } else {
-                        debugger
                         var alert = $('#loginAlert'),
                             span = alert.find('span');
                         span.html(data.Message);
@@ -106,6 +106,15 @@
                             alert.addClass('hide');
                         }, 2000);
                     }
+                },
+                doFailure(data) {
+                    var alert = $('#loginAlert'),
+                        span = alert.find('span');
+                    span.html(data.responseText);
+                    alert.removeClass('hide');
+                    setTimeout(function () {
+                        alert.addClass('hide');
+                    }, 2000);
                 },
                 init:function() {
                     $('.login-form').validate({

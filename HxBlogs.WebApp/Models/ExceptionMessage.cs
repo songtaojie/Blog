@@ -44,7 +44,7 @@ namespace HxBlogs.WebApp.Models
             Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             ShowException = isShowException;
             var request = HttpContext.Current.Request;
-            IP = WebHelper.GetClientIp();
+            //IP = WebHelper.GetClientIp();
             UserAgent = request.UserAgent;
             Path = request.Path;
             HttpMethod = request.HttpMethod;

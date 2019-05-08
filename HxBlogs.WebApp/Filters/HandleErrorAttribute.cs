@@ -38,7 +38,7 @@ namespace HxBlogs.WebApp.Filters
                 }
                 else
                 {
-                    context.Result = new ContentResult { Content = context.HttpContext.Request.RawUrl };
+                    context.Result = new ContentResult { Content = context.Exception.Message };
                 }
             }
             else
