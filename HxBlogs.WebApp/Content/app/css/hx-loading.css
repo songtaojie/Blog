@@ -70,7 +70,7 @@ three-bounce
 
 */
 .hx-loading-circle {
-    margin: 40px auto;
+    margin: 0 auto;
     width: 40px;
     height: 40px;
     position: relative;
@@ -244,7 +244,7 @@ three-bounce
 fading-circle
 *********/
 .hx-loading-fading-circle {
-    margin: 40px auto;
+    margin: 0 auto;
     width: 40px;
     height: 40px;
     position: relative;
