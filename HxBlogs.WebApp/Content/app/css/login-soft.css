@@ -1,0 +1,176 @@
+﻿/***
+Login page
+***/
+
+/* logo page */
+html {
+    height: 100%;
+}
+
+body {
+    background: #110915 url(/Content/Images/newbg.png) center bottom no-repeat;
+}
+
+.login {
+    background-color: #666 !important;
+}
+
+    .login .logo {
+        width: 247px;
+        margin: 0 auto;
+        margin-top: 60px;
+        padding: 15px;
+        text-align: center;
+    }
+
+
+    .login .content {
+        background: url(../image/bg-white-lock.png) repeat;
+        width: 320px;
+        margin: 0 auto;
+        margin-bottom: 0px;
+        padding: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+        .login .content h3 {
+            color: #eee;
+        }
+
+        .login .content h4 {
+            color: #eee;
+        }
+
+        .login .content p,
+        .login .content label {
+            color: #fff;
+        }
+
+        .login .content .login-form,
+        .login .content .forget-form {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .login .content .m-wrap {
+            width: 249px;
+            background-color: #fff;
+        }
+            .login .content .m-wrap.input-validate {
+                width: 149px;
+            }
+        .login .content .img-validate {
+            height:28px;
+            cursor:pointer;
+        } 
+        .login .content .control-group {
+            margin-bottom: 15px !important;
+        }
+
+        .login .content .input-icon .m-wrap {
+            margin: 0px !important;
+        }
+
+        .login .content .forget-form {
+            display: none;
+        }
+
+        /*.login .content .register-form {
+            display: none;
+        }*/
+
+        .login .content .form-title {
+            text-align: center;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+
+        .login .content .form-actions {
+            background-color: transparent;
+            clear: both;
+            border: 0px;
+            border-bottom: 1px solid #999;
+            padding: 0px 30px 15px 30px;
+            margin:15px -30px;
+        }
+
+        .login .content .forget-form .form-actions {
+            border: 0;
+            margin-bottom: 0;
+            padding-bottom: 20px;
+        }
+
+        .login .content .register-form .form-actions {
+            border: 0;
+            margin-bottom: 0;
+            padding-bottom: 0px;
+        }
+
+        .login .content .form-actions .checkbox {
+            margin-top: 8px;
+            display: inline-block;
+        }
+
+        .login .content .form-actions .btn {
+            margin-top: 1px;
+        }
+        .login .content .form-actions .btn-register {
+            width: 100%;
+        }
+
+        .login .content .forget-password {
+            margin-top: 20px;
+        }
+
+        .login .content .create-account {
+            border-top: 1px dotted #eee;
+            /*padding-top: 10px;
+            margin-top: 15px;*/
+        }
+
+            .login .content .create-account a {
+                display: inline-block;
+                margin-top: 5px;
+            }
+        .login .content .field-validation-error {
+            color: cyan;
+        }
+    .login .copyright {
+        text-align: center;
+        width: 270px;
+        margin: 0 auto;
+        padding: 10px 10px 0 10px;
+        color: #eee;
+        font-size: 12px;
+    }
+.page-spinner-bar > div,
+.block-spinner-bar > div {
+    background: #54dac7 !important;
+}
+@media (max-width: 480px) {
+    /***
+  Login page
+  ***/
+    .login .logo {
+        margin-top: 10px;
+    }
+    .login .content {
+        padding: 30px;
+        width: 250px;
+    }
+
+        .login .content h3 {
+            font-size: 22px;
+        }
+            .login .content .m-wrap.input-validate {
+                width: 90px;
+            }
+
+        .login .content .img-validate {
+            height: 25px;
+        } 
+    .login .checkbox {
+        font-size: 13px;
+    }
+}
