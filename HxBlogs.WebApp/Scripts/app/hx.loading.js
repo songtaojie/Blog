@@ -8,8 +8,16 @@
         var me = this,
             loadCls = 'hx-loading-fading-circle',
             html = '',
+            color = (opt.color || '').toLowerCase(),
+            label = '加载中...',
             labelAlign = (opt.labelAlign || '').toLowerCase(),
-            hxStyle = 'display: inline-flex;display: -webkit-inline-flex;justify-content: center;;-webkit-justify-content: center;align-items: center;-webkit-align-items: center;';
+            hxStyle = '';
+        //信息
+        if (opt.label === false) {
+            label = '';
+        } else if (opt.label) {
+            label = opt.label === true ? label : opt.label;
+        }
         //信息方向
         if (labelAlign === 'left' || labelAlign === 'l') {
             hxStyle += 'flex-direction: row-reverse;-webkit-flex-direction: row-reverse;';
@@ -24,30 +32,33 @@
         var mode = (opt.mode || '').toLowerCase();
         if (mode === 'bounce' || mode === 'b') {
             loadCls = 'hx-loading-bounce';
-            html = `<div class="${loadCls}">
-                        <div class="hx-loading-child bounce1"></div>
-                        <div class="hx-loading-child bounce2"></div>
-                        <div class="hx-loading-child bounce3"></div>
-                        <span>&nbsp;&nbsp;${opt.message ? opt.message : ''}
-                    </div>`;
+            html = `<div class='hx-loading' style="${hxStyle}">
+                        <div class="${loadCls} hx-loading-${color}">
+                            <div class="bounce-child bounce1"></div>
+                            <div class="bounce-child bounce2"></div>
+                            <div class="bounce-child bounce3"></div>
+                        </div>
+                        <span>&nbsp;&nbsp;${label}
+                    </div>
+                `;
         } else if (mode === 'circle' || mode === 'c') {
             loadCls = 'hx-loading-circle';
-            html += `<div class="${hxStyle}">`;
-            html += `<div class="${loadCls}">`;
+            html += `<div class='hx-loading' style="${hxStyle}">`;
+            html += `<div class="${loadCls} hx-loading-${color}">`;
             for (var i = 1; i <= 12; i++) {
-                html += `<div class="circle${i} hx-loading-child"></div>`;
+                html += `<div class="circle${i} circle-child"></div>`;
             }
             html += '</div>';
-            html += `<span style='display:block;'>&nbsp;&nbsp;${opt.message ? opt.message : ''}`;
+            html += `<span style='display:block;'>&nbsp;&nbsp;${label}`;
             html += '</div>';
         } else {
-            html += `<div class="${hxStyle}">`;
-            html += `<div class="${loadCls}">`;
+            html += `<div class='hx-loading' style="${hxStyle}">`;
+            html += `<div class="${loadCls} hx-loading-${color}">`;
             for (var j = 1; j <= 12; j++) {
-                html += `<div class="fadecircle${j} hx-loading-circle"></div>`;
+                html += `<div class="fadecircle${j} circle-child"></div>`;
             }
             html += '</div>';
-            html += `<span>&nbsp;&nbsp;${opt.message ? opt.message : ''}`;
+            html += `<span>&nbsp;&nbsp;${label}`;
             html += '</div>';
         }
         var blockOpt = {

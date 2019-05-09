@@ -21,7 +21,6 @@
         <h3 class="form-title">用户登录</h3>
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <div class="form-row  mb-3">
-            @*<label class="control-label visible-ie8 visible-ie9">用户名</label>*@
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -56,10 +55,11 @@
                 </div>
             </div>
         </div>
-
-        <div id="loginAlert" class="alert alert-warning" hidden>
-            <a href="#" class="close" data-dismiss="alert"></a>
-            <strong>登录失败! </strong><span></span>
+        <div class="form-row d-none" id="loginAlert">
+            <div class="alert alert-warning col">
+                <a href="#" class="close" data-dismiss="alert"></a>
+                <strong>登录失败! </strong><span></span>
+            </div>
         </div>
         <div class="form-row">
             <div class="col my-auto">

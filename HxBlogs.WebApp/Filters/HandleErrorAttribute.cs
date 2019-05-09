@@ -23,27 +23,27 @@ namespace HxBlogs.WebApp.Filters
             WriteLog(context);
             base.OnException(context);
             context.ExceptionHandled = true;
+            AjaxResult result = new AjaxResult { Type = ResultType.Error, Message = context.Exception.Message };
             if (context.Exception is UserFriendlyException)
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
-                string result = JsonConvert.SerializeObject(new AjaxResult { Type = ResultType.Error, Message = context.Exception.Message });
-                context.Result = new ContentResult { Content = result };
+                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                context.Result = new JsonResult() { Data = result };
             }
             else if (context.Exception is NoAuthorizeException)
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 if (!context.HttpContext.Request.IsAjaxRequest())
                 {
                     context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error401", errorUrl = context.HttpContext.Request.RawUrl });
                 }
                 else
                 {
-                    context.Result = new ContentResult { Content = context.Exception.Message };
+                    context.Result = new JsonResult() { Data = result };
                 }
             }
             else
             {
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 ExceptionMessage error = new ExceptionMessage(context.Exception);
                 var s = JsonConvert.SerializeObject(error);
                 if (!context.HttpContext.Request.IsAjaxRequest())
@@ -52,7 +52,8 @@ namespace HxBlogs.WebApp.Filters
                 }
                 else
                 {
-                    context.Result = new ContentResult { Content = HttpUtility.UrlEncode(s) };
+                    result.Message = error.Message;
+                    context.Result = new JsonResult() { Data = result };
                 }
             }
         }

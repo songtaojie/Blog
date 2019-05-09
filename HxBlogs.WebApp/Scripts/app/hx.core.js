@@ -107,12 +107,89 @@
         },
         guid() {
             return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+       },
+        /**
+         * 将config的所有属性复制到对象（如果它们尚不存在）。
+         * @param {Object} object 属性的接收者
+         * @param {Object} config 属性的来源
+         * @return {Object} 操作后的对象
+         */
+        applyIf(object, config) {
+            if (object && config && typeof config === 'object') {
+                for (var property in config) {
+                    if (object[property] === undefined) {
+                        object[property] = config[property];
+                    }
+                }
+            }
+            return object;
+        },
+        ajax(url,options) {
+            if (arguments.length == 0 || !hxCore.isString(url) || !hxCore.isEmpty(url)) {
+                _remind('ajax 参数不正确', false);
+                return;
+            }
+            const opt = _handleOptions(options);
+            if (opt.maskTarget) {
+                HxLoad.blockUI(opt.maskTarget);
+            }
         }
     }
+
+    var _handleOptions = function (options) {
+        options = options || {};
+        // 遮罩层
+        if (HxLoad) {
+            var maskOpt = {};
+            if (options.maskTarget) {
+                if (options.maskTarget === true) {
+                    maskOpt = {};
+                } else if (hxCore.isString(options.maskTarget)) {
+                    if ($(options.maskTarget).length > 0) {
+                        maskOpt.target = $(options.maskTarget);
+                    } else {
+                        maskOpt.label = options.maskTarget
+                    }
+                } else if (hxCore.isObject(options.maskTarget)) {
+                    maskOpt = options.maskTarget;
+                }
+            }
+            options.maskTarget = maskOpt;
+        } else {
+            delete options.maskTarget;
+        }
+        
+        // 此ajax请求时需要禁用的按钮， 也就是防止用户连续点击按钮
+        if (options.button && !hxCore.isEmpty(options.button)) {
+            const btns = [];
+            let bs = options.button;
+            if ($.isString(bs)) {
+                bs = bs.split(',');
+            } else if ($.isArray(bs) || $.isObject(bs)) {
+                bs = bs;
+            }
+            $.each(bs, function (key, value) {
+                if ($.isEmpty(value)) return;
+                if ($.isString(value) && $(value).length > 0) {
+                    btns.push($(value));
+                } else if (value instanceof jQuery && value.length > 0) {
+                    btns.push(value);
+                }
+            });
+            if (btns.length) {
+                options.button = btns;
+            } else {
+                delete options.button;
+            }
+        }
+        options.params = $.extend({}, options.params);
+        return options;
+    };
+
     /**
      * 提醒
      */
-    function remind() {
+    function _remind() {
         var opt = {};
         if (arguments.length === 1) {
             if (hxCore.isString(arguments[0])) {
@@ -156,7 +233,7 @@
             $dialog.addClass('alert alert-info alert-dismissable');
         }
         var $dialogHtmlContent = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times;</button>{0}';
-        var $dialogHtml = formatString($dialogHtmlContent, opt.message);
+        var $dialogHtml = _formatString($dialogHtmlContent, opt.message);
         $dialog.html($dialogHtml);
         $("body").append($dialog);
 
@@ -199,7 +276,7 @@
             $dialog.remove();
         }, timeout);
     };
-    function formatString() {
+    function _formatString() {
         if (arguments.length < 1) {
             return null;
         }
@@ -212,14 +289,30 @@
         return str;
     }
     window.HxCore = $.extend(true, hxCore, {
+        /**
+         * 成功的提醒
+         * @param {any} content 提醒的内容
+         */
         remindSuccess(content) {
-            remind(content, true);
+            _remind(content, true);
         },
+        /**
+         * 错误的提醒
+         * @param {any} content 提醒的内容
+         */
         remindError(content) {
-            remind(content, false);
+            _remind(content, false);
         },
+        /**
+         * 自定义的提醒
+         * @param {any} opt 配置
+         */
         remind(opt) {
-            remind(opt); 
+            _remind(opt); 
+        },
+        formatString() {
+            _formatString(arguments);
         }
+
     });
 })(jQuery, window);

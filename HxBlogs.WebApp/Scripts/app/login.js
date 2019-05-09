@@ -2,8 +2,9 @@
 var Login = function () {
     return {
         beforeLogin: function (a, b) {
-            debugger
-            //App.blockUI({ animate: true, message: '登陆中' });
+            if (HxLoad) {
+                HxLoad.blockUI({label:'登陆中...'});
+            }
         },
         finishLogin: function () {
             //App.unblockUI();
@@ -11,23 +12,26 @@ var Login = function () {
         afterLogin: function (data) {
             if (data.IsSuccess) {
                 window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
+                HxLoad.unblockUI();
             } else {
+                HxLoad.unblockUI();
                 var alert = $('#loginAlert'),
                     span = alert.find('span');
                 span.html(data.Message);
-                alert.removeClass('hide');
+                alert.removeClass('d-none');
                 setTimeout(function () {
-                    alert.addClass('hide');
+                    alert.addClass('d-none');
                 }, 2000);
             }
         },
         doFailure(data) {
+            HxLoad.unblockUI();
             var alert = $('#loginAlert'),
                 span = alert.find('span');
             span.html(data.responseText);
-            alert.removeClass('hide');
+            alert.removeClass('d-none');
             setTimeout(function () {
-                alert.addClass('hide');
+                alert.addClass('d-none');
             }, 2000);
         },
         init: function () {
@@ -41,7 +45,7 @@ var Login = function () {
                     ValidateCode: {
                         required: true,
                         remote: {
-                            url: 'checkcode',
+                            url: 'admin/account/checkcode',
                             type: 'post',
                             data: {
                                 code: function () {
