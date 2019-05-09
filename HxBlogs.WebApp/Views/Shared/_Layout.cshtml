@@ -1,35 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/bootstrap")
     <link href="~/Content/Css/blog-site.css" rel="stylesheet" />
     <link href="~/Content/App/css/blog-header-footer.css" rel="stylesheet" />
+    <link href="~/Content/app/css/hx-loading.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
 </head>
 <body class="page-header-fixed">
     @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("应用程序名称", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("主页", "Index", "Home")</li>
+                        <li>@Html.ActionLink("关于", "About", "Home")</li>
+                        <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("关于", "About", "Home")</li>
-                    <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>*@
+        </div>*@
     @Html.Partial("../Layout/_Header")
     @RenderBody()
     @if (ViewBag.ShowFooter != false)
@@ -38,14 +39,15 @@
     }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/load")
     @*@Scripts.Render("~/bundles/app")
-    <script>
-        if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
-            (function () {
-                window.scrollReveal = new scrollReveal({ reset: true });
-            })();
-        };
-    </script>*@
+        <script>
+            if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
+                (function () {
+                    window.scrollReveal = new scrollReveal({ reset: true });
+                })();
+            };
+        </script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

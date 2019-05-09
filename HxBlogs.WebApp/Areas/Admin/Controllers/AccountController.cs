@@ -133,7 +133,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             {
                 IsSuccess = true
             };
-            if (result.IsSuccess) throw new NoAuthorizeException("你没有权限");
+            //if (result.IsSuccess) throw new NoAuthorizeException("你没有权限");
             result = ValidateCode(result);
             if(!result.IsSuccess)return Json(result, JsonRequestBehavior.AllowGet);
             result = ValidateUser(result);

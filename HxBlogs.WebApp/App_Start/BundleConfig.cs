@@ -15,9 +15,13 @@ namespace HxBlogs.WebApp
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
                         "~/Scripts/jquery.unobtrusive-ajax.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/local/messages_zh.js"));
             bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
                         "~/Scripts/app/scrollReveal.js"));
+            bundles.Add(new ScriptBundle("~/bundles/load").Include(
+                        "~/Scripts/plugin/jquery.blockUI.js",
+                       "~/Scripts/app/hx.loading.js"));
             // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
