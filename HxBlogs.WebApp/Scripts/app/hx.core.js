@@ -9,8 +9,18 @@
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }; 
     var intRex = /^[-+]?\d+(?:[Ee]\+?\d+)?$/,
-        floatRex =  /^[-+]?(?:\d+|\d*\.\d*)(?:[Ee][+-]?\d+)?$/;
+        floatRex = /^[-+]?(?:\d+|\d*\.\d*)(?:[Ee][+-]?\d+)?$/,
+        _ajaxRootUrl = '';
     var hxCore = {
+        /**
+         * 设置ajax请求时处理方法前面的根路径
+         * @param {String} root 根路径
+         */
+        setAjaxRootUrl(root) {
+            if (hxCore.isString(root)) {
+                _ajaxRootUrl = root;
+            }
+        },
         /**
          * 判断给定值是否为空
          * @param {any} value 要判断的值
@@ -66,10 +76,21 @@
             return typeof value === 'number' && isFinite(value);
         },
         /**
+         * 如果传递的值是JavaScript函数则返回“true”，否则返回“false”。
+         * @param {Object} value 要测试的值.
+         * @return {Boolean} 如果传递的值是JavaScript函数则返回“true”，否则返回“false”。
+         */
+        isFunction:
+            (typeof document !== 'undefined' && typeof document.getElementsByTagName('body') === 'function') ? function (value) {
+                return !!value && toString.call(value) === '[object Function]';
+            } : function (value) {
+                return !!value && typeof value === 'function';
+            },
+        /**
         *严格解析给定值并将值作为数字返回，如果值不是整数或包含非整数块，则返回“null”。
         * @param {String} value 要测试的值。
         * @return {Number} 严格解析给定值并将值作为数字返回，如果值不是整数或包含非整数块，则返回“null”。
-        */ 
+        */
         parseInt(value) {
             if (value === undefined) {
                 value = null;
@@ -90,7 +111,7 @@
          * @param {String} value 要测试的值。
          * @return {Number} 严格解析给定值并将值作为数字返回，如果值不是数字或包含非数字片段，则返回“null”。
          */
-       parseFloat(value) {
+        parseFloat(value) {
             if (value === undefined) {
                 value = null;
             }
@@ -107,7 +128,7 @@
         },
         guid() {
             return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-       },
+        },
         /**
          * 将config的所有属性复制到对象（如果它们尚不存在）。
          * @param {Object} object 属性的接收者
@@ -124,17 +145,46 @@
             }
             return object;
         },
-        ajax(url,options) {
-            if (arguments.length == 0 || !hxCore.isString(url) || !hxCore.isEmpty(url)) {
+        ajax(url, options) {
+            if (arguments.length === 0 || !hxCore.isString(url) || !hxCore.isEmpty(url)) {
                 _remind('ajax 参数不正确', false);
                 return;
             }
-            const opt = _handleOptions(options);
+            var opt = _handleOptions(options),
+                success = opt.success || opt.done,
+                eoor = opt.error || opt.failure,
+                complete = opt.complete || opt.always;
+            delete opt.success;
+            delete opt.done;
+            delete opt.error;
+            delete opt.failure;
+            delete opt.complete;
+            delete opt.always;
+
             if (opt.maskTarget) {
                 HxLoad.blockUI(opt.maskTarget);
             }
+            if (opt.button) {
+                $.each(opt.button, function (key, value) {
+                    value.attr('disabled', 'disabled');
+                });
+            }
+            $.ajax(hxCore.applyIf({
+                url: opt.url,
+                type: 'POST',
+                beforeSend: function () {
+                    if (hxCore.isFunction(opt.beforeSend)) {
+                        opt.beforeSend.call(this, arguments);
+                    }
+                }
+            }, opt)).done(function (response, opts) {
+                const contentType = response.getResponseHeader('content-type'),
+                    isJson = /json/i.test(contentType);
+                let result = response.responseText,
+                    succeed = true; // 请求成功
+                });
         }
-    }
+    };
 
     var _handleOptions = function (options) {
         options = options || {};
@@ -148,7 +198,7 @@
                     if ($(options.maskTarget).length > 0) {
                         maskOpt.target = $(options.maskTarget);
                     } else {
-                        maskOpt.label = options.maskTarget
+                        maskOpt.label = options.maskTarget;
                     }
                 } else if (hxCore.isObject(options.maskTarget)) {
                     maskOpt = options.maskTarget;
