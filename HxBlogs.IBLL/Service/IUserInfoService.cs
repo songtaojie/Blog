@@ -21,6 +21,6 @@ namespace HxBlogs.IBLL
         /// <param name="info">要插入的用户</param>
         /// <param name="result">结果信息</param>
         /// <returns></returns>
-        UserInfo Insert(UserInfo info, out ReturnResult result);
+        UserInfo Insert(UserInfo info, out AjaxResult result);
     }
 }

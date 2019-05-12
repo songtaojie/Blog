@@ -35,9 +35,10 @@ namespace HxBlogs.WebApp.Controllers
             //if (cateService != null) throw new Exception("这是一个测试");
             return View();
         }
+        [HttpPost]
         public ActionResult Save(Models.EditViewModel editInfo)
         {
-            ReturnResult result = new ReturnResult {IsSuccess = true };
+            AjaxResult result = new AjaxResult();
             if (ModelState.IsValid)
             {
                 TransactionManager.Excute(delegate
@@ -52,6 +53,7 @@ namespace HxBlogs.WebApp.Controllers
                     //blogInfo = _blogService.Insert(blogInfo);
                     if (!string.IsNullOrEmpty(editInfo.PersonTags))
                     {
+                        int fakeId = 0;
                         Dictionary<string, string> dicts = JsonConvert.DeserializeObject<Dictionary<string, string>>(editInfo.PersonTags);
                         foreach (KeyValuePair<string, string> item in dicts)
                         {
@@ -62,6 +64,7 @@ namespace HxBlogs.WebApp.Controllers
                                 {
                                     BlogTag tag = new BlogTag()
                                     {
+                                        Id = fakeId++,
                                         Name = value,
                                     };
                                     if (UserContext.LoginUser != null)
@@ -95,7 +98,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                result.IsSuccess = false;
+                result.Success = false;
                 foreach (var key in ModelState.Keys)
                 {
                     var modelstate = ModelState[key];

@@ -1,23 +1,5 @@
-﻿body {
-    font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    min-width: 320px;
-    font-size: 14px;
-    line-height: 1.4285em;
-}
-.blog-container {
-    background: #fff;
-    padding-left: initial;
-    padding-right: initial;
-    margin-top:4rem;
-}
-a:hover, a:active, a:focus {
-    cursor:pointer;
-    text-decoration: none;
-    color: #428bca;
-}
+﻿
+
 .blog-list {
     font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
     background: none transparent;
@@ -31,7 +13,7 @@ a:hover, a:active, a:focus {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem 1.75rem;
     background: #fff;
     border-bottom: 1px solid #f4f4f4;
     width: 100%;
@@ -65,10 +47,10 @@ a:hover, a:active, a:focus {
     width:100%;
 }
 .blog-item-summary {
-    margin-bottom: .4rem;
+    margin-bottom: .35rem;
     color: #999;
     font-size: 1em;
-    line-height: 2.4rem;
+    line-height: 2.1rem;
 }
 .content-nowrap {
     overflow: hidden;
@@ -121,8 +103,8 @@ a:hover, a:active, a:focus {
             display: inline-block;
         }
         .blog-item-user .avatar img {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 2rem;
+            height: 2rem;
             border-radius: 50% !important;
             -o-object-fit: cover;
             object-fit: cover;

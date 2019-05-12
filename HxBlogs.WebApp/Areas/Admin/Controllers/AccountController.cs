@@ -67,18 +67,18 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<JsonResult> RegisterUser(RegisterViewModel info)
         {
-            ReturnResult result = new ReturnResult();
+            AjaxResult result = new AjaxResult();
             UserInfo userInfo = null;
             if (ModelState.IsValid)
             {
                 userInfo = MapperManager.Map<UserInfo>(info);
                 userInfo = this._userService.Insert(userInfo,out result);
             }
-            if (result.IsSuccess)
+            if (result.Success)
             {
                 await SendEmail(info.UserName, info.Email);
                 result.Message = "已发送激活链接到邮箱，请尽快激活。";
-                result.ReturnUrl = Request[ConstInfo.returnUrl];
+                result.Resultdata = Request[ConstInfo.returnUrl];
                 string sessionId = Guid.NewGuid().ToString();
                 Response.Cookies[ConstInfo.SessionID].Value = sessionId.ToString();
                 string jsonData = JsonConvert.SerializeObject(userInfo);
@@ -129,19 +129,15 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login()
         {
-            ReturnResult result = new ReturnResult()
-            {
-                IsSuccess = true
-            };
-            if (result.IsSuccess) throw new NoAuthorizeException("你没有权限");
+            AjaxResult result = new AjaxResult();
             result = ValidateCode(result);
-            if(!result.IsSuccess)return Json(result, JsonRequestBehavior.AllowGet);
+            if(!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
             result = ValidateUser(result);
-            if (!result.IsSuccess) return Json(result, JsonRequestBehavior.AllowGet);
+            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
             string returnUrl = Request[ConstInfo.returnUrl];
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
-                result.ReturnUrl = returnUrl.Trim();
+                result.Resultdata = returnUrl.Trim();
             }
             // string jsonStr = JsonHelper.ToJsonInclude(result, nameof(ReturnResult.ReturnUrl), nameof(ReturnResult.IsSuccess), nameof(ReturnResult.Message));
             return Json(result, string.Empty, JsonRequestBehavior.AllowGet);
@@ -151,14 +147,13 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private ReturnResult ValidateCode(ReturnResult result)
+        private AjaxResult ValidateCode(AjaxResult result)
         {
             string validateCode = Request["ValidateCode"];
             string code = Session[ConstInfo.VCode].ToString();
-            result.IsSuccess = true;
             if (!Helper.AreEqual(code, validateCode))
             {
-                result.IsSuccess = false;
+                result.Success = false;
                 result.Message = "验证码不正确";
             }
             return result;
@@ -168,14 +163,15 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private ReturnResult ValidateUser(ReturnResult result)
+        private AjaxResult ValidateUser(AjaxResult result)
         {
             string userName = Request["UserName"];
             string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
             UserInfo userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
             if (userInfo == null)
             {
-                result.IsSuccess = false;
+                Session[ConstInfo.VCode] = null;
+                result.Success = false;
                 result.Message = "用户名或密码错误!";
             }
             else
@@ -264,27 +260,27 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult ActiveUser(string key)
         {
-            ReturnResult result = new ReturnResult();
+            AjaxResult result = new AjaxResult();
             if (MemcachedHelper.Get(key) != null)
             {
                 string userName = MemcachedHelper.Get(key).ToString();
                 UserInfo userInfo = this._userService.QueryEntity(u => u.UserName == userName);
                 if (userInfo == null)
                 {
-                    result.IsSuccess = false;
+                    result.Success = false;
                     result.Message = "此用户没有注册!";
                 }
                 else
                 {
                     userInfo.IsActivate = "Y";
                     this._userService.Update(userInfo);
-                    result.IsSuccess = true;
+                    result.Success = true;
                 }
                 MemcachedHelper.Delete(key);
             }
             else
             {
-                result.IsSuccess = false;
+                result.Success = false;
                 result.Message = "此激活链接已失效!";
             }
             

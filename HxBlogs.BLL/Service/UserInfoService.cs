@@ -30,13 +30,13 @@ namespace HxBlogs.BLL
             return base.BeforeInsert(model);
         }
 
-        public UserInfo Insert(UserInfo info, out ReturnResult returnResult)
+        public UserInfo Insert(UserInfo info, out AjaxResult returnResult)
         {
-            ReturnResult result = new ReturnResult();
+            AjaxResult result = new AjaxResult();
             bool success = false;
             if (info == null)
             {
-                result.Message = "用户插入失败";
+                result.Message = "用户插入失败!";
             }
             else if (this.Exist(info.UserName))
             {
@@ -51,7 +51,7 @@ namespace HxBlogs.BLL
                 success = true;
             }
             returnResult = result;
-            returnResult.IsSuccess = success;
+            returnResult.Success = success;
             if (success)
             {
                 info = this.Insert(info);

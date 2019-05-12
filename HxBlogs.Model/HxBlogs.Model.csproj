@@ -83,7 +83,7 @@
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result\ReturnResult.cs" />
+    <Compile Include="Result\AjaxResult.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="Result\UserFriendlyException.cs" />
   </ItemGroup>

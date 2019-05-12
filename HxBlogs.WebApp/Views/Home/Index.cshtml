@@ -5,18 +5,17 @@
     ViewBag.ShowFooter = false;
 }
 @section styles{
-    <link href="~/Content/App/css/blog-home.css" rel="stylesheet" />
+    <link href="~/Content/app/css/blog-home.css" rel="stylesheet" />
 }
-<div class="container blog-container">
+<div class="blog-container">
     <article >
         <div class="blog-list">
             @foreach (HxBlogs.Model.Blog blog in Model)
             {
-                
                 <div class="blog-item clearfix" data-id="@Helper.ToHex(blog.Id)">
                     <div class="blog-item-content">
                         <div class="blog-item-title">
-                            <h4>`
+                            <h4>
                                 <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
                             </h4>
                         </div>

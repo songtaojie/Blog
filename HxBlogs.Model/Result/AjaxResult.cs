@@ -1,34 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HxBlogs.WebApp.Models
+namespace HxBlogs.Model
 {
-    // <summary>
-    /// 表示Ajax操作结果
-    /// </summary>
     public class AjaxResult
     {
         /// <summary>
-        /// 获取 Ajax操作结果类型
+        /// 是否成功
         /// </summary>
-        public ResultType Type { get; set; }
+        public bool Success { get; set; } = true;//默认是成功
+
+        /// <summary>
+        /// 信息描述
+        /// </summary>
+        public string Message { get; set; }
 
         /// <summary>
         /// 获取 Ajax操作结果编码
         /// </summary>
-        public int Errorcode { get; set; }
-
-        /// <summary>
-        /// 获取 消息内容
-        /// </summary>
-        public string Message { get; set; }
+        public int Code { get; set; }
 
         /// <summary>
         /// 获取 返回数据
         /// </summary>
         public object Resultdata { get; set; }
+
+        ///// <summary>
+        ///// 回调地址
+        ///// </summary>
+        //public string ReturnUrl { get; set; }
     }
     /// <summary>
     /// 表示 ajax 操作结果类型的枚举

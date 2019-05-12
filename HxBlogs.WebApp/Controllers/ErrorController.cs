@@ -21,19 +21,19 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Error500(string data)
         {
+            Models.ExceptionMessage message = new Models.ExceptionMessage();
             if (!string.IsNullOrEmpty(data))
             {
                 try
                 {
                     data = HttpUtility.UrlDecode(data);
-                    Models.ExceptionMessage message = JsonConvert.DeserializeObject<Models.ExceptionMessage>(data);
-                    ViewData["errorUrl"] = message.Path;
+                    message = JsonConvert.DeserializeObject<Models.ExceptionMessage>(data);
                 }
                 catch {
 
                 }
             }
-            return View();
+            return View(message);
         }
         public ActionResult Error401(string errorUrl)
         {

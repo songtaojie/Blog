@@ -19,9 +19,11 @@ namespace HxBlogs.WebApp
                         "~/Scripts/local/messages_zh.js"));
             bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
                         "~/Scripts/app/scrollReveal.js"));
-            bundles.Add(new ScriptBundle("~/bundles/load").Include(
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
                         "~/Scripts/plugin/jquery.blockUI.js",
-                       "~/Scripts/app/hx.loading.js"));
+                        "~/Content/Plugin/alertifyjs/alertify.js",
+                       "~/Scripts/app/hx.loading.js",
+                       "~/Scripts/app/hx.core.js"));
             // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -32,10 +34,13 @@ namespace HxBlogs.WebApp
             #endregion
 
             #region 样式文件
-            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+            bundles.Add(new StyleBundle("~/content/bootstrap").Include(
                       "~/Content/bootstrap.css"));
-            bundles.Add(new StyleBundle("~/Content/font").Include(
-                      "~/Content/font/font-awesome.css"));
+            bundles.Add(new StyleBundle("~/content/site").Include(
+                "~/Content/Css/blog-site.css",
+                "~/Content/app/css/hx-loading.css",
+                "~/Content/Plugin/alertifyjs/css/alertify.css",
+                "~/Content/Plugin/alertifyjs/css/themes/default.css"));
             #endregion
         }
     }

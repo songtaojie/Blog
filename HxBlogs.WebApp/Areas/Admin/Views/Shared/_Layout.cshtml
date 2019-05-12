@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 海·星の博客</title>
-    @Styles.Render("~/Content/bootstrap")
-    @Styles.Render("~/Content/font")
+    @Styles.Render("~/content/bootstrap")
+    @Styles.Render("~/content/site")
     @Styles.Render("~/Content/app/css/login.css")
-    <link href="~/Content/app/css/hx-loading.css" rel="stylesheet" />
     @RenderSection("styles", required: false)
 </head>
 <body class="login">
@@ -25,10 +25,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/load")
+    @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
-    <script>
-
-    </script>
 </body>
 </html>

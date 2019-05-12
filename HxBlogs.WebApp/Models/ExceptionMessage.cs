@@ -35,7 +35,7 @@ namespace HxBlogs.WebApp.Models
             while (inner != null)
             {
                 Message = inner.Message;
-                StackTrace = inner.StackTrace.Length > 300 ? inner.StackTrace.Substring(0, 300) : inner.StackTrace;
+                StackTrace = inner.StackTrace.Length > 200 ? inner.StackTrace.Substring(0, 200) : inner.StackTrace;
                 Source = inner.Source;
                 Assembly = inner.TargetSite.Module.Assembly.FullName;
                 Method = inner.TargetSite.Name;

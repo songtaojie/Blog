@@ -23,15 +23,15 @@ namespace HxBlogs.WebApp.Filters
             WriteLog(context);
             base.OnException(context);
             context.ExceptionHandled = true;
-            AjaxResult result = new AjaxResult { Type = ResultType.Error, Message = context.Exception.Message };
+            AjaxResult result = new AjaxResult { Success = false, Message = context.Exception.Message };
             if (context.Exception is UserFriendlyException)
             {
-                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
                 context.Result = new JsonResult() { Data = result };
             }
             else if (context.Exception is NoAuthorizeException)
             {
-                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 if (!context.HttpContext.Request.IsAjaxRequest())
                 {
                     context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error401", errorUrl = context.HttpContext.Request.RawUrl });
@@ -43,7 +43,7 @@ namespace HxBlogs.WebApp.Filters
             }
             else
             {
-                result.Errorcode = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 ExceptionMessage error = new ExceptionMessage(context.Exception);
                 var s = JsonConvert.SerializeObject(error);
                 if (!context.HttpContext.Request.IsAjaxRequest())

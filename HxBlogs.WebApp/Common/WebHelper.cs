@@ -56,7 +56,7 @@ namespace HxBlogs.WebApp
             {
                 result = "7天前";
             }
-            else if (ts.Days > 365)
+            else if (ts.Days > 365 || dateTime.Year != nowTime.Year)
             {
                 result = dateTime.ToString("yyyy年MM月dd日");
             }

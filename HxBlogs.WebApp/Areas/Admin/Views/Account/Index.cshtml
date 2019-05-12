@@ -4,19 +4,19 @@
 }
 <div class="content">
     @using (Ajax.BeginForm("login", "account", new { },
-                new AjaxOptions()
-                {
-                    OnBegin = "Login.beforeLogin",
-                    HttpMethod = "post",
-                    OnSuccess = "Login.afterLogin",
-                    OnComplete = "Login.finishLogin",
-                    OnFailure = "Login.doFailure"
-                }, new
-                {
-                    @class = "form-vertical login-form",
-                    role = "form",
-                    id = "loginForm"
-                }))
+                        new AjaxOptions()
+                        {
+                            OnBegin = "Login.beforeLogin",
+                            HttpMethod = "post",
+                            OnSuccess = "Login.afterLogin",
+                            OnComplete = "Login.finishLogin",
+                            OnFailure = "Login.doFailure"
+                        }, new
+                        {
+                            @class = "form-vertical login-form",
+                            role = "form",
+                            id = "loginForm"
+                        }))
     {
         <h3 class="form-title">用户登录</h3>
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
@@ -55,12 +55,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-row d-none" id="loginAlert">
-            <div class="alert alert-warning col">
-                <a href="#" class="close" data-dismiss="alert"></a>
-                <strong>登录失败! </strong><span></span>
-            </div>
-        </div>
         <div class="form-row">
             <div class="col my-auto">
                 <div class="custom-control custom-checkbox">
@@ -91,5 +85,6 @@
     }
 </div>
 @section scripts{
+   
     <script src="~/Scripts/app/login.js"></script>
 }

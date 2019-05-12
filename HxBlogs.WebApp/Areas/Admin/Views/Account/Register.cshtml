@@ -78,21 +78,24 @@
             }
             btnReg.addClass('disabled');
         }
-        function afterRegister(data) {
-            if (data.IsSuccess) {
-                alert(`注册成功!${data.Message}`);
-                window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
-            } else {
-                var html = `<div id="myAlert" class="alert alert-warning">
-            <a href="#" class="close" data-dismiss="alert"></a>
-            <strong>注册失败！</strong>${data.Message}
-        </div>`;
-                var myAlert = $(html);
-                myAlert.appendTo('.content');
-                window.setTimeout(function () {
-                    myAlert.alert('close');
-                }, 3000);
-            }
+        function afterRegister(r) {
+            HxCore.ajaxSuccess(r, function (data) {
+                window.location.href = data && decodeURIComponent(data) || "/";
+            });
+        //    if (data.IsSuccess) {
+        //        alert(`注册成功!${data.Message}`);
+        //        window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
+        //    } else {
+        //        var html = `<div id="myAlert" class="alert alert-warning">
+        //    <a href="#" class="close" data-dismiss="alert"></a>
+        //    <strong>注册失败！</strong>${data.Message}
+        //</div>`;
+        //        var myAlert = $(html);
+        //        myAlert.appendTo('.content');
+        //        window.setTimeout(function () {
+        //            myAlert.alert('close');
+        //        }, 3000);
+        //    }
         }
         //修改按钮状态为可用
         function finishRegister() {

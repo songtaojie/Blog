@@ -33,12 +33,12 @@ namespace HxBlogs.WebApp.Models
         }
         public string PersonTop
         {
-            get;set;
-        }
+            get; set;
+        } = "N";
         public string IsPrivate
         {
-            get;set;
-        }
+            get; set;
+        } = "N";
         public string IsPublish
         {
             get; set;

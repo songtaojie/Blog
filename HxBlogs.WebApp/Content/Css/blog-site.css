@@ -1,19 +1,76 @@
 ﻿
 @import url('../font/font-awesome.css');
+
 html {
-    height:100%;
-}
-body {
-    margin: 0;
-    padding: 0;
-    background: #f5f7f7;
+    height: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    margin-top: 4rem;
-    background: #fff;
+body {
+    font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 0.875rem;
+    line-height: 1.4285em;
 }
+
+
+/*****************主页Begin**********************/
+
+/**************博客的头部*************************/
+.blog-header {
+    box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
+}
+
+.blog-header-image {
+    width: 1.9rem;
+    height: 1.9rem;
+}
+
+@media (min-width: 768px) {
+    .blog-header .navbar-nav > li > a {
+        padding: 0.5rem;
+    }
+
+    .blog-header .toggle {
+        display: none;
+    }
+}
+/**************博客的头部*************************/
+.blog-container {
+    margin-top: 3rem;
+    background: #fff;
+    padding-left: initial;
+    padding-right: initial;
+}
+/*****************主页End**********************/
+a:hover, a:active, a:focus {
+    cursor: pointer;
+    text-decoration: none;
+    color: #428bca;
+}
+
+.fa-same {
+    width: 1rem;
+    text-align: center;
+}
+
+/******************重写bootstrap中的自定义复选框Begin************************/
+.hx-control-label {
+    margin: auto 0;
+}
+
+    .hx-control-label::before {
+        top: 0.15rem;
+        left: -1.3rem;
+    }
+
+    .hx-control-label::after {
+        top: 0.15rem;
+        left: -1.3rem;
+    }
+/******************重写bootstrap中的自定义复选框End************************/
+/* Set padding to keep content from hitting the edges */
 .control-label .required {
     color: #e02222;
     font-size: 1.2rem;
@@ -29,22 +86,25 @@ body {
 /* Set width on the form input elements since they're 100% wide by default */
 /*导航栏*/
 .navbar .nav > li > .dropdown-menu {
-    margin-top:4px;
+    margin-top: 4px;
 }
-.navbar .nav > li > .dropdown-menu:after {
-    position: absolute;
-    top: -6px;
-    left: 10px;
-    display: inline-block;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid #fff;
-    border-left: 6px solid transparent;
-    content: '';
-}
-.navbar .navbar-right>li>.dropdown-menu:after,
-.navbar .nav > li > .dropdown-menu.navbar-right:after {
-    right: 13px;
-    left: auto;
-}
+
+    .navbar .nav > li > .dropdown-menu:after {
+        position: absolute;
+        top: -6px;
+        left: 10px;
+        display: inline-block;
+        border-right: 6px solid transparent;
+        border-bottom: 6px solid #fff;
+        border-left: 6px solid transparent;
+        content: '';
+    }
+
+    .navbar .navbar-right > li > .dropdown-menu:after,
+    .navbar .nav > li > .dropdown-menu.navbar-right:after {
+        right: 13px;
+        left: auto;
+    }
 /*加载*/
+
 

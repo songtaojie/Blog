@@ -2,37 +2,23 @@
 var Login = function () {
     return {
         beforeLogin: function (a, b) {
-            if (HxLoad) {
-                HxLoad.blockUI({label:'登陆中...'});
-            }
+            if (HxLoad) HxLoad.blockUI({label:'登陆中...'});
         },
-        finishLogin: function () {
-            //App.unblockUI();
+        finishLogin: function (op, success, r) {
+            //if (HxLoad)HxLoad.unblockUI();
         },
-        afterLogin: function (data) {
-            if (data.IsSuccess) {
-                window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
-                HxLoad.unblockUI();
-            } else {
-                HxLoad.unblockUI();
-                var alert = $('#loginAlert'),
-                    span = alert.find('span');
-                span.html(data.Message);
-                alert.removeClass('d-none');
-                setTimeout(function () {
-                    alert.addClass('d-none');
-                }, 2000);
-            }
+        afterLogin: function (data, textStatus, jqXHR) {
+            HxCore.ajaxSuccess(jqXHR, function (d) {
+                window.location.href = d && decodeURIComponent(d) || "/";
+                if (HxLoad) HxLoad.unblockUI();
+            }, function () {
+                $('#img').attr('src', $('#img').attr('src') + 1);
+                if (HxLoad) HxLoad.unblockUI();
+            });
         },
-        doFailure(data) {
-            HxLoad.unblockUI();
-            var alert = $('#loginAlert'),
-                span = alert.find('span');
-            span.html(data.responseText);
-            alert.removeClass('d-none');
-            setTimeout(function () {
-                alert.addClass('d-none');
-            }, 2000);
+        doFailure(data, err) {
+            if (HxLoad) HxLoad.unblockUI();
+            HxCore.ajaxError(data);
         },
         init: function () {
             $('.login-form').validate({
