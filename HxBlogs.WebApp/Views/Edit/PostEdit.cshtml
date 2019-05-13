@@ -1,75 +1,32 @@
 ﻿@model HxBlogs.WebApp.Models.EditViewModel
 @{
     ViewBag.Title = "写文章";
+    string blogTag = Guid.NewGuid().ToString(),
+        addTag = Guid.NewGuid().ToString();
 }
 @section styles{
     <link href="~/Content/App/css/blog-edit.css?v=1.0.0.3" rel="stylesheet" />
 }
-<div class="blog-edit blog-container">
-    <form class="form-horizontal" role="form" action="save" method="post">
-        <div class="form-row">
-            <div class="col-sm-6 form-group">
-                <label class="control-label" for="Title">文章标题<span class="required">*</span></label>
-                <input type="text" name="Title" required class="form-control" placeholder="文章标题,请控制在100字以内" />
-            </div>
-            <div class="col-sm-2 form-group d-none
+<div class="container-fluid">
+    <div class="blog-edit blog-container">
+        <form class="form-horizontal" role="form" action="save" method="post">
+            <div class="form-row">
+                <div class="col-sm-6 form-group">
+                    <label class="control-label" for="Title">文章标题<span class="required">*</span></label>
+                    <input type="text" name="Title" required class="form-control" placeholder="文章标题,请控制在100字以内" />
+                </div>
+                <div class="col-sm-2 form-group d-none
                  d-sm-block">
-            </div>
-            <div class="form-group col-sm-4">
-                <label class="control-label" for="CatId">
-                    系统分类<span class="required">*</span>
-                </label>
-                <select class="form-control" required name="CatId">
-                    <option value="-1" selected="selected">请选择</option>
-                    @if (ViewBag.CategoryList != null)
-                    {
-                        foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="form-row mb-2">
-            <div class="col-md-12 col-sm-12">
-                <textarea name="ContentHtml" id="editor"></textarea>
-            </div>
-        </div>
-        <div class="form-row" hidden>
-            <div class="col-md-12 col-sm-12 col-lg-12">
-                <label class="text-left blog-category-label">个人分类:</label>
-                <input type="hidden" name="PersonTags" data-count="0" />
-                <button type="button" id="addTag" class="btn btn-link fa fa-plus-square"> 添加分类</button>
-            </div>
-        </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-9 col-md-5" id="blogTag">
-                @if (ViewBag.BlogTagList != null)
-                {
-                    for (int i = 0; i < ViewBag.BlogTagList.Count; i++)
-                    {
-                        <div class="custom-control custom-checkbox custom-control-inline col-sm-3 col-xs-6">
-                            <input type="checkbox" class="custom-control-input blog-tag" id="@("blogTag"+ViewBag.BlogTagList[i].Id)" value="@ViewBag.BlogTagList[i].Id" />
-                            <label class="custom-control-label hx-control-label" for="@("blogTag"+ViewBag.BlogTagList[i].Id)">
-                                @ViewBag.BlogTagList[i].Name
-                            </label>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="form-row" hidden>
-            <div class="form-group col-sm-4 col-xs-12">
-                <label for="TypeId" class="control-label">
-                    文章类型<span class="required">*</span>
-                </label>
-                <div class="">
-                    <select class="custom-select" required name="TypeId">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="control-label" for="CatId">
+                        系统分类<span class="required">*</span>
+                    </label>
+                    <select class="form-control" required name="CatId">
                         <option value="-1" selected="selected">请选择</option>
-                        @if (ViewBag.BlogTypeList != null)
+                        @if (ViewBag.CategoryList != null)
                         {
-                            foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
+                            foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
                             {
                                 <option value="@item.Id">@item.Name</option>
                             }
@@ -77,39 +34,87 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group col-sm-8 col-xs-12">
-                <label class="control-label hidden-xs hidden-md hidden-lg" style="visibility:hidden;">
-                    选项
-                </label>
-                <div class="mt-2 ml-2">
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop" value="N" />
-                        <label class="custom-control-label hx-control-label" for="PersonTop">
-                            个人置顶
-                        </label>
+            <div class="form-row mb-2">
+                <div class="col-md-12 col-sm-12">
+                    <textarea name="ContentHtml" id="editor"></textarea>
+                </div>
+            </div>
+            <div class="form-row" hidden>
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <label class="text-left blog-category-label">个人分类:</label>
+                    <input type="hidden" name="PersonTags" data-count="0" />
+                    <button type="button" id="@addTag" class="btn btn-link fa fa-plus-square"> 添加分类</button>
+                </div>
+            </div>
+            <div class="form-row mb-2" hidden>
+                <div class="col-sm-9 col-md-5" id="@blogTag">
+                    @if (ViewBag.BlogTagList != null)
+                    {
+                        for (int i = 0; i < ViewBag.BlogTagList.Count; i++)
+                        {
+                            string guid = Guid.NewGuid().ToString();
+                            <div class="custom-control custom-checkbox custom-control-inline col-sm-3 col-xs-6">
+                                <input type="checkbox" class="custom-control-input blog-tag" id="@guid" value="@ViewBag.BlogTagList[i].Id" />
+                                <label class="custom-control-label hx-control-label" for="@guid">
+                                    @ViewBag.BlogTagList[i].Name
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="form-row" hidden>
+                <div class="form-group col-sm-4 col-xs-12">
+                    <label for="TypeId" class="control-label">
+                        文章类型<span class="required">*</span>
+                    </label>
+                    <div class="">
+                        <select class="custom-select" required name="TypeId">
+                            <option value="-1" selected="selected">请选择</option>
+                            @if (ViewBag.BlogTypeList != null)
+                            {
+                                foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        </select>
                     </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate" value="N" />
-                        <label class="custom-control-label hx-control-label" for="IsPrivate">
-                            仅自己可见
-                        </label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt" checked="checked" value="Y" />
-                        <label class="custom-control-label hx-control-label" for="CanCmt">
-                            允许评论
-                        </label>
+                </div>
+                <div class="form-group col-sm-8 col-xs-12">
+                    <label class="control-label hidden-xs hidden-md hidden-lg" style="visibility:hidden;">
+                        选项
+                    </label>
+                    <div class="mt-2 ml-2">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop" value="N" />
+                            <label class="custom-control-label hx-control-label" for="PersonTop">
+                                个人置顶
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate" value="N" />
+                            <label class="custom-control-label hx-control-label" for="IsPrivate">
+                                仅自己可见
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt" checked="checked" value="Y" />
+                            <label class="custom-control-label hx-control-label" for="CanCmt">
+                                允许评论
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="form-row" hidden>
-            <div class="col-sm-12">
-                <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
-                <button type="button" value="N" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
+            <div class="form-row" hidden>
+                <div class="col-sm-12">
+                    <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
+                    <button type="button" value="N" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 @section scripts{
     <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
@@ -165,19 +170,27 @@
                     $me.val('N').removeAttr('checked');
                 }
             });
-            $('#blogTag').on('change', 'input:checkbox', function (a, b, c) {
+            $('#@blogTag').on('change', 'input:checkbox', function (a, b, c) {
                 var $me = $(this),
                     tagObj = {},
                     $label = $me.next(),
-                    text = $label.text();
-                tagObj[$me.val()] = (text || '').trim();
+                    text = $.trim($label.text()),
+                    guid;
+                tagObj[$me.val()] = text;
                 if ($me.is(':checked')) {
-                    $me.prop('checked', true);
-                    Edit.addTag(text);
+                    guid= HxCore.guid();
+                    $me.prop('checked', true).data('id', guid);
+                    Edit.addTag({
+                        id: $me.attr('id'),
+                        guid: guid,
+                        text: text
+                    });
                     Edit.doPersonTag(tagObj, true);
                 } else {
                     Edit.doPersonTag(tagObj);
                     $me.prop('checked', false);
+                    guid = $me.data('id');
+                    $('#' + guid).remove();
                 }
             });
             $('.btn-save').click(function () {
@@ -272,9 +285,6 @@
                                 if ($.trim(value) == text) {
                                     delete tagObj[key];
                                     result = true;
-                                    if (key.indexOf('newData') < 0 && $('#blogTag' + key).length > 0) {
-                                        $('#blogTag' + key).prop('checked', false);
-                                    }
                                     return false;
                                 }
                             });
@@ -283,9 +293,6 @@
                                 if ($.trim(value) == $.trim(text[key])) {
                                     delete tagObj[key];
                                     result = true;
-                                    if (key.indexOf('newData') < 0 && $('#blogTag' + key).length > 0) {
-                                        $('#blogTag' + key).prop('checked', false);
-                                    }
                                     return false;
                                 }
                             });
@@ -294,20 +301,25 @@
                     }
                     return result;
                 },
-                addTag(content) {
+                addTag(tagObj) {
                     var $div = $('<div class="blog-tag-box"></div>'),
                         $span = $('<span class="tag" contenteditable = "true"></span>'),
                         $i = $('<i class="fa fa-times"></i>');
-                    $div.append($span).append($i).insertBefore($('#addTag'));
+                    $div.append($span).append($i).insertBefore($('#@addTag'));
                     $div.find('i.fa-times').click(function () {
                         var $me = $(this),
                             $p = $me.parent(),
+                            id = $p.data('id'),
                             $prev = $me.prev();
                         $p.remove();
+                        if (!HxCore.isEmpty(id)) {
+                            $('#' + id).prop('checked', false);
+                        }
                         Edit.doPersonTag($prev.text());
                     });
-                    if (!HxCore.isEmpty(content)) {
-                        $span.text(content).attr('contenteditable', 'false');
+                    if (HxCore.isObject(tagObj) && tagObj.hasOwnProperty('id') && tagObj.hasOwnProperty('text')) {
+                        $div.attr('id', tagObj.guid).data('id', tagObj.id);
+                        $span.text($.trim(tagObj.text)).attr('contenteditable', 'false');
                     } else {
                         //直接放在span元素上注册会出现错误即$span.blur,所以通过这种方式注册
                         $div.one('blur', 'span.tag', function () {
@@ -339,7 +351,7 @@
                     }
                 },
             };
-            $('#addTag').click(function () {
+            $('#@addTag').click(function () {
                 Edit.addTag();
             });
         });

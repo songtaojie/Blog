@@ -11,9 +11,10 @@
 </head>
 <body class="page-header-fixed">
     @Html.Partial("../Layout/_Header")
-    <div class="container-fluid">
+    @*<div class="container-fluid">
         @RenderBody()
-    </div>
+    </div>*@
+    @RenderBody()
     @if (ViewBag.ShowFooter != false)
     {
         @Html.Partial("../Layout/_Footer")
