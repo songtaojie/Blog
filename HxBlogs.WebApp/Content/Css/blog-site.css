@@ -61,12 +61,12 @@ a:hover, a:active, a:focus {
 }
 
     .hx-control-label::before {
-        top: 0.15rem;
+        top: 0.05rem;
         left: -1.3rem;
     }
 
     .hx-control-label::after {
-        top: 0.15rem;
+        top: 0.05rem;
         left: -1.3rem;
     }
 /******************重写bootstrap中的自定义复选框End************************/

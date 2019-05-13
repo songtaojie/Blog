@@ -28,7 +28,7 @@
          * @returns {Boolean} true为空，false不为空
          */
         isEmpty(value, allowEmptyString) {
-            return (value === null) || (!allowEmptyString ? value === '' : false) || ($.isArray(value) && value.length === 0);
+            return (value === undefined || value === null) || (!allowEmptyString ? value === '' : false) || ($.isArray(value) && value.length === 0);
         },
         /**
          * 判断给定值是否是字符串
