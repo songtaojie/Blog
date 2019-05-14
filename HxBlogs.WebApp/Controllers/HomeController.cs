@@ -21,7 +21,9 @@ namespace HxBlogs.WebApp.Controllers
         {
             IEnumerable<Blog> blogs = _blogService.QueryEntities(m => m.IsPublish == "Y" && m.IsPrivate == "N")
                  .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
-                
+            ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
+            IEnumerable<Category> cateList = cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c => c.Order);
+            ViewBag.CategoryList = cateList;
             return View(blogs.ToList());
         }
 

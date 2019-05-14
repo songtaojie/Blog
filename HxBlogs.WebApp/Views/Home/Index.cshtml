@@ -7,36 +7,72 @@
 @section styles{
     <link href="~/Content/app/css/blog-home.css" rel="stylesheet" />
 }
-<div class="blog-container page-sidebar">
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
-    <ul>
-        <li><a>测试</a></li>
-    </ul>
+<div class="blog-container blog-sidebar">
+    <nav class="nav flex-column mt-1">
+        <ul class="navbar-nav nav-fill">
+            <li class="nav-item active bg-light">
+                <a class="nav-link text-secondary" href="#">推荐</a>
+            </li>
+            <li class="nav-item bg-light">
+                <a class="nav-link text-secondary" href="#">关注</a>
+            </li>
+            <li class="nav-item bg-light">
+                <a class="nav-link text-secondary" href="#">专题</a>
+            </li>
+            @if (ViewBag.CategoryList != null)
+            {
+                foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
+                {
+                    <li class="nav-item bg-light">
+                        <a class="nav-link text-secondary" href="#">@item.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
 </div>
-
-<div class="blog-container">
-    <div>
-        @foreach (HxBlogs.Model.Blog blog in Model)
-        {
-        <div>
-            @(new HtmlString(blog.ContentHtml))
+<div class="blog-container blog-content">
+    <article>
+        <div class="blog-list d-inline-flex flex-column justify-content-start">
+            @foreach (HxBlogs.Model.Blog blog in Model)
+            {
+                <div class="blog-item clearfix" data-id="@Helper.ToHex(blog.Id)">
+                    <div class="blog-item-content">
+                        <div class="blog-item-title">
+                            <h4>
+                                <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="blog-item-summary blog-content-nowrap">
+                        @(new HtmlString(string.IsNullOrWhiteSpace(blog.ContentHtml) || blog.ContentHtml.Length < 100 ? blog.ContentHtml : blog.ContentHtml.Substring(0, 100)))
+                    </div>
+                    <div class="blog-item-user d-flex justify-content-start align-items-center">
+                        <div class="blog-avatar mr-2">
+                            <a>
+                                <img src="~/Content/Plugin/Metronic/image/avatar.png" />
+                            </a>
+                        </div>
+                        <div class="mr-1">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>
+                        <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>
+                        <div class="mr-1">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
+                        <div class="blog-read ml-auto">
+                            <a>
+                                <span class="blog-read-num">@blog.ReadCount</span>
+                                <span class="blog-read-text">阅读</span>
+                            </a>
+                        </div>
+                        <div class="blog-comment ml-2">
+                            <a>
+                                <span class="blog-comment-num">@blog.CommentCount</span>
+                                <span class="blog-comment-text">评论</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
-        }
-    </div>
+    </article>
 </div>
 
 
