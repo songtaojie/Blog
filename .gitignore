@@ -31,8 +31,8 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-fileUpload/
-web.config
+HxBlogs.WebApp/file[U|u]pload/
+[w|W]eb.config
 
 # NUNIT
 *.VisualState.xml

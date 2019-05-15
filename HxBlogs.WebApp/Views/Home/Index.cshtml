@@ -40,7 +40,7 @@
                     <div class="blog-item-content">
                         <div class="blog-item-title">
                             <h4>
-                                <a target="_blank" href="/Home/Blog/@Helper.ToHex(blog.Id)">@blog.Title</a>
+                                <a target="_blank" href="@(WebHelper.ToRelativePath("/view/"+blog.User.UserName+"/"+Helper.ToHex(blog.Id)))">@blog.Title</a>
                             </h4>
                         </div>
                     </div>

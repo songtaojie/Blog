@@ -20,7 +20,6 @@ namespace HxBlogs.WebApp.Controllers
         // GET: View
         public ActionResult Index(string userId,string blogId)
         {
-           
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(userId))
                 userId = userId.Trim();
