@@ -24,31 +24,47 @@ namespace HxBlogs.WebApp.Filters
             base.OnException(context);
             context.ExceptionHandled = true;
             AjaxResult result = new AjaxResult { Success = false, Message = context.Exception.Message };
+            var response = context.HttpContext.Response;
+            var request = context.HttpContext.Request;
+            bool isAjax = request.IsAjaxRequest();
             if (context.Exception is UserFriendlyException)
             {
-                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                result.Code = response.StatusCode = (int)HttpStatusCode.OK;
                 context.Result = new JsonResult() { Data = result };
             }
             else if (context.Exception is NoAuthorizeException)
             {
-                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                if (!context.HttpContext.Request.IsAjaxRequest())
+                result.Code = response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                if (!isAjax)
                 {
-                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error401", errorUrl = context.HttpContext.Request.RawUrl });
+                    response.RedirectToRoute("Default", new { controller = "error", action = "error401", errorUrl = context.HttpContext.Request.RawUrl });
                 }
                 else
                 {
                     context.Result = new JsonResult() { Data = result };
                 }
             }
+            else if (context.Exception is NotFoundException)
+            {
+                string msg = "错误消息：" + context.Exception.Message;
+                result.Code = response.StatusCode = (int)HttpStatusCode.NotFound;
+                if (isAjax)
+                {
+                    context.Result = new JsonResult() { Data = result };
+                }
+                else
+                {
+                    response.Redirect("/error/error404?errorUrl=" + HttpUtility.UrlEncode(request.RawUrl));
+                }
+            }
             else
             {
-                result.Code = context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                result.Code = response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 ExceptionMessage error = new ExceptionMessage(context.Exception);
                 var s = JsonConvert.SerializeObject(error);
-                if (!context.HttpContext.Request.IsAjaxRequest())
+                if (!isAjax)
                 {
-                    context.HttpContext.Response.RedirectToRoute("Default", new { controller = "error", action = "error500", data = HttpUtility.UrlEncode(s) });
+                    response.RedirectToRoute("Default", new { controller = "error", action = "error500", data = HttpUtility.UrlEncode(s) });
                 }
                 else
                 {

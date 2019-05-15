@@ -188,6 +188,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
     <Compile Include="Filters\HandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -800,6 +801,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\View\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

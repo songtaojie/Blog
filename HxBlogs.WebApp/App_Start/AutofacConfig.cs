@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Hx.Common.Logs;
 using System.Web.Mvc;
+using System.Reflection;
 
 namespace HxBlogs.WebApp
 {
@@ -18,7 +19,6 @@ namespace HxBlogs.WebApp
             manager.BeforeRegister += (builder) =>
             {
                 builder.RegisterControllers(typeof(MvcApplication).Assembly); // 注册Mvc控制器实例
-                // builder.RegisterType<LoggerFactory>().As<ILoggerFactory>().SingleInstance();//注册日志对象
                 ILoggerFactory factory = new LoggerFactory()
                 {
                     UseConfig = true
