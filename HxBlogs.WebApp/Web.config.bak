@@ -20,7 +20,7 @@
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
     <add key="uploadRootPath" value="/fileupload" />
     <add key="maxRequestLength" value="5242880" />
-    <add key="MailPwd" value="tao58568470jie" />
+    <add key="MailPwd" value="" />
     <add key="MailAccount" value="stjworkemail@163.com" />
   </appSettings>
   <system.web>
