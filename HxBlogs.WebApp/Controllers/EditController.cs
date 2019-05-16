@@ -1,4 +1,5 @@
-﻿using Hx.Framework;
+﻿using Hx.Common.Helper;
+using Hx.Framework;
 using HxBlogs.BLL;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
@@ -49,6 +50,10 @@ namespace HxBlogs.WebApp.Controllers
                     if (imgList.Length > 0) blogInfo.ImgUrl = imgList[1];
                     blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
                     blogInfo = FillAddModel(blogInfo);
+                    if (Helper.IsYes(blogInfo.IsPublish))
+                    {
+                        blogInfo.PublishDate = DateTime.Now;
+                    }
                     blogInfo = dbContext.Add(blogInfo);
                     //blogInfo = _blogService.Insert(blogInfo);
                     if (!string.IsNullOrEmpty(editInfo.PersonTags))

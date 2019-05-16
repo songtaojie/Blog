@@ -1,5 +1,5 @@
 ﻿using Hx.Common.Helper;
-using Hx.Common.Web;
+using Hx.WebCommon;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

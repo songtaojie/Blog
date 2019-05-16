@@ -33,6 +33,7 @@ bld/
 
 HxBlogs.WebApp/file[U|u]pload/
 [w|W]eb.config
+HxBlogs.Model/Migrations
 
 # NUNIT
 *.VisualState.xml

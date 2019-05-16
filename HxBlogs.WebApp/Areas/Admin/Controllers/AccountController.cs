@@ -2,7 +2,6 @@
 using Hx.Common.Helper;
 using Hx.Common.Logs;
 using Hx.Common.Cache;
-using Hx.Common.Web;
 using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
@@ -16,6 +15,7 @@ using System.Web;
 using System.Web.Mvc;
 using Hx.Common.Json;
 using Newtonsoft.Json.Linq;
+using Hx.WebCommon;
 
 namespace HxBlogs.WebApp.Areas.Admin.Controllers
 {

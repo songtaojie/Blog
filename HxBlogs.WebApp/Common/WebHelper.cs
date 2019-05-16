@@ -247,9 +247,25 @@ namespace HxBlogs.WebApp
             long.TryParse(value, out defValue);
             return defValue;
         }
+        /// <summary>
+        /// 获取路由的全路径
+        /// </summary>
+        /// <param name="routeUrl"></param>
+        /// <returns></returns>
+        public static string GetFullUrl(string routeUrl)
+        {
+            string rootPath = GetAppSettingValue("RootPath");
 
-
-
+            while (!string.IsNullOrEmpty(rootPath) && rootPath.Last() == '/')
+            {
+                rootPath = rootPath.Remove(rootPath.Length - 1);
+            }
+            while (string.IsNullOrEmpty(routeUrl) && routeUrl.First() == '/')
+            {
+                routeUrl = routeUrl.Substring(1);
+            }
+            return rootPath + routeUrl;
+        }
         /// <summary>
         /// 获取客户端ip
         /// </summary>

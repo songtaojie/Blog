@@ -70,7 +70,7 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsTop { get; set; }
+        public string IsTop { get; set; } = "N";
         /// <summary>
         /// 精华 Y权值加10天
         /// </summary>
@@ -90,11 +90,12 @@ namespace HxBlogs.Model
 
         // public int? UserId { get; set; }
 
-        /// <summary>
-        /// 博客标签
-        /// </summary>       
-        [ForeignKey("BlogId")]
-        public virtual ICollection<BlogBlogTag> BlogBlogTags { get; set; }
+        ///// <summary>
+        ///// 博客标签
+        ///// </summary>       
+        //[ForeignKey("BlogId")]
+        //public virtual ICollection<BlogBlogTag> BlogBlogTags { get; set; }
+
         public int TypeId { get; set; }
         ///// <summary>
         ///// 博客类型，是转发，原创，还是翻译等
@@ -146,10 +147,6 @@ namespace HxBlogs.Model
         [StringLength(1)]
         [Column(TypeName = "char")]
         public string PersonTop { get; set; }
-        ///// <summary>
-        ///// 浏览数
-        ///// </summary>
-        //public int? ViewCount { get; set; }
 
         /// <summary>
         /// 主题中的第一张图的地址
