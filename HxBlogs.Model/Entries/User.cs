@@ -8,23 +8,14 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.Model
 {
-    [Table("UserInfo")]
+    [Table("User")]
     [Serializable]
-    public class UserInfo:BaseModel,IEntity<int>
+    public class User:BaseModel,IEntity<int>
     {
 
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public int Id { get; set; }
-        ///// <summary>
-        ///// 用户ID
-        ///// </summary>
-        //[StringLength(40)]
-        //[Required]
-        //public string UserId
-        //{
-        //    get;set;
-        //}
         /// <summary>
         /// 用户名称
         /// </summary>
@@ -36,30 +27,21 @@ namespace HxBlogs.Model
             get;set;
         }
         /// <summary>
-        /// 昵称
-        /// </summary>
-        [StringLength(100)]
-        public string NickName { get; set; }
-        /// <summary>
         /// 密码
         /// </summary>
         [Required]
-        [Display(Name ="密码")]
+        [Display(Name = "密码")]
         [StringLength(40)]
         public string PassWord
         {
             set;
             get;
         }
-        //[Required]
-        //[StringLength(40)]
-        //[Display(Name = "确认密码")]
-        //[Compare("PassWord",ErrorMessage ="两次所输密码不一样")]
-        //[NotMapped]
-        //public string PwdConfirm
-        //{
-        //    get;set;
-        //}
+        /// <summary>
+        /// 昵称
+        /// </summary>
+        [StringLength(100)]
+        public string NickName { get; set; }
         /// <summary>
         /// 真实的名字
         /// </summary>
@@ -83,18 +65,6 @@ namespace HxBlogs.Model
         }
 
         /// <summary>
-        /// 邮箱
-        /// </summary>
-        [StringLength(80)]
-        [Required]
-        [EmailAddress(ErrorMessage ="邮箱格式不正确")]
-        [Display(Name = "邮箱")]
-        public string Email
-        {
-            set; get;
-        }
-
-        /// <summary>
         /// 性别
         /// </summary>
         [StringLength(8)]
@@ -102,7 +72,33 @@ namespace HxBlogs.Model
         {
             set; get;
         }
-
+        /// <summary>
+        /// 用户的QQ
+        /// </summary>
+        [StringLength(20)]
+        public string QQ
+        {
+            get; set;
+        }
+        /// <summary>
+        /// 用户微信号
+        /// </summary>
+        [StringLength(20)]
+        public string WeChat
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 邮箱
+        /// </summary>
+        [StringLength(80)]
+        [Required]
+        [EmailAddress(ErrorMessage = "邮箱格式不正确")]
+        [Display(Name = "邮箱")]
+        public string Email
+        {
+            set; get;
+        }
         /// <summary>
         /// 电话
         /// </summary>
@@ -112,10 +108,18 @@ namespace HxBlogs.Model
             set; get;
         }
         /// <summary>
-        /// 备注
+        /// 手机号码
         /// </summary>
-        [Column(TypeName = "text")]
-        public string Remarks
+        [StringLength(20)]
+        public string Mobile
+        {
+            get; set;
+        }
+        /// <summary>
+        /// 自我描述
+        /// </summary>
+        [StringLength(1000)]
+        public string Description
         {
             set; get;
         }
@@ -127,30 +131,25 @@ namespace HxBlogs.Model
         public string OpenId { get; set; }
 
         /// <summary>
-		/// 
+		/// 是都锁定
 		/// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string CanLogin { set; get; } = "Y";
+        public string IsLock { set; get; } = "N";
         /// <summary>
-        /// 头像文件名字
+        /// 头像存储文件路径
         /// </summary>
         [StringLength(100)]
-        public string AvatarName
+        public string AvatarUrl
         {
             get; set;
         }
         /// <summary>
-        /// 手机号码
+        /// 是否是管理员
         /// </summary>
-        [StringLength(20)]
-        public string Mobile
-        {
-            get; set;
-        }
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsRoot
+        public string IsAdmin
         {
             get; set;
         } = "N";
@@ -164,10 +163,17 @@ namespace HxBlogs.Model
             get; set;
         } = "N";
         /// <summary>
-        /// 创建时间
+        /// 用户注册时间
         /// </summary>
         [DataType(DataType.DateTime)]
-        public virtual DateTime? CreateTime { get; set; } = DateTime.Now;
+        public virtual DateTime? RegisterTime { get; set; } = DateTime.Now;
+        /// <summary>
+        /// 用户注册时的ip
+        /// </summary>
+        public string RegisterIp
+        {
+            get;set;
+        }
         /// <summary>
         /// 是否被删除,假删除，数据库中还有记录
         /// </summary>
@@ -180,5 +186,21 @@ namespace HxBlogs.Model
         /// </summary>
         [DataType(DataType.DateTime)]
         public virtual DateTime? DeleteTime { get; set; }
+        /// <summary>
+        /// 用户地址
+        /// </summary>
+        [StringLength(100)]
+        public string Address
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 用户毕业学校
+        /// </summary>
+        [StringLength(100)]
+        public string School
+        {
+            get;set;
+        }
     }
 }

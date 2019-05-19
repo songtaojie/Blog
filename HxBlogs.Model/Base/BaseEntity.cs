@@ -21,14 +21,14 @@ namespace HxBlogs.Model
         public virtual DateTime CreateTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// 创建人ID
+        /// 这条记录属于哪个用户
         /// </summary>
-        public virtual int? CreatorId { get; set; }
+        public virtual int UserId { get; set; }
         /// <summary>
-        /// 创建人名字
+        /// 用户的登录名称
         /// </summary>
         [StringLength(50)]
-        public virtual string CreatorName { get; set; }
+        public virtual string UserName { get; set; }
         #endregion
 
         #region 删除
@@ -45,35 +45,10 @@ namespace HxBlogs.Model
         public virtual int? DeleteId { get; set; }
 
         /// <summary>
-        /// 删除人
-        /// </summary>
-        [StringLength(50)]
-        public virtual string DeleteName { get; set; }
-
-        /// <summary>
         /// 删除时间
         /// </summary>
         [DataType(DataType.DateTime)]
         public virtual DateTime? DeleteTime { get; set; }
         #endregion
-
-        #region 修改
-        /// <summary>
-        /// 最后修改时间
-        /// </summary>
-        [DataType(DataType.DateTime)]
-        public virtual DateTime? LastModifyTime { get; set; }
-
-        /// <summary>
-        /// 最后修改人ID
-        /// </summary>
-        public virtual int? LastModifiyId { get; set; }
-        /// <summary>
-        /// 最后修改人Name
-        /// </summary>
-        [StringLength(50)]
-        public virtual string LastModifiyName { get; set; }
-        #endregion
-
     }
 }

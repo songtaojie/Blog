@@ -18,29 +18,16 @@ namespace HxBlogs.Model
         /// <summary>
         /// 标签名字
         /// </summary>
-        [StringLength(50)]
+        [StringLength(40)]
         public string Name { get; set; }
         /// <summary>
-        /// 备注
+        /// 描述
         /// </summary>
-        [Column(TypeName = "text")]
-        public string Remark { get; set; }
-
+        [StringLength(1000)]
+        public string Description { get; set; }
         /// <summary>
-        /// 这个标签属于哪个用户，表示那个用户的ID
+        /// 排序
         /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// 属于这个用户的标签
-        /// </summary>
-        [ForeignKey("UserId")]
-        public virtual UserInfo User { get; set; }
-
-        /// <summary>
-        /// 关联的博客
-        /// </summary>
-        [ForeignKey("TagId")]
-        public virtual ICollection<BlogBlogTag> BlogBlogTags { get; set; }
+        public int Order { get; set; }
     }
 }

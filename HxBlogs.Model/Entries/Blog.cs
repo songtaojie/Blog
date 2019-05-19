@@ -30,18 +30,14 @@ namespace HxBlogs.Model
         /// </summary>
         [Column(TypeName = "text")]
         public string ContentHtml { get; set; }
-
         /// <summary>
-        /// 阅读量
+        /// 是否使用MarkDown编辑的
         /// </summary>
-        public int? ReadCount { get; set; } = 0;
-
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string IsMarkDown { get; set; } = "N";
         /// <summary>
-        /// 评论数量
-        /// </summary>
-        public int? CommentCount { get; set; } = 0;
-        /// <summary>
-        /// 是否显示在首页
+        /// 是否是私人的
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
@@ -76,7 +72,7 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string IsEssence { get; set; }
+        public string IsEssence { get; set; } = "N";
         /// <summary>
         /// 原链接
         /// </summary>
@@ -87,67 +83,48 @@ namespace HxBlogs.Model
         /// </summary>
         [DataType(DataType.DateTime)]
         public DateTime? OldPublishTime { get; set; }
-
-        // public int? UserId { get; set; }
-
-        ///// <summary>
-        ///// 博客标签
-        ///// </summary>       
-        //[ForeignKey("BlogId")]
-        //public virtual ICollection<BlogBlogTag> BlogBlogTags { get; set; }
-
-        public int TypeId { get; set; }
-        ///// <summary>
-        ///// 博客类型，是转发，原创，还是翻译等
-        ///// </summary> 
-        [ForeignKey("TypeId")]
-        public virtual BlogType BlogType { get; set; }
-
-        public int CatId { get; set; }
-        ///// <summary>
-        ///// 系统分类，前端、后端、编程语言等
-        ///// </summary> 
-        [ForeignKey("CatId")]
-        public virtual Category Category { get; set; }
-
         /// <summary>
-        /// 博客评论
-        /// </summary>      
-        [ForeignKey("BlogId")]
-        public virtual ICollection<Comment> Comments { get; set; }
-
+        /// 博客类型，是转发，原创，还是翻译等
+        /// </summary>
+        public int TypeId { get; set; }
+        /// <summary>
+        /// 系统分类，前端、后端、编程语言等
+        /// </summary>
+        public int CatId { get; set; }
+        /// <summary>
+        /// 博客的个人标签，对应的是BlogTag表中主键，以，号隔开
+        /// </summary>
+        [StringLength(40)]
+        public string BlogTags { get; set; }
         /// <summary>
         /// 允许评论
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
         public string CanCmt { get; set; } = "Y";
+        
         /// <summary>
-        /// 用户
+        /// 阅读量
         /// </summary>
-        [ForeignKey("CreatorId")]
-        public virtual UserInfo User { get; set; }
-
+        public int? ReadCount { get; set; } = 0;
         /// <summary>
         /// 博客被推荐的次数
         /// </summary>
-        public int? LikeCount { get; set; }
-
+        public int? LikeCount { get; set; } = 0;
         /// <summary>
         /// 被收藏次数
         /// </summary>
-        public int? FavCount { get; set; }
-        ///// <summary>
-        ///// 被评论次数
-        ///// </summary>
-        //public int? CmtCount { get; set; }
+        public int? FavCount { get; set; } = 0;
+        /// <summary>
+        /// 被评论次数
+        /// </summary>
+        public int? CmtCount { get; set; } = 0;
         /// <summary>
         /// 个人置顶 标识该文档是否置顶,置顶的文章在个人主页中排序靠前
         /// </summary>
         [StringLength(1)]
         [Column(TypeName = "char")]
-        public string PersonTop { get; set; }
-
+        public string PersonTop { get; set; } = "N";
         /// <summary>
         /// 主题中的第一张图的地址
         /// </summary>
@@ -173,5 +150,26 @@ namespace HxBlogs.Model
         [Column]
         [DecimalPrecision]
         public decimal? OrderFactor { get; set; }
+
+        /// <summary>
+        /// 用户
+        /// </summary>
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        ///// <summary>
+        ///// 系统分类，前端、后端、编程语言等
+        ///// </summary> 
+        [ForeignKey("CatId")]
+        public virtual Category Category { get; set; }
+        /// <summary>
+        /// 博客评论
+        /// </summary>      
+        [ForeignKey("BlogId")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        ///// <summary>
+        ///// 博客类型，是转发，原创，还是翻译等
+        ///// </summary> 
+        [ForeignKey("TypeId")]
+        public virtual BlogType BlogType { get; set; }
     }
 }

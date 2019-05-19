@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.DAL
 {
-    public partial class UserInfoDal : BaseDal<UserInfo>, IUserInfoDal
+    public partial class UserDal : BaseDal<User>, IUserDal
     {
         /// <summary>
         /// 根据用户名获取用户,忽略字母的大小写
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public UserInfo QueryUserByName(string username)
+        public User QueryUserByName(string username)
         {
             if (string.IsNullOrEmpty(username)) return null;
-            var item = from u in base.Context.Set<UserInfo>()
+            var item = from u in base.Context.Set<User>()
                        where u.UserName.ToLower() == username.ToLower()
                        select u;
             return item.FirstOrDefault();

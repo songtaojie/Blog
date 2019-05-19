@@ -51,7 +51,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IBlogService.cs" />
-    <Compile Include="Service\IUserInfoService.cs" />
+    <Compile Include="Service\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HxBlogs.Model\HxBlogs.Model.csproj">

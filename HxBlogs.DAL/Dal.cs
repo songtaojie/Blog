@@ -17,7 +17,10 @@ namespace HxBlogs.DAL
 	public partial class CommentDal:BaseDal<Comment>,ICommentDal
 	{
 	}
-	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
+	public partial class ReplyCommentDal:BaseDal<ReplyComment>,IReplyCommentDal
+	{
+	}
+	public partial class UserDal:BaseDal<User>,IUserDal
 	{
 	}
 }

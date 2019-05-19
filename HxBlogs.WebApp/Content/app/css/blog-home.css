@@ -116,33 +116,6 @@
     transition: color .1s ease;
     -webkit-transition: color .1s ease;
 }
-
-.blog-avatar a {
-    position: relative;
-    display: inline-block;
-}
-
-.blog-avatar img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50% !important;
-    -o-object-fit: cover;
-    object-fit: cover;
-    overflow: hidden;
-}
-
-.blog-avatar a::before {
-    content: '';
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 50%;
-}
-
 .blog-read-num,
 .blog-comment-num {
     color: #3399ea;

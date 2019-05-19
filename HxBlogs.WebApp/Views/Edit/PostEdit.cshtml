@@ -7,8 +7,9 @@
 @section styles{
     <link href="~/Content/App/css/blog-edit.css?v=1.0.0.3" rel="stylesheet" />
 }
-<div class="blog-edit blog-container">
+<div class="blog-edit blog-container white-area">
         <form class="form-horizontal" role="form" action="save" method="post">
+            <input type="hidden" name="IsMarkDown" value="N" />
             <div class="form-row">
                 <div class="col-sm-6 form-group">
                     <label class="control-label" for="Title">文章标题<span class="required">*</span></label>

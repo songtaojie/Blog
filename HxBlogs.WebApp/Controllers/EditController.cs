@@ -33,7 +33,6 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList;
-            //if (cateService != null) throw new Exception("这是一个测试");
             return View();
         }
         [HttpPost]
@@ -54,50 +53,44 @@ namespace HxBlogs.WebApp.Controllers
                     {
                         blogInfo.PublishDate = DateTime.Now;
                     }
-                    blogInfo = dbContext.Add(blogInfo);
-                    //blogInfo = _blogService.Insert(blogInfo);
+                    List<string> tagList = new List<string>();
                     if (!string.IsNullOrEmpty(editInfo.PersonTags))
                     {
                         int fakeId = 0;
                         Dictionary<string, string> dicts = JsonConvert.DeserializeObject<Dictionary<string, string>>(editInfo.PersonTags);
                         foreach (KeyValuePair<string, string> item in dicts)
                         {
-                            if (item.Key.Contains("newData") && !string.IsNullOrEmpty(item.Value))
+                            if (!string.IsNullOrEmpty(item.Value))
                             {
-                                string value = item.Value.Trim();
-                                if (!_tagService.Exist(b => b.Name == value))
+                                if (item.Key.Contains("newData"))
                                 {
-                                    BlogTag tag = new BlogTag()
+                                    string value = item.Value.Trim();
+                                    BlogTag tag = _tagService.QueryEntity(b => b.Name == value);
+                                    if (tag == null)
                                     {
-                                        Id = fakeId++,
-                                        Name = value,
-                                    };
-                                    if (UserContext.LoginUser != null)
-                                    {
-                                        tag.UserId = UserContext.LoginUser.Id;
+                                        tag = new BlogTag()
+                                        {
+                                            Id = fakeId++,
+                                            Name = value,
+                                        };
+                                        if (UserContext.LoginUser != null)
+                                        {
+                                            tag.UserId = UserContext.LoginUser.Id;
+                                        }
+                                        FillAddModel(tag);
+                                        tag = dbContext.Add(tag);
                                     }
-                                    FillAddModel(tag);
-                                    tag = dbContext.Add(tag);
-
-                                    BlogBlogTag blogTag = new BlogBlogTag()
-                                    {
-                                        BlogId = blogInfo.Id,
-                                        TagId = tag.Id
-                                    };
-                                    blogTag = dbContext.Add(blogTag);
+                                    tagList.Add(tag.Id.ToString());
                                 }
-                            }
-                            else
-                            {
-                                BlogBlogTag blogTag = new BlogBlogTag()
+                                else if(!string.IsNullOrEmpty(item.Key))
                                 {
-                                    BlogId = blogInfo.Id,
-                                    TagId = Convert.ToInt32(item.Key)
-                                };
-                                blogTag = dbContext.Add(blogTag);
+                                    tagList.Add(item.Key);
+                                }
                             }
                         }
                     }
+                    blogInfo.BlogTags = string.Join(",", tagList);
+                    blogInfo = dbContext.Add(blogInfo);
                     dbContext.SaveChages();
                 });
             }

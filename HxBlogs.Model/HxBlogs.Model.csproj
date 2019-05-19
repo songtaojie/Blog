@@ -71,16 +71,23 @@
     <Compile Include="Context\IDbSession.cs" />
     <Compile Include="DbContextManager.cs" />
     <Compile Include="Entries\Blog.cs" />
-    <Compile Include="Entries\BlogBlogTag.cs" />
     <Compile Include="Entries\BlogTag.cs" />
     <Compile Include="Entries\BlogType.cs" />
     <Compile Include="Entries\Category.cs" />
     <Compile Include="Entries\Comment.cs" />
     <Compile Include="Entries\ReplyComment.cs" />
-    <Compile Include="Entries\UserInfo.cs" />
+    <Compile Include="Entries\User.cs" />
     <Compile Include="Base\IEntity.cs" />
     <Compile Include="Context\DbFactory.cs" />
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
+    <Compile Include="Migrations\201905171445445_InitTables.cs" />
+    <Compile Include="Migrations\201905171445445_InitTables.Designer.cs">
+      <DependentUpon>201905171445445_InitTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905171545416_UpdateDbContext.cs" />
+    <Compile Include="Migrations\201905171545416_UpdateDbContext.Designer.cs">
+      <DependentUpon>201905171545416_UpdateDbContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\AjaxResult.cs" />
@@ -90,6 +97,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905171445445_InitTables.resx">
+      <DependentUpon>201905171445445_InitTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905171545416_UpdateDbContext.resx">
+      <DependentUpon>201905171545416_UpdateDbContext.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

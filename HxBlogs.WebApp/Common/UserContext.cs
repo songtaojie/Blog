@@ -19,11 +19,11 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 当前登录用户
         /// </summary>
-        public static UserInfo LoginUser
+        public static User LoginUser
         {
             get
             {
-                UserInfo userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as UserInfo;
+                User userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as User;
                 if (userInfo == null)
                 {
                     userInfo = ValidateSession();
@@ -43,9 +43,9 @@ namespace HxBlogs.WebApp
         /// 验证Session中(即Memcached中)是否有数据
         /// </summary>
         /// <returns></returns>
-        public static UserInfo ValidateSession()
+        public static User ValidateSession()
         {
-            UserInfo userInfo = null;
+            User userInfo = null;
             string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
             if (!string.IsNullOrEmpty(sessionId))
             {
@@ -53,7 +53,7 @@ namespace HxBlogs.WebApp
                 if (value != null)
                 {
                     string jsonData = value.ToString();
-                    userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
+                    userInfo = JsonConvert.DeserializeObject<User>(jsonData);
                     UserContext.LoginUser = userInfo;
                     //模拟滑动过期时间，就像Session中默认20分钟那这样
                     MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(2));
@@ -65,19 +65,19 @@ namespace HxBlogs.WebApp
         /// 验证Cookie中是否有数据(正常保存7天)
         /// </summary>
         /// <returns></returns>
-        public static UserInfo ValidateCookie()
+        public static User ValidateCookie()
         {
-            UserInfo userInfo = null;
+            User userInfo = null;
             string cookieName = WebHelper.GetCookieValue(ConstInfo.CookieName);
             if (!string.IsNullOrEmpty(cookieName))
             {
                 string jsonUser = Hx.Common.Security.SafeHelper.DESDecrypt(cookieName);
                 Dictionary<string, string> user = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonUser);
-                if (user.ContainsKey(nameof(UserInfo.UserName)) && user.ContainsKey(nameof(UserInfo.PassWord)))
+                if (user.ContainsKey(nameof(User.UserName)) && user.ContainsKey(nameof(User.PassWord)))
                 {
-                    IBLL.IUserInfoService userService = ContainerManager.Resolve<IBLL.IUserInfoService>();
-                    string userName = user[nameof(UserInfo.UserName)];
-                    string pwd = user[nameof(UserInfo.PassWord)];
+                    IBLL.IUserService userService = ContainerManager.Resolve<IBLL.IUserService>();
+                    string userName = user[nameof(User.UserName)];
+                    string pwd = user[nameof(User.PassWord)];
                     userInfo = userService.QueryEntity(u => u.UserName == userName && u.PassWord == pwd);
                     if (userInfo != null)
                     {
@@ -92,7 +92,7 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 把用户信息存储在Memcached缓存中
         /// </summary>
-        public static void CacheUserInfo(UserInfo userInfo, bool isRemember = false)
+        public static void CacheUserInfo(User userInfo, bool isRemember = false)
         {
             if (userInfo == null) return;
             //模拟Session

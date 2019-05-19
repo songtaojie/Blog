@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.IDAL
 {
-    public partial interface IUserInfoDal : IBaseDal<UserInfo>
+    public partial interface IUserDal : IBaseDal<User>
     {
-        UserInfo QueryUserByName(string username);
+        User QueryUserByName(string username);
     }
 }

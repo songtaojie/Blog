@@ -56,7 +56,7 @@
       <DependentUpon>Service.tt</DependentUpon>
     </Compile>
     <Compile Include="Service\BlogService.cs" />
-    <Compile Include="Service\UserInfoService.cs" />
+    <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HxBlogs.IBLL\HxBlogs.IBLL.csproj">

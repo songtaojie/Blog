@@ -45,22 +45,22 @@ namespace HxBlogs.Model.Context
             }
         }
 
-        public DbSet<Blog> Blog { get; set; } 
+        public DbSet<Blog> Blog { get; set; }
+        public DbSet<BlogTag> BlogTag { get; set; }
     }
     internal class SeedDataInitializer : CreateDatabaseIfNotExists<BlogContext>
     {
         protected override void Seed(BlogContext context)
         {
             base.Seed(context);
-            context.Set<UserInfo>().Add(new UserInfo()
+            context.Set<User>().Add(new User()
             {
                 UserName = "Admin",
                 PassWord = Hx.Common.Security.SafeHelper.MD5TwoEncrypt("123456"),
-                // PwdConfirm = pwd,
                 NickName = "超级管理员",
                 RealName = "管理员",
                 Email = "stjworkemail@163.com",
-                IsRoot = "Y"
+                IsAdmin = "Y"
             });
             context.Set<Category>().AddRange(new Category[] {
                 new Category{Name="前端",},

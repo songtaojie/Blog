@@ -18,7 +18,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 评论内容
         /// </summary>
-        [Column(TypeName = "text")]
+        [StringLength(1000)]
         public string Content { get; set; }
 
         /// <summary>

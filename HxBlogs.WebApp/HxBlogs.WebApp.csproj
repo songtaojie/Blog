@@ -90,6 +90,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
@@ -207,6 +210,7 @@
     <Content Include="Content\app\css\blog-edit.css" />
     <Content Include="Content\app\css\blog-header-footer.css" />
     <Content Include="Content\app\css\blog-home.css" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\css\hx-core.css" />
     <Content Include="Content\app\css\hx-loading.css" />
@@ -218,7 +222,9 @@
     <Content Include="Content\app\images\hx-icons-white.png" />
     <Content Include="Content\app\images\hx-icons.png" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\app\hx.core.min.js" />
     <Content Include="Scripts\app\hx.loading.js" />
+    <Content Include="Scripts\app\hx.loading.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -255,9 +261,9 @@
     <Content Include="Content\Css\base.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
-    <Content Include="Content\font\font-awesome.css" />
-    <Content Include="Content\font\font-awesome.min.css" />
-    <Content Include="Content\font\fonts\fontawesome-webfont.svg" />
+    <Content Include="font\font-awesome.css" />
+    <Content Include="font\font-awesome.min.css" />
+    <Content Include="font\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\Images\401.png" />
     <Content Include="Content\Images\404.png" />
     <Content Include="Content\Images\500.png" />
@@ -628,11 +634,11 @@
     <Content Include="Content\Plugin\Metronic\image\glyphiconshalflings-regular.ttf" />
     <Content Include="Content\Plugin\Metronic\image\glyphiconshalflings-regular.woff" />
     <Content Include="Content\Plugin\Metronic\image\js" />
-    <Content Include="Content\font\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\font\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\font\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\font\fonts\FontAwesome.otf" />
+    <Content Include="font\fonts\fontawesome-webfont.eot" />
+    <Content Include="font\fonts\fontawesome-webfont.ttf" />
+    <Content Include="font\fonts\fontawesome-webfont.woff" />
+    <Content Include="font\fonts\fontawesome-webfont.woff2" />
+    <Content Include="font\fonts\FontAwesome.otf" />
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>

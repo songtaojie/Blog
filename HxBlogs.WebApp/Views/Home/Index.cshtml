@@ -7,7 +7,7 @@
 @section styles{
     <link href="~/Content/app/css/blog-home.css" rel="stylesheet" />
 }
-<div class="blog-container blog-sidebar">
+<div class="blog-container blog-sidebar white-area">
     <nav class="nav flex-column mt-1">
         <ul class="navbar-nav nav-fill">
             <li class="nav-item active bg-light">
@@ -31,7 +31,7 @@
         </ul>
     </nav>
 </div>
-<div class="blog-container blog-content">
+<div class="blog-container blog-content white-area">
     <article>
         <div class="blog-list d-inline-flex flex-column justify-content-start">
             @foreach (HxBlogs.Model.Blog blog in Model)
@@ -40,7 +40,7 @@
                     <div class="blog-item-content">
                         <div class="blog-item-title">
                             <h4>
-                                <a target="_blank" href="@(WebHelper.GetFullUrl("/view/"+blog.User.UserName.ToLower()+"/"+Helper.ToHex(blog.Id)))">@blog.Title</a>
+                                <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+Helper.ToHex(blog.Id)))">@blog.Title</a>
                             </h4>
                         </div>
                     </div>
@@ -48,12 +48,12 @@
                         @(new HtmlString(string.IsNullOrWhiteSpace(blog.ContentHtml) || blog.ContentHtml.Length < 100 ? blog.ContentHtml : blog.ContentHtml.Substring(0, 100)))
                     </div>
                     <div class="blog-item-user d-flex justify-content-start align-items-center">
-                        <div class="blog-avatar mr-2">
+                        <div class="user-sm-avater mr-2">
                             <a>
                                 <img src="~/Content/Plugin/Metronic/image/avatar.png" />
                             </a>
                         </div>
-                        <div class="mr-1">@(blog.User == null ? blog.CreatorName : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>
+                        <div class="mr-1">@(blog.User == null ? "" : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>
                         <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>
                         <div class="mr-1">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
                         <div class="blog-read ml-auto">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="blog-comment ml-2">
                             <a>
-                                <span class="blog-comment-num">@blog.CommentCount</span>
+                                <span class="blog-comment-num">@blog.CmtCount</span>
                                 <span class="blog-comment-text">评论</span>
                             </a>
                         </div>

@@ -48,10 +48,19 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
-	public partial class UserInfoService:BaseService<UserInfo>,IUserInfoService
+	public partial class ReplyCommentService:BaseService<ReplyComment>,IReplyCommentService
 	{
-		private IUserInfoDal _dal;
-		public UserInfoService(IUserInfoDal dal)
+		private IReplyCommentDal _dal;
+		public ReplyCommentService(IReplyCommentDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
+	public partial class UserService:BaseService<User>,IUserService
+	{
+		private IUserDal _dal;
+		public UserService(IUserDal dal)
         {
 			this._dal = dal;
 			this.baseDal = dal;

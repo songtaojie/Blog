@@ -21,14 +21,14 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {
-        private IUserInfoService _userService;
+        private IUserService _userService;
         public ILogger Logger
         {
             get {
                 return ContainerManager.Resolve<ILogger>();
             }
         }
-        public AccountController(IUserInfoService userService)
+        public AccountController(IUserService userService)
         {
             this._userService = userService;
         }
@@ -68,10 +68,10 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         public async Task<JsonResult> RegisterUser(RegisterViewModel info)
         {
             AjaxResult result = new AjaxResult();
-            UserInfo userInfo = null;
+            User userInfo = null;
             if (ModelState.IsValid)
             {
-                userInfo = MapperManager.Map<UserInfo>(info);
+                userInfo = MapperManager.Map<User>(info);
                 userInfo = this._userService.Insert(userInfo,out result);
             }
             if (result.Success)
@@ -167,7 +167,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             string userName = Request["UserName"];
             string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
-            UserInfo userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
+            User userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
             if (userInfo == null)
             {
                 Session[ConstInfo.VCode] = null;
@@ -264,7 +264,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             if (MemcachedHelper.Get(key) != null)
             {
                 string userName = MemcachedHelper.Get(key).ToString();
-                UserInfo userInfo = this._userService.QueryEntity(u => u.UserName == userName);
+                User userInfo = this._userService.QueryEntity(u => u.UserName == userName);
                 if (userInfo == null)
                 {
                     result.Success = false;

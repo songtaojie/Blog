@@ -21,7 +21,11 @@ namespace HxBlogs.IDAL
 	{
 
 	}
-	public partial interface IUserInfoDal:IBaseDal<UserInfo>
+	public partial interface IReplyCommentDal:IBaseDal<ReplyComment>
+	{
+
+	}
+	public partial interface IUserDal:IBaseDal<User>
 	{
 
 	}

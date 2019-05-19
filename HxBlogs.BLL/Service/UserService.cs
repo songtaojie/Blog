@@ -11,14 +11,14 @@ using Hx.Common.Security;
 
 namespace HxBlogs.BLL
 {
-    public partial class UserInfoService : BaseService<UserInfo>, IUserInfoService
+    public partial class UserService : BaseService<User>, IUserService
     {
         public bool Exist(string userName)
         {
-            UserInfo info = this._dal.QueryUserByName(userName);
+            User info = this._dal.QueryUserByName(userName);
             return info != null;
         }
-        public override UserInfo BeforeInsert(UserInfo model)
+        public override User BeforeInsert(User model)
         {
             //密码加密
             model.PassWord = SafeHelper.MD5TwoEncrypt(model.PassWord);
@@ -30,7 +30,7 @@ namespace HxBlogs.BLL
             return base.BeforeInsert(model);
         }
 
-        public UserInfo Insert(UserInfo info, out AjaxResult returnResult)
+        public User Insert(User info, out AjaxResult returnResult)
         {
             AjaxResult result = new AjaxResult();
             bool success = false;

@@ -34,13 +34,16 @@ namespace HxBlogs.WebApp
             #endregion
 
             #region 样式文件
-            bundles.Add(new StyleBundle("~/content/bootstrap").Include(
-                      "~/Content/bootstrap.css"));
+            bundles.Add(new StyleBundle("~/content/style").Include(
+               "~/Content/bootstrap.css",
+               "~/font/font-awesome.css"
+              ));
             bundles.Add(new StyleBundle("~/content/site").Include(
-                "~/Content/Css/blog-site.css",
-                "~/Content/app/css/hx-loading.css",
                 "~/Content/Plugin/alertifyjs/css/alertify.css",
-                "~/Content/Plugin/alertifyjs/css/themes/default.css"));
+                "~/Content/Plugin/alertifyjs/css/themes/default.css",
+               "~/Content/Css/blog-site.css",
+               "~/Content/app/css/hx-loading.css"
+               ));
             #endregion
         }
     }

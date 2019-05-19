@@ -47,5 +47,9 @@ namespace HxBlogs.WebApp.Models
         {
             get;set;
         }
+        public string IsMarkDown
+        {
+            get; set;
+        } = "N";
     }
 }

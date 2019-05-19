@@ -10,7 +10,7 @@ namespace HxBlogs.Model
 {
     [Table("ReplyComment")]
     [Serializable]
-    public class ReplyComment
+    public class ReplyComment:BaseEntity
     {
         /// <summary>
         /// 回复的评论id
@@ -20,7 +20,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 回复给用户
         /// </summary>      
-        public int? ReplyToUserId { get; set; }
+        public int ReplyToUserId { get; set; }
 
         /// <summary>
         /// 回复给用户的名字（为了兼容迁移博客）
@@ -34,14 +34,7 @@ namespace HxBlogs.Model
         [StringLength(40)]
         public string IPAddress { get; set; }
 
-
         [ForeignKey("CommentId")]
         public virtual Comment Comment { get; set; }
-
-        /// <summary>
-        /// 回复给的用户
-        /// </summary>
-        [ForeignKey("ReplyToUserId")]
-        public virtual UserInfo ReplyToUser { get; set; }
     }
 }

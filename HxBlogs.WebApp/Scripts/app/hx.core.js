@@ -199,7 +199,7 @@
                 } else if (!hxCore.isEmpty(msg)) {
                     if (window.alertify) {
                         alertify.alert(msg).set({
-                            title:'系统提示',
+                            title: '系统提示',
                             transition: 'zoom'
                         });
                     } else {
@@ -278,7 +278,7 @@
                 hxCore.ajaxSuccess(response, success, error);
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 hxCore.ajaxError(jqXHR, error);
-                }).always(function (r, textStatus) {
+            }).always(function (r, textStatus) {
                 if (opt.button) {
                     $.each(opt.button, function (k, $b) {
                         $b.removeAttr('disabled');
@@ -309,7 +309,7 @@
                     valign: 'top',
                     halign: 'center',
                     timeout: 2000
-                }
+                };
                 _remind(opt);
             }
         },
@@ -329,12 +329,12 @@
                     valign: 'top',
                     halign: 'center',
                     timeout: 2000
-                }
+                };
                 _remind(opt);
             }
         },
 
-    }
+    };
     var _handleOptions = function (options) {
         options = options || {};
         // 遮罩层
@@ -474,7 +474,6 @@
         }
         if (timeout > 0) {
             setTimeout(function () {
-                debugger
                 $dialog.remove();
                 if (hxCore.isFunction(opt.callback)) {
                     opt.callback.call(this, $dialog);
@@ -493,7 +492,7 @@
         }
 
         return str;
-    }
+    };
     window.HxCore = $.extend(true, hxCore, {
         /**
          * 自定义的提醒

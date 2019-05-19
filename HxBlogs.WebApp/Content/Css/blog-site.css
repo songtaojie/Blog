@@ -1,5 +1,5 @@
 ﻿
-@import url('../font/font-awesome.css');
+/*@import url('/Content/font/');*/
 
 html {
     height: 100%;
@@ -12,6 +12,7 @@ body {
     overflow-x: hidden;
     font-size: 0.875rem;
     line-height: 1.4285em;
+    background: #e9ecef;
 }
 
 
@@ -36,14 +37,58 @@ body {
         display: none;
     }
 }
-/**************博客的头部*************************/
+
+.white-area {
+    background: #fff;
+}
+
 .blog-container {
     margin-top: 3rem;
-    background: #fff;
     padding-left: initial;
     padding-right: initial;
 }
-/*****************主页End**********************/
+/*****************用户头像**********************/
+.user-sm-avater,
+.user-md-avater {
+}
+
+    .user-sm-avater a,
+    .user-md-avater a {
+        position: relative;
+        display: inline-block;
+    }
+
+        .user-sm-avater a:before,
+        .user-md-avater a:before {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 50%;
+        }
+
+    .user-sm-avater img,
+    .user-md-avater img {
+        border-radius: 50% !important;
+        -o-object-fit: cover;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .user-sm-avater img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .user-md-avater img {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
 a:hover, a:active, a:focus {
     cursor: pointer;
     text-decoration: none;

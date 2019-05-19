@@ -32,7 +32,7 @@ namespace HxBlogs.WebApp.Controllers
             bool isSuccess = AllowAnonymous(filterContext);
             if (!isSuccess)
             {
-                UserInfo userInfo = UserContext.ValidateSession();
+                User userInfo = UserContext.ValidateSession();
                 isSuccess = userInfo != null;
                 if (!isSuccess)
                 {
@@ -71,31 +71,20 @@ namespace HxBlogs.WebApp.Controllers
 
         protected T FillAddModel<T>(T model) where T : BaseEntity
         {
-            UserInfo userInfo = UserContext.LoginUser;
+            User userInfo = UserContext.LoginUser;
             if (userInfo != null)
             {
-                model.CreatorId = userInfo.Id;
-                model.CreatorName = userInfo.NickName;
+                model.UserId = userInfo.Id;
+                model.UserName = userInfo.UserName;
             }
             return model;
         }
         protected T FillDeleteModel<T>(T model) where T : BaseEntity
         {
-            UserInfo userInfo = UserContext.LoginUser;
+            User userInfo = UserContext.LoginUser;
             if (userInfo != null)
             {
                 model.DeleteId = userInfo.Id;
-                model.DeleteName = userInfo.NickName;
-            }
-            return model;
-        }
-        protected T FillModifyModel<T>(T model) where T : BaseEntity
-        {
-            UserInfo userInfo = UserContext.LoginUser;
-            if (userInfo != null)
-            {
-                model.LastModifiyId = userInfo.Id;
-                model.LastModifiyName = userInfo.NickName;
             }
             return model;
         }

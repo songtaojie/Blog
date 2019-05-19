@@ -16,7 +16,10 @@ namespace HxBlogs.IBLL
 	public partial interface ICommentService:IBaseService<Comment>
 	{
 	}
-	public partial interface IUserInfoService:IBaseService<UserInfo>
+	public partial interface IReplyCommentService:IBaseService<ReplyComment>
+	{
+	}
+	public partial interface IUserService:IBaseService<User>
 	{
 	}
 }
