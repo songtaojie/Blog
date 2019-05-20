@@ -14,10 +14,6 @@ body {
     line-height: 1.4285em;
     background: #e9ecef;
 }
-
-
-/*****************主页Begin**********************/
-
 /**************博客的头部*************************/
 .blog-header {
     box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
@@ -38,11 +34,11 @@ body {
     }
 }
 
-.white-area {
+.hx-white-content {
     background: #fff;
 }
 
-.blog-container {
+.hx-container {
     margin-top: 3rem;
     padding-left: initial;
     padding-right: initial;
@@ -99,6 +95,23 @@ a:hover, a:active, a:focus {
     width: 1rem;
     text-align: center;
 }
+/******************博客中的浅色字体************************/
+.hx-light-content {
+    font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
+    background: none transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+    .hx-light-content .hx-text {
+        color: rgba(0,0,0,.4);
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        transition: color .1s ease;
+        -webkit-transition: color .1s ease;
+    }
 
 /******************重写bootstrap中的自定义复选框Begin************************/
 .hx-control-label {
@@ -114,7 +127,7 @@ a:hover, a:active, a:focus {
         top: 0.05rem;
         left: -1.3rem;
     }
-/******************重写bootstrap中的自定义复选框End************************/
+
 /* Set padding to keep content from hitting the edges */
 .control-label .required {
     color: #e02222;

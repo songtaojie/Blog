@@ -14,10 +14,12 @@ namespace HxBlogs.WebApp.Controllers
     {
         private IUserService _userService;
         private IBlogService _blogService;
-        public ViewController(IUserService userService,IBlogService blogService)
+        private IBlogTagService _blogTagService;
+        public ViewController(IUserService userService,IBlogService blogService,IBlogTagService blogTagServer)
         {
             this._userService = userService;
             this._blogService = blogService;
+            this._blogTagService = blogTagServer;
         }
         [Route("{userId}/{blogId}")]
         public ActionResult Index(string userId,string blogId)
@@ -29,6 +31,20 @@ namespace HxBlogs.WebApp.Controllers
             Blog blog = _blogService.QueryEntityByID(Convert.ToInt32(Helper.FromHex(blogId)));
             if (user == null || blog==null) throw new NotFoundException("找不到您访问的页面!");
             ViewBag.User = user;
+            if (!string.IsNullOrEmpty(blog.BlogTags))
+            {
+                List<BlogTag> tagList = new List<BlogTag>();
+                string[] tags = blog.BlogTags.Split(',');
+                foreach (string tagId in tags)
+                {
+                    BlogTag blogTag = _blogTagService.QueryEntityByID(Convert.ToInt32(tagId));
+                    if (blogTag != null)
+                    {
+                        tagList.Add(blogTag);
+                    }
+                }
+                ViewBag.BlogTag = tagList;
+            }
             return View(blog);
         }
     }
