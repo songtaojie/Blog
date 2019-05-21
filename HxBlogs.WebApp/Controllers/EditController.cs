@@ -78,7 +78,8 @@ namespace HxBlogs.WebApp.Controllers
                                             tag.UserId = UserContext.LoginUser.Id;
                                         }
                                         FillAddModel(tag);
-                                        tag = dbContext.Add(tag);
+                                        tag = _tagService.Insert(tag);
+                                        // tag = dbContext.Add(tag);
                                     }
                                     tagList.Add(tag.Id.ToString());
                                 }
@@ -90,8 +91,9 @@ namespace HxBlogs.WebApp.Controllers
                         }
                     }
                     blogInfo.BlogTags = string.Join(",", tagList);
-                    blogInfo = dbContext.Add(blogInfo);
-                    dbContext.SaveChages();
+                    _blogService.Insert(blogInfo);
+                    //blogInfo = dbContext.Add(blogInfo);
+                    // dbContext.SaveChages();
                 });
             }
             else

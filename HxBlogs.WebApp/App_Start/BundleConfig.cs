@@ -44,6 +44,9 @@ namespace HxBlogs.WebApp
                "~/Content/Css/blog-site.css",
                "~/Content/app/css/hx-loading.css"
                ));
+            bundles.Add(new StyleBundle("~/content/blog").Include(
+              "~/Content/app/css/blog-default.css"
+              ));
             #endregion
         }
     }

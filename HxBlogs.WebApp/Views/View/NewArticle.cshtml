@@ -1,0 +1,12 @@
+﻿<div class="card-header hx-card-header">
+    最新文章
+</div>
+<div class="card-body">
+    @if (ViewBag.BlogList != null)
+    {
+        foreach (HxBlogs.Model.Blog blog in ViewBag.BlogList)
+        {
+            <a>@blog.Title</a>
+        }
+    }
+</div>

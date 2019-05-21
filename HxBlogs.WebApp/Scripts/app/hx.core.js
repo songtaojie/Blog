@@ -222,7 +222,7 @@
                     error = $.parseJSON(error);
                 } catch (e) { error = error; }
             } else {
-                error = data.statusText;
+                error = r.statusText;
             }
             const msg = error.Message || error;
             if (hxCore.isFunction(failure)) {

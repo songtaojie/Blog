@@ -1,11 +1,15 @@
 ﻿@model HxBlogs.Model.Blog
 @{
     ViewBag.Title = Model.Title;
+    string newArticle = Guid.NewGuid().ToString();
 }
-<div class="hx-container">
+@section styles{
+    @Styles.Render("~/content/blog")  
+}
+<div class="hx-container blog-view">
     <div class="d-flex">
-        <aside class="d-flex flex-column" style="width:300px;">
-            <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-content">
+        <aside class="d-flex flex-column blog-aside">
+            <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-content hx-aside-title">
                 <div class="user-md-avater mr-2">
                     <a>
                         <img src="~/Content/Plugin/Metronic/image/avatar.png" />
@@ -34,16 +38,11 @@
                     <span>100</span>
                 </div>
             </div>
-            <div class="card my-1">
-                <div class="card-header">
-                    最新文章
-                </div>
-                <div class="card-body">
-
-                </div>
+            <div id="@newArticle" class="card my-1">
+                
             </div>
             <div class="card my-1">
-                <div class="card-header">
+                <div class="card-header hx-card-header">
                     个人分类
                 </div>
                 <div class="card-body">
@@ -51,7 +50,7 @@
                 </div>
             </div>
             <div class="card my-1">
-                <div class="card-header">
+                <div class="card-header hx-card-header">
                     热门文章
                 </div>
                 <div class="card-body">
@@ -59,29 +58,46 @@
                 </div>
             </div>
         </aside>
-        <div class="flex-fill flex-column mt-2 ml-3 p-3 hx-white-content">
+        <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-content">
             <div class="mt-2">
                 <div>
                     <h4>@Model.Title</h4>
                 </div>
-                <div class="hx-light-content">
+                <div class="d-flex hx-light-content">
                     <span class="hx-text">@(Model.User == null || string.IsNullOrEmpty(Model.User.NickName) ? Model.UserName : Model.User.NickName)发布于</span>
                     <span class="hx-text mr-1">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
                     <span class="hx-text mx-1">阅读数:@Model.ReadCount</span>
                     <span class="hx-text mx-1">收藏:@Model.FavCount</span>
-                    <span class="hx-text mx-1">点赞:@Model.ReadCount</span>
+                    <span class="hx-text mx-1">点赞:@Model.LikeCount</span>
                     <div class="hx-text mx-1">
                         个人分类：
                         @if (ViewBag.BlogTag != null)
                         {
-
+                            foreach (HxBlogs.Model.BlogTag tag in ViewBag.BlogTag)
+                            {
+                                <a href="@WebHelper.GetFullUrl("/article/tag/"+tag.UserName+"/"+Hx.Common.Helper.Helper.ToHex(tag.Id))">@tag.Name</a>
+                            }
                         }
                     </div>
                 </div>
             </div>
-            <div>
-
+            <div class="mt-4 blog-content">
+                @(new HtmlString(Model.ContentHtml))
             </div>
         </div>
     </div>
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            var $newArticle = $('#@newArticle');
+            HxCore.ajax('/article/loadnewarticle', {
+                maskTarget: $newArticle,
+                success(data) {
+                    debugger
+                    $newArticle.html(data);
+                }
+            });
+        });
+    </script>
+}

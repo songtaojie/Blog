@@ -10,6 +10,7 @@ using System.Web.Mvc;
 namespace HxBlogs.WebApp.Controllers
 {
     [RoutePrefix("article")]
+    [Route("{action}")]
     public class ViewController : Controller
     {
         private IUserService _userService;
@@ -46,6 +47,13 @@ namespace HxBlogs.WebApp.Controllers
                 ViewBag.BlogTag = tagList;
             }
             return View(blog);
+        }
+        [HttpPost]
+        public ActionResult LoadNewArticle()
+        {
+            var blogList = this._blogService.QueryEntities(b => true);
+            ViewBag.BlogList = blogList;
+            return PartialView("newarticle");
         }
     }
 }

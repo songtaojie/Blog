@@ -212,6 +212,7 @@
     <Content Include="Content\app\css\blog-home.css" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\app\css\blog-default.css" />
     <Content Include="Content\app\css\hx-core.css" />
     <Content Include="Content\app\css\hx-loading.css" />
     <Content Include="Content\app\font\blog-font.css" />
@@ -813,6 +814,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\View\Index.cshtml" />
+    <Content Include="Views\View\NewArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

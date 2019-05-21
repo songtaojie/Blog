@@ -260,11 +260,11 @@ namespace HxBlogs.WebApp
             {
                 rootPath = rootPath.Remove(rootPath.Length - 1);
             }
-            while (string.IsNullOrEmpty(routeUrl) && routeUrl.First() == '/')
+            while (!string.IsNullOrEmpty(routeUrl) && routeUrl.First() == '/')
             {
                 routeUrl = routeUrl.Substring(1);
             }
-            return rootPath + routeUrl;
+            return rootPath + "/" +routeUrl;
         }
         /// <summary>
         /// 获取客户端ip

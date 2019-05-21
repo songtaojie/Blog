@@ -71,9 +71,9 @@
             // force usage of iframe in non-IE browsers (handy for blocking applets) 
             forceIframe: false, 
             // fadeIn time in millis; set to 0 to disable fadeIn on block 
-            fadeIn: opt.fadeIn ?fadeIn:200,
+            fadeIn: opt.fadeIn ? opt.fadeIn:200,
             // fadeOut time in millis; set to 0 to disable fadeOut on unblock 
-            fadeOut: opt.fadeOut ? fadeOut :400,
+            fadeOut: opt.fadeOut ? opt.fadeOut :400,
             // time in millis to wait before auto-unblocking; set to 0 to disable auto-unblock 
             timeout: opt.timeout ? opt.timeout:0,
             css: {
