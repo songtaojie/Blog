@@ -1,0 +1,17 @@
+﻿<div class="card-header hx-card-header">
+    个人分类
+</div>
+<div class="card-body">
+    <div class="d-flex flex-column justify-content-start">
+        @if (ViewBag.TagList != null)
+        {
+            foreach (HxBlogs.Model.BlogTag tag in ViewBag.TagList)
+            {
+                <a class="hx-content-nowrap" target="_blank" href="@(WebHelper.GetFullUrl("/article/tag/"+Hx.Common.Helper.Helper.ToHex(tag.Id)))">
+                    <span>@tag.Name</span>
+                    <span>(@ViewBag.TagCountList[tag.Id]篇)</span>
+                </a>
+            }
+        }
+    </div>
+</div>

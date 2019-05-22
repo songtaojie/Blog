@@ -2,11 +2,13 @@
     最新文章
 </div>
 <div class="card-body">
-    @if (ViewBag.BlogList != null)
-    {
-        foreach (HxBlogs.Model.Blog blog in ViewBag.BlogList)
+    <div class="d-flex flex-column justify-content-start">
+        @if (ViewBag.BlogList != null)
         {
-            <a>@blog.Title</a>
+            foreach (HxBlogs.Model.Blog blog in ViewBag.BlogList)
+            {
+                <a class="hx-content-nowrap" target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+Hx.Common.Helper.Helper.ToHex(blog.Id)))">@blog.Title</a>
+            }
         }
-    }
+    </div>
 </div>

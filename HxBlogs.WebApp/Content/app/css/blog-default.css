@@ -15,9 +15,24 @@
         margin: 0 0 1rem;
         overflow-x: auto;
     }
-.hx-card-header {
-    padding: 0.5rem 1rem;
-}
+    .blog-view .blog-tag a {
+        padding: 0 0.5rem;
+        min-width: 1.5rem;
+        border: 1px solid #e0e0e0;
+        background-color: #e8e8e8;
+        border-radius: 6.25rem;
+        color: rgba(0,0,0,.6);
+        text-align: center;
+    }
+        .blog-view .blog-tag a:hover {
+            background-color: #e0e0e0;
+            border-color: #e0e0e0;
+            background-image: none;
+            color: rgba(0,0,0,.8);
+        } 
+        .hx-card-header {
+            padding: 0.5rem 1rem;
+        }
 .hx-aside-title {
     border-bottom: solid 1px #e9ecef;
 }

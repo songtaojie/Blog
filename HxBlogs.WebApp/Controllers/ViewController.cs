@@ -48,12 +48,33 @@ namespace HxBlogs.WebApp.Controllers
             }
             return View(blog);
         }
+        /// <summary>
+        /// 加载最新文章
+        /// </summary>
+        /// <param name="id">当前页面的博客id，侧边栏排除掉</param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult LoadNewArticle()
+        public ActionResult LoadNewArticle(string id)
         {
-            var blogList = this._blogService.QueryEntities(b => true);
+            int blogId = Convert.ToInt32(Helper.FromHex(id));
+            var blogList = this._blogService.QueryEntities(b => b.Id != blogId).OrderByDescending(b=>b.PublishDate).Take(5);
             ViewBag.BlogList = blogList;
             return PartialView("newarticle");
+        }
+
+        [HttpPost]
+        public ActionResult LoadPersonTag()
+        {
+            var tagList = this._blogTagService.QueryEntities(t => true).OrderBy(t => t.Order).Take(5);
+            Dictionary<int, int> tagCountList = new Dictionary<int, int>();
+            foreach (BlogTag tag in tagList)
+            {
+                int count = this._blogService.Count(b => b.BlogTags.Contains(tag.Id.ToString()));
+                tagCountList.Add(tag.Id, count);
+            }
+            ViewBag.TagList = tagList;
+            ViewBag.TagCountList = tagCountList;
+            return PartialView("persontag");
         }
     }
 }

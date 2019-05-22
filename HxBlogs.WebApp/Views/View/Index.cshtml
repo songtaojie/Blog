@@ -1,7 +1,8 @@
 ﻿@model HxBlogs.Model.Blog
 @{
     ViewBag.Title = Model.Title;
-    string newArticle = Guid.NewGuid().ToString();
+    string newArticle = Guid.NewGuid().ToString(),
+        personTag = Guid.NewGuid().ToString();
 }
 @section styles{
     @Styles.Render("~/content/blog")  
@@ -38,16 +39,9 @@
                     <span>100</span>
                 </div>
             </div>
-            <div id="@newArticle" class="card my-1">
-                
+            <div id="@newArticle" class="card my-1" hidden>
             </div>
-            <div class="card my-1">
-                <div class="card-header hx-card-header">
-                    个人分类
-                </div>
-                <div class="card-body">
-
-                </div>
+            <div id="@personTag" class="card my-1" hidden>
             </div>
             <div class="card my-1">
                 <div class="card-header hx-card-header">
@@ -69,7 +63,7 @@
                     <span class="hx-text mx-1">阅读数:@Model.ReadCount</span>
                     <span class="hx-text mx-1">收藏:@Model.FavCount</span>
                     <span class="hx-text mx-1">点赞:@Model.LikeCount</span>
-                    <div class="hx-text mx-1">
+                    <div class="hx-text mx-1 blog-tag">
                         个人分类：
                         @if (ViewBag.BlogTag != null)
                         {
@@ -90,12 +84,27 @@
 @section scripts{
     <script>
         $(function () {
-            var $newArticle = $('#@newArticle');
+            var $newArticle = $('#@newArticle'),
+                $personTag = $('#@personTag');
             HxCore.ajax('/article/loadnewarticle', {
-                maskTarget: $newArticle,
+                data: {
+                    id:'@(Hx.Common.Helper.Helper.ToHex(Model.Id))'
+                },
                 success(data) {
-                    debugger
                     $newArticle.html(data);
+                    $newArticle.removeAttr('hidden');
+                },
+                failure() {
+                    debugger
+                }
+            });
+             HxCore.ajax('/article/loadpersontag', {
+                success(data) {
+                    $personTag.html(data);
+                    $personTag.removeAttr('hidden');
+                },
+                failure() {
+                    debugger
                 }
             });
         });

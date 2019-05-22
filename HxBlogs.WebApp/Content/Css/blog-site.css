@@ -38,6 +38,18 @@ body {
     background: #fff;
 }
 
+.hx-content-nowrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .hx-content-nowrap p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
 .hx-container {
     margin-top: 3rem;
     padding-left: initial;
@@ -105,6 +117,7 @@ a:hover, a:active, a:focus {
     border-radius: 0;
     width: 100%;
 }
+
     .hx-light-content .hx-text {
         color: rgba(0,0,0,.4);
         box-shadow: none;

@@ -87,5 +87,19 @@ namespace HxBlogs.IDAL
         /// <returns></returns>
         void Delete(Expression<Func<T, bool>> lambdaWhere);
         #endregion
+        #region 返回数量
+        /// <summary>
+        /// 返回满足条件的数量
+        /// </summary>
+        /// <param name="lambdaWhere"></param>
+        /// <returns></returns>
+        long LongCount(Expression<Func<T, bool>> lambdaWhere);
+        /// <summary>
+        /// 返回满足条件的数量
+        /// </summary>
+        /// <param name="lambdaWhere"></param>
+        /// <returns></returns>
+        int  Count(Expression<Func<T, bool>> lambdaWhere);
+        #endregion
     }
 }

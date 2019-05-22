@@ -815,6 +815,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\View\Index.cshtml" />
     <Content Include="Views\View\NewArticle.cshtml" />
+    <Content Include="Views\View\PersonTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

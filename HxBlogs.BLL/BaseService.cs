@@ -192,5 +192,26 @@ namespace HxBlogs.BLL
             entity = BeforeLogicDelete(entity);
         }
         #endregion
+
+        #region 返回数量
+        /// <summary>
+        /// 返回满足条件的数量
+        /// </summary>
+        /// <param name="lambdaWhere"></param>
+        /// <returns></returns>
+        public long LongCount(Expression<Func<T, bool>> lambdaWhere)
+        {
+            return this.baseDal.LongCount(lambdaWhere);
+        }
+        /// <summary>
+        /// 返回满足条件的数量
+        /// </summary>
+        /// <param name="lambdaWhere"></param>
+        /// <returns></returns>
+        public int Count(Expression<Func<T, bool>> lambdaWhere)
+        {
+            return this.baseDal.Count(lambdaWhere);
+        }
+        #endregion
     }
 }

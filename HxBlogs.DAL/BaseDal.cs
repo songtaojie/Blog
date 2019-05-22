@@ -150,5 +150,16 @@ namespace HxBlogs.DAL
             }
         }
         #endregion
+
+        #region 返回总数
+        public long LongCount(Expression<Func<T, bool>> lambdaWhere)
+        {
+            return Context.Set<T>().LongCount(lambdaWhere);
+        }
+        public int Count(Expression<Func<T, bool>> lambdaWhere)
+        {
+            return Context.Set<T>().Count(lambdaWhere);
+        }
+        #endregion 
     }
 }
