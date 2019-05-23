@@ -338,18 +338,20 @@
     var _handleOptions = function (options) {
         options = options || {};
         // 遮罩层
-        if (HxLoad) {
+        if (HxLoad && options.maskTarget) {
             var maskOpt = {};
-            if (options.maskTarget) {
-                if (options.maskTarget === true) {
-                    maskOpt = {};
-                } else if (hxCore.isString(options.maskTarget)) {
-                    if ($(options.maskTarget).length > 0) {
-                        maskOpt.target = $(options.maskTarget);
-                    } else {
-                        maskOpt.label = options.maskTarget;
-                    }
-                } else if (hxCore.isObject(options.maskTarget)) {
+            if (options.maskTarget === true) {
+                maskOpt = {};
+            } else if (hxCore.isString(options.maskTarget)) {
+                if ($(options.maskTarget).length > 0) {
+                    maskOpt.target = $(options.maskTarget);
+                } else {
+                    maskOpt.label = options.maskTarget;
+                }
+            } else if (hxCore.isObject(options.maskTarget)) {
+                if (options.maskTarget instanceof jQuery) {
+                    maskOpt.target = options.maskTarget;
+                } else {
                     maskOpt = options.maskTarget;
                 }
             }

@@ -15,22 +15,25 @@ namespace HxBlogs.IBLL
         /// 获取满足指定条件的所有数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>当前实体的集合</returns>
-        IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere);
+        IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
 
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>满足当前条件的一个实体</returns>
-        T QueryEntity(Expression<Func<T, bool>> lambdaWhere);
+        T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
 
         /// <summary>
         /// 根据ID获取指定的数据
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        T QueryEntityByID(object id);
+        T QueryEntityByID(object id, bool excludeDeleted = true);
 
         /// <summary>
         /// 分页形式的数据获取
@@ -42,22 +45,25 @@ namespace HxBlogs.IBLL
         /// <param name="isAsc">true升序排序，false降序排序，false时需给出排序的lambda表达式</param>
         /// <param name="oederLambdaWhere">排序的lambda表达式</param>
         /// <param name="lambdaWhere">获取数据的lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere);
+        IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
 
         /// <summary>
         /// 根据记录的ID判断数据库中是否存在某条记录
         /// </summary>
         /// <param name="id">记录的ID</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>true代表存在;false代表不存在</returns>
-        bool Exist(object id);
+        bool Exist(object id, bool excludeDeleted = true);
 
         /// <summary>
         /// 根据表达式来判断是否存在某条记录
         /// </summary>
         /// <param name="lambdaWhere"></param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>true代表存在;false代表不存在</returns>
-        bool Exist(Expression<Func<T, bool>> lambdaWhere);
+        bool Exist(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
         #endregion
 
         #region 添加
@@ -105,14 +111,16 @@ namespace HxBlogs.IBLL
         /// 返回满足条件的数量
         /// </summary>
         /// <param name="lambdaWhere"></param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        long LongCount(Expression<Func<T, bool>> lambdaWhere);
+        long LongCount(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
         /// <summary>
         /// 返回满足条件的数量
         /// </summary>
         /// <param name="lambdaWhere"></param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        int Count(Expression<Func<T, bool>> lambdaWhere);
+        int Count(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
         #endregion
     }
 }

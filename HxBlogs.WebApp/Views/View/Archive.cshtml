@@ -9,7 +9,7 @@
             {
                 <a class="hx-content-nowrap" target="_blank" href="@(WebHelper.GetFullUrl("/article/archive/"+item.Key.Substring(0,4)+"/"+item.Key.Substring(4)))">
                     <span>@item.Key</span>
-                    <span>((@item.Value)篇)</span>
+                    <span>(@(item.Value)篇)</span>
                 </a>
             }
         }

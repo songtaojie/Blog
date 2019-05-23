@@ -69,26 +69,25 @@ namespace HxBlogs.WebApp.Controllers
         [HttpPost]
         public ActionResult LoadPersonTag()
         {
-            var tagList = this._blogTagService.QueryEntities(t => true).OrderBy(t => t.Order).Take(5);
+            var tagList = this._blogTagService.QueryEntities(t => true).OrderBy(t => t.Order);
             Dictionary<int, int> tagCountList = new Dictionary<int, int>();
             foreach (BlogTag tag in tagList)
             {
                 int count = this._blogService.Count(b => b.BlogTags.Contains(tag.Id.ToString()));
                 tagCountList.Add(tag.Id, count);
             }
-            ViewBag.TagList = tagList;
             ViewBag.TagCountList = tagCountList;
-            return PartialView("persontag");
+            return PartialView("persontag", tagList);
         }
 
         /// <summary>
-        /// 加载个人标签
+        /// 加载随笔归档
         /// </summary>
         /// <returns></returns>
         [HttpPost]
         public ActionResult LoadArchive()
         {
-            var archiveList = this._blogService.QueryEntities(b => b.UserId == UserContext.LoginUser.Id && b.IsPublish=="Y" && b.IsDeleted=="N")
+            var archiveList = this._blogService.QueryEntities(b => b.UserId == UserContext.LoginUser.Id && b.IsPublish=="Y")
                 .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
                 .Select(g => new { Key = g.Key,Count = g.Count()})
                 .OrderByDescending(b=>b.Key);

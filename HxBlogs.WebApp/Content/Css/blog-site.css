@@ -140,13 +140,32 @@ a:hover, a:active, a:focus {
         top: 0.05rem;
         left: -1.3rem;
     }
-
-/* Set padding to keep content from hitting the edges */
-.control-label .required {
-    color: #e02222;
-    font-size: 1.2rem;
-    padding-left: .2rem;
+/*******************卡片************************/
+.hx-card-header {
+    padding: 0.5rem 1rem;
 }
+
+.hx-card-footer {
+    padding: 0.5rem 1rem;
+}
+    .hx-card-footer-link a {
+        display: block;
+        font-size: 0.85em;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+    }
+.hx-card-footer-link:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    /* Set padding to keep content from hitting the edges */
+    .control-label .required {
+        color: #e02222;
+        font-size: 1.2rem;
+        padding-left: .2rem;
+    }
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */

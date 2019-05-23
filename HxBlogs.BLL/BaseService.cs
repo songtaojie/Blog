@@ -33,16 +33,16 @@ namespace HxBlogs.BLL
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere)
+        public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere,bool excludeDeleted = true)
         {
-            if (typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
             {
-                var param = Expression.Field(Expression.Constant(new T()), "IsDeleted");
-                var bin = Expression.Equal(param, Expression.Constant("Y"));
-                var invokedExpr = Expression.Invoke(bin, lambdaWhere.Parameters.Cast<Expression>());
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
                 var lambda = Expression.Lambda<Func<T, bool>>
-                      (Expression.AndAlso(lambdaWhere.Body, invokedExpr), lambdaWhere.Parameters);
+                      (Expression.AndAlso(bin,lambdaWhere.Body), lambdaWhere.Parameters);
                 return this.baseDal.QueryEntity(lambda);
             }
             
@@ -53,10 +53,11 @@ namespace HxBlogs.BLL
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere)
+        public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true)
         {
-            if (typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
             {
                 var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
                 var bin = Expression.Equal(param, Expression.Constant("N"));
@@ -72,9 +73,17 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public T QueryEntityByID(object id)
+        public T QueryEntityByID(object id, bool excludeDeleted = true)
         {
-            return this.baseDal.QueryEntityByID(id);
+            T model = this.baseDal.QueryEntityByID(id);
+            if (model != null && excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                if (string.Format("{0}", model["IsDeleted"]) == "Y")
+                {
+                    model = null;
+                }
+            }
+            return model;
         }
 
         /// <summary>
@@ -87,9 +96,18 @@ namespace HxBlogs.BLL
         /// <param name="isAsc">true升序排序，false降序排序，false时需给出排序的lambda表达式</param>
         /// <param name="orderLambdaWhere">排序的lambda表达式</param>
         /// <param name="lambdaWhere">获取数据的lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的</param>
         /// <returns></returns>
-        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere)
+        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere,bool excludeDeleted = true)
         {
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(bin, lambdaWhere.Body), lambdaWhere.Parameters);
+                this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, lambda);
+            }
             return this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, lambdaWhere);
         }
 
@@ -98,9 +116,9 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="id">记录的ID</param>
         /// <returns>true代表存在;false代表不存在</returns>
-        public virtual bool Exist(object id)
+        public virtual bool Exist(object id,bool excludeDeleted = true)
         {
-            T model = this.QueryEntityByID(id);
+            T model = this.QueryEntityByID(id, excludeDeleted);
             return model !=null;
         }
 
@@ -109,9 +127,9 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="lambdaWhere"></param>
         /// <returns>true代表存在;false代表不存在</returns>
-        public virtual bool Exist(Expression<Func<T, bool>> lambdaWhere)
+        public virtual bool Exist(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true)
         {
-            T model = this.QueryEntity(lambdaWhere);
+            T model = this.QueryEntity(lambdaWhere, excludeDeleted);
             return model != null;
         }
         #endregion
@@ -208,6 +226,7 @@ namespace HxBlogs.BLL
         public void LogicDelete(T entity)
         {
             entity = BeforeLogicDelete(entity);
+            this.Update(entity);
         }
         #endregion
 
@@ -217,8 +236,16 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="lambdaWhere"></param>
         /// <returns></returns>
-        public long LongCount(Expression<Func<T, bool>> lambdaWhere)
+        public long LongCount(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true)
         {
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(bin, lambdaWhere.Body), lambdaWhere.Parameters);
+                return this.baseDal.LongCount(lambda);
+            }
             return this.baseDal.LongCount(lambdaWhere);
         }
         /// <summary>
@@ -226,8 +253,16 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="lambdaWhere"></param>
         /// <returns></returns>
-        public int Count(Expression<Func<T, bool>> lambdaWhere)
+        public int Count(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true)
         {
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(bin, lambdaWhere.Body), lambdaWhere.Parameters);
+                return this.baseDal.Count(lambda);
+            }
             return this.baseDal.Count(lambdaWhere);
         }
         #endregion

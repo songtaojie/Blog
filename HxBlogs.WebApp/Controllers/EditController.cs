@@ -27,9 +27,9 @@ namespace HxBlogs.WebApp.Controllers
         {
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.QueryEntities(c => c.IsDeleted == "N").OrderByDescending(c=>c.Order);
-            IEnumerable<BlogType> typeList = typeService.QueryEntities(t => t.IsDeleted == "N").OrderByDescending(t => t.Order);
-            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id && t.IsDeleted == "N").ToList();
+            IEnumerable<Category> cateList = cateService.QueryEntities(c =>true).OrderByDescending(c=>c.Order);
+            IEnumerable<BlogType> typeList = typeService.QueryEntities(t =>true).OrderByDescending(t => t.Order);
+            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id).ToList();
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList;

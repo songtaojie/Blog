@@ -1,17 +1,30 @@
-﻿<div class="card-header hx-card-header">
+﻿@model System.Linq.IOrderedEnumerable<HxBlogs.Model.BlogTag>
+@{
+    int i = 0;
+}
+<div class="card-header hx-card-header">
     随笔分类
 </div>
 <div class="card-body">
     <div class="d-flex flex-column justify-content-start">
-        @if (ViewBag.TagList != null)
+        @if (Model != null)
         {
-            foreach (HxBlogs.Model.BlogTag tag in ViewBag.TagList)
+            foreach (HxBlogs.Model.BlogTag tag in Model)
             {
-                <a class="hx-content-nowrap" target="_blank" href="@(WebHelper.GetFullUrl("/article/tag/"+Hx.Common.Helper.Helper.ToHex(tag.Id)))">
+                i++;
+                <a class="hx-content-nowrap mt-2 @(i>4? "collapse hx-collapsed" : "")" target="_blank" href="@(WebHelper.GetFullUrl("/article/tag/" + Hx.Common.Helper.Helper.ToHex(tag.Id)))">
                     <span>@tag.Name</span>
                     <span>(@ViewBag.TagCountList[tag.Id]篇)</span>
                 </a>
             }
+
         }
     </div>
 </div>
+@if (i > 5)
+{
+    <div class="card-footer hx-card-footer hx-card-footer-link">
+        <a class="collapsed" data-toggle="collapse"  data-target=".hx-collapsed">折叠</a>
+    </div>
+}
+

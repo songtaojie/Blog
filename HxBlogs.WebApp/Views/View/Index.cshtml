@@ -91,16 +91,17 @@
                     $newArticle.removeAttr('hidden');
                 },
                 failure() {
-                    debugger
                 }
             });
              HxCore.ajax('/article/loadpersontag', {
-                success(data) {
+                 success(data) {
                     $personTag.html(data);
                     $personTag.removeAttr('hidden');
+                    $('.hx-collapsed:last-child').on('shown.bs.collapse', function () {
+                        $personTag.children('.card-footer').remove();
+                    })
                 },
                 failure() {
-                    debugger
                 }
              });
             HxCore.ajax('/article/loadarchive', {
@@ -109,9 +110,8 @@
                     $archive.removeAttr('hidden');
                 },
                 failure() {
-                    debugger
                 }
-            });
+             });
         });
     </script>
 }
