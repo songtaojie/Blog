@@ -36,6 +36,16 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere)
         {
+            if (typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Field(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("Y"));
+                var invokedExpr = Expression.Invoke(bin, lambdaWhere.Parameters.Cast<Expression>());
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(lambdaWhere.Body, invokedExpr), lambdaWhere.Parameters);
+                return this.baseDal.QueryEntity(lambda);
+            }
+            
             return this.baseDal.QueryEntity(lambdaWhere);
         }
 
@@ -46,6 +56,14 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere)
         {
+            if (typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(bin,lambdaWhere.Body), lambdaWhere.Parameters);
+                return this.baseDal.QueryEntities(lambda);
+            }
             return this.baseDal.QueryEntities(lambdaWhere);
         }
 

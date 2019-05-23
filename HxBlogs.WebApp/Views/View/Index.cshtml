@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = Model.Title;
     string newArticle = Guid.NewGuid().ToString(),
-        personTag = Guid.NewGuid().ToString();
+        personTag = Guid.NewGuid().ToString(),
+        archive = Guid.NewGuid().ToString();
 }
 @section styles{
     @Styles.Render("~/content/blog")  
@@ -43,13 +44,7 @@
             </div>
             <div id="@personTag" class="card my-1" hidden>
             </div>
-            <div class="card my-1">
-                <div class="card-header hx-card-header">
-                    热门文章
-                </div>
-                <div class="card-body">
-
-                </div>
+            <div id="@archive" class="card my-1" hidden>
             </div>
         </aside>
         <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-content">
@@ -85,7 +80,8 @@
     <script>
         $(function () {
             var $newArticle = $('#@newArticle'),
-                $personTag = $('#@personTag');
+                $personTag = $('#@personTag'),
+                $archive = $('#@archive');
             HxCore.ajax('/article/loadnewarticle', {
                 data: {
                     id:'@(Hx.Common.Helper.Helper.ToHex(Model.Id))'
@@ -102,6 +98,15 @@
                 success(data) {
                     $personTag.html(data);
                     $personTag.removeAttr('hidden');
+                },
+                failure() {
+                    debugger
+                }
+             });
+            HxCore.ajax('/article/loadarchive', {
+                success(data) {
+                    $archive.html(data);
+                    $archive.removeAttr('hidden');
                 },
                 failure() {
                     debugger

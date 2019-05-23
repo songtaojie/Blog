@@ -62,6 +62,10 @@ namespace HxBlogs.WebApp.Controllers
             return PartialView("newarticle");
         }
 
+        /// <summary>
+        /// 加载个人标签
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult LoadPersonTag()
         {
@@ -75,6 +79,26 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.TagList = tagList;
             ViewBag.TagCountList = tagCountList;
             return PartialView("persontag");
+        }
+
+        /// <summary>
+        /// 加载个人标签
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult LoadArchive()
+        {
+            var archiveList = this._blogService.QueryEntities(b => b.UserId == UserContext.LoginUser.Id && b.IsPublish=="Y" && b.IsDeleted=="N")
+                .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
+                .Select(g => new { Key = g.Key,Count = g.Count()})
+                .OrderByDescending(b=>b.Key);
+            Dictionary<string, int> result = new Dictionary<string, int>();
+            foreach (var item in archiveList)
+            {
+                result.Add(item.Key, item.Count);
+            }
+            ViewBag.ArchiveList = result;
+            return PartialView("archive");
         }
     }
 }
