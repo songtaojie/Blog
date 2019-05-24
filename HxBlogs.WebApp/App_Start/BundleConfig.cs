@@ -41,10 +41,13 @@ namespace HxBlogs.WebApp
             bundles.Add(new StyleBundle("~/content/site").Include(
                 "~/Content/Plugin/alertifyjs/css/alertify.css",
                 "~/Content/Plugin/alertifyjs/css/themes/default.css",
-               "~/Content/Css/blog-site.css",
-               "~/Content/app/css/hx-loading.css"
+               "~/Content/app/css/hx-site.css",
+               "~/Content/app/css/hx-core.css"
                ));
-            bundles.Add(new StyleBundle("~/content/blog").Include(
+            bundles.Add(new StyleBundle("~/content/login").Include(
+             "~/Content/app/css/hx-login.css"
+             ));
+            bundles.Add(new StyleBundle("~/content/default").Include(
               "~/Content/app/css/blog-default.css"
               ));
             #endregion

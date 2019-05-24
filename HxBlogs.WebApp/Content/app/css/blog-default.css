@@ -1,4 +1,141 @@
-﻿/********浏览页面*********/
+﻿/************************博客首页*******************************/
+/**侧边栏**/
+.blog-sidebar {
+    position: fixed;
+    width: 6rem;
+    top: 0;
+    z-index: 1030;
+    height: 100%;
+    font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
+}
+    .blog-sidebar .active,
+    .blog-sidebar li:hover {
+        background-color: #545b62 !important;
+    }
+        .blog-sidebar .active a,
+        .blog-sidebar li:hover a {
+            color: #fff !important;
+        }
+    .blog-sidebar li {
+        margin-bottom: 0.05rem !important;
+    }
+
+/**博客内容**/
+.blog-content {
+    transform: translate3d(6.5rem,0,0);
+    max-width: calc(100% - 6.5rem);
+}
+
+.blog-list {
+    font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
+    background: none transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+
+.blog-item {
+    padding: 1rem 1.5rem;
+    background: #fff;
+    border-bottom: 1px solid #dee2e6;
+    width: 100%;
+    min-height: 0;
+    background: 0 0;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: box-shadow .2s ease;
+    transition: box-shadow .2s ease,-webkit-box-shadow .1s ease;
+    transition: -webkit-box-shadow .2s ease;
+    -webkit-transition: -webkit-box-shadow .2s ease;
+}
+
+    .blog-item a {
+        color: #999;
+    }
+
+.blog-item-content {
+    background: 0 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    font-size: 1em;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+
+.blog-item-summary {
+    margin-bottom: .35rem;
+    color: #999;
+    font-size: 1em;
+    line-height: 2.1rem;
+}
+
+.blog-content-nowrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+    .blog-content-nowrap p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+.blog-item-title {
+    width: 100%;
+}
+
+    .blog-item-title a {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        color: #3d3d3d;
+        font-weight: 700;
+    }
+
+        .blog-item-title a:hover {
+            color: #4183c4;
+            text-decoration: none;
+        }
+
+.blog-item-user {
+    margin: .5rem 0 0;
+    color: rgba(0,0,0,.4);
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: color .1s ease;
+    -webkit-transition: color .1s ease;
+}
+
+.blog-read-num,
+.blog-comment-num {
+    color: #3399ea;
+}
+
+.blog-read-text,
+.blog-comment-text {
+    color: #8a8a8a;
+}
+
+.blog-read:hover .blog-read-text,
+.blog-comment:hover .blog-comment-text {
+    color: #157dcf;
+}
+
+@media only screen and (min-width: 768px) {
+    body {
+        background: #e9ecef;
+    }
+}
+
+
+/********浏览页面*********/
 .blog-view {
     font-family: "Pingfang SC",STHeiti,"Lantinghei SC","Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",SimSun,sans-serif;
 }
@@ -34,4 +171,72 @@
 .hx-aside-title {
     border-bottom: solid 1px #e9ecef;
 }
+/***************************************编辑页面******************************************/
+.blog-edit {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    min-height: calc(100vh - 4rem);
+}
 
+    .blog-edit .ck-content {
+        min-height: calc(100vh - 26rem);
+    }
+
+    .blog-edit textarea {
+        visibility: hidden;
+        height: 100%;
+    }
+
+    .blog-edit .blog-category-label {
+        margin-top: .26rem;
+    }
+
+    .blog-edit .form-group-tag {
+        display: flex;
+    }
+
+    .blog-edit .blog-control-label {
+        width: auto;
+    }
+
+.blog-tag-box {
+    display: inline-block;
+    line-height: 1.6rem;
+    flex-wrap: wrap;
+    margin-right: 0.3125rem;
+}
+
+    .blog-tag-box i {
+        margin: auto 0;
+        color: #E0E0E0;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .blog-tag-box .tag {
+        margin: auto 0;
+        /*display: block;*/
+        padding: 3px 8px;
+        font-size: 0.75rem;
+        max-width: 40rem;
+        background: #e9e9e9;
+        border-radius: 2px;
+        line-height: 1rem;
+        color: #4f4f4f;
+        overflow: hidden;
+        white-space: nowrap;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+@media (max-width: 992px) {
+    .blog-col-pull-2 {
+        right: 20%;
+    }
+}
+
+@media (max-width:776px) {
+    .blog-col-xs-pull-1 {
+        left: 8.333333333333332%;
+    }
+}

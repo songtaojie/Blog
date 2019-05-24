@@ -6,7 +6,7 @@
         archive = Guid.NewGuid().ToString();
 }
 @section styles{
-    @Styles.Render("~/content/blog")  
+    @Styles.Render("~/content/default")  
 }
 <div class="hx-container blog-view">
     <div class="d-flex">
@@ -14,7 +14,7 @@
             <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-content hx-aside-title">
                 <div class="user-md-avater mr-2">
                     <a>
-                        <img src="~/Content/Plugin/Metronic/image/avatar.png" />
+                        <img src="~/images/avatar.png" />
                     </a>
                 </div>
                 <div class="mr-1">@(Model.User == null ? "" : (string.IsNullOrEmpty(Model.User.NickName) ? Model.User.UserName : Model.User.NickName))</div>

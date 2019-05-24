@@ -207,14 +207,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\css\blog-edit.css" />
     <Content Include="Content\app\css\blog-header-footer.css" />
-    <Content Include="Content\app\css\blog-home.css" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\css\blog-default.css" />
     <Content Include="Content\app\css\hx-core.css" />
-    <Content Include="Content\app\css\hx-loading.css" />
     <Content Include="Content\app\font\blog-font.css" />
     <Content Include="Content\app\font\icomoon.eot" />
     <Content Include="Content\app\font\icomoon.svg" />
@@ -223,9 +220,12 @@
     <Content Include="Content\app\images\hx-icons-white.png" />
     <Content Include="Content\app\images\hx-icons.png" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="images\avatar.png" />
+    <Content Include="images\avatar1.jpg" />
+    <Content Include="images\avatar1_small.jpg" />
+    <Content Include="images\avatar2.jpg" />
+    <Content Include="images\avatar3.jpg" />
     <Content Include="Scripts\app\hx.core.min.js" />
-    <Content Include="Scripts\app\hx.loading.js" />
-    <Content Include="Scripts\app\hx.loading.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -257,8 +257,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Css\bootstrap.css" />
-    <Content Include="Content\Css\bootstrap.min.css" />
     <Content Include="Content\Css\base.css" />
     <Content Include="Content\Css\index.css" />
     <Content Include="Content\Css\index2.css" />
@@ -276,9 +274,9 @@
     <Content Include="Content\Images\footer\footer_repeat.jpg" />
     <Content Include="Content\Images\head\headerpanel.jpg" />
     <Content Include="Content\Images\head\menu_panel.jpg" />
-    <Content Include="Content\Images\head\logo.png" />
+    <Content Include="images\logo.png" />
     <Content Include="Content\Images\logo.png" />
-    <Content Include="Content\Images\newbg.png" />
+    <Content Include="images\login\newbg.png" />
     <Content Include="Content\Images\star.png" />
     <Content Include="Content\Images\t01.jpg" />
     <Content Include="Content\Images\t02.jpg" />
@@ -410,8 +408,8 @@
     <Content Include="Content\Plugin\Metronic\jquery\jqvmap\jqvmap.css" />
     <Content Include="Content\Plugin\Metronic\theme\light.css" />
     <Content Include="Content\Plugin\Metronic\css\lock.css" />
-    <Content Include="Content\app\css\login-soft.css" />
-    <Content Include="Content\app\css\login.css" />
+    <Content Include="Content\app\css\hx-login-soft.css" />
+    <Content Include="Content\app\css\hx-login.css" />
     <Content Include="Content\Plugin\Metronic\css\multi-select-metro.css" />
     <Content Include="Content\Plugin\Metronic\css\news.css" />
     <Content Include="Content\Plugin\Metronic\css\pricing-tables.css" />
@@ -615,7 +613,7 @@
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Css\blog-site.css" />
+    <Content Include="Content\app\css\hx-site.css" />
     <Content Include="Scripts\app\jquery.extendsion.js" />
     <Content Include="Scripts\app\scrollReveal.js" />
     <Content Include="ApplicationInsights.config">

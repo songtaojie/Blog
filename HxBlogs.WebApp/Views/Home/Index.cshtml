@@ -5,7 +5,7 @@
     ViewBag.ShowFooter = false;
 }
 @section styles{
-    <link href="~/Content/app/css/blog-home.css" rel="stylesheet" />
+    @Styles.Render("~/content/default")
 }
 <div class="hx-container blog-sidebar hx-white-content">
     <nav class="nav flex-column mt-1">
@@ -50,7 +50,7 @@
                     <div class="blog-item-user d-flex justify-content-start align-items-center">
                         <div class="user-sm-avater mr-2">
                             <a>
-                                <img src="~/Content/Plugin/Metronic/image/avatar.png" />
+                                <img src="~/images/avatar.png" />
                             </a>
                         </div>
                         <div class="mr-1">@(blog.User == null ? "" : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>

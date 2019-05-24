@@ -2,22 +2,21 @@
 var Login = function () {
     return {
         beforeLogin: function (a, b) {
-            if (HxLoad) HxLoad.blockUI({label:'登陆中...'});
+            HxCore.blockUI({label:'登陆中...'});
         },
         finishLogin: function (op, success, r) {
-            //if (HxLoad)HxLoad.unblockUI();
         },
         afterLogin: function (data, textStatus, jqXHR) {
             HxCore.ajaxSuccess(jqXHR, function (d) {
                 window.location.href = d && decodeURIComponent(d) || "/";
-                if (HxLoad) HxLoad.unblockUI();
+                HxCore.unblockUI();
             }, function () {
                 $('#img').attr('src', $('#img').attr('src') + 1);
-                if (HxLoad) HxLoad.unblockUI();
+                HxCore.unblockUI();
             });
         },
         doFailure(data, err) {
-            if (HxLoad) HxLoad.unblockUI();
+            HxCore.unblockUI();
             HxCore.ajaxError(data);
         },
         init: function () {
