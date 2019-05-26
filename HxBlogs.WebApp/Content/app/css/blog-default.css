@@ -1,4 +1,10 @@
-﻿/************************博客首页*******************************/
+﻿/*************************公共的样式*******************************/
+a {
+    text-decoration: none;
+    color: rgba(119, 119, 119,0.7);
+}
+
+/************************博客首页*******************************/
 /**侧边栏**/
 .blog-sidebar {
     position: fixed;
@@ -6,7 +12,7 @@
     top: 0;
     z-index: 1030;
     height: 100%;
-    font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
+    /*font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;*/
 }
     .blog-sidebar .active,
     .blog-sidebar li:hover {
@@ -21,13 +27,12 @@
     }
 
 /**博客内容**/
-.blog-content {
+.blog-container {
     transform: translate3d(6.5rem,0,0);
     max-width: calc(100% - 6.5rem);
 }
 
 .blog-list {
-    font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;
     background: none transparent;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -136,12 +141,9 @@
 
 
 /********浏览页面*********/
-.blog-view {
-    font-family: "Pingfang SC",STHeiti,"Lantinghei SC","Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",SimSun,sans-serif;
-}
     .blog-view .blog-aside {
-        width:300px;
-        min-width:250px;
+        width:18.75rem;
+        min-width:15.625rem;
     }
     .blog-view .blog-content,
     .blog-view .blog-content p {
@@ -158,19 +160,30 @@
         border: 1px solid #e0e0e0;
         background-color: #e8e8e8;
         border-radius: 6.25rem;
-        color: rgba(0,0,0,.6);
         text-align: center;
     }
         .blog-view .blog-tag a:hover {
             background-color: #e0e0e0;
             border-color: #e0e0e0;
             background-image: none;
-            color: rgba(0,0,0,.8);
-        } 
-        
-.hx-aside-title {
-    border-bottom: solid 1px #e9ecef;
+            color: rgba(119, 119, 119,1);
+        }
+.blog-view .image {
+    /* position: relative; */
+    overflow: hidden;
+    clear: both;
+    text-align: center;
+    margin: 1em 0;
 }
+    .blog-view .image img {
+        display: block;
+        margin: 0 auto;
+        max-width: 100%;
+    }
+    
+    .hx-aside-title {
+        border-bottom: solid 1px #e9ecef;
+    }
 /***************************************编辑页面******************************************/
 .blog-edit {
     padding-top: 1.5rem;

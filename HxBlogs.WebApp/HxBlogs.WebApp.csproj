@@ -189,6 +189,7 @@
     <Compile Include="Common\ConstInfo.cs" />
     <Compile Include="Common\UserContext.cs" />
     <Compile Include="Common\WebHelper.cs" />
+    <Compile Include="Controllers\BaseNoAuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
@@ -208,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\css\blog-header-footer.css" />
+    <Content Include="Content\app\css\hx-core.min.css" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\css\blog-default.css" />
@@ -245,6 +247,7 @@
     <Content Include="Scripts\local\messages_zh.js" />
     <Content Include="Scripts\local\messages_zh_TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\plugin\ckeditor\ckeditor.js" />
     <Content Include="Scripts\plugin\jquery.blockUI.js" />
     <Content Include="Scripts\plugin\jquery.blockUI.min.js" />
     <Content Include="Scripts\respond.js" />
@@ -302,57 +305,6 @@
     <Content Include="Content\Plugin\alertifyjs\css\themes\semantic.min.css" />
     <Content Include="Content\Plugin\alertifyjs\css\themes\semantic.rtl.css" />
     <Content Include="Content\Plugin\alertifyjs\css\themes\semantic.rtl.min.css" />
-    <Content Include="Content\Plugin\CkEditor\ckeditor.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ar.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ast.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\bg.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ca.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\cs.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\da.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\de-ch.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\de.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\el.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\en-au.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\en.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\eo.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\es.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\et.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\eu.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\fa.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\fi.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\fr.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\gl.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\gu.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\he.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\hr.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\hu.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\it.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ja.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\km.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\kn.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ko.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ku.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\lv.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\nb.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ne.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\nl.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\no.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\oc.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\pl.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\pt-br.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\pt.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ro.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ru.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\si.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\sk.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\sq.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\sv.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\tr.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\tt.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\ug.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\uk.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\vi.js" />
-    <Content Include="Content\Plugin\CkEditor\translations\zh.js" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\css\bootstrap-modal-bs3patch.css" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\css\bootstrap-modal.css" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\js\bootstrap-modal.js" />
@@ -643,7 +595,6 @@
     </Content>
     <Content Include="Areas\Admin\Views\Account\Activation.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
-    <Content Include="Content\Plugin\CkEditor\ckeditor.js.map" />
     <Content Include="Content\Plugin\Metronic\uniform\css\uniform.default.scss" />
     <Content Include="Content\Plugin\Metronic\uniform\README.md" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\LICENSE" />
@@ -812,16 +763,17 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\View\Index.cshtml" />
-    <Content Include="Views\View\NewArticle.cshtml" />
-    <Content Include="Views\View\PersonTag.cshtml" />
+    <Content Include="Views\View\SideTag.cshtml" />
+    <Content Include="Views\View\SideArchive.cshtml" />
+    <Content Include="Views\View\SideArticle.cshtml" />
     <Content Include="Views\View\Archive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Config\" />
-    <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\File\" />
+    <Folder Include="Views\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

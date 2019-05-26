@@ -11,18 +11,21 @@
 <div class="hx-container blog-view">
     <div class="d-flex">
         <aside class="d-flex flex-column blog-aside">
-            <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-content hx-aside-title">
+            <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-container hx-aside-title">
                 <div class="user-md-avater mr-2">
                     <a>
                         <img src="~/images/avatar.png" />
                     </a>
                 </div>
                 <div class="mr-1">@(Model.User == null ? "" : (string.IsNullOrEmpty(Model.User.NickName) ? Model.User.UserName : Model.User.NickName))</div>
-                <div class="ml-auto mr-2">
-                    <button type="button" class="btn btn-outline-secondary btn-sm">关注</button>
-                </div>
+                @if (UserContext.LoginUser == null || UserContext.LoginUser.Id != Model.UserId)
+                {
+                    <div class="ml-auto mr-2">
+                        <button type="button" class="btn btn-outline-secondary btn-sm">关注</button>
+                    </div>
+                }
             </div>
-            <div class="d-inline-flex justify-content-around  mb-1  p-3 hx-white-content">
+            <div class="d-inline-flex justify-content-around  mb-1  p-3 hx-white-container">
                 <div class="d-flex flex-column">
                     <span>园龄</span>
                     <span>100</span>
@@ -47,7 +50,7 @@
             <div id="@archive" class="card my-1" hidden>
             </div>
         </aside>
-        <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-content">
+        <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-container">
             <div class="mt-2">
                 <div>
                     <h4>@Model.Title</h4>
@@ -82,7 +85,7 @@
             var $newArticle = $('#@newArticle'),
                 $personTag = $('#@personTag'),
                 $archive = $('#@archive');
-            HxCore.ajax('/article/loadnewarticle', {
+            HxCore.ajax('/article/@Model.UserName/side/loadarticle', {
                 data: {
                     id:'@(Hx.Common.Helper.Helper.ToHex(Model.Id))'
                 },
@@ -93,8 +96,11 @@
                 failure() {
                 }
             });
-             HxCore.ajax('/article/loadpersontag', {
-                 success(data) {
+            HxCore.ajax('/article/@Model.UserName/side/loadtag', {
+                data: {
+                    user:''
+                },
+                success(data) {
                     $personTag.html(data);
                     $personTag.removeAttr('hidden');
                     $('.hx-collapsed:last-child').on('shown.bs.collapse', function () {
@@ -103,15 +109,15 @@
                 },
                 failure() {
                 }
-             });
-            HxCore.ajax('/article/loadarchive', {
+            });
+            HxCore.ajax('/article/@Model.UserName/side/loadarchive', {
                 success(data) {
                     $archive.html(data);
                     $archive.removeAttr('hidden');
                 },
                 failure() {
                 }
-             });
-        });
+                });
+            });
     </script>
 }

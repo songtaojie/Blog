@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HxBlogs.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +9,27 @@ namespace HxBlogs.WebApp.Filters
 {
     public class AuthFilterAttribute : AuthorizeAttribute
     {
-        private bool isCheckAuth;
-
-        public AuthFilterAttribute(bool isCheckAuth = true)
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            this.isCheckAuth = isCheckAuth;
+            bool result = base.AuthorizeCore(httpContext);
+            if (!result)
+            {
+                User userInfo = UserContext.ValidateSession();
+                result = userInfo != null;
+                if (!result)
+                {
+                    userInfo = UserContext.ValidateCookie();
+                    result = userInfo != null;
+                }
+            }
+            return result;
         }
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            string pageUrl = filterContext.HttpContext.Request.Url.LocalPath;
+            filterContext.Result = new RedirectResult(string.Format("/login?{0}={1}", ConstInfo.returnUrl, pageUrl));
+        }
+        #region 过滤验证
         //public override void OnAuthorization(AuthorizationContext filterContext)
         //{
         //    //在此可以验证权限，如验证Session和Cookie  
@@ -139,6 +155,7 @@ namespace HxBlogs.WebApp.Filters
         //    }
         //    base.OnAuthorization(filterContext);
         //}
+        #endregion
         /// <summary>
         /// 是否允许匿名访问
         /// </summary>
@@ -150,39 +167,15 @@ namespace HxBlogs.WebApp.Filters
             {
                 throw new ArgumentNullException("filterContext");
             }
-            string pageUrl = filterContext.HttpContext.Request.Url.AbsolutePath; //OperateContext.GetThisPageUrl(false);
-            
             // 1、允许匿名访问 用于标记在授权期间要跳过 AuthorizeAttribute 的控制器和操作的特性 
             var actionAnonymous = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
             var controllerAnonymous = filterContext.Controller.GetType().GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
+
             if ((actionAnonymous != null && actionAnonymous.Any()) || (controllerAnonymous != null && controllerAnonymous.Any()))
             {
                 return true;
             }
             return false;
         }
-        private bool VerifyCookie(HttpRequestBase request, HttpResponseBase response)
-        {
-
-            if (!request.Cookies.AllKeys.Contains(ConstInfo.CookieName)
-                || !request.Cookies.AllKeys.Contains(ConstInfo.CacheKeyCookieName))
-            {
-                return false;
-            }
-
-            var cookie = request.Cookies[ConstInfo.CookieName];
-            //string cacheKey = Base64Helper.Base64Decode(request.Cookies[CookieInfo.CacheKeyCookieName].Value);
-
-            //ICacheManager cache = ContainerManager.Resolve<ICacheManager>();
-            //string cacheCookieValue = cache.Get<string>(cacheKey);
-            //if (cacheCookieValue != cookie.Value)
-            //{
-            //    return false;
-            //}
-
-            return true;
-        }
-
-
     }
 }

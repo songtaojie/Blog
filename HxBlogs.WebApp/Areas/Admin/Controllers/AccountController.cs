@@ -19,6 +19,7 @@ using Hx.WebCommon;
 
 namespace HxBlogs.WebApp.Areas.Admin.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private IUserService _userService;

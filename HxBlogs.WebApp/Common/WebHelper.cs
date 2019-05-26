@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -26,7 +27,14 @@ namespace HxBlogs.WebApp
             TimeSpan ts = nowTime.Subtract(dateTime);
             if (ts.Days <= 1)
             {
-                result = ts.Hours + "小时前";
+                if (ts.Hours <= 1)
+                {
+                    result = ts.Minutes + "分钟前";
+                }
+                else
+                {
+                    result = ts.Hours + "小时前";
+                }
             }
             else if (ts.Days <= 2)
             {
@@ -264,7 +272,33 @@ namespace HxBlogs.WebApp
             {
                 routeUrl = routeUrl.Substring(1);
             }
-            return rootPath + "/" +routeUrl;
+            return rootPath + "/" + routeUrl;
+        }
+        /// <summary>
+        /// 过滤html中的p标签
+        /// </summary>
+        /// <param name="html">html字符串</param>
+        /// <param name="maxSize">返回的字符串最大长度为多少</param>
+        /// <param name="onlyText">是否只返回纯文本，还是返回带有标签的</param>
+        /// <returns></returns>
+        public static string FilterHtmlP(string html,int maxSize,bool onlyText = true)
+        {
+            Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            var matchs = Regex.Matches(html, @"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            StringBuilder sb = new StringBuilder();
+            foreach (Match match in matchs)
+            {
+                string pContent = match.Value;
+                if (onlyText)
+                {
+                    pContent = Regex.Replace(pContent, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+                    pContent = Regex.Replace(pContent, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
+                }
+                sb.Append(pContent);
+            }
+            string result = sb.ToString();
+            if (string.IsNullOrEmpty(result) || result.Length < maxSize) return result;
+            return result.Substring(0, maxSize);
         }
         /// <summary>
         /// 获取客户端ip

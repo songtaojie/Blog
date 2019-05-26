@@ -51,14 +51,13 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/image/"+ DateTime.Now.Year + "/" + DateTime.Now.Month + "/";
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/"+ DateTime.Now.ToString("yyyyMM") + "/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
-            // string newMapPath = Server.MapPath(newDirPath);
             FileHelper.TryCreateDirectory(mapPath);
-            // FileHelper.TryCreateDirectory(newMapPath);
             //文件名
-            string guid = Guid.NewGuid().ToString();
+           
+            string guid = DateTime.Now.ToString("yyyyMMddHHmmss")+ DateTime.Now.Millisecond;
             string sourceFileName = guid + "_" + fileName;
             string newFileName = string.Format("{0}{1}", guid, fileExt);
             //文件全路径
@@ -68,7 +67,8 @@ namespace HxBlogs.WebApp.Controllers
             imgFile.SaveAs(newFilePath);
             // ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
             string letter = Request.Url.Scheme +":"+ Request.Url.Authority+"/" + UserContext.LoginUser.UserName;
-            ImageManager.LetterWatermark(newFilePath, 8, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
+            //加水印
+            ImageManager.LetterWatermark(newFilePath, 16, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
 
             result["uploaded"] = true;
             result["url"] = WebHelper.ToRelativePath(newFilePath);

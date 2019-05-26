@@ -18,7 +18,12 @@ namespace HxBlogs.IBLL
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>当前实体的集合</returns>
         IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
-
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>

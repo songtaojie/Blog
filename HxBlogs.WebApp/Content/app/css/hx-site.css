@@ -6,7 +6,7 @@ html {
 }
 
 body {
-    font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;
+    /*font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;*/
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -15,26 +15,26 @@ body {
     background: #e9ecef;
 }
 /**************博客的头部*************************/
-.blog-header {
+.hx-header {
     box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
 }
 
-.blog-header-image {
+.hx-header-image {
     width: 1.9rem;
     height: 1.9rem;
 }
 
 @media (min-width: 768px) {
-    .blog-header .navbar-nav > li > a {
+    .hx-header .navbar-nav > li > a {
         padding: 0.5rem;
     }
 
-    .blog-header .toggle {
+    .hx-header .toggle {
         display: none;
     }
 }
 
-.hx-white-content {
+.hx-white-container {
     background: #fff;
 }
 
@@ -93,8 +93,8 @@ body {
     }
 
     .user-md-avater img {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 3rem;
+        height: 3rem;
     }
 
 a:hover, a:active, a:focus {

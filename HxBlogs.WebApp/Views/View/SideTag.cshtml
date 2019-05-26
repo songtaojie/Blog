@@ -12,7 +12,7 @@
             foreach (HxBlogs.Model.BlogTag tag in Model)
             {
                 i++;
-                <a class="hx-content-nowrap mt-2 @(i>4? "collapse hx-collapsed" : "")" target="_blank" href="@(WebHelper.GetFullUrl("/article/tag/" + Hx.Common.Helper.Helper.ToHex(tag.Id)))">
+                <a class="hx-content-nowrap @(i!=1?"mt-1":"") @(i>4? "collapse hx-collapsed" : "")" target="_blank" href="@(WebHelper.GetFullUrl("/article/"+ViewBag.UserName+"/tag/" + Hx.Common.Helper.Helper.ToHex(tag.Id)))">
                     <span>@tag.Name</span>
                     <span>(@ViewBag.TagCountList[tag.Id]篇)</span>
                 </a>
@@ -24,7 +24,7 @@
 @if (i > 5)
 {
     <div class="card-footer hx-card-footer hx-card-footer-link">
-        <a class="collapsed" data-toggle="collapse"  data-target=".hx-collapsed">折叠</a>
+        <a class="collapsed" data-toggle="collapse"  data-target=".hx-collapsed">展开</a>
     </div>
 }
 

@@ -7,7 +7,7 @@
 @section styles{
     @Styles.Render("~/content/default")
 }
-<div class="hx-container blog-sidebar hx-white-content">
+<div class="hx-container blog-sidebar hx-white-container">
     <nav class="nav flex-column mt-1">
         <ul class="navbar-nav nav-fill">
             <li class="nav-item active bg-light">
@@ -31,7 +31,7 @@
         </ul>
     </nav>
 </div>
-<div class="hx-container blog-content hx-white-content">
+<div class="hx-container blog-container hx-white-container">
     <article>
         <div class="blog-list d-inline-flex flex-column justify-content-start">
             @foreach (HxBlogs.Model.Blog blog in Model)
@@ -45,7 +45,10 @@
                         </div>
                     </div>
                     <div class="blog-item-summary blog-content-nowrap">
-                        @(new HtmlString(string.IsNullOrWhiteSpace(blog.ContentHtml) || blog.ContentHtml.Length < 100 ? blog.ContentHtml : blog.ContentHtml.Substring(0, 100)))
+                        <p>
+                            @WebHelper.FilterHtmlP(blog.ContentHtml,100)
+                        </p>
+                        @*@(new HtmlString(string.IsNullOrWhiteSpace(blog.ContentHtml) || blog.ContentHtml.Length < 100 ? blog.ContentHtml : blog.ContentHtml.Substring(0, 100)))*@
                     </div>
                     <div class="blog-item-user d-flex justify-content-start align-items-center">
                         <div class="user-sm-avater mr-2">

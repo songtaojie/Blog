@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : BaseNoAuthController
     {
         // GET: Error
         //public ActionResult Index()

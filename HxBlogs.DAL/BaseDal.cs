@@ -52,6 +52,16 @@ namespace HxBlogs.DAL
             var result = Context.Set<T>().Where(lambdaWhere);
             return result;
         }
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual async Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere)
+        {
+            var result = await Context.Set<T>().Where(lambdaWhere).ToListAsync();
+            return result;
+        }
 
         /// <summary>
         /// 分页形式的数据获取

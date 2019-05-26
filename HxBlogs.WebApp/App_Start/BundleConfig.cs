@@ -22,7 +22,6 @@ namespace HxBlogs.WebApp
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                         "~/Scripts/plugin/jquery.blockUI.js",
                         "~/Content/Plugin/alertifyjs/alertify.js",
-                       "~/Scripts/app/hx.loading.js",
                        "~/Scripts/app/hx.core.js"));
             // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

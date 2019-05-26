@@ -1,4 +1,4 @@
-﻿if (!jQuery) { throw new Error("hxCore requires jQuery"); }
+﻿;if (!jQuery) { throw new Error("hxCore requires jQuery"); }
 ; (function ($, window) {
     "use strict";
     /**

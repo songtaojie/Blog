@@ -48,7 +48,23 @@ namespace HxBlogs.BLL
             
             return this.baseDal.QueryEntity(lambdaWhere);
         }
-
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual async Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true)
+        {
+            if (excludeDeleted && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                var param = Expression.Property(Expression.Constant(new T()), "IsDeleted");
+                var bin = Expression.Equal(param, Expression.Constant("N"));
+                var lambda = Expression.Lambda<Func<T, bool>>
+                      (Expression.AndAlso(bin, lambdaWhere.Body), lambdaWhere.Parameters);
+                return await this.baseDal.QueryEntitiesAsync(lambda);
+            }
+            return await this.baseDal.QueryEntitiesAsync(lambdaWhere);
+        }
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>

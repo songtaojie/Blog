@@ -7,7 +7,7 @@
 @section styles{
     @Styles.Render("~/content/default")
 }
-<div class="blog-edit hx-container hx-white-content">
+<div class="blog-edit hx-container hx-white-container px-3">
     <form class="form-horizontal" role="form" action="save" method="post">
         <input type="hidden" name="IsMarkDown" value="N" />
         <div class="form-row">
@@ -116,30 +116,14 @@
     </form>
 </div>
 @section scripts{
-    <script src="~/Content/Plugin/CkEditor/ckeditor.js"></script>
+    <script src="~/Scripts/plugin/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-        ClassicEditor.create(document.querySelector('#editor'), {
-            removePlugins: ['mediaEmbed'],
-            toolbar: [
-                'heading',
-                '|',
-                'bold',
-                'italic',
-                'fontFamily',
-                'fontSize',
-                'alignment',
-                'highlight',
-                'link',
-                'bulletedList',
-                'numberedList',
-                'imageUpload',
-                // 'ckfinder',
-                'blockQuote',
-                'insertTable',
-                'undo',
-                'redo'
-            ],
-            ckfinder: {
+        CkEditor.create(document.querySelector('#editor'), {
+            placeholder: "开始编写博客!",
+            fontSize: {
+                options: [9,11,13,'default',17,19,21]
+            },
+             ckfinder: {
                 // Upload the images to the server using the CKFinder QuickUpload command.
                 uploadUrl: '/file/upload?command=QuickUpload&type=Images&responseType=json',
                 // Define the CKFinder configuration (if necessary).
@@ -147,18 +131,39 @@
                     resourceType: 'Images',
                 }
             },
-            fontSize: {
-                options: [9, 11, 13, 'default', 17, 19, 21]
-            },
-            image: {
-                toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight'],
-                styles: ['full', 'alignLeft', 'alignCenter', 'alignRight', 'side']
-            }
-        }).then(editor => {
+        })
+        .then(editor => {
             window._HxCkEditor = editor;
             $('div[hidden]').removeAttr('hidden');
-        }).catch(error => {
-            console.error(error);
+            editor.editing.view.document.on('clipboardInput', (evt, data) => {
+                const dataTransfer = data.dataTransfer,
+                    isFiles = Array.from(dataTransfer.types).includes('Files');
+                if (CkEditor.isHtmlIncluded(data.dataTransfer) && !isFiles) {
+                    return;
+                }
+                const images = Array.from(data.dataTransfer.files).filter(file => {
+                    if (!file) {
+                        return false;
+                    }
+                    return CkEditor.isImageType(file);
+                });
+                const ranges = data.targetRanges.map(viewRange => editor.editing.mapper.toModelRange(viewRange));
+                editor.model.change(writer => {
+                    // Set selection to paste target.
+                    writer.setSelection(ranges);
+                    if (images.length) {
+                        evt.stop();
+                        // Upload images after the selection has changed in order to ensure the command's state is refreshed.
+                        editor.model.enqueueChange('default', () => {
+                            editor.execute('imageUpload', { file: images });
+                        });
+                    }
+                });
+
+            });
+        })
+        .catch(err => {
+            console.error(err.stack);
         });
         $(function () {
             $('input:checkbox:not(.blog-tag)').change(function () {
@@ -240,7 +245,7 @@
                             return false;
                         }
                     });
-                    if (result && _HxCkEditor.getData() == "<p>&nbsp;</p>") {
+                    if (result && _HxCkEditor.getData() == "") {
                         HxCore.remindError('请输入内容!');
                         result = false;
                     }

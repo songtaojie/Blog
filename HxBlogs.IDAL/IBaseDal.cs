@@ -18,7 +18,12 @@ namespace HxBlogs.IDAL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>当前实体的集合</returns>
         IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere);
-
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere);
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>

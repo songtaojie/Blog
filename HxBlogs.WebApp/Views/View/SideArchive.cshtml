@@ -1,0 +1,27 @@
+﻿@{
+    int i = 0;
+}
+<div class="card-header hx-card-header">
+    随笔归档
+</div>
+<div class="card-body">
+    <div class="d-flex flex-column justify-content-start">
+        @if (ViewBag.ArchiveList != null)
+        {
+            foreach (KeyValuePair<string,int> item in ViewBag.ArchiveList)
+            {
+                i++;
+                <a class="hx-content-nowrap @(i!=1?"mt-1":"")" target="_blank" href="@(WebHelper.GetFullUrl("/article/"+ViewBag.UserName+"/archive/"+item.Key.Substring(0,4)+"/"+item.Key.Substring(4)))">
+                    <span>@item.Key</span>
+                    <span>(@(item.Value)篇)</span>
+                </a>
+            }
+        }
+    </div>
+</div>
+@if (i > 5)
+{
+    <div class="card-footer hx-card-footer hx-card-footer-link">
+        <a class="collapsed" data-toggle="collapse" data-target=".hx-collapsed">展开</a>
+    </div>
+}

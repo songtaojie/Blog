@@ -2,6 +2,7 @@
 using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
+using HxBlogs.WebApp.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseNoAuthController
     {
         private IBlogService _blogService;
         public HomeController(IBlogService blogService)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Compilation;
 
@@ -56,7 +57,7 @@ namespace HxBlogs.Test
             //        Console.WriteLine(type.Namespace+"名称："+type.Name);
             //    }
             //}
-            //BlogContext c = new BlogContext();
+            //
             //c.Blog.Add(new Blog()
             //{
             //    Title="这是一篇测试",
@@ -74,14 +75,29 @@ namespace HxBlogs.Test
             //        Console.WriteLine(type.FullName);
             //    }
             //}
-
-
-            var param = Expression.Property(Expression.Constant(new Blog()), "IsDeleted");
-            var bin = Expression.Equal(param, Expression.Constant("Y"));
-            //var invokedExpr = Expression.Invoke(bin, param);
-            var adnBin = Expression.AndAlso(bin, Expression.Constant(false));
-            Console.WriteLine(adnBin.ToString());
+            Blog b = DbFactory.GetDbContext().Set<Blog>().Find(4);
+            string html = b.ContentHtml;
+            string phtml = FilterHtmlP(html);
+            Console.WriteLine(phtml);
             Console.ReadLine();
+        }
+
+        static string FilterHtmlP(string html)
+        {
+            Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            //Match math = rReg.Match(html);
+            // var matchs = Regex.Matches(html, @"(?i)<p[^>]*?>[^<>]*?</p>");
+            var matchs = Regex.Matches(html, @"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            StringBuilder sb = new StringBuilder();
+            foreach (Match match in matchs)
+            {
+                string pContent = match.Value;
+                pContent = Regex.Replace(pContent, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+                pContent = Regex.Replace(pContent, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
+                sb.Append(pContent);
+            }
+
+            return sb.ToString();
         }
     }
 }
