@@ -1,6 +1,7 @@
 ﻿using Hx.Framework.Mappers;
 using HxBlogs.Model;
 using HxBlogs.Model.Context;
+using Hx.Common.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,10 +76,10 @@ namespace HxBlogs.Test
             //        Console.WriteLine(type.FullName);
             //    }
             //}
-            Blog b = DbFactory.GetDbContext().Set<Blog>().Find(4);
-            string html = b.ContentHtml;
-            string phtml = FilterHtmlP(html);
-            Console.WriteLine(phtml);
+            //Blog b = DbFactory.GetDbContext().Set<Blog>().Find(4);
+            //string html = b.ContentHtml;
+            //string phtml = FilterHtmlP(html);
+            Console.WriteLine(PublicCount(r=>r.UserId==1));
             Console.ReadLine();
         }
 
@@ -98,6 +99,24 @@ namespace HxBlogs.Test
             }
 
             return sb.ToString();
+        }
+        public static int PublicCount(Expression<Func<Blog,bool>> lambda)
+        {
+            ParameterExpression parameterExp = Expression.Parameter(typeof(Blog), "b");
+            MemberExpression publicProp = Expression.Property(parameterExp, "IsPublish"),
+                 deleteProp = Expression.Property(parameterExp, "IsDeleted"),
+                 privateProp = Expression.Property(parameterExp, "IsPrivate");
+            BinaryExpression publishExp = Expression.Equal(publicProp, Expression.Constant("Y"));
+            BinaryExpression deleteExp = Expression.Equal(deleteProp, Expression.Constant("N"));
+            BinaryExpression privateExp = Expression.Equal(privateProp, Expression.Constant("N"));
+            var bin = Expression.AndAlso(Expression.AndAlso(publishExp, deleteExp), privateExp);
+            var lambdaWhere = Expression.Lambda<Func<Blog, bool>>(bin, parameterExp);
+            return Count(lambda.And(lambdaWhere));
+        }
+
+        public static int Count(Expression<Func<Blog,bool>> lambda)
+        {
+            return DbFactory.GetDbContext().Set<Blog>().Count(lambda);
         }
     }
 }

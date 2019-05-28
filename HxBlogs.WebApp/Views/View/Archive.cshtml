@@ -58,7 +58,13 @@
                 <div>@(ViewBag.Year + "年" + ViewBag.Month + "月")</div>
             </div>
             <div class="d-flex hx-light-content">
-
+                @if (ViewBag.BlogList != null)
+                {
+                    foreach (HxBlogs.Model.Blog blog in ViewBag.BlogList)
+                    {
+                        <div>@blog.Title</div>
+                    }
+                }
             </div>
         </div>
     </div>

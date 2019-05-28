@@ -122,7 +122,7 @@ namespace HxBlogs.WebApp.Controllers
                 username = username.Trim();
             User user = _userService.QueryEntity(u => u.UserName == username);
             if (user == null) throw new NotFoundException("找不到您访问的页面!");
-            var archiveList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.IsPublish=="Y")
+            var archiveList = this._blogService.QueryEntities(b => b.UserId == user.Id)
                 .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
                 .Select(g => new { Key = g.Key,Count = g.Count()})
                 .OrderByDescending(b=>b.Key);
@@ -143,9 +143,12 @@ namespace HxBlogs.WebApp.Controllers
                 username = username.Trim();
             User user = _userService.QueryEntity(u => u.UserName == username);
             if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            string ym = string.Format("{0}{1}", year, month);
+            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month);
             ViewBag.User = user;
             ViewBag.Year = year;
             ViewBag.Month = month;
+            ViewBag.BlogList = blogList;
             return View();
         }
     }
