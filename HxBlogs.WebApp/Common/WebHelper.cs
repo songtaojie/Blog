@@ -12,6 +12,7 @@ namespace HxBlogs.WebApp
 {
     public class WebHelper
     {
+        #region 日期处理函数
         /// <summary>
         /// 根据时间获取要显示的日期格式形式
         /// </summary>
@@ -84,6 +85,13 @@ namespace HxBlogs.WebApp
             if (dateTime == null || !dateTime.HasValue) return result;
             return GetDispayDate(dateTime.Value, format, showTime);
         }
+        public static string GetDetailDate(DateTime? dateTime, string format = "yyyy年MM月dd日 HH:ss")
+        {
+            string result = string.Empty;
+            if (dateTime == null || !dateTime.HasValue) return result;
+            return dateTime.Value.ToString(format);
+        }
+        #endregion
         /// <summary>
         /// 设置cookie的值
         /// </summary>

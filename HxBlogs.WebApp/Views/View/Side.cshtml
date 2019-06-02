@@ -1,0 +1,42 @@
+﻿@model HxBlogs.Model.User
+<aside class="d-flex flex-column blog-aside">
+    <div class="d-inline-flex align-items-center mt-2 p-3 hx-white-container hx-aside-title">
+        <div class="user-md-avater mr-2">
+            <a>
+                <img src="~/images/avatar.png" />
+            </a>
+        </div>
+        <div class="mr-1">@(Model == null ? "" : (string.IsNullOrEmpty(Model.NickName) ? Model.UserName : Model.NickName))</div>
+        @if (!UserContext.IsLoginUser(Model))
+        {
+            <div class="ml-auto">
+                <button type="button" class="btn btn-outline-secondary btn-sm">关注</button>
+            </div>
+        }
+    </div>
+    <div class="d-inline-flex justify-content-around  mb-1  p-3 hx-white-container">
+        <div class="d-flex flex-column">
+            <span>园龄</span>
+            <span>100</span>
+        </div>
+        <div class="d-flex flex-column">
+            <span>粉丝</span>
+            <span>100</span>
+        </div>
+        <div class="d-flex flex-column">
+            <span>关注</span>
+            <span>100</span>
+        </div>
+        <div class="d-flex flex-column">
+            <span>访问</span>
+            <span>100</span>
+        </div>
+    </div>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadarticle" hidden>
+    </div>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadtag" hidden>
+    </div>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadarchive" hidden>
+    </div>
+</aside>
+

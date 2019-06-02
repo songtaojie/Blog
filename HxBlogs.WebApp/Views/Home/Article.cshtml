@@ -1,0 +1,46 @@
+﻿@model List<HxBlogs.Model.Blog>
+<article>
+    <div class="blog-list d-inline-flex flex-column justify-content-start">
+        @foreach (HxBlogs.Model.Blog blog in Model)
+            {
+            <div class="blog-item clearfix" data-id="@blog.HexId">
+                <div class="blog-item-content">
+                    <div class="blog-item-title">
+                        <h4>
+                            <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+blog.HexId))">@blog.Title</a>
+                        </h4>
+                    </div>
+                </div>
+                <div class="blog-item-summary blog-content-nowrap">
+                    <p>
+                        @WebHelper.FilterHtmlP(blog.ContentHtml, 100)
+                    </p>
+                </div>
+                <div class="blog-item-user d-flex justify-content-start align-items-center">
+                    <div class="user-sm-avater mr-2">
+                        <a>
+                            <img src="~/images/avatar.png" />
+                        </a>
+                    </div>
+                    <div class="mr-1">@(blog.User == null ? "" : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>
+                    <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>
+                    <div class="mr-1">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
+                    <div class="blog-read ml-auto">
+                        <a>
+                            <span class="hx-gray-text">阅读</span>
+                            <span class="hx-blue-text">@blog.ReadCount</span>
+                        </a>
+                    </div>
+                    <div class="blog-comment ml-2">
+                        <a>
+                            <span class="hx-gray-text">评论</span>
+                            <span class="hx-blue-text">@blog.CmtCount</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</article>
+

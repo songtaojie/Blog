@@ -17,7 +17,7 @@ namespace HxBlogs.WebApp.Controllers
         private IUserService _userService;
         private IBlogService _blogService;
         private IBlogTagService _blogTagService;
-        public ViewController(IUserService userService,IBlogService blogService,IBlogTagService blogTagServer)
+        public ViewController(IUserService userService, IBlogService blogService, IBlogTagService blogTagServer)
         {
             this._userService = userService;
             this._blogService = blogService;
@@ -29,9 +29,9 @@ namespace HxBlogs.WebApp.Controllers
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(username))
                 username = username.Trim();
-            User user = _userService.QueryEntity(u=>u.UserName == username);
+            User user = _userService.QueryEntity(u => u.UserName == username);
             Blog blog = _blogService.QueryEntityByID(Convert.ToInt32(Helper.FromHex(blogId)));
-            if (user == null || blog==null) throw new NotFoundException("找不到您访问的页面!");
+            if (user == null || blog == null || blog.UserId != user.Id) throw new NotFoundException("找不到您访问的页面!");
             ViewBag.User = user;
             if (!string.IsNullOrEmpty(blog.BlogTags))
             {
@@ -49,14 +49,15 @@ namespace HxBlogs.WebApp.Controllers
             }
             return View(blog);
         }
+        #region 加载侧边栏
         /// <summary>
         /// 加载最新文章
         /// </summary>
         /// <param name="id">当前页面的博客id，侧边栏排除掉</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("{username}/side/loadarticle")]
-        public ActionResult LoadSideArticle(string username,string id)
+        public ActionResult LoadSideArticle(string username, string id)
         {
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(username))
@@ -86,7 +87,7 @@ namespace HxBlogs.WebApp.Controllers
         /// 加载随笔分类
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpGet]
         [Route("{username}/side/loadtag")]
         public async Task<ActionResult> LoadSideTag(string username)
         {
@@ -100,7 +101,7 @@ namespace HxBlogs.WebApp.Controllers
             var tagList = result.OrderBy(t => t.Order);
             foreach (BlogTag tag in tagList)
             {
-                int count = this._blogService.Count(b =>b.UserId==user.Id && b.BlogTags.Contains(tag.Id.ToString()));
+                int count = this._blogService.Count(b => b.UserId == user.Id && b.BlogTags.Contains(tag.Id.ToString()));
                 tagCountList.Add(tag.Id, count);
             }
             ViewBag.TagCountList = tagCountList;
@@ -112,8 +113,7 @@ namespace HxBlogs.WebApp.Controllers
         /// 加载随笔归档
         /// </summary>
         /// <returns></returns>
-        
-        [HttpPost]
+        [HttpGet]
         [Route("{username}/side/loadarchive")]
         public ActionResult LoadSideArchive(string username)
         {
@@ -124,8 +124,8 @@ namespace HxBlogs.WebApp.Controllers
             if (user == null) throw new NotFoundException("找不到您访问的页面!");
             var archiveList = this._blogService.QueryEntities(b => b.UserId == user.Id)
                 .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
-                .Select(g => new { Key = g.Key,Count = g.Count()})
-                .OrderByDescending(b=>b.Key);
+                .Select(g => new { Key = g.Key, Count = g.Count() })
+                .OrderByDescending(b => b.Key);
             Dictionary<string, int> result = new Dictionary<string, int>();
             foreach (var item in archiveList)
             {
@@ -135,21 +135,93 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.UserName = username;
             return PartialView("sidearchive");
         }
+        #endregion
+
+        #region 加载内容
+        /// <summary>
+        /// 随笔归档
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
         [Route("{username}/archive/{year:int}/{month:int}")]
-        public ActionResult Archive(string username,int year,int month)
+        public ActionResult Archive(string username, int year, int month)
         {
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(username))
                 username = username.Trim();
             User user = _userService.QueryEntity(u => u.UserName == username);
             if (user == null) throw new NotFoundException("找不到您访问的页面!");
-            string ym = string.Format("{0}{1}", year, month);
-            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month);
             ViewBag.User = user;
             ViewBag.Year = year;
             ViewBag.Month = month;
-            ViewBag.BlogList = blogList;
             return View();
         }
+
+        [Route("{username}/article/{year:int}/{month:int}")]
+        public ActionResult LoadArticle(string username, int year, int month)
+        {
+            //查询是否存在当前用户
+            if (!string.IsNullOrEmpty(username))
+                username = username.Trim();
+            User user = _userService.QueryEntity(u => u.UserName == username);
+            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month)
+                .OrderByDescending(b => b.PersonTop)
+                .ThenByDescending(b => b.PublishDate);
+            ViewBag.User = user;
+            return PartialView("article", blogList.ToList());
+        }
+        #endregion
+
+        #region 置顶和删除操作
+        [HttpPost]
+        public ActionResult TopBlog(string id)
+        {
+            int blogId = Convert.ToInt32(Helper.FromHex(id));
+            AjaxResult result = new AjaxResult();
+            Blog blog = this._blogService.QueryEntityByID(blogId);
+            if (blog == null)
+            {
+                result.Success = false;
+                result.Message = "当前数据已丢失或已删除!";
+            }
+            else
+            {
+                if (Helper.IsYes(blog.PersonTop))
+                {
+                    result.Resultdata = "当前数据取消置顶成功!";
+                    blog.PersonTop = "N";
+                }
+                else
+                {
+                    result.Resultdata = "当前数据置顶成功!";
+                    blog.PersonTop = "Y";
+                }
+                this._blogService.Update(blog);
+            }
+            return Json(result);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBlog(string id)
+        {
+            int blogId = Convert.ToInt32(Helper.FromHex(id));
+            AjaxResult result = new AjaxResult();
+            Blog blog = this._blogService.QueryEntityByID(blogId);
+            if (blog == null)
+            {
+                result.Success = false;
+                result.Message = "当前数据已丢失或已删除!";
+            }
+            else
+            {
+                result.Resultdata = "数据删除成功!";
+                this._blogService.LogicDelete(blog);
+            }
+            return Json(result);
+        }
+        #endregion
     }
 }

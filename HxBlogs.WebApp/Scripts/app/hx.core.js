@@ -1,4 +1,16 @@
-﻿;if (!jQuery) { throw new Error("hxCore requires jQuery"); }
+﻿; if (!jQuery) { throw new Error("hxCore requires jQuery"); }
+; if (window.alertify) {
+    alertify.defaults.transition = "zoom";
+
+    alertify.defaults.glossary.title = '系统提示';
+    alertify.defaults.glossary.ok = '确定';
+    alertify.defaults.glossary.cancel = '取消';
+  
+    alertify.defaults.theme.ok = "btn btn-primary";
+    alertify.defaults.theme.cancel = "btn btn-danger";
+    alertify.defaults.notifier.delay = 3;
+    alertify.defaults.notifier.position = 'top-center';
+}
 ; (function ($, window) {
     "use strict";
     /**
@@ -154,7 +166,7 @@
         ajaxSuccess(r, success, failure) {
             const contentType = r.getResponseHeader('content-type'),
                 isJson = /json/i.test(contentType);
-            let result = isJson && r.responseJson ? r.responseJson : r.responseText,
+            let result = isJson && r.responseJSON ? r.responseJSON : r.responseText,
                 succeed = true,// 请求成功
                 data; //数据
             if (!hxCore.isEmpty(result) && hxCore.isString(result) && isJson) {
@@ -168,7 +180,7 @@
             if (result) {
                 if (result.hasOwnProperty('Success')) {
                     succeed = result.Success;
-                    if (result.hasOwnProperty('Resultdata')) {
+                    if (result.hasOwnProperty('Resultdata') && result.Resultdata) {
                         data = result.Resultdata;
                     }
                 }
@@ -178,8 +190,7 @@
                 // 错误码<=-1 显示警告
                 if (hxCore.isNumber(result.Code) && result.Code < 0 && !hxCore.isEmpty(result.Message)) {
                     if (window.alertify) {
-                        window.alertify.set('notifier', 'position', 'top-center');
-                        window.alertify.error(result.Message).delay(2);
+                        window.alertify.error(result.Message);
                     } else {
                         _remind({
                             message: result.Message,
@@ -198,10 +209,7 @@
                     failure.call(this, msg, errcode);
                 } else if (!hxCore.isEmpty(msg)) {
                     if (window.alertify) {
-                        alertify.alert(msg).set({
-                            title: '系统提示',
-                            transition: 'zoom'
-                        });
+                        alertify.alert(msg);
                     } else {
                         _remind(msg, false);
                     }
@@ -216,20 +224,19 @@
         ajaxError(r, failure) {
             const contentType = r.getResponseHeader('content-type'),
                 isJson = /json/i.test(contentType);
-            let error = isJson && r.responseJson ? r.responseJson : r.responseText; //数据
-            if (!hxCore.isEmpty(error) && hxCore.isString(error) && isJson) {
+            let error = isJson && r.responseJSON ? r.responseJSON : r.responseText; //数据
+            if (hxCore.isEmpty(error)) {
+                error = r.statusText;
+            } else if (hxCore.isString(error) && isJson) {
                 try {
                     error = $.parseJSON(error);
                 } catch (e) { error = error; }
-            } else {
-                error = r.statusText;
             }
             const msg = error.Message || error;
             if (hxCore.isFunction(failure)) {
                 failure.call(this, msg, r.status, error);
             } else {
                 if (window.alertify) {
-                    window.alertify.set('notifier', 'position', 'top-center');
                     window.alertify.error(msg || '服务器忙，请稍后重试!');
                 } else {
                     _remind(msg || '服务器忙，请稍后重试!', false);
@@ -300,8 +307,6 @@
          */
         remindSuccess(content) {
             if (window.alertify) {
-                alertify.set('notifier', 'position', 'top-center');
-                alertify.set('notifier', 'delay', 2);
                 alertify.success(content);
             } else {
                 var opt = {
@@ -320,8 +325,6 @@
          */
         remindError(content) {
             if (window.alertify) {
-                alertify.set('notifier', 'position', 'top-center');
-                alertify.set('notifier', 'delay', 2);
                 alertify.error(content);
             } else {
                 var opt = {
@@ -607,8 +610,8 @@
 
         return str;
     }
-    
-    
+
+
     window.HxCore = $.extend(true, hxCore, hxLoad, {
         /**
          * 自定义的提醒

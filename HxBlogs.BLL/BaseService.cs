@@ -164,7 +164,9 @@ namespace HxBlogs.BLL
         /// <returns>返回添加的实体的个数</returns>
         public virtual int Insert(IEnumerable<T> list)
         {
-            return this.baseDal.Insert(list);
+            int count = this.baseDal.Insert(list);
+            this.DbSession.SaveChange();
+            return count;
         }
 
         #endregion
@@ -187,6 +189,7 @@ namespace HxBlogs.BLL
         {
             model = this.BeforeUpdate(model);
             T m = this.baseDal.Update(model);
+            this.DbSession.SaveChange();
             return model;
         }
         #endregion
@@ -197,7 +200,7 @@ namespace HxBlogs.BLL
             if (model != null)
             {
                 model["DeleteTime"] = DateTime.Now;
-                model["IsDelete"] = "Y";
+                model["IsDeleted"] = "Y";
             }
             return model;
         }
@@ -209,6 +212,7 @@ namespace HxBlogs.BLL
         public virtual void PhysicalDelete(T entity)
         {
             this.baseDal.Delete(entity);
+            this.DbSession.SaveChange();
         }
 
         /// <summary>
@@ -219,6 +223,7 @@ namespace HxBlogs.BLL
         public void PhysicalDelete(Expression<Func<T, bool>> lambdaWhere)
         {
             this.baseDal.Delete(lambdaWhere);
+            this.DbSession.SaveChange();
         }
         /// <summary>
         /// 逻辑删除

@@ -11,7 +11,7 @@
             foreach (HxBlogs.Model.Blog blog in ViewBag.BlogList)
             {
                 i++;
-                <a class="hx-content-nowrap @(i!=1?"mt-1":"")" target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+Hx.Common.Helper.Helper.ToHex(blog.Id)))" >@blog.Title</a>
+                <a class="hx-content-nowrap @(i!=1?"mt-1":"")" target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+blog.HexId))" >@blog.Title</a>
             }
         }
     </div>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HxBlogs.Model.Blog>
+@if (Model != null)
+{
+    foreach (HxBlogs.Model.Blog blog in Model)
+    {
+        <div class="blog-item clearfix">
+            <div class="blog-item-content">
+                <div class="blog-item-title">
+                    <h4>
+                        <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+Hx.Common.Helper.Helper.ToHex(blog.Id)))">
+                            @blog.Title
+                        </a>
+                    </h4>
+                </div>
+            </div>
+            <div class="blog-item-summary hx-content-nowrap">
+                <p>
+                    @(WebHelper.FilterHtmlP(blog.ContentHtml, 150))
+                </p>
+            </div>
+            <div class="blog-item-user d-flex justify-content-start align-items-center">
+                <div class="ml-auto hx-gray-text">发布于@(WebHelper.GetDetailDate(blog.PublishDate))</div>
+                <div class="ml-2">
+                    <span class="hx-gray-text">阅读</span>
+                    <span class="hx-blue-text">@blog.ReadCount</span>
+                </div>
+                <div class="ml-2">
+                    <span class="hx-gray-text">评论</span>
+                    <span class="hx-blue-text">@blog.CmtCount</span>
+                </div>
+                @if (UserContext.IsLoginUser(ViewBag.User))
+                {
+                    <div class="ml-2">
+                        <a class="hx-a" data-id="@blog.HexId" data-url="/article/topblog" href="javascript:void(0)">@(Hx.Common.Helper.Helper.IsYes(blog.PersonTop) ? "取消" : "")置顶</a>
+                    </div>
+                    <div class="ml-2">
+                        <a class="hx-a" href="javascript:void(0)">编辑</a>
+                    </div>
+                    <div class="ml-2">
+                        <a class="hx-a" data-id="@blog.HexId" data-url="/article/deleteblog" href="javascript:void(0)">删除</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

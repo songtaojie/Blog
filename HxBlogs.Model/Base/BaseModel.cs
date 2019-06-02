@@ -51,8 +51,11 @@ namespace HxBlogs.Model
             if (!EqualityComparer<T>.Default.Equals(prop, value))
             {
                 PropertyInfo property = this.GetType().GetProperty(propertyName);
-                property.SetValue(this, value);
-                OnPropertyChanged(propertyName);
+                if (property != null)
+                {
+                    property.SetValue(this, value);
+                    OnPropertyChanged(propertyName);
+                }
             }
         }
         /// <summary>

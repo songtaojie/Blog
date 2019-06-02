@@ -767,6 +767,9 @@
     <Content Include="Views\View\SideArchive.cshtml" />
     <Content Include="Views\View\SideArticle.cshtml" />
     <Content Include="Views\View\Archive.cshtml" />
+    <Content Include="Views\View\Article.cshtml" />
+    <Content Include="Views\Home\Article.cshtml" />
+    <Content Include="Views\View\Side.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

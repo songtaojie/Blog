@@ -16,6 +16,11 @@ namespace HxBlogs.Model
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public int Id { get; set; }
+        [NotMapped]
+        public virtual string HexId
+        {
+            get { return Hx.Common.Helper.Helper.ToHex(Id); }
+        }
         /// <summary>
         /// 用户名称
         /// </summary>

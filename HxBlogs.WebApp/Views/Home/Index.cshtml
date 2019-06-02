@@ -1,6 +1,4 @@
-﻿@model List<HxBlogs.Model.Blog>
-@using Hx.Common.Helper
-@{
+﻿@{
     ViewBag.Title = "海·星の博客";
     ViewBag.ShowFooter = false;
 }
@@ -31,49 +29,26 @@
         </ul>
     </nav>
 </div>
-<div class="hx-container blog-container hx-white-container">
-    <article>
-        <div class="blog-list d-inline-flex flex-column justify-content-start">
-            @foreach (HxBlogs.Model.Blog blog in Model)
-            {
-                <div class="blog-item clearfix" data-id="@Helper.ToHex(blog.Id)">
-                    <div class="blog-item-content">
-                        <div class="blog-item-title">
-                            <h4>
-                                <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+blog.UserName+"/"+Helper.ToHex(blog.Id)))">@blog.Title</a>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="blog-item-summary blog-content-nowrap">
-                        <p>
-                            @WebHelper.FilterHtmlP(blog.ContentHtml,100)
-                        </p>
-                        @*@(new HtmlString(string.IsNullOrWhiteSpace(blog.ContentHtml) || blog.ContentHtml.Length < 100 ? blog.ContentHtml : blog.ContentHtml.Substring(0, 100)))*@
-                    </div>
-                    <div class="blog-item-user d-flex justify-content-start align-items-center">
-                        <div class="user-sm-avater mr-2">
-                            <a>
-                                <img src="~/images/avatar.png" />
-                            </a>
-                        </div>
-                        <div class="mr-1">@(blog.User == null ? "" : (string.IsNullOrEmpty(blog.User.NickName) ? blog.User.UserName : blog.User.NickName))</div>
-                        <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>
-                        <div class="mr-1">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
-                        <div class="blog-read ml-auto">
-                            <a>
-                                <span class="blog-read-num">@blog.ReadCount</span>
-                                <span class="blog-read-text">阅读</span>
-                            </a>
-                        </div>
-                        <div class="blog-comment ml-2">
-                            <a>
-                                <span class="blog-comment-num">@blog.CmtCount</span>
-                                <span class="blog-comment-text">评论</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </article>
+<div class="hx-container blog-container hx-white-container partial-content" data-url="/home/loadarticle" hidden>
 </div>
+@section scripts{
+    <script>
+        $(function () {
+            loadPartial();
+        });
+        function loadPartial() {
+            $(".partial-content").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url, function (response, status, xhr) {
+                        if (status == 'success') {
+                            $(this).removeAttr('hidden');
+                        } else {
+                            $(this).attr('hidden');
+                        }
+                    });
+                }
+            })
+        }
+    </script>    
+}

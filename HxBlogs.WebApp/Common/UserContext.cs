@@ -122,5 +122,27 @@ namespace HxBlogs.WebApp
             WebHelper.RemoveCookie(ConstInfo.SessionID);
             WebHelper.RemoveCookie(ConstInfo.CookieName);
         }
+        /// <summary>
+        /// 判断给定的用户是否是登录用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool IsLoginUser(User user)
+        {
+            User loginUser = LoginUser;
+            if (user == null || loginUser == null) return false;
+            return user.Id == loginUser.Id;
+        }
+        /// <summary>
+        /// 判断给定的用户是否是登录用户
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool IsLoginUser(int userId)
+        {
+            User loginUser = LoginUser;
+            if (userId<0 || loginUser == null) return false;
+            return userId == loginUser.Id;
+        }
     }
 }

@@ -15,22 +15,22 @@ namespace HxBlogs.IBLL
         /// 获取满足指定条件的所有数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
-        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
+        /// <param name="addcondition">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>当前实体的集合</returns>
-        IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>满足当前条件的一个实体</returns>
-        T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
 
         /// <summary>
         /// 根据ID获取指定的数据
@@ -38,7 +38,7 @@ namespace HxBlogs.IBLL
         /// <param name="id"></param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        T QueryEntityByID(object id, bool excludeDeleted = true);
+        T QueryEntityByID(object id, bool addcondition = true);
 
         /// <summary>
         /// 分页形式的数据获取
@@ -52,7 +52,7 @@ namespace HxBlogs.IBLL
         /// <param name="lambdaWhere">获取数据的lambda</param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
 
         /// <summary>
         /// 根据记录的ID判断数据库中是否存在某条记录
@@ -60,7 +60,7 @@ namespace HxBlogs.IBLL
         /// <param name="id">记录的ID</param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>true代表存在;false代表不存在</returns>
-        bool Exist(object id, bool excludeDeleted = true);
+        bool Exist(object id, bool addcondition = true);
 
         /// <summary>
         /// 根据表达式来判断是否存在某条记录
@@ -68,7 +68,7 @@ namespace HxBlogs.IBLL
         /// <param name="lambdaWhere"></param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>true代表存在;false代表不存在</returns>
-        bool Exist(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        bool Exist(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
         #endregion
 
         #region 添加
@@ -110,6 +110,11 @@ namespace HxBlogs.IBLL
         /// <param name="lambdaWhere">lambda表达式</param>
         /// <returns></returns>
         void PhysicalDelete(Expression<Func<T, bool>> lambdaWhere);
+        /// <summary>
+        /// 逻辑删除，只是把删除字段置位Y，但是数据库中还存在
+        /// </summary>
+        /// <param name="entity"></param>
+        void LogicDelete(T entity);
         #endregion
         #region 返回数量
         /// <summary>
@@ -118,14 +123,14 @@ namespace HxBlogs.IBLL
         /// <param name="lambdaWhere"></param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        long LongCount(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        long LongCount(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
         /// <summary>
         /// 返回满足条件的数量
         /// </summary>
         /// <param name="lambdaWhere"></param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        int Count(Expression<Func<T, bool>> lambdaWhere, bool excludeDeleted = true);
+        int Count(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
         #endregion
     }
 }

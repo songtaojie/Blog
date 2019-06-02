@@ -1,10 +1,4 @@
-﻿/*************************公共的样式*******************************/
-a {
-    text-decoration: none;
-    color: rgba(119, 119, 119,0.7);
-}
-
-/************************博客首页*******************************/
+﻿/************************博客首页*******************************/
 /**侧边栏**/
 .blog-sidebar {
     position: fixed;
@@ -56,11 +50,6 @@ a {
     transition: -webkit-box-shadow .2s ease;
     -webkit-transition: -webkit-box-shadow .2s ease;
 }
-
-    .blog-item a {
-        color: #999;
-    }
-
 .blog-item-content {
     background: 0 0;
     margin: 0;
@@ -97,9 +86,6 @@ a {
 }
 
     .blog-item-title a {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
         color: #3d3d3d;
         font-weight: 700;
     }
@@ -128,8 +114,8 @@ a {
     color: #8a8a8a;
 }
 
-.blog-read:hover .blog-read-text,
-.blog-comment:hover .blog-comment-text {
+.blog-read:hover .hx-gray-text,
+.blog-comment:hover .hx-gray-text {
     color: #157dcf;
 }
 

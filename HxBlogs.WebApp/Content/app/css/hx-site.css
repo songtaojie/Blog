@@ -14,6 +14,48 @@ body {
     line-height: 1.4285em;
     background: #e9ecef;
 }
+/**************公共的样式*************************/
+.hx-container {
+    margin-top: 3rem;
+    padding-left: initial;
+    padding-right: initial;
+}
+.hx-white-container {
+    background: #fff;
+}
+.hx-content-nowrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+    .hx-content-nowrap p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+.hx-gray-text {
+    color: #8a8a8a;
+}
+.hx-blue-text {
+    color: #3399ea;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: rgba(119, 119, 119,0.7);
+}
+    a:hover,
+    a:active,
+    a:focus {
+        text-decoration: none;
+        color: #428bca;
+    }
+.hx-fa-same {
+    width: 1rem;
+    text-align: center;
+}
 /**************博客的头部*************************/
 .hx-header {
     box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
@@ -34,27 +76,6 @@ body {
     }
 }
 
-.hx-white-container {
-    background: #fff;
-}
-
-.hx-content-nowrap {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-    .hx-content-nowrap p {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-.hx-container {
-    margin-top: 3rem;
-    padding-left: initial;
-    padding-right: initial;
-}
 /*****************用户头像**********************/
 .user-sm-avater,
 .user-md-avater {
@@ -97,16 +118,6 @@ body {
         height: 3rem;
     }
 
-a:hover, a:active, a:focus {
-    cursor: pointer;
-    text-decoration: none;
-    color: #428bca;
-}
-
-.hx-fa-same {
-    width: 1rem;
-    text-align: center;
-}
 /******************博客中的浅色字体************************/
 .hx-light-content {
     font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;

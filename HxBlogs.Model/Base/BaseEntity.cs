@@ -13,6 +13,11 @@ namespace HxBlogs.Model
         [Key]
         public virtual int Id { get; set; }
 
+        [NotMapped]
+        public virtual string HexId
+        {
+            get { return Hx.Common.Helper.Helper.ToHex(Id); }
+        }
         #region 创建
         /// <summary>
         /// 创建时间
@@ -49,6 +54,11 @@ namespace HxBlogs.Model
         /// </summary>
         [DataType(DataType.DateTime)]
         public virtual DateTime? DeleteTime { get; set; }
+        /// <summary>
+        /// 最后更新时间
+        /// </summary>
+        [DataType(DataType.DateTime)]
+        public virtual DateTime? LastModifyTime { get; set; }
         #endregion
     }
 }

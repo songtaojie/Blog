@@ -20,12 +20,18 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            IEnumerable<Blog> blogs = _blogService.QueryEntities(b=>true)
-                 .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.QueryEntities(c => true).OrderByDescending(c => c.Order);
+            IEnumerable<Category> cateList = cateService.QueryEntities(c => true)
+                .OrderByDescending(c => c.Order);
             ViewBag.CategoryList = cateList;
-            return View(blogs.ToList());
+            return View();
+        }
+
+        public ActionResult LoadArticle()
+        {
+            IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
+                 .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
+            return PartialView("article", blogs.ToList());
         }
 
         public ActionResult About()

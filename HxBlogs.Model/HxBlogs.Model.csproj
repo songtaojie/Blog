@@ -80,6 +80,10 @@
     <Compile Include="Base\IEntity.cs" />
     <Compile Include="Context\DbFactory.cs" />
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
+    <Compile Include="Migrations\201906011412435_AddLastModifyTimeProp.cs" />
+    <Compile Include="Migrations\201906011412435_AddLastModifyTimeProp.Designer.cs">
+      <DependentUpon>201906011412435_AddLastModifyTimeProp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\AjaxResult.cs" />
@@ -89,6 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201906011412435_AddLastModifyTimeProp.resx">
+      <DependentUpon>201906011412435_AddLastModifyTimeProp.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
