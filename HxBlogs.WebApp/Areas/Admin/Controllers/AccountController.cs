@@ -38,7 +38,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Admin/Account
-        public ActionResult Index()
+        public ActionResult Login()
         {
             string returnUrl = Request[ConstInfo.returnUrl];
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -128,7 +128,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Login()
+        public ActionResult DoLogin()
         {
             AjaxResult result = new AjaxResult();
             result = ValidateCode(result);

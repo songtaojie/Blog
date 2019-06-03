@@ -55,5 +55,10 @@
                 }
             });
         });
+        function login() {
+            alertify.genericDialog(`@{
+                Html.RenderPartial("~/Views/Partial/Login.cshtml");
+            }`);
+        }
     </script>
 }

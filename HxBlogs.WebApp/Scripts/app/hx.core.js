@@ -10,6 +10,33 @@
     alertify.defaults.theme.cancel = "btn btn-danger";
     alertify.defaults.notifier.delay = 3;
     alertify.defaults.notifier.position = 'top-center';
+    alertify.genericDialog || alertify.dialog('genericDialog', function () {
+        return {
+            main: function (content) {
+                this.setContent(content);
+            },
+            setup: function () {
+                return {
+                    focus: {
+                        element: function () {
+                            return this.elements.body.querySelector(this.get('selector'));
+                        },
+                        select: true
+                    },
+                    options: {
+                        title:'系统提示',
+                        basic: true,
+                        maximizable: false,
+                        resizable: false,
+                        padding: false
+                    }
+                };
+            },
+            settings: {
+                selector: undefined
+            }
+        };
+    });
 }
 ; (function ($, window) {
     "use strict";

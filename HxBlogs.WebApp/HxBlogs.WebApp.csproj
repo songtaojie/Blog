@@ -594,7 +594,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\Account\Activation.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Content\Plugin\Metronic\uniform\css\uniform.default.scss" />
     <Content Include="Content\Plugin\Metronic\uniform\README.md" />
     <Content Include="Content\Plugin\Metronic\bootstrap-modal\LICENSE" />
@@ -772,13 +772,13 @@
     <Content Include="Views\View\Side.cshtml" />
     <Content Include="Views\View\EssayTag.cshtml" />
     <Content Include="Views\View\AllArticle.cshtml" />
+    <Content Include="Views\Partial\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Config\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\File\" />
-    <Folder Include="Views\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

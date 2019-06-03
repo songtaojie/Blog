@@ -24,7 +24,7 @@ namespace HxBlogs.WebApp.Areas.Admin
             {
                 area = "admin",
                 controller = "account",
-                action = "index"
+                action = "login"
             });
             context.MapRoute(
                 "Admin_default",

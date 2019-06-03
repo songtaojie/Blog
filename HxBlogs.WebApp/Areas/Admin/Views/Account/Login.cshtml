@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "用户登录";
 }
-<div class="content">
-    @using (Ajax.BeginForm("login", "account", new { },
+<div class="hx-login-content">
+    @using (Ajax.BeginForm("dologin", "account", new { },
                         new AjaxOptions()
                         {
                             OnBegin = "Login.beforeLogin",

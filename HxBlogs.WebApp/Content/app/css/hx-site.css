@@ -1,17 +1,15 @@
 ﻿
 /*@import url('/Content/font/');*/
 
-html {
+body, html {
     height: 100%;
 }
 
 body {
-    /*font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;*/
+    font-family: 'PingFang SC','Helvetica Neue','Microsoft YaHei UI','Microsoft YaHei','Noto Sans CJK SC',Sathu,EucrosiaUPC,Arial,Helvetica,sans-serif;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    font-size: 0.875rem;
-    line-height: 1.4285em;
     background: #e9ecef;
 }
 /**************公共的样式*************************/
@@ -44,7 +42,7 @@ body {
 a {
     text-decoration: none;
     cursor: pointer;
-    color: rgba(119, 119, 119,0.7);
+    color:  rgba(123, 123, 123, 0.85);
 }
     a:hover,
     a:active,

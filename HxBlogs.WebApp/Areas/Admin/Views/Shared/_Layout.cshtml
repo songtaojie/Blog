@@ -7,11 +7,16 @@
     @Styles.Render("~/content/style")
     @Styles.Render("~/content/site")
     @Styles.Render("~/content/login")
+    <style>
+        body {
+            background: rgba(239, 233, 242, 0.5) url(/images/login/newbg.png) center bottom no-repeat;
+        }
+    </style>
     @RenderSection("styles", required: false)
 </head>
 <body class="hx-login">
     <div class="container body-content ">
-        <div class="logo">
+        <div class="hx-logo">
             <a href="/">
                 <img src="~/images/logo.png" />
             </a>

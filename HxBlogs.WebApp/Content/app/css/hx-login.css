@@ -1,85 +1,76 @@
 ﻿/***
 Login page
 ***/
-
-/* logo page */
-html {
-    height: 100%;
-}
-
-body {
-    background: #110915 url(/images/login/newbg.png) center bottom no-repeat;
-}
-
 .hx-login {
-    background-color: #444 !important;
+    background-color: rgba(239, 233, 242, 0.5) !important;
 }
 
-    .hx-login .logo {
+    .hx-login .hx-logo {
         width: 247px;
         margin: 0 auto;
-        margin-top: 60px;
-        padding: 15px;
+        padding: 1rem;
         text-align: center;
     }
+        .hx-login .hx-logo a {
+            display:inline-block;
+        }
+        .hx-login .hx-login-content {
+            background-color: #fff;
+            width: 320px;
+            margin: 0 auto;
+            margin-bottom: 0px;
+            padding: 30px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
 
-    .hx-login .content {
-        background-color: #fff;
-        width: 320px;
-        margin: 0 auto;
-        margin-bottom: 0px;
-        padding: 30px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-    }
-
-        .hx-login .content h3 {
+        .hx-login .hx-login-content h3 {
             color: #000;
         }
 
-        .hx-login .content h4 {
+        .hx-login .hx-login-content h4 {
             color: #555;
         }
 
-        .hx-login .content p {
+        .hx-login .hx-login-content p {
             color: #222;
         }
 
-        .hx-login .content .login-form,
-        .hx-login .content .forget-form {
+        .hx-login .hx-login-content .login-form,
+        .hx-login .hx-login-content .forget-form {
             padding: 0px;
             margin: 0px;
         }
 
-        .hx-login .content .m-wrap {
+        .hx-login .hx-login-content .m-wrap {
             width: 100%;
             border-left: 0 !important;
         }
 
-            .hx-login .content .m-wrap.input-validate {
+            .hx-login .hx-login-content .m-wrap.input-validate {
                 width: 149px;
             }
 
-        .hx-login .content .img-validate {
+        .hx-login .hx-login-content .img-validate {
             height: 100%;
             width: 4.68rem;
             width: fit-content;
             cursor: pointer;
         }
 
-        .hx-login .content .input-icon {
+        .hx-login .hx-login-content .input-icon {
             border-left: 2px solid #35aa47 !important;
         }
 
-        .hx-login .content .control-group {
+        .hx-login .hx-login-content .control-group {
             margin-bottom: 15px !important;
         }
 
-        .hx-login .content .input-icon .m-wrap {
+        .hx-login .hx-login-content .input-icon .m-wrap {
             margin: 0px !important;
         }
 
-        .hx-login .content .forget-form {
+        .hx-login .hx-login-content .forget-form {
             display: none;
         }
 
@@ -87,13 +78,13 @@ body {
             display: none;
         }*/
 
-        .hx-login .content .form-title {
+        .hx-login .hx-login-content .form-title {
             font-weight: 300;
             margin-bottom: 25px;
             text-align: center;
         }
 
-        .hx-login .content .form-actions {
+        .hx-login .hx-login-content .form-actions {
             background-color: #fff;
             clear: both;
             border: 0px;
@@ -102,19 +93,19 @@ body {
             margin: 15px -30px;
         }
 
-        .hx-login .content .forget-form .form-actions {
+        .hx-login .hx-login-content .forget-form .form-actions {
             border: 0;
             margin-bottom: 0;
             padding-bottom: 20px;
         }
 
-        .hx-login .content .register-form .form-actions {
+        .hx-login .hx-login-content .register-form .form-actions {
             border: 0;
             margin-bottom: 0;
             padding-bottom: 0px;
         }
 
-        .hx-login .content .form-actions .checkbox {
+        .hx-login .hx-login-content .form-actions .checkbox {
             margin-top: 8px;
             display: inline-block;
         }
@@ -127,28 +118,31 @@ body {
     margin-top: 20px;
 }
 
-.hx-login .content .create-account {
+.hx-login .hx-login-content .create-account {
     border-top: 1px dotted #eee;
     /*padding-top: 10px;
             margin-top: 15px;*/
 }
 
-    .hx-login .content .create-account a {
+    .hx-login .hx-login-content .create-account a {
         display: inline-block;
         margin-top: 5px;
     }
 
-.hx-login .content .field-validation-error {
+.hx-login .hx-login-content .field-validation-error {
     color: red;
 }
 
 .hx-login .copyright {
     text-align: center;
-    width: 250px;
     margin: 0 auto;
-    padding: 10px 10px 0 10px;
-    color: #999;
-    font-size: 11px;
+    padding: 10px 0;
+    color: rgb(158, 158, 158);
+    font-size: 0.85rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .page-spinner-bar > div,
@@ -164,20 +158,20 @@ body {
         margin-top: 10px;
     }
 
-    .hx-login .content {
+    .hx-login .hx-login-content {
         padding: 30px;
         width: 250px;
     }
 
-        .hx-login .content h3 {
+        .hx-login .hx-login-content h3 {
             font-size: 22px;
         }
 
-        .hx-login .content .m-wrap.input-validate {
+        .hx-login .hx-login-content .m-wrap.input-validate {
             width: 90px;
         }
 
-        .hx-login .content .img-validate {
+        .hx-login .hx-login-content .img-validate {
             height: 25px;
         }
 

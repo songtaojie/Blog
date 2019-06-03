@@ -143,7 +143,7 @@ namespace HxBlogs.WebApp.Controllers
             return View();
         }
 
-        [Route("{username}/article/{year:int}/{month:int}")]
+        [Route("{username}/archivearticle/{year:int}/{month:int}")]
         public ActionResult LoadArticle(string username, int year, int month)
         {
             User user = GetUser(username);
@@ -221,7 +221,7 @@ namespace HxBlogs.WebApp.Controllers
         }
 
 
-        [Route("{username}/article/{hexId}")]
+        [Route("{username}/tagarticle/{hexId}")]
         public ActionResult LoadArticle(string username, string hexId)
         {
             User user = GetUser(username);
@@ -233,6 +233,8 @@ namespace HxBlogs.WebApp.Controllers
             return PartialView("article", blogList.ToList());
         }
         #endregion
+
+        #region 加载全部文章
         [Route("~/{username}")]
         public ActionResult AllArticle(string username)
         {
@@ -240,7 +242,7 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.User = user;
             return View();
         }
-        [Route("{username}/article")]
+        [Route("{username}/allarticle")]
         public ActionResult LoadArticle(string username)
         {
             User user = GetUser(username);
@@ -250,6 +252,7 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.User = user;
             return PartialView("article", blogList.ToList());
         }
+        #endregion
 
         public User GetUser(string username)
         {
