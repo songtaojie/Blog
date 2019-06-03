@@ -770,6 +770,8 @@
     <Content Include="Views\View\Article.cshtml" />
     <Content Include="Views\Home\Article.cshtml" />
     <Content Include="Views\View\Side.cshtml" />
+    <Content Include="Views\View\EssayTag.cshtml" />
+    <Content Include="Views\View\AllArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

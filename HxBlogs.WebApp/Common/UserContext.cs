@@ -10,6 +10,9 @@ using System.Web;
 
 namespace HxBlogs.WebApp
 {
+    /// <summary>
+    /// 用户信息相关的一些方法
+    /// </summary>
     public static class UserContext
     {
         private static HttpRequest Request
@@ -143,6 +146,17 @@ namespace HxBlogs.WebApp
             User loginUser = LoginUser;
             if (userId<0 || loginUser == null) return false;
             return userId == loginUser.Id;
+        }
+        /// <summary>
+        /// 获取用户用于展示的用户名
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static string GetDisplayName(User user)
+        {
+            if (user == null) return "";
+            if (!string.IsNullOrWhiteSpace(user.NickName)) return user.NickName;
+            return user.UserName;
         }
     }
 }

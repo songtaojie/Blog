@@ -59,11 +59,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("{username}/side/loadarticle")]
         public ActionResult LoadSideArticle(string username, string id)
         {
-            //查询是否存在当前用户
-            if (!string.IsNullOrEmpty(username))
-                username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            User user = GetUser(username);
             IEnumerable<Blog> blogList = null;
             if (string.IsNullOrEmpty(id))
             {
@@ -91,11 +87,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("{username}/side/loadtag")]
         public async Task<ActionResult> LoadSideTag(string username)
         {
-            //查询是否存在当前用户
-            if (!string.IsNullOrEmpty(username))
-                username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            User user = GetUser(username);
             var result = await this._blogTagService.QueryEntitiesAsync(t => t.UserId == user.Id);
             Dictionary<int, int> tagCountList = new Dictionary<int, int>();
             var tagList = result.OrderBy(t => t.Order);
@@ -117,11 +109,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("{username}/side/loadarchive")]
         public ActionResult LoadSideArchive(string username)
         {
-            //查询是否存在当前用户
-            if (!string.IsNullOrEmpty(username))
-                username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            User user = GetUser(username);
             var archiveList = this._blogService.QueryEntities(b => b.UserId == user.Id)
                 .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
                 .Select(g => new { Key = g.Key, Count = g.Count() })
@@ -148,11 +136,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("{username}/archive/{year:int}/{month:int}")]
         public ActionResult Archive(string username, int year, int month)
         {
-            //查询是否存在当前用户
-            if (!string.IsNullOrEmpty(username))
-                username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            User user = GetUser(username);
             ViewBag.User = user;
             ViewBag.Year = year;
             ViewBag.Month = month;
@@ -162,11 +146,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("{username}/article/{year:int}/{month:int}")]
         public ActionResult LoadArticle(string username, int year, int month)
         {
-            //查询是否存在当前用户
-            if (!string.IsNullOrEmpty(username))
-                username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            User user = GetUser(username);
             IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month)
                 .OrderByDescending(b => b.PersonTop)
                 .ThenByDescending(b => b.PublishDate);
@@ -223,5 +203,65 @@ namespace HxBlogs.WebApp.Controllers
             return Json(result);
         }
         #endregion
+
+        #region 随笔分类
+        /// <summary>
+        /// 随笔分类
+        /// </summary>
+        [Route("{username}/tag/{hexId}")]
+        public ActionResult EssayTag(string username,string hexId)
+        {
+            User user = GetUser(username);
+            int tagId = Convert.ToInt32(Helper.FromHex(hexId));
+            BlogTag tag = _blogTagService.QueryEntity(t => t.Id == tagId && t.UserId == user.Id);
+            ViewBag.TagName = tag==null?"":tag.Name;
+            ViewBag.User = user;
+            ViewBag.TagId = hexId;
+            return View();
+        }
+
+
+        [Route("{username}/article/{hexId}")]
+        public ActionResult LoadArticle(string username, string hexId)
+        {
+            User user = GetUser(username);
+            string tagId = Helper.FromHex(hexId);
+            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.BlogTags.Contains(tagId))
+                .OrderByDescending(b => b.PersonTop)
+                .ThenByDescending(b => b.PublishDate);
+            ViewBag.User = user;
+            return PartialView("article", blogList.ToList());
+        }
+        #endregion
+        [Route("~/{username}")]
+        public ActionResult AllArticle(string username)
+        {
+            User user = GetUser(username);
+            ViewBag.User = user;
+            return View();
+        }
+        [Route("{username}/article")]
+        public ActionResult LoadArticle(string username)
+        {
+            User user = GetUser(username);
+            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id)
+                .OrderByDescending(b => b.PersonTop)
+                .ThenByDescending(b => b.PublishDate);
+            ViewBag.User = user;
+            return PartialView("article", blogList.ToList());
+        }
+
+        public User GetUser(string username)
+        {
+            //查询是否存在当前用户
+            User user = null;
+            if (!string.IsNullOrEmpty(username))
+            {
+                username = username.Trim();
+                user = _userService.QueryEntity(u => u.UserName == username);
+            }
+            if (user == null) throw new NotFoundException("找不到您访问的页面!");
+            return user;
+        }
     }
 }

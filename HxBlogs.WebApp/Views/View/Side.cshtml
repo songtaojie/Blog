@@ -6,7 +6,7 @@
                 <img src="~/images/avatar.png" />
             </a>
         </div>
-        <div class="mr-1">@(Model == null ? "" : (string.IsNullOrEmpty(Model.NickName) ? Model.UserName : Model.NickName))</div>
+        <div class="mr-1">@(UserContext.GetDisplayName(Model))</div>
         @if (!UserContext.IsLoginUser(Model))
         {
             <div class="ml-auto">
