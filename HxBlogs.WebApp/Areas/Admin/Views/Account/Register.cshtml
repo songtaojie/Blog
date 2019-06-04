@@ -2,107 +2,12 @@
 @{
     ViewBag.Title = "注册";
 }
-<div class="content">
-    @using (Ajax.BeginForm("registeruser", "account", new { },
-        new AjaxOptions()
-        {
-            OnBegin = "beforeRegister",
-            HttpMethod = "post",
-            OnSuccess = "afterRegister",
-            OnComplete = "finishRegister"
-        }, new
-        {
-            @class = "form-vertical register-form",
-            role = "form",
-            id = "registerForm"
-        }))
+@{ 
+    Html.RenderPartial("~/views/partial/register.cshtml", new ViewDataDictionary()
     {
-        <h3 class="form-title">用户注册</h3>
-        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
-        <div class="form-row mb-2">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-user hx-fa-same"></i>
-                    </div>
-                </div>
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "用户名" })
-            </div>
-            @Html.ValidationMessageFor(m => m.UserName)
-        </div>
-        <div class="form-row  mb-2">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-envelope hx-fa-same"></i>
-                    </div>
-                </div>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "邮箱" })
-            </div>
-            @Html.ValidationMessageFor(m => m.Email)
-        </div>
-        <div class="form-row  mb-2">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-lock hx-fa-same"></i>
-                    </div>
-                </div>
-                @Html.PasswordFor(m => m.PassWord, new { @class = "form-control", placeholder = "密码" })
-            </div>
-            @Html.ValidationMessageFor(m => m.PassWord)
-        </div>
-        <div class="form-row  mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-check hx-fa-same"></i>
-                    </div>
-                </div>
-                @Html.PasswordFor(m => m.PwdConfirm, new { @class = "form-control", placeholder = "确认密码" })
-            </div>
-            @Html.ValidationMessageFor(m => m.PwdConfirm)
-        </div>
-        <div class="form-row mb-4">
-            <input type="submit" class="btn btn-outline-secondary btn-register" id="btnReg" value="注册" />
-        </div>
-    }
-</div>
+        {"ReturnUrl",ViewBag.ReturnUrl }
+    });
+}
 @section scripts{
-    <script type="text/javascript">
-        //如果按钮时禁用状态，禁止提交
-        function beforeRegister() {
-            var btnReg = $('#btnReg');
-            if (btnReg.hasClass('disabled')) {
-                return false;
-            }
-            btnReg.addClass('disabled');
-        }
-        function afterRegister(r) {
-            HxCore.ajaxSuccess(r, function (data) {
-                window.location.href = data && decodeURIComponent(data) || "/";
-            });
-        //    if (data.IsSuccess) {
-        //        alert(`注册成功!${data.Message}`);
-        //        window.location.href = data.ReturnUrl && decodeURIComponent(data.ReturnUrl) || "/";
-        //    } else {
-        //        var html = `<div id="myAlert" class="alert alert-warning">
-        //    <a href="#" class="close" data-dismiss="alert"></a>
-        //    <strong>注册失败！</strong>${data.Message}
-        //</div>`;
-        //        var myAlert = $(html);
-        //        myAlert.appendTo('.content');
-        //        window.setTimeout(function () {
-        //            myAlert.alert('close');
-        //        }, 3000);
-        //    }
-        }
-        //修改按钮状态为可用
-        function finishRegister() {
-            var btnReg = $('#btnReg');
-            if (btnReg.hasClass('disabled')) {
-                btnReg.removeClass('disabled');
-            }
-        }
-    </script>
+    <script src="~/Scripts/app/login.js"></script>
 }

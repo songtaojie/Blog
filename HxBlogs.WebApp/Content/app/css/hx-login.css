@@ -1,139 +1,61 @@
 ﻿/***
 Login page
 ***/
-.hx-login {
-    background-color: rgba(239, 233, 242, 0.5) !important;
+.hx-content {
+    padding-top: 3rem;
+    max-width: 330px;
+}
+.hx-login,
+.hx-register {
+    background-color: #fff;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
-    .hx-login .hx-logo {
-        width: 247px;
-        margin: 0 auto;
-        padding: 1rem;
-        text-align: center;
+.hx-logo,
+.hx-logo {
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+}
+
+    .hx-logo a,
+    .hx-logo a {
+        display: inline-block;
     }
-        .hx-login .hx-logo a {
-            display:inline-block;
-        }
-        .hx-login .hx-login-content {
-            background-color: #fff;
-            width: 320px;
-            margin: 0 auto;
-            margin-bottom: 0px;
-            padding: 30px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
 
-        .hx-login .hx-login-content h3 {
-            color: #000;
-        }
-
-        .hx-login .hx-login-content h4 {
-            color: #555;
-        }
-
-        .hx-login .hx-login-content p {
-            color: #222;
-        }
-
-        .hx-login .hx-login-content .login-form,
-        .hx-login .hx-login-content .forget-form {
-            padding: 0px;
-            margin: 0px;
-        }
-
-        .hx-login .hx-login-content .m-wrap {
-            width: 100%;
-            border-left: 0 !important;
-        }
-
-            .hx-login .hx-login-content .m-wrap.input-validate {
-                width: 149px;
-            }
-
-        .hx-login .hx-login-content .img-validate {
-            height: 100%;
-            width: 4.68rem;
-            width: fit-content;
-            cursor: pointer;
-        }
-
-        .hx-login .hx-login-content .input-icon {
-            border-left: 2px solid #35aa47 !important;
-        }
-
-        .hx-login .hx-login-content .control-group {
-            margin-bottom: 15px !important;
-        }
-
-        .hx-login .hx-login-content .input-icon .m-wrap {
-            margin: 0px !important;
-        }
-
-        .hx-login .hx-login-content .forget-form {
-            display: none;
-        }
-
-        /*.login .content .register-form {
-            display: none;
-        }*/
-
-        .hx-login .hx-login-content .form-title {
-            font-weight: 300;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .hx-login .hx-login-content .form-actions {
-            background-color: #fff;
-            clear: both;
-            border: 0px;
-            border-bottom: 1px solid #eee;
-            padding: 0px 30px 15px 30px;
-            margin: 15px -30px;
-        }
-
-        .hx-login .hx-login-content .forget-form .form-actions {
-            border: 0;
-            margin-bottom: 0;
-            padding-bottom: 20px;
-        }
-
-        .hx-login .hx-login-content .register-form .form-actions {
-            border: 0;
-            margin-bottom: 0;
-            padding-bottom: 0px;
-        }
-
-        .hx-login .hx-login-content .form-actions .checkbox {
-            margin-top: 8px;
-            display: inline-block;
-        }
-
-.btn-register {
-    width: 100%;
+.hx-login .hx-login-content,
+.hx-register .hx-register-content {
+    background-color: #fff;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
-.hx-login .content .forget-password {
-    margin-top: 20px;
+.hx-login .img-validate,
+.hx-register .img-validate {
+    height: 100%;
+    width: 4.68rem;
+    cursor: pointer;
 }
-
-.hx-login .hx-login-content .create-account {
+.field-validation-error {
+    color:red;
+}
+.hx-login .create-account {
     border-top: 1px dotted #eee;
-    /*padding-top: 10px;
-            margin-top: 15px;*/
 }
 
-    .hx-login .hx-login-content .create-account a {
+    .hx-login .create-account a {
         display: inline-block;
         margin-top: 5px;
     }
 
-.hx-login .hx-login-content .field-validation-error {
-    color: red;
-}
-
-.hx-login .copyright {
+.hx-copyright {
     text-align: center;
     margin: 0 auto;
     padding: 10px 0;
@@ -145,37 +67,12 @@ Login page
     right: 0;
 }
 
-.page-spinner-bar > div,
-.block-spinner-bar > div {
-    background: #20c5ad !important;
-}
-
 @media (max-width: 480px) {
     /***
   Login page
   ***/
-    .hx-login .logo {
-        margin-top: 10px;
-    }
-
-    .hx-login .hx-login-content {
-        padding: 30px;
-        width: 250px;
-    }
-
-        .hx-login .hx-login-content h3 {
-            font-size: 22px;
-        }
-
-        .hx-login .hx-login-content .m-wrap.input-validate {
-            width: 90px;
-        }
-
-        .hx-login .hx-login-content .img-validate {
-            height: 25px;
-        }
-
-    .hx-login .checkbox {
-        font-size: 13px;
+    .hx-content {
+        padding-top: 2rem;
+        max-width: 310px;
     }
 }

@@ -9,7 +9,7 @@ namespace HxBlogs.WebApp.Controllers
     public class PartialController : BaseNoAuthController
     {
         // GET: Partial
-        public ActionResult LoginPartial(string returnUrl)
+        public ActionResult Login(string returnUrl)
         {
             if (!string.IsNullOrEmpty(returnUrl))
             {

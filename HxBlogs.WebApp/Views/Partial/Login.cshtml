@@ -1,0 +1,89 @@
+﻿<div class="hx-login">
+    @using (Ajax.BeginForm("dologin", "account", new { },
+            new AjaxOptions()
+            {
+                OnBegin = "HxAccount.beforeLogin",
+                HttpMethod = "post",
+                OnSuccess = "HxAccount.afterLogin",
+                OnComplete = "HxAccount.finishLogin",
+                OnFailure = "HxAccount.doFailure"
+            }, new
+            {
+                @class = "form-vertical login-form",
+                role = "form",
+                id = "loginForm"
+            }))
+    {
+        <h3 class="mb-3 text-center">用户登录</h3>
+        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+        <div class="form-row  mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-user hx-fa-same"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="text" placeholder="用户名/邮箱" name="UserName" />
+            </div>
+        </div>
+        <div class="form-row  mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-lock hx-fa-same"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="password" placeholder="密码" name="PassWord" />
+            </div>
+        </div>
+        <div class="form-row mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <i class="fa fa-drivers-license hx-fa-same"></i>
+                    </div>
+                </div>
+                <input class="form-control" type="password" placeholder="验证码" name="ValidateCode" />
+                <div class="input-group-append">
+                    <div class="input-group-text" style="padding:0;">
+                        <img id="img" class="img-validate" onclick="this.src=this.src+1" src="/account/showvalidatecode?id=1" title="看不清,点击换一张" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col my-auto">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="Remember" value="Y" id="Remember">
+                    <label class="custom-control-label" for="Remember">记住我</label>
+                </div>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success pull-right" id="btnLogin">
+                    登录 <i class="fa fa-arrow-circle-o-right "></i>
+                </button>
+            </div>
+        </div>
+
+        <div>
+            <h4>忘记密码?</h4>
+            <p>
+                不用担心, 点击 <a href="javascript:;" class="" id="forget-password">这里</a>
+                找回密码.
+            </p>
+        </div>
+        <div class="create-account">
+            <p>
+                没有账号?&nbsp;
+                @if (ViewBag.Pop == true)
+                {
+                    <a href="javascript:void(0);" id="btn-to-register">注册账号</a>
+                }
+                else
+                {
+                    <a href="/register@(string.IsNullOrEmpty(ViewBag.ReturnUrl)?"":"?returnUrl="+ ViewBag.ReturnUrl)" id="btn-to-register">注册账号</a>
+                }
+            </p>
+        </div>
+    }
+</div>

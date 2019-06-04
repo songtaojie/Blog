@@ -773,7 +773,8 @@
     <Content Include="Views\View\Side.cshtml" />
     <Content Include="Views\View\EssayTag.cshtml" />
     <Content Include="Views\View\AllArticle.cshtml" />
-    <Content Include="Views\Partial\LoginPartial.cshtml" />
+    <Content Include="Views\Partial\Login.cshtml" />
+    <Content Include="Views\Partial\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

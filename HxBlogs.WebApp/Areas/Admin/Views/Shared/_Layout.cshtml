@@ -14,15 +14,15 @@
     </style>
     @RenderSection("styles", required: false)
 </head>
-<body class="hx-login">
-    <div class="container body-content ">
+<body>
+    <div class="container hx-content">
         <div class="hx-logo">
             <a href="/">
                 <img src="~/images/logo.png" />
             </a>
         </div>
         @RenderBody()
-        <div class="copyright">
+        <div class="hx-copyright">
             @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
         </div>
     </div>

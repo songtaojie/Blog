@@ -1,8 +1,8 @@
 ﻿"use strict";
-var Login = function () {
+var HxAccount = function () {
     return {
         beforeLogin: function (a, b) {
-            HxCore.blockUI({label:'登陆中...'});
+            HxCore.blockUI({ label: '登陆中...' });
         },
         finishLogin: function (op, success, r) {
         },
@@ -19,7 +19,7 @@ var Login = function () {
             HxCore.unblockUI();
             HxCore.ajaxError(data);
         },
-        init: function () {
+        init: function (keypress) {
             $('.login-form').validate({
                 errorElement: 'span',
                 errorClass: 'text-danger',
@@ -63,24 +63,34 @@ var Login = function () {
                     error.remove();
                 }
             });
-            $(document).keypress(function (e) {
-                if (e.which === 13) {
-                    $('.login-form').submit();
-                    return false;
-                }
+            if (keypress) {
+                $(document).keypress(function (e) {
+                    if (e.which === 13) {
+                        $('.login-form').submit();
+                        return false;
+                    }
+                });
+            }
+        },
+        //如果按钮时禁用状态，禁止提交
+        beforeRegister: function () {
+            var btnReg = $('#btn-Reg');
+            if (btnReg.hasClass('disabled')) {
+                return false;
+            }
+            btnReg.addClass('disabled');
+        },
+        afterRegister: function (r) {
+            HxCore.ajaxSuccess(r, function (data) {
+                window.location.href = data && decodeURIComponent(data) || "/";
             });
+        },
+        //修改按钮状态为可用
+        finishRegister: function () {
+            var btnReg = $('#btn-Reg');
+            if (btnReg.hasClass('disabled')) {
+                btnReg.removeClass('disabled');
+            }
         }
     };
 }();
-$(document).ready(function (e) {
-    Login.init();
-    if (window.history && window.history.pushState) {
-        $(window).on('popstate', function () {
-            window.history.pushState('forward', null, '#');
-            window.history.forward(1);
-            location.replace(document.referrer);//刷新
-        });
-        window.history.pushState('forward', null, '#');
-        window.history.forward(1);
-    }
-});

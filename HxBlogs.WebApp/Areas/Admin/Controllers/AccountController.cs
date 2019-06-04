@@ -51,9 +51,8 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// 注册页面
         /// </summary>
         /// <returns></returns>
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl)
         {
-            string returnUrl = Request[ConstInfo.returnUrl];
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 ViewBag.ReturnUrl = returnUrl;

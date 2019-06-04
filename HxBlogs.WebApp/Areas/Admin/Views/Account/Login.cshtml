@@ -2,162 +2,17 @@
 @{
     ViewBag.Title = "用户登录";
 }
-<div class="hx-login-content">
-    @using (Ajax.BeginForm("dologin", "account", new { },
-                        new AjaxOptions()
-                        {
-                            OnBegin = "Login.beforeLogin",
-                            HttpMethod = "post",
-                            OnSuccess = "Login.afterLogin",
-                            OnComplete = "Login.finishLogin",
-                            OnFailure = "Login.doFailure"
-                        }, new
-                        {
-                            @class = "form-vertical login-form",
-                            role = "form",
-                            id = "loginForm"
-                        }))
+@{ 
+    Html.RenderPartial("~/views/partial/login.cshtml", new ViewDataDictionary()
     {
-        <h3 class="form-title">用户登录</h3>
-        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
-        <div class="form-row  mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-user hx-fa-same"></i>
-                    </div>
-                </div>
-                <input class="form-control" type="text" placeholder="用户名/邮箱" name="UserName" />
-            </div>
-        </div>
-        <div class="form-row  mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-lock hx-fa-same"></i>
-                    </div>
-                </div>
-                <input class="form-control" type="password" placeholder="密码" name="PassWord" />
-            </div>
-        </div>
-        <div class="form-row mb-3">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <i class="fa fa-drivers-license hx-fa-same"></i>
-                    </div>
-                </div>
-                <input class="form-control" type="password" placeholder="验证码" name="ValidateCode" />
-                <div class="input-group-append">
-                    <div class="input-group-text" style="padding:0;">
-                        <img id="img" class="img-validate" onclick="this.src=this.src+1" src="/account/showvalidatecode?id=1" title="看不清,点击换一张" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col my-auto">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="Remember" value="Y" id="Remember">
-                    <label class="custom-control-label" for="Remember">记住我</label>
-                </div>
-            </div>
-            <div class="col">
-                <button type="submit" class="btn btn-success pull-right" id="btnLogin">
-                    登录 <i class="fa fa-arrow-circle-o-right "></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="forget-password">
-            <h4>忘记密码?</h4>
-            <p>
-                不用担心, 点击 <a href="javascript:;" class="" id="forget-password">这里</a>
-                找回密码.
-            </p>
-        </div>
-        <div class="create-account">
-            <p>
-                没有账号?&nbsp;
-                <a href="/register@(string.IsNullOrEmpty(ViewBag.ReturnUrl)?"":"?returnUrl="+ViewBag.ReturnUrl)" id="register-btn" class="">注册账号</a>
-            </p>
-        </div>
-    }
-</div>
+        {"ReturnUrl",ViewBag.ReturnUrl }
+    });
+}
 @section scripts{
+    <script src="~/Scripts/app/login.js"></script>
     <script>
-        var Login = function () {
-            return {
-                beforeLogin: function (a, b) {
-                    HxCore.blockUI({ label: '登陆中...' });
-                },
-                finishLogin: function (op, success, r) {
-                },
-                afterLogin: function (data, textStatus, jqXHR) {
-                    HxCore.ajaxSuccess(jqXHR, function (d) {
-                        window.location.href = d && decodeURIComponent(d) || "/";
-                        HxCore.unblockUI();
-                    }, function () {
-                        $('#img').attr('src', $('#img').attr('src') + 1);
-                        HxCore.unblockUI();
-                    });
-                },
-                doFailure(data, err) {
-                    HxCore.unblockUI();
-                    HxCore.ajaxError(data);
-                },
-                init: function () {
-                    $('.login-form').validate({
-                        errorElement: 'span',
-                        errorClass: 'text-danger',
-                        focusInvalid: false,
-                        rules: {
-                            UserName: { required: true },
-                            PassWord: { required: true },
-                            ValidateCode: {
-                                required: true,
-                                remote: {
-                                    url: 'admin/account/checkcode',
-                                    type: 'post',
-                                    data: {
-                                        code: function () {
-                                            $('input.input-validate').val();
-                                        }
-                                    },
-                                }
-                            }
-                        },
-                        messages: {
-                            UserName: '用户名/邮箱不能为空!',
-                            PassWord: '密码不能为空!',
-                            ValidateCode: {
-                                required: '验证码不能为空!',
-                                remote: '验证码不正确!'
-                            }
-                        },
-                        errorPlacement: function (error, element) {
-                            error.addClass('small').insertAfter(element.closest('.input-group'));
-                        },
-                        ////display error alert on form submit
-                        invalidHandler: function (event, validator) {
-                            $('.alert-error', $('.login-form')).show();
-                        },
-                        success: function (error) {
-                            //error.closest('.form-row').removeClass('error');
-                            error.remove();
-                        }
-                    });
-                    $(document).keypress(function (e) {
-                        if (e.which === 13) {
-                            $('.login-form').submit();
-                            return false;
-                        }
-                    });
-                }
-            };
-        }();
         $(document).ready(function (e) {
-            Login.init();
+            HxAccount.init(true);
             if (window.history && window.history.pushState) {
                 $(window).on('popstate', function () {
                     window.history.pushState('forward', null, '#');
