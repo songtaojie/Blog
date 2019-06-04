@@ -195,6 +195,7 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Filters\AuthFilterAttribute.cs" />
     <Compile Include="Filters\HandleErrorAttribute.cs" />
@@ -772,7 +773,7 @@
     <Content Include="Views\View\Side.cshtml" />
     <Content Include="Views\View\EssayTag.cshtml" />
     <Content Include="Views\View\AllArticle.cshtml" />
-    <Content Include="Views\Partial\Login.cshtml" />
+    <Content Include="Views\Partial\LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

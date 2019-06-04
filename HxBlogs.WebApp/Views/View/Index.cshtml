@@ -15,19 +15,19 @@
                 <div>
                     <h4>@Model.Title</h4>
                 </div>
-                <div class="d-flex hx-light-content">
+                <div class="d-flex flex-wrap align-content-start hx-light-content">
                     <span class="hx-text">@(UserContext.GetDisplayName(Model.User)) 发布于</span>
-                    <span class="hx-text mr-1">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
-                    <span class="hx-text mx-1">阅读数:@Model.ReadCount</span>
-                    <span class="hx-text mx-1">收藏:@Model.FavCount</span>
-                    <span class="hx-text mx-1">点赞:@Model.LikeCount</span>
-                    <div class="hx-text mx-1 blog-tag">
+                    <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
+                    <span class="hx-text mr-2">阅读数:@Model.ReadCount</span>
+                    <span class="hx-text mr-2">收藏:@Model.FavCount</span>
+                    <span class="hx-text mr-2">点赞:@Model.LikeCount</span>
+                    <div class="hx-text mr-2 blog-tag">
                         个人分类：
                         @if (ViewBag.BlogTag != null)
                         {
                             foreach (HxBlogs.Model.BlogTag tag in ViewBag.BlogTag)
                             {
-                                <a target="_blank" href="@WebHelper.GetFullUrl("/article/"+tag.UserName+"/tag/"+tag.HexId)">@tag.Name</a>
+                                <a target="_blank" href="@WebHelper.GetFullUrl("/article/" + tag.UserName + "/tag/" + tag.HexId)">@tag.Name</a>
                             }
                         }
                     </div>
@@ -50,15 +50,22 @@
                             $(this).removeAttr('hidden');
                         } else {
                             HxCore.ajaxError(xhr);
+                            $(this).attr('hidden');
                         }
                     });
                 }
             });
         });
         function login() {
-            alertify.genericDialog(`@{
-                Html.RenderPartial("~/Views/Partial/Login.cshtml");
-            }`);
+            HxCore.ajax('@WebHelper.GetFullUrl("/partial/loginpartial")', {
+                data: {
+                    returnUrl: window.location.href
+                },
+                success(data) {
+                    alertify.genericDialog(data);
+                }
+            });
+            
         }
     </script>
 }
