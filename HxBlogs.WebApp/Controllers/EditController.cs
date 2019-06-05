@@ -23,7 +23,7 @@ namespace HxBlogs.WebApp.Controllers
             _tagService = tagService;
         }
         // GET: PostEdit
-        public ActionResult PostEdit()
+        public ActionResult RichEdit()
         {
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
@@ -33,7 +33,7 @@ namespace HxBlogs.WebApp.Controllers
             ViewBag.CategoryList = cateList;
             ViewBag.BlogTypeList = typeList;
             ViewBag.BlogTagList = tagList;
-            return View();
+            return View("mdedit");
         }
         [HttpPost]
         public ActionResult Save(Models.EditViewModel editInfo)

@@ -174,16 +174,12 @@
 .blog-edit {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
-    min-height: calc(100vh - 4rem);
 }
-
     .blog-edit .ck-content {
-        min-height: calc(100vh - 26rem);
+        min-height: calc(100vh - 19rem);
     }
-
     .blog-edit textarea {
         visibility: hidden;
-        height: 100%;
     }
 
     .blog-edit .blog-category-label {

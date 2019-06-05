@@ -57,6 +57,7 @@ a {
 /**************博客的头部*************************/
 .hx-header {
     box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
+    max-height:3rem;
 }
 
 .hx-header-image {
@@ -141,14 +142,16 @@ a {
 }
 
     .hx-control-label::before {
-        top: 0.05rem;
+        /*top: 0.05rem;*/
         left: -1.3rem;
     }
 
     .hx-control-label::after {
-        top: 0.05rem;
+        /*top: 0.05rem;*/
         left: -1.3rem;
     }
+/**************************设置editormd中的样式*******************************/
+
 /*******************卡片************************/
 .hx-card-header {
     padding: 0.5rem 1rem;
