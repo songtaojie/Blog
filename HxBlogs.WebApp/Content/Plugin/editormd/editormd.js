@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Editor.md
  *
  * @file        editormd.js 
@@ -1071,10 +1071,9 @@
                     return false;
                 }
 
-                if (top - editor.offset().top > -45 && top < editor.height())
+                if (top - editor.offset().top > 10 && top < editor.height())
                 {
                     toolbar.css({
-                        'margin-top':'3rem',
                         position : "fixed",
                         width    : editor.width() + "px",
                         left     : ($window.width() - editor.width()) / 2 + "px"
@@ -1083,7 +1082,6 @@
                 else
                 {
                     toolbar.css({
-                        'margin-top': 'auto',
                         position : "absolute",
                         width    : "100%",
                         left     : 0

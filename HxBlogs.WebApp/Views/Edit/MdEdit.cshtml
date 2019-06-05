@@ -28,7 +28,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-row mb-2">
+        <div class="form-row mb-2 hx-editor">
             <div class="col-md-12 col-sm-12">
                 <div id="editor">
                     <textarea name="ContentHtml" class="d-none" ></textarea>
@@ -63,7 +63,7 @@
         <div class="form-row mb-2" hidden>
             <div class="col-sm-4 col-xs-12">
                 <select class="custom-select" required name="TypeId">
-                    <option value="-1" selected="selected">请选择</option>
+                    <option value="-1" selected="selected">请选择文章类型</option>
                     @if (ViewBag.BlogTypeList != null)
                     {
                         foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
@@ -150,18 +150,60 @@
                             "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "image", "code",
                              "table", "datetime", "emoji","|", "||",
                             "watch", "preview", "fullscreen", "clear", "help"]//"||", "watch", "fullscreen", "preview", "testIcon"]
-                    },                                                                                                 
+                    },
+                    onfullscreen() {
+                        //testEditor.setToolbarAutoFixed(true);
+                        $('nav,div.form-row:not(.hx-editor)').hide();
+                        //this.toolbar.css('margin-top', 'auto');
+                        //this.resize();
+                    },
+                    onfullscreenExit() {
+                        $('nav,div.form-row:not(.hx-editor)').show();
+                        this.width('100%');
+                    },
                     onload: function () {                                                                              
-                        console.log('onload', this);                                                                   
-                        $('div[hidden]').removeAttr('hidden');                                                         
-                        //this.fullscreen();                                                                           
-                        //this.unwatch();
-                        //this.watch().fullscreen();
-
-                        //this.setMarkdown("#PHP");
-                        //this.width("100%");
-                        //this.height(480);
-                        //this.resize("100%", 640);
+                        $('div[hidden]').removeAttr('hidden'); 
+                        var me = this,
+                            state = me.state,
+                            editor = me.editor,
+                            toolbar = me.toolbar,
+                            settings = me.settings,
+                            $window = $(window);
+                        var autoFixedHandle = function () {
+                            var top = $window.scrollTop();
+                            if (!settings.toolbarAutoFixed) {
+                                return false;
+                            }
+                            if (top - editor.offset().top > -8 && top < editor.height() && !state.fullscreen) {
+                                
+                                toolbar.css({
+                                    'margin-top': '3rem',
+                                    position: "fixed",
+                                    width: editor.width() + "px",
+                                    left: ($window.width() - editor.width()) / 2 + "px"
+                                });
+                            }
+                            else {
+                                toolbar.css({
+                                    'margin-top': 'auto',
+                                    position: "absolute",
+                                    width: "100%",
+                                    left: 0
+                                });
+                            }
+                        };
+                        if (!state.fullscreen && !state.preview && settings.toolbar && settings.toolbarAutoFixed) {
+                            $(window).bind("scroll", autoFixedHandle);
+                        }
+                        $window.resize(function () {
+                            if (state.fullscreen) {
+                                editor.css({
+                                    width: $window.width(),
+                                    height: $window.height()
+                                });
+                                me.resize();
+                            }
+                        })
                     }
                 });
             });

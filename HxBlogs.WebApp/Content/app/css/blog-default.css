@@ -119,11 +119,11 @@
     color: #157dcf;
 }
 
-@media only screen and (min-width: 768px) {
+/*@media only screen and (min-width: 768px) {
     body {
         background: #e9ecef;
     }
-}
+}*/
 
 
 /********浏览页面*********/
@@ -178,9 +178,9 @@
     .blog-edit .ck-content {
         min-height: calc(100vh - 19rem);
     }
-    .blog-edit textarea {
+    /*.blog-edit textarea {
         visibility: hidden;
-    }
+    }*/
 
     .blog-edit .blog-category-label {
         margin-top: .26rem;
