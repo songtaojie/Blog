@@ -800,7 +800,7 @@
     <Content Include="Views\Partial\Login.cshtml" />
     <Content Include="Views\Partial\Register.cshtml" />
     <Content Include="Views\Edit\MdEdit.cshtml" />
-    <Content Include="Content\Plugin\editormd\test.md" />
+    <Content Include="Content\Plugin\editormd\template.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
