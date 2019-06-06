@@ -612,6 +612,12 @@
     <Content Include="images\avatar1_small.jpg" />
     <Content Include="images\avatar2.jpg" />
     <Content Include="images\avatar3.jpg" />
+    <Content Include="Content\Plugin\WangEditor\fonts\w-e-icon.woff" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.css" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.js" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.css" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
+    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js.map" />
     <Content Include="Scripts\app\hx.core.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -632,9 +638,6 @@
     <Content Include="Scripts\local\messages_zh.js" />
     <Content Include="Scripts\local\messages_zh_TW.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\plugin\ckeditor\ckeditor.js" />
-    <Content Include="Scripts\plugin\jquery.blockUI.js" />
-    <Content Include="Scripts\plugin\jquery.blockUI.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\app\hx.core.js" />
@@ -692,10 +695,6 @@
     <Content Include="Content\Plugin\alertifyjs\css\themes\semantic.rtl.min.css" />
     <Content Include="Content\app\css\hx-login-soft.css" />
     <Content Include="Content\app\css\hx-login.css" />
-    <Content Include="Content\Plugin\WangEditor\wangEditor.css" />
-    <Content Include="Content\Plugin\WangEditor\wangEditor.js" />
-    <Content Include="Content\Plugin\WangEditor\wangEditor.min.css" />
-    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\app\css\hx-site.css" />
@@ -720,8 +719,6 @@
     </Content>
     <Content Include="Areas\Admin\Views\Account\Activation.cshtml" />
     <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
-    <Content Include="Content\Plugin\WangEditor\fonts\w-e-icon.woff" />
-    <Content Include="Content\Plugin\WangEditor\wangEditor.min.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
