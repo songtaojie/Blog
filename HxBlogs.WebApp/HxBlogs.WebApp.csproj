@@ -618,6 +618,9 @@
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.css" />
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.js" />
     <Content Include="Content\Plugin\WangEditor\wangEditor.min.js.map" />
+    <Content Include="Plugins\blockui\jquery.blockUI.js" />
+    <Content Include="Plugins\blockui\jquery.blockUI.min.js" />
+    <Content Include="Plugins\ckeditor\ckeditor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
