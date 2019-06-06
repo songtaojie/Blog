@@ -20,16 +20,24 @@ namespace HxBlogs.WebApp
             bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
                         "~/Scripts/app/scrollReveal.js"));
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
-                        "~/Scripts/plugin/jquery.blockUI.js",
-                        "~/Content/Plugin/alertifyjs/alertify.js",
+                        "~/plugins/blockui/jquery.blockUI.js",
+                        "~/plugins/alertifyjs/alertify.js",
                        "~/Scripts/app/hx.core.js"));
             // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mdeditor").Include(
+                     "~/plugins/editormd/editormd.js",
+                     "~/plugins/editormd/hx-mdeditor.js",
+                     "~/Scripts/app/hx-editor.js"));
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                    "~/plugins/ckeditor/ckeditor.js",
+                    "~/plugins/ckeditor/hx-ckeditor.js",
+                    "~/Scripts/app/hx-editor.js"));
             #endregion
 
             #region 样式文件
@@ -38,8 +46,8 @@ namespace HxBlogs.WebApp
                "~/font/font-awesome.css"
               ));
             bundles.Add(new StyleBundle("~/content/site").Include(
-                "~/Content/Plugin/alertifyjs/css/alertify.css",
-                "~/Content/Plugin/alertifyjs/css/themes/default.css",
+                "~/plugins/alertifyjs/css/alertify.css",
+                "~/plugins/alertifyjs/css/themes/default.css",
                "~/Content/app/css/hx-site.css",
                "~/Content/app/css/hx-core.css"
                ));
@@ -48,6 +56,9 @@ namespace HxBlogs.WebApp
              ));
             bundles.Add(new StyleBundle("~/content/default").Include(
               "~/Content/app/css/blog-default.css"
+              ));
+            bundles.Add(new StyleBundle("~/content/mdeditor").Include(
+              "~/plugins/editormd/css/editormd.css"
               ));
             #endregion
         }

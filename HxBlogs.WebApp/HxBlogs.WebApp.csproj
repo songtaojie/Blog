@@ -211,6 +211,7 @@
   <ItemGroup>
     <Content Include="Content\app\css\blog-header-footer.css" />
     <Content Include="Content\app\css\hx-core.min.css" />
+    <Content Include="Plugins\ckeditor\hx-ckeditor.js" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.eot" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.ttf" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.woff" />
@@ -219,6 +220,7 @@
     <Content Include="Plugins\editormd\fonts\fontawesome-webfont.woff" />
     <Content Include="Plugins\editormd\fonts\fontawesome-webfont.woff2" />
     <Content Include="Plugins\editormd\fonts\FontAwesome.otf" />
+    <Content Include="Plugins\editormd\hx-mdeditor.js" />
     <Content Include="Plugins\editormd\lib\codemirror\AUTHORS" />
     <Content Include="Plugins\editormd\lib\codemirror\bower.json" />
     <Content Include="Plugins\editormd\lib\codemirror\LICENSE" />
@@ -640,6 +642,7 @@
     <Content Include="Plugins\WangEditor\wangEditor.js" />
     <Content Include="Plugins\WangEditor\wangEditor.min.css" />
     <Content Include="Plugins\WangEditor\wangEditor.min.js" />
+    <Content Include="Scripts\app\hx-editor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

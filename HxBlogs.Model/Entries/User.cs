@@ -207,5 +207,12 @@ namespace HxBlogs.Model
         {
             get;set;
         }
+
+        /// <summary>
+        /// 使用MarkDown编辑器
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public virtual string UseMdEdit { get; set; } = "N";
     }
 }

@@ -15,11 +15,17 @@ namespace HxBlogs.WebApp.Models
         {
             get;set;
         }
-        [Required(ErrorMessage ="内容不能为空!")]
+        [Required(ErrorMessage ="博客内容不能为空!")]
         [System.Web.Mvc.AllowHtml]
         public string ContentHtml
         {
             get;set;
+        }
+        [Required(ErrorMessage = "博客内容不能为空!")]
+        [System.Web.Mvc.AllowHtml]
+        public string Content
+        {
+            get; set;
         }
         [Required(ErrorMessage = "系统分类不能为空!")]
         public int TypeID
@@ -40,6 +46,10 @@ namespace HxBlogs.WebApp.Models
             get; set;
         } = "N";
         public string IsPublish
+        {
+            get; set;
+        } = "Y";
+        public string CanCmt
         {
             get; set;
         } = "Y";
