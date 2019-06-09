@@ -10,57 +10,99 @@ namespace HxBlogs.WebApp
         {
             #region js文件
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/app/jquery.extendsion.js"));
+                        "~/scripts/jquery-{version}.js",
+                        "~/scripts/app/jquery.extendsion.js"));
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
-                        "~/Scripts/jquery.unobtrusive-ajax.js"));
+                        "~/scripts/jquery.unobtrusive-ajax.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*",
-                        "~/Scripts/local/messages_zh.js"));
+                        "~/scripts/jquery.validate*",
+                        "~/scripts/local/messages_zh.js"));
             bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
-                        "~/Scripts/app/scrollReveal.js"));
-            bundles.Add(new ScriptBundle("~/bundles/site").Include(
-                        "~/plugins/blockui/jquery.blockUI.js",
-                        "~/plugins/alertifyjs/alertify.js",
-                       "~/Scripts/app/hx.core.js"));
-            // 使用要用于开发和学习的 Modernizr 的开发版本。然后，当你做好
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/mdeditor").Include(
-                     "~/plugins/editormd/editormd.js",
-                     "~/plugins/editormd/hx-mdeditor.js",
-                     "~/Scripts/app/hx-editor.js"));
-            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
-                    "~/plugins/ckeditor/ckeditor.js",
-                    "~/plugins/ckeditor/hx-ckeditor.js",
-                    "~/Scripts/app/hx-editor.js"));
+                        "~/scripts/app/scrollReveal.js"));
             #endregion
 
             #region 样式文件
-            bundles.Add(new StyleBundle("~/content/style").Include(
-               "~/Content/bootstrap.css",
-               "~/font/font-awesome.css"
-              ));
-            bundles.Add(new StyleBundle("~/content/site").Include(
-                "~/plugins/alertifyjs/css/alertify.css",
-                "~/plugins/alertifyjs/css/themes/default.css",
-               "~/Content/app/css/hx-site.css",
-               "~/Content/app/css/hx-core.css"
-               ));
+            
             bundles.Add(new StyleBundle("~/content/login").Include(
-             "~/Content/app/css/hx-login.css"
+             "~/content/app/css/hx-login.css"
              ));
             bundles.Add(new StyleBundle("~/content/default").Include(
-              "~/Content/app/css/blog-default.css"
+              "~/content/app/css/blog-default.css"
               ));
+
+            #endregion
+            RegisterSite(bundles);
+            RegisterBoot(bundles);
+            RegisterEditor(bundles);
+        }
+        /// <summary>
+        /// 注册bootstrap
+        /// </summary>
+        /// <param name="bundles"></param>
+        private static void RegisterBoot(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/boot").Include(
+                       "~/scripts/bootstrap.js"));
+            bundles.Add(new StyleBundle("~/content/boot").Include(
+               "~/content/bootstrap.css",
+               "~/font/font-awesome.css"
+              ));
+        }
+        /// <summary>
+        /// 注册网站所需的
+        /// </summary>
+        /// <param name="bundles"></param>
+        private static void RegisterSite(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                      "~/plugins/alertifyjs/alertify.js",
+                     "~/scripts/app/hx.core.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/load").Include(
+                      "~/plugins/blockui/jquery.blockUI.js"));
+
+            bundles.Add(new StyleBundle("~/content/load").Include(
+             "~/content/app/css/hx-loading.css"
+             ));
+            bundles.Add(new StyleBundle("~/content/site").Include(
+              "~/plugins/alertifyjs/css/alertify.css",
+              "~/plugins/alertifyjs/css/themes/default.css",
+             "~/content/app/css/hx-site.css"
+             ));
+        }
+        /// <summary>
+        /// 注册编辑器所需脚本、样式
+        /// </summary>
+        /// <param name="bundles"></param>
+        private static void RegisterEditor(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/mdeditor").Include(
+             "~/plugins/editormd/editormd.js",
+             "~/plugins/editormd/hx-mdeditor.js",
+             "~/scripts/app/hx-editor.js"));
+            bundles.Add(new ScriptBundle("~/bundles/mdpreview").Include(
+                    "~/plugins/editormd/lib/marked.min.js",
+                    "~/Plugins/editormd/lib/prettify.min.js",
+                    "~/plugins/editormd/lib/raphael.min.js",
+                    "~/plugins/editormd/lib/underscore.min.js",
+                    "~/plugins/editormd/lib/sequence-diagram.min.js",
+                    "~/plugins/editormd/lib/flowchart.min.js",
+                    "~/plugins/editormd/lib/jquery.flowchart.min.js",
+                    "~/plugins/editormd/editormd.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                    "~/plugins/ckeditor/ckeditor.js",
+                    "~/plugins/ckeditor/hx-ckeditor.js",
+                    "~/scripts/app/hx-editor.js"));
+
             bundles.Add(new StyleBundle("~/content/mdeditor").Include(
               "~/plugins/editormd/css/editormd.css"
               ));
-            #endregion
+
+            bundles.Add(new StyleBundle("~/content/mdpreview").Include(
+                "~/plugins/editormd/css/editormd.preview.css"
+             ));
         }
+
     }
 }

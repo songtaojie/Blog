@@ -1,0 +1,19 @@
+﻿@model HxBlogs.WebApp.Models.EditViewModel
+<div class="form-row mb-2">
+    <div class="col-md-8">
+        <input type="text" name="Title" required class="form-control" data-prompt="文章标题" value="@Model.Title" placeholder="文章标题,请控制在100字以内" />
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" data-prompt="系统分类" required name="CatId">
+            <option value="" selected="selected">请选择系统分类</option>
+            @if (ViewBag.CategoryList != null)
+            {
+                foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
+                {
+                    <option value="@item.Id" @(Model.CatId == item.Id ? "selected" : "")>@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+

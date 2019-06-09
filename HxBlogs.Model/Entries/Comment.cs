@@ -24,9 +24,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 置顶
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string Top { get; set; } = "N";
+        public bool Top { get; set; }
 
         /// <summary>
         /// 记录IP地址（用于天机ip显示地区）

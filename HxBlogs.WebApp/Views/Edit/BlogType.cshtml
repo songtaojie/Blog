@@ -1,0 +1,42 @@
+﻿@model HxBlogs.WebApp.Models.EditViewModel
+
+<div class="form-row mb-2" hidden>
+    <div class="col-sm-4 col-xs-12">
+        <select class="custom-select" data-prompt="文章类型" required name="TypeId">
+            <option value="" selected="selected">请选择文章类型</option>
+            @if (ViewBag.Types != null)
+            {
+                foreach (HxBlogs.Model.BlogType item in ViewBag.Types)
+                {
+                    <option value="@item.Id" @(Model.TypeId == item.Id ? "selected" : "")>@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-sm-8 col-xs-12">
+        <div class="mt-2 ml-2">
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop"
+                       @(Model.PersonTop? "checked value=true" : "value=false") />
+                <label class="custom-control-label hx-control-label" for="PersonTop">
+                    个人置顶
+                </label>
+            </div>
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate"
+                       @(Model.IsPrivate? "checked value=true" : "value=false") />
+                <label class="custom-control-label hx-control-label" for="IsPrivate">
+                    仅自己可见
+                </label>
+            </div>
+            <div class="custom-control custom-checkbox custom-control-inline">
+                <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt"
+                       @(Model.CanCmt? "checked value=true" : "value=false") />
+                <label class="custom-control-label hx-control-label" for="CanCmt">
+                    允许评论
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+

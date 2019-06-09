@@ -33,27 +33,19 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否使用MarkDown编辑的
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsMarkDown { get; set; } = "N";
+        public bool IsMarkDown { get; set; }
         /// <summary>
         /// 是否是私人的
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsPrivate { get; set; } = "N";
+        public bool IsPrivate { get; set; }
         /// <summary>
         /// 是否是转发文章
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsForward { get; set; } = "N";
+        public bool IsForward { get; set; }
         /// <summary>
-        /// 是否发布，Y代表发布，N代表不发布即是草稿
+        /// 是否发布，true代表发布，false代表不发布即是草稿
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsPublish { get; set; } = "N";
+        public bool IsPublish { get; set; }
 
         /// <summary>
         /// 发布日期
@@ -64,15 +56,11 @@ namespace HxBlogs.Model
         /// <summary>
         /// 置顶 Y权值加10年
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsTop { get; set; } = "N";
+        public bool IsTop { get; set; }
         /// <summary>
         /// 精华 Y权值加10天
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsEssence { get; set; } = "N";
+        public bool IsEssence { get; set; }
         /// <summary>
         /// 原链接
         /// </summary>
@@ -99,10 +87,8 @@ namespace HxBlogs.Model
         /// <summary>
         /// 允许评论
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string CanCmt { get; set; } = "Y";
-        
+        public bool CanCmt { get; set; }
+
         /// <summary>
         /// 阅读量
         /// </summary>
@@ -122,9 +108,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 个人置顶 标识该文档是否置顶,置顶的文章在个人主页中排序靠前
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string PersonTop { get; set; } = "N";
+        public bool PersonTop { get; set; }
         /// <summary>
         /// 主题中的第一张图的地址
         /// </summary>
@@ -161,11 +145,11 @@ namespace HxBlogs.Model
         ///// </summary> 
         [ForeignKey("CatId")]
         public virtual Category Category { get; set; }
-        /// <summary>
-        /// 博客评论
-        /// </summary>      
-        [ForeignKey("BlogId")]
-        public virtual ICollection<Comment> Comments { get; set; }
+        ///// <summary>
+        ///// 博客评论
+        ///// </summary>      
+        //[ForeignKey("BlogId")]
+        //public virtual ICollection<Comment> Comments { get; set; }
         ///// <summary>
         ///// 博客类型，是转发，原创，还是翻译等
         ///// </summary> 

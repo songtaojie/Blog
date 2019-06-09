@@ -16,11 +16,15 @@ namespace HxBlogs.BLL
         public override Blog BeforeInsert(Blog model)
         {
             model = base.BeforeInsert(model);
-            if (Hx.Common.Helper.Helper.IsYes(model.IsPublish))
+            if (model.IsPublish)
             {
                 model.PublishDate = DateTime.Now;
             }
             return model;
+        }
+        public override Blog QueryEntity(Expression<Func<Blog, bool>> lambdaWhere, bool addcondition = true)
+        {
+            return base.QueryEntity(lambdaWhere, addcondition);
         }
         protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere)
         {
@@ -28,10 +32,7 @@ namespace HxBlogs.BLL
             MemberExpression publishProp = Expression.Property(parameterExp, "IsPublish"),
                  deleteProp = Expression.Property(parameterExp, "IsDeleted"),
                  privateProp = Expression.Property(parameterExp, "IsPrivate");
-            BinaryExpression publishExp = Expression.Equal(publishProp, Expression.Constant("Y"));
-            BinaryExpression deleteExp = Expression.Equal(deleteProp, Expression.Constant("N"));
-            BinaryExpression privateExp = Expression.Equal(privateProp, Expression.Constant("N"));
-            var bin = Expression.AndAlso(Expression.AndAlso(publishExp, deleteExp), privateExp);
+            var bin = Expression.AndAlso(Expression.AndAlso(publishProp, Expression.Not(deleteProp)), Expression.Not(privateProp));
             var lambda = Expression.Lambda<Func<Blog, bool>>(bin, parameterExp);
             return lambdaWhere.And(lambda);
         }

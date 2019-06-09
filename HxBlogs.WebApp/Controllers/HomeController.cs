@@ -3,6 +3,7 @@ using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
 using HxBlogs.WebApp.Filters;
+using StackExchange.Profiling;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,26 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.QueryEntities(c => true)
-                .OrderByDescending(c => c.Order);
-            ViewBag.CategoryList = cateList;
+            var profiler = MiniProfiler.Current;
+            using (profiler.Step("主页"))
+            {
+                ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
+                IEnumerable<Category> cateList = cateService.QueryEntities(c => true)
+                    .OrderByDescending(c => c.Order);
+                ViewBag.CategoryList = cateList;
+            }
             return View();
         }
 
         public ActionResult LoadArticle()
         {
-            IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
+            var profiler = MiniProfiler.Current;
+            using (profiler.Step("文章"))
+            {
+                IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
                  .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
-            return PartialView("article", blogs.ToList());
+                return PartialView("article", blogs.ToList());
+            }
         }
 
         public ActionResult About()

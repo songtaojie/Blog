@@ -1,0 +1,134 @@
+﻿@model HxBlogs.Model.Blog
+@{
+    ViewBag.Title = Model.Title;
+    string date = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond,
+        container = date+"001",
+        toc = date+"002";
+}
+@section styles{
+    @Styles.Render("~/content/default")
+    @Styles.Render("~/content/mdpreview")
+    <style type="text/css">
+        .md-sidebar {
+            max-width: 350px;
+            height: 100%;
+            overflow: hidden;
+        }
+        .md-sidebar-fixed {
+            position: fixed;
+            z-index: 100;
+            right: 1rem;
+        }
+        .md-sidebar:hover {
+            overflow: auto;
+        }
+            .md-sidebar h1 {
+                font-size: 16px;
+            }
+    </style>
+}
+<div class="hx-container blog-view">
+    <div class="d-flex">
+        @{
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
+        }
+        <div id="@container" class="flex-fill flex-column mt-2 ml-2 py-3 px-4 hx-white-container">
+            <div class="mt-2 pb-2 border-bottom">
+                <div>
+                    <h4>@Model.Title</h4>
+                </div>
+                <div class="d-flex flex-wrap align-content-start hx-light-content">
+                    <span class="hx-text">@(UserContext.GetDisplayName(Model.User)) 发布于</span>
+                    <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
+                    <span class="hx-text mr-2">阅读数:@Model.ReadCount</span>
+                    <span class="hx-text mr-2">收藏:@Model.FavCount</span>
+                    <span class="hx-text mr-2">点赞:@Model.LikeCount</span>
+                    <div class="hx-text mr-2 blog-tag">
+                        个人分类：
+                        @if (ViewBag.BlogTag != null)
+                        {
+                            foreach (HxBlogs.Model.BlogTag tag in ViewBag.BlogTag)
+                            {
+                                <a target="_blank" href="@WebHelper.GetFullUrl("/article/" + tag.UserName + "/tag/" + tag.HexId)">@tag.Name</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 blog-content" id="test-editormd-view">
+                <textarea style="display:none;" placeholder="markdown语言">@Model.Content</textarea>
+            </div>
+        </div>
+        <div id="@toc" class="md-sidebar mt-2 border-left pl-0 " data-fixed="false" data-width="0">
+            <div class="markdown-body editormd-preview-container px-0 mb-3" >
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/mdpreview")
+    <script>
+        var _HxMdView;
+        $(function () {
+            $(".partial-content").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url, function (response, status, xhr) {
+                        if (status == 'success') {
+                            $(this).removeAttr('hidden');
+                        } else {
+                            HxCore.ajaxError(xhr);
+                            $(this).attr('hidden','');
+                        }
+                    });
+                }
+            });
+            _HxMdView = editormd.markdownToHTML("test-editormd-view", {
+                htmlDecode: "style,script,iframe",
+                tocm: true,    // Using [TOCM]
+                tocContainer: '#@toc>div',
+                emoji: true,
+                taskList: true,
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true,  // 默认不解析
+            });
+            $(window).scroll(function () {
+                var $me = $(this),
+                    top = $me.scrollTop(),
+                    toc = $('#@toc');
+                if (top > 10) {
+                    var w = toc.data('width'),
+                        fixed = toc.data('fixed');
+                    if (!fixed) {
+                        if (w <= 0) {
+                            w = toc.innerWidth();
+                        }
+                        toc.removeClass('mt-2')
+                            .addClass('md-sidebar-fixed')
+                            .data('fixed', true)
+                            .width(w);
+                        $('#@container').css('margin-right',w+'px');
+                    }
+                } else {
+                    toc.data('fixed', false)
+                        .addClass('mt-2').
+                        removeClass('md-sidebar-fixed')
+                        .width('');
+                    $('#@container').css('margin-right','');
+                }
+            });
+        });
+        function login() {
+            HxCore.ajax('@WebHelper.GetFullUrl("/partial/loginpartial")', {
+                data: {
+                    returnUrl: window.location.href
+                },
+                success(data) {
+                    alertify.genericDialog(data);
+                }
+            });
+
+        }
+    </script>
+}

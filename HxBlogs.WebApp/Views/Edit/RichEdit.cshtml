@@ -7,93 +7,34 @@
 }
 <div class="blog-edit hx-container hx-white-container px-3">
     <form class="form-horizontal" role="form" action="save" method="post">
-        <input type="hidden" name="IsMarkDown" value="N" />
-        <div class="form-row mb-2">
-            <div class="col-md-8">
-                <input type="text" name="Title" required class="form-control" data-prompt="文章标题" value="@Model.Title" placeholder="文章标题,请控制在100字以内" />
-            </div>
-            <div class="col-md-4">
-                <select class="form-control" data-prompt="系统分类" required name="CatId">
-                    <option value="-1" selected="selected">请选择系统分类</option>
-                    @if (ViewBag.CategoryList != null)
-                    {
-                        foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
-                        {
-                            <option value="@item.Id" selected="selected">@item.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
+        <input type="hidden" name="IsMarkDown" value="@(Model.IsMarkDown?"true":"false")" />
+        @{
+            Html.RenderPartial("title", Model, new ViewDataDictionary()
+            {
+                {"CategoryList",ViewBag.CategoryList }
+            });
+        }
         <div class="form-row mb-2">
             <div class="col-sm-12">
-                <textarea name="ContentHtml" id="editor">@Model.ContentHtml</textarea>
+                <textarea name="ContentHtml" class="d-none" id="editor">@Model.ContentHtml</textarea>
             </div>
         </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-12">
-                <label class="text-left blog-category-label">个人分类:</label>
-                <input type="hidden" name="PersonTags" data-count="0" />
-                <button type="button" id="btn-addtag" class="btn btn-link fa fa-plus-square"> 添加分类</button>
-            </div>
-        </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-9 col-md-5" id="blogTag">
-                @if (ViewBag.BlogTagList != null)
-                {
-                    for (int i = 0; i < ViewBag.BlogTagList.Count; i++)
-                    {
-                        string guid = Guid.NewGuid().ToString();
-                        <div class="custom-control custom-checkbox custom-control-inline col-sm-3 col-xs-6">
-                            <input type="checkbox" class="custom-control-input blog-tag" id="@guid" value="@ViewBag.BlogTagList[i].Id" />
-                            <label class="custom-control-label hx-control-label" for="@guid">
-                                @ViewBag.BlogTagList[i].Name
-                            </label>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-4 col-xs-12">
-                <select class="custom-select" data-prompt="文章类型" required name="TypeId">
-                    <option value="-1" selected="selected">请选择文章类型</option>
-                    @if (ViewBag.BlogTypeList != null)
-                    {
-                        foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="col-sm-8 col-xs-12">
-                <div class="mt-2 ml-2">
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop" value="N" />
-                        <label class="custom-control-label hx-control-label" for="PersonTop">
-                            个人置顶
-                        </label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate" value="N" />
-                        <label class="custom-control-label hx-control-label" for="IsPrivate">
-                            仅自己可见
-                        </label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt" checked="checked" value="Y" />
-                        <label class="custom-control-label hx-control-label" for="CanCmt">
-                            允许评论
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @{ 
+            Html.RenderPartial("blogtag",Model, new ViewDataDictionary()
+            {
+                {"TagLists",ViewBag.TagLists }
+            });
+        }
+        @{
+            Html.RenderPartial("blogtype",Model, new ViewDataDictionary()
+            {
+                {"Types",ViewBag.Types }
+            });
+        }
         <div class="form-row" hidden>
             <div class="col-sm-12">
-                <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
-                <button type="button" value="N" class="btn btn-secondary btn-md btn-save ml-2">保存草稿</button>
+                <button type="button" value="true" class="btn btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="false" class="btn btn-secondary btn-md btn-save ml-2">保存草稿</button>
             </div>
         </div>
     </form>

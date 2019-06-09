@@ -15,6 +15,8 @@ using System.Web.Mvc;
 
 namespace HxBlogs.WebApp.Controllers
 {
+    [RoutePrefix("edit")]
+    [Route("{action}")]
     public class EditController : BaseController
     {
         private IBlogService _blogService;
@@ -24,65 +26,50 @@ namespace HxBlogs.WebApp.Controllers
             _blogService = blogService;
             _tagService = tagService;
         }
-        [Route("edit/postedit/{hexId?}")]
+        [Route("postedit/{hexId?}")]
         public ActionResult PostEdit(string hexId)
         {
             User user = UserContext.LoginUser;
             if (string.IsNullOrEmpty(hexId))
             {
-                if (user != null && Helper.IsYes(user.UseMdEdit))
+                string view = "richedit";
+                if (user != null && user.UseMdEdit)
                 {
-                    return RedirectToAction("mdedit");
+                    view = "mdedit";
                 }
-                else
-                {
-
-                    return RedirectToAction("richedit");
-                }
+                return RedirectToAction(view);
             }
             else
             {
                 int blogId = Convert.ToInt32(Helper.FromHex(hexId));
                 Blog blog = this._blogService.QueryEntityByID(blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
-                if (Helper.IsYes(blog.IsMarkDown))
+                string view = "richedit";
+                if (blog.IsMarkDown)
                 {
-                    return RedirectToAction("mdedit", new { hexId });
+                    view = "mdedit";
                 }
-                else
-                {
-                    return RedirectToAction("richedit", new { hexId });
-                }
+                return Redirect(string.Format("/edit/{0}/{1}",view,hexId));
             }
             
         }
-        // GET: PostEdit
+        [Route("richedit/{hexId?}")]
         public ActionResult RichEdit(string hexId)
         {
-            EditViewModel vm = new EditViewModel();
-            if (!string.IsNullOrEmpty(hexId))
-            {
-                int blogId = Convert.ToInt32(Helper.FromHex(hexId));
-                Blog blog = this._blogService.QueryEntityByID(blogId);
-                if (blog == null) throw new NotFoundException("找不到当前文章!");
-                vm = MapperManager.Map<EditViewModel>(blog);
-            }
-            IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
-            ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.QueryEntities(c =>true).OrderByDescending(c=>c.Order);
-            IEnumerable<BlogType> typeList = typeService.QueryEntities(t =>true).OrderByDescending(t => t.Order);
-            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id).ToList();
-            ViewBag.CategoryList = cateList;
-            ViewBag.BlogTypeList = typeList;
-            ViewBag.BlogTagList = tagList;
-            return View(vm);
+            return Edit(hexId, false);
         }
+        [Route("mdedit/{hexId?}")]
         public ActionResult MdEdit(string hexId)
         {
-            EditViewModel vm = new EditViewModel();
+            return Edit(hexId,true);
+        }
+        [NonAction]
+        private ActionResult Edit(string hexId,bool isMd)
+        {
+            EditViewModel vm = new EditViewModel() { IsMarkDown = isMd};
             if (string.IsNullOrEmpty(hexId))
             {
-                vm.Content = FileHelper.GetString(Server.MapPath("~/Plugins/editormd/template.md"));
+                if(isMd)vm.Content = FileHelper.GetString(Server.MapPath("~/Plugins/editormd/template.md"));
             }
             else
             {
@@ -90,15 +77,32 @@ namespace HxBlogs.WebApp.Controllers
                 Blog blog = this._blogService.QueryEntityByID(blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 vm = MapperManager.Map<EditViewModel>(blog);
+                vm.PersonTags = blog.BlogTags;
+                vm.HexId = hexId;
+                if (!string.IsNullOrEmpty(blog.BlogTags))
+                {
+                    Dictionary<int, string> tagDic = new Dictionary<int, string>();
+                    string[] tagArr = blog.BlogTags.Split(',');
+                    foreach (string tagId in tagArr)
+                    {
+                        BlogTag blogTag = _tagService.QueryEntityByID(Convert.ToInt32(tagId));
+                        if (blogTag != null)
+                        {
+                            tagDic.Add(blogTag.Id, blogTag.Name);
+                        }
+                    }
+                    ViewBag.PersonTags = tagDic;
+                }
             }
+            if (string.IsNullOrEmpty(vm.PersonTags)) vm.PersonTags = "";
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
             IEnumerable<Category> cateList = cateService.QueryEntities(c => true).OrderByDescending(c => c.Order);
-            IEnumerable<BlogType> typeList = typeService.QueryEntities(t => true).OrderByDescending(t => t.Order);
-            List<BlogTag> tagList = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id).ToList();
+            IEnumerable<BlogType> types = typeService.QueryEntities(t => true).OrderByDescending(t => t.Order);
+            IEnumerable<BlogTag> tags = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id);
             ViewBag.CategoryList = cateList;
-            ViewBag.BlogTypeList = typeList;
-            ViewBag.BlogTagList = tagList;
+            ViewBag.Types = types;
+            ViewBag.Tags = tags;
             return View(vm);
         }
         [HttpPost]
@@ -107,18 +111,23 @@ namespace HxBlogs.WebApp.Controllers
             AjaxResult result = new AjaxResult();
             if (ModelState.IsValid)
             {
+                bool isEdit = false;
                 TransactionManager.Excute(delegate
                 {
                     Blog blogInfo = MapperManager.Map<Blog>(editInfo);
+                    if (!string.IsNullOrEmpty(editInfo.HexId))
+                    {
+                        isEdit = true;
+                        blogInfo.Id = Convert.ToInt32(Helper.FromHex(editInfo.HexId));
+                    }
                     DbContextManager dbContext = new DbContextManager();
                     string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
                     if (imgList.Length > 0) blogInfo.ImgUrl = imgList[1];
-                    if (!Helper.IsYes(blogInfo.IsMarkDown))
+                    if (!blogInfo.IsMarkDown)
                     {
                         blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);
                     }
-                    blogInfo = FillAddModel(blogInfo);
-                    if (Helper.IsYes(blogInfo.IsPublish))
+                    if (blogInfo.IsPublish)
                     {
                         blogInfo.PublishDate = DateTime.Now;
                     }
@@ -160,7 +169,17 @@ namespace HxBlogs.WebApp.Controllers
                         }
                     }
                     blogInfo.BlogTags = string.Join(",", tagList);
-                    _blogService.Insert(blogInfo);
+                    if (isEdit)
+                    {
+                        _blogService.UpdateEntityFields(blogInfo,
+                            "Title", "ContentHtml","Content", "TypeId", "CatId", "PersonTop", "IsPrivate",
+                            "IsPublish", "CanCmt", "IsMarkDown", "BlogTags", "PublishDate");
+                    }
+                    else
+                    {
+                        blogInfo = FillAddModel(blogInfo);
+                        _blogService.Insert(blogInfo);
+                    }
                     //blogInfo = dbContext.Add(blogInfo);
                     // dbContext.SaveChages();
                 });

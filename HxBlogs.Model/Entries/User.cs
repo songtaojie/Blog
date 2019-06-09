@@ -138,9 +138,7 @@ namespace HxBlogs.Model
         /// <summary>
 		/// 是都锁定
 		/// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsLock { set; get; } = "N";
+        public bool IsLock { set; get; }
         /// <summary>
         /// 头像存储文件路径
         /// </summary>
@@ -152,21 +150,17 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否是管理员
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsAdmin
+        public bool IsAdmin
         {
             get; set;
-        } = "N";
+        }
         /// <summary>
         /// 是否激活
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public string IsActivate
+        public bool IsActivate
         {
             get; set;
-        } = "N";
+        }
         /// <summary>
         /// 用户注册时间
         /// </summary>
@@ -182,9 +176,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否被删除,假删除，数据库中还有记录
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public virtual string IsDeleted { get; set; } = "N";
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// 删除时间
@@ -207,12 +199,9 @@ namespace HxBlogs.Model
         {
             get;set;
         }
-
         /// <summary>
         /// 使用MarkDown编辑器
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public virtual string UseMdEdit { get; set; } = "N";
+        public virtual bool UseMdEdit { get; set; }
     }
 }

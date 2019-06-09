@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -27,7 +28,7 @@ namespace HxBlogs.DAL
             var result = Context.Set<T>().Where(lambdaWhere);
             if (result != null && result.Count() > 0)
             {
-                return result.FirstOrDefault();
+                return result.SingleOrDefault();
             }
             return null;
         }
@@ -124,14 +125,70 @@ namespace HxBlogs.DAL
 
         #region 修改
         /// <summary>
-        /// 更新一条记录
+        /// 更新一条记录(会查询数据库)
         /// </summary>
-        /// <param name="model">要修改的记录</param>
+        /// <param name="entity">要修改的记录</param>
         /// <returns></returns>
-        public virtual T Update(T model)
+        public virtual T Update(T entity)
         {
-            Context.Entry<T>(model).State = EntityState.Modified;
-            return model;
+            DbEntityEntry<T> entry = Context.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                Context.Set<T>().Attach(entity);
+                entry.State = EntityState.Modified;
+            }
+            return entity;
+        }
+        /// <summary>
+        /// 使用一个新的对象来进行局部字段的更新 
+        /// </summary>
+        /// <param name="originalEntity">数据库中查询出来的数据</param>
+        /// <param name="newEntity">新的对象，包含了要进行更新的字段的值</param>
+        public void UpdateEntityFields(T originalEntity, T newEntity)
+        {
+            if (originalEntity != null && newEntity != null)
+            {
+                if (Context.Entry(originalEntity).State != EntityState.Unchanged)
+                    Context.Entry(originalEntity).State = EntityState.Unchanged;
+                Context.Entry(originalEntity).CurrentValues.SetValues(newEntity);
+            }
+        }
+        /// <summary>
+        /// 更新指定字段(这个)，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，一个新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        public void UpdateEntityFields(T entity, List<string> fields)
+        {
+            if (entity != null && fields != null)
+            {
+                Context.Set<T>().Attach(entity);
+                var SetEntry = ((IObjectContextAdapter)Context).ObjectContext.
+                    ObjectStateManager.GetObjectStateEntry(entity);
+                foreach (var t in fields)
+                {
+                    SetEntry.SetModifiedProperty(t);
+                }
+            }
+        }
+        /// <summary>
+        /// 更新指定字段，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        public void UpdateEntityFields(T entity, params string[] fields)
+        {
+            if (entity != null && fields != null)
+            {
+                Context.Set<T>().Attach(entity);
+
+                var SetEntry = ((IObjectContextAdapter)Context).ObjectContext.
+                    ObjectStateManager.GetObjectStateEntry(entity);
+                foreach (var t in fields)
+                {
+                    SetEntry.SetModifiedProperty(t);
+                }
+            }
         }
         #endregion
 

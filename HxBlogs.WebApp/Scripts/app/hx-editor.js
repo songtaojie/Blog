@@ -2,9 +2,9 @@
     $('input:checkbox:not(.blog-tag)').change(function () {
         var $me = $(this);
         if ($me.is(':checked')) {
-            $me.val('Y').attr('checked', 'checked');
+            $me.val('true').attr('checked', '');
         } else {
-            $me.val('N').removeAttr('checked');
+            $me.val('false').removeAttr('checked');
         }
     });
     $('#blogTag').on('change', 'input:checkbox', function (a, b, c) {
@@ -33,13 +33,13 @@
     $('.btn-save').click(function () {
         if (Edit.validate()) {
             var $me = $(this),
-                data = $('form').serializeArray();
+                data = $('form').serializeArray(),
+                action = $('form').attr('action') || 'save';
             data.push({ name: 'IsPublish', value: $me.val() });
             var content = data.find(d => { return d.name === 'Content'; }),
-                contentHtml = data.find(d => { return d.name === 'ContentHtml'; });
-            d = window._HxEditor.getData(),
+                contentHtml = data.find(d => { return d.name === 'ContentHtml'; }),
+                d ,
                 hd;
-
             if (Edit.isMd()) {
                 d = window._HxEditor.getMarkdown();
                 hd = window._HxEditor.getHTML();
@@ -49,12 +49,15 @@
             }
             if (content) {
                 content.value = d;
-                contentHtml.value = hd;
             } else {
                 data.push({ name: 'Content', value: d });
+            }
+            if (contentHtml) {
+                contentHtml.value = hd;
+            } else {
                 data.push({ name: 'ContentHtml', value: hd });
             }
-            HxCore.ajax('save', {
+            HxCore.ajax(action, {
                 button: '.btn-save',
                 data: data,
                 maskTarget: true,
@@ -160,17 +163,9 @@
                 $span = $('<span class="tag" contenteditable = "true"></span>'),
                 $i = $('<i class="fa fa-times"></i>');
             $div.append($span).append($i).insertBefore($('#btn-addtag'));
-            $div.find('i.fa-times').click(function () {
-                var $me = $(this),
-                    $p = $me.parent(),
-                    id = $p.data('id'),
-                    $prev = $me.prev();
-                $p.remove();
-                if (!HxCore.isEmpty(id)) {
-                    $('#' + id).prop('checked', false);
-                }
-                Edit.doPersonTag($prev.text());
-            });
+            //$div.find('i.fa-times').click(function () {
+               
+            //});
             if (HxCore.isObject(tagObj) && tagObj.hasOwnProperty('id') && tagObj.hasOwnProperty('text')) {
                 $div.attr('id', tagObj.guid).data('id', tagObj.id);
                 $span.text($.trim(tagObj.text)).attr('contenteditable', 'false');
@@ -207,5 +202,16 @@
     };
     $('#btn-addtag').click(function () {
         Edit.addTag();
+    });
+    $('#person-tags').on('click', 'i.fa-times', function () {
+        var $me = $(this),
+            $p = $me.parent(),
+            id = $p.data('id'),
+            $prev = $me.prev();
+        $p.remove();
+        if (!HxCore.isEmpty(id)) {
+            $('#' + id).prop('checked', false);
+        }
+        Edit.doPersonTag($prev.text());
     });
 });

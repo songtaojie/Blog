@@ -26,7 +26,6 @@ namespace HxBlogs.Model
         /// <summary>
         /// 备注
         /// </summary>
-        [Column(TypeName = "text")]
         public string Remarks { get; set; }
     }
 }

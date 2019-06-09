@@ -1,33 +1,21 @@
 ﻿@model HxBlogs.WebApp.Models.EditViewModel
 @{
     ViewBag.Title = "写文章";
-    string blogTag = Guid.NewGuid().ToString(),
-        addTag = Guid.NewGuid().ToString();
 }
 @section styles{
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/mdeditor")
 }
 <div class="blog-edit hx-container hx-white-container px-3">
-    <form class="form-horizontal" role="form" action="save" method="post">
-        <input type="hidden" name="IsMarkDown" value="Y" />
-        <div class="form-row mb-2">
-            <div class="col-md-8">
-                <input type="text" name="Title" required class="form-control" data-prompt="文章标题" placeholder="文章标题,请控制在100字以内" />
-            </div>
-            <div class="col-md-4">
-                <select class="form-control" data-prompt="系统分类" required name="CatId">
-                    <option value="-1" selected="selected">请选择系统分类</option>
-                    @if (ViewBag.CategoryList != null)
-                    {
-                        foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-        </div>
+    <form class="form-horizontal" role="form" action="/edit/save" method="post">
+        <input type="hidden" name="IsMarkDown" value="@(Model.IsMarkDown?"true":"false")"  />
+        <input type="hidden" name="HexId" value="@Model.HexId" />
+        @{ 
+            Html.RenderPartial("title", Model, new ViewDataDictionary()
+            {
+                {"CategoryList",ViewBag.CategoryList }
+            }); 
+        }
         <div class="form-row mb-2 hx-editor">
             <div class="col-md-12 col-sm-12">
                 <div id="editor">
@@ -35,70 +23,23 @@
                 </div>
             </div>
         </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-md-12 col-sm-12 col-lg-12">
-                <label class="text-left blog-category-label">个人分类:</label>
-                <input type="hidden" name="PersonTags" data-count="0" />
-                <button type="button" id="@addTag" class="btn btn-link fa fa-plus-square"> 添加分类</button>
-            </div>
-        </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-9 col-md-5" id="@blogTag">
-                @if (ViewBag.BlogTagList != null)
-                {
-                    for (int i = 0; i < ViewBag.BlogTagList.Count; i++)
-                    {
-                        string guid = Guid.NewGuid().ToString();
-                        <div class="custom-control custom-checkbox custom-control-inline col-sm-3 col-xs-6">
-                            <input type="checkbox" class="custom-control-input blog-tag" id="@guid" value="@ViewBag.BlogTagList[i].Id" />
-                            <label class="custom-control-label hx-control-label" for="@guid">
-                                @ViewBag.BlogTagList[i].Name
-                            </label>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="form-row mb-2" hidden>
-            <div class="col-sm-4 col-xs-12">
-                <select class="custom-select" required name="TypeId">
-                    <option value="-1" selected="selected">请选择文章类型</option>
-                    @if (ViewBag.BlogTypeList != null)
-                    {
-                        foreach (HxBlogs.Model.BlogType item in ViewBag.BlogTypeList)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div class="col-sm-8 col-xs-12">
-                <div class="mt-2 ml-2">
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop" value="@Model.PersonTop" />
-                        <label class="custom-control-label hx-control-label" for="PersonTop">
-                            个人置顶
-                        </label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate" value="@Model.IsPrivate" />
-                        <label class="custom-control-label hx-control-label" for="IsPrivate">
-                            仅自己可见
-                        </label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                        <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt" checked="checked" value="@Model.CanCmt" />
-                        <label class="custom-control-label hx-control-label" for="CanCmt">
-                            允许评论
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @{
+            Html.RenderPartial("blogtag",Model, new ViewDataDictionary()
+            {
+                {"Tags",ViewBag.Tags },
+                {"PersonTags",ViewBag.PersonTags }
+            });
+        }
+        @{
+            Html.RenderPartial("blogtype", Model, new ViewDataDictionary()
+            {
+                {"Types",ViewBag.Types }
+            });
+        }
         <div class="form-row" hidden>
             <div class="col-sm-12">
-                <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
-                <button type="button" value="N" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
+                <button type="button" value="true" class="btn btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="false" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
             </div>
         </div>
     </form>

@@ -1,0 +1,93 @@
+﻿@model HxBlogs.Model.Blog
+@{
+    ViewBag.Title = Model.Title;
+}
+@section styles{
+    @Styles.Render("~/content/default")
+    @Styles.Render("~/content/default")
+    <link href="~/Plugins/editormd/css/editormd.preview.css" rel="stylesheet" />
+}
+<div class="hx-container blog-view">
+    <div class="d-flex">
+        @{ 
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
+        }
+        <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-container">
+            <div class="mt-2">
+                <div>
+                    <h4>@Model.Title</h4>
+                </div>
+                <div class="d-flex flex-wrap align-content-start hx-light-content">
+                    <span class="hx-text">@(UserContext.GetDisplayName(Model.User)) 发布于</span>
+                    <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
+                    <span class="hx-text mr-2">阅读数:@Model.ReadCount</span>
+                    <span class="hx-text mr-2">收藏:@Model.FavCount</span>
+                    <span class="hx-text mr-2">点赞:@Model.LikeCount</span>
+                    <div class="hx-text mr-2 blog-tag">
+                        个人分类：
+                        @if (ViewBag.BlogTag != null)
+                        {
+                            foreach (HxBlogs.Model.BlogTag tag in ViewBag.BlogTag)
+                            {
+                                <a target="_blank" href="@WebHelper.GetFullUrl("/article/" + tag.UserName + "/tag/" + tag.HexId)">@tag.Name</a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 blog-content" id="test-editormd-view">
+                <textarea style="display:none;" placeholder="markdown语言">@Model.Content</textarea>
+                @*@(new HtmlString(Model.ContentHtml))*@
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script src="~/Plugins/editormd/lib/marked.min.js"></script>
+<script src="~/Plugins/editormd/lib/prettify.min.js"></script>
+<script src="~/Plugins/editormd/lib/raphael.min.js"></script>
+
+<script src="~/Plugins/editormd/lib/underscore.min.js"></script>
+<script src="~/Plugins/editormd/lib/sequence-diagram.min.js"></script>
+<script src="~/Plugins/editormd/lib/flowchart.min.js"></script>
+<script src="~/Plugins/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="~/Plugins/editormd/editormd.js"></script>
+    <script>
+        var testEditormdView;
+        $(function () {
+            $(".partial-content").each(function (index, item) {
+                var url = $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url, function (response, status, xhr) {
+                        if (status == 'success') {
+                            $(this).removeAttr('hidden');
+                        } else {
+                            HxCore.ajaxError(xhr);
+                            $(this).attr('hidden');
+                        }
+                    });
+                }
+            });
+            testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+                htmlDecode: "style,script,iframe",
+                tocm: true,    // Using [TOCM]
+                emoji: true,
+                taskList: true,
+                tex: true,  // 默认不解析
+                flowChart: true,  // 默认不解析
+                sequenceDiagram: true  // 默认不解析
+            });
+        });
+        function login() {
+            HxCore.ajax('@WebHelper.GetFullUrl("/partial/loginpartial")', {
+                data: {
+                    returnUrl: window.location.href
+                },
+                success(data) {
+                    alertify.genericDialog(data);
+                }
+            });
+            
+        }
+    </script>
+}

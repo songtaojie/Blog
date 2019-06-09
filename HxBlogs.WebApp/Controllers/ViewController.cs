@@ -24,7 +24,7 @@ namespace HxBlogs.WebApp.Controllers
             this._blogTagService = blogTagServer;
         }
         [Route("{username}/{blogId}")]
-        public ActionResult Index(string username, string blogId)
+        public ActionResult CkView(string username, string blogId)
         {
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(username))
@@ -47,8 +47,15 @@ namespace HxBlogs.WebApp.Controllers
                 }
                 ViewBag.BlogTag = tagList;
             }
+            if (blog.IsMarkDown)
+            {
+                return View("mdview",blog);
+            }
             return View(blog);
         }
+
+        
+
         #region 加载侧边栏
         /// <summary>
         /// 加载最新文章
@@ -169,15 +176,15 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                if (Helper.IsYes(blog.PersonTop))
+                if (blog.PersonTop)
                 {
                     result.Resultdata = "当前数据取消置顶成功!";
-                    blog.PersonTop = "N";
+                    blog.PersonTop = false;
                 }
                 else
                 {
                     result.Resultdata = "当前数据置顶成功!";
-                    blog.PersonTop = "Y";
+                    blog.PersonTop = true;
                 }
                 this._blogService.Update(blog);
             }

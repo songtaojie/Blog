@@ -181,16 +181,60 @@ namespace HxBlogs.BLL
             return model;
         }
         /// <summary>
+        /// 使用一个新的对象来进行局部字段的更新 
+        /// </summary>
+        /// <param name="originalEntity">数据库中查询出来的数据</param>
+        /// <param name="newEntity">新的对象，包含了要进行更新的字段的值</param>
+        public bool UpdateEntityFields(T originalEntity, T newEntity)
+        {
+            newEntity = BeforeUpdate(newEntity);
+            this.baseDal.UpdateEntityFields(originalEntity, newEntity);
+            return this.DbSession.SaveChange();
+        }
+        /// <summary>
         /// 更新一条记录
         /// </summary>
-        /// <param name="model">要修改的记录</param>
+        /// <param name="entity">要修改的记录</param>
         /// <returns></returns>
-        public virtual T Update(T model)
+        public virtual T Update(T entity)
         {
-            model = this.BeforeUpdate(model);
-            T m = this.baseDal.Update(model);
+            entity = this.BeforeUpdate(entity);
+            T m = this.baseDal.Update(entity);
             this.DbSession.SaveChange();
-            return model;
+            return entity;
+        }
+
+        /// <summary>
+        /// 更新指定字段(这个)，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，一个新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        public bool UpdateEntityFields(T entity, List<string> fields)
+        {
+            if (fields != null)
+            {
+                fields.Add("LastModifyTime");
+            }
+            entity = this.BeforeUpdate(entity);
+            this.baseDal.UpdateEntityFields(entity, fields);
+            return this.DbSession.SaveChange();
+        }
+        /// <summary>
+        /// 更新指定字段，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        public bool UpdateEntityFields(T entity, params string[] fields)
+        {
+            List<string> fieldList = null;
+            if (fields != null)
+            {
+                fieldList =  fields.ToList();
+                fieldList.Add("LastModifyTime");
+            }
+            entity = this.BeforeUpdate(entity);
+            this.baseDal.UpdateEntityFields(entity, fieldList);
+            return this.DbSession.SaveChange();
         }
         #endregion
 
@@ -200,7 +244,7 @@ namespace HxBlogs.BLL
             if (model != null)
             {
                 model["DeleteTime"] = DateTime.Now;
-                model["IsDeleted"] = "Y";
+                model["IsDeleted"] = true;
             }
             return model;
         }
@@ -269,9 +313,8 @@ namespace HxBlogs.BLL
         protected virtual Expression<Func<T,bool>> GetLambda(Expression<Func<T, bool>> lambdaWhere)
         {
             ParameterExpression parameterExp = Expression.Parameter(typeof(T), "b");
-              MemberExpression deleteProp = Expression.Property(parameterExp, "IsDeleted");
-            BinaryExpression deleteExp = Expression.Equal(deleteProp, Expression.Constant("N"));
-            var lambda = Expression.Lambda<Func<T, bool>>(deleteExp, parameterExp);
+            MemberExpression deleteProp = Expression.Property(parameterExp, "IsDeleted");
+            var lambda = Expression.Lambda<Func<T, bool>>(Expression.Not(deleteProp), parameterExp);
             return lambdaWhere.And(lambda);
         }
         #endregion

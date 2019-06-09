@@ -40,9 +40,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否被删除
         /// </summary>
-        [StringLength(1)]
-        [Column(TypeName = "char")]
-        public virtual string IsDeleted { get; set; } = "N";
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// 删除人

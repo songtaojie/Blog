@@ -23,7 +23,6 @@ namespace HxBlogs.Model
         /// <summary>
         /// 描述
         /// </summary>
-        [StringLength(1000)]
         public string Description { get; set; }
         /// <summary>
         /// 排序

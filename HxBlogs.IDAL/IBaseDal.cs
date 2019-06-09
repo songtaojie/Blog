@@ -75,6 +75,24 @@ namespace HxBlogs.IDAL
         /// <param name="model">要修改的记录</param>
         /// <returns></returns>
         T Update(T model);
+        /// <summary>
+        /// 使用一个新的对象来进行局部字段的更新 
+        /// </summary>
+        /// <param name="originalEntity">数据库中查询出来的数据</param>
+        /// <param name="newEntity">新的对象，包含了要进行更新的字段的值</param>
+        void UpdateEntityFields(T originalEntity, T newEntity);
+        /// <summary>
+        /// 更新指定字段(这个)，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，一个新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        void UpdateEntityFields(T entity, List<string> fields);
+        /// <summary>
+        /// 更新指定字段，不会先查询数据了
+        /// </summary>
+        /// <param name="entity">实体，新创建的实体</param>
+        /// <param name="fileds">更新字段数组</param>
+        void UpdateEntityFields(T entity, params string[] fields);
         #endregion
 
         #region 删除

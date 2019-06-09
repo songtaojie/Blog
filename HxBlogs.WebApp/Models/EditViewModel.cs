@@ -9,6 +9,10 @@ namespace HxBlogs.WebApp.Models
 {
     public class EditViewModel: IAutoMapper<Model.Blog>
     {
+        public string HexId
+        {
+            get;set;
+        }
         [Required(ErrorMessage = "标题不能为空!")]
         [MaxLength(100,ErrorMessage = "请控制在100字以内")]
         public string Title
@@ -28,38 +32,38 @@ namespace HxBlogs.WebApp.Models
             get; set;
         }
         [Required(ErrorMessage = "系统分类不能为空!")]
-        public int TypeID
+        public int TypeId
         {
             get;set;
         }
         [Required(ErrorMessage = "文章类型不能为空!")]
-        public int CatID
+        public int CatId
         {
             get;set;
         }
-        public string PersonTop
+        public bool PersonTop
         {
             get; set;
-        } = "N";
-        public string IsPrivate
+        }
+        public bool IsPrivate
         {
             get; set;
-        } = "N";
-        public string IsPublish
+        }
+        public bool IsPublish
         {
             get; set;
-        } = "Y";
-        public string CanCmt
+        } = true;
+        public bool CanCmt
         {
             get; set;
-        } = "Y";
+        } = true;
         public string PersonTags
         {
             get;set;
         }
-        public string IsMarkDown
+        public bool IsMarkDown
         {
             get; set;
-        } = "N";
+        }
     }
 }

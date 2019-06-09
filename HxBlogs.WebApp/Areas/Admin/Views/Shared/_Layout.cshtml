@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 海·星の博客</title>
-    @Styles.Render("~/content/style")
+    @Styles.Render("~/content/boot")
+    @Styles.Render("~/content/load")
     @Styles.Render("~/content/site")
     @Styles.Render("~/content/login")
     <style>
@@ -29,7 +30,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/boot")
+    @Scripts.Render("~/bundles/load")
     @Scripts.Render("~/bundles/site")
     @RenderSection("scripts", required: false)
 </body>

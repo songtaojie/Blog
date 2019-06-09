@@ -1,0 +1,49 @@
+﻿@model HxBlogs.WebApp.Models.EditViewModel
+@{ 
+    Dictionary<int, string> tags = new Dictionary<int, string>();
+    Dictionary<int, string> inputtags = new Dictionary<int, string>();
+}
+<div class="form-row mb-2" hidden>
+    <div class="col-sm-12" id="person-tags">
+        <label class="text-left blog-category-label">个人分类:</label>
+
+        @if (ViewBag.PersonTags != null)
+        {
+            foreach (KeyValuePair<int,string> item in ViewBag.PersonTags)
+            {
+
+                tags.Add(item.Key, Guid.NewGuid().ToString());
+                inputtags.Add(item.Key, Guid.NewGuid().ToString());
+                <div class="blog-tag-box" id="@tags[item.Key]" data-id="@inputtags[item.Key]">
+                    <span class="tag" contenteditable="true">@item.Value</span>
+                    <i class="fa fa-times"></i>
+                </div>
+            }
+            <input type="hidden" name="PersonTags" value="@(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.PersonTags))" data-count="@ViewBag.PersonTags.Count" />
+        }
+        else
+        {
+            <input type="hidden" name="PersonTags" data-count="0" />
+        }
+        <button type="button" id="btn-addtag" class="btn btn-link fa fa-plus-square"> 添加分类</button>
+    </div>
+</div>
+<div class="form-row mb-2" hidden>
+    <div class="col-sm-9 col-md-5" id="blogTag">
+        @if (ViewBag.Tags != null)
+        {
+            foreach (HxBlogs.Model.BlogTag item in ViewBag.Tags)
+            {
+                string id = inputtags.ContainsKey(item.Id)? inputtags[item.Id] : Guid.NewGuid().ToString();
+                <div class="custom-control custom-checkbox custom-control-inline col-sm-3 col-xs-6">
+                    <input type="checkbox" class="custom-control-input blog-tag" data-id="@(tags.ContainsKey(item.Id)?tags[item.Id]:"")" 
+                           id="@id"
+                           @(Model.PersonTags.Contains(item.Id.ToString()) ? "checked" : "") value="@item.Id" />
+                    <label class="custom-control-label hx-control-label" for="@id">
+                        @item.Name
+                    </label>
+                </div>
+            }
+        }
+    </div>
+</div>
