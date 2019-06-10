@@ -1,7 +1,7 @@
-﻿@model List<HxBlogs.Model.Blog>
+﻿@model List<HxBlogs.WebApp.Models.BlogViewModel>
 <article>
     <div class="blog-list d-inline-flex flex-column justify-content-start">
-        @foreach (HxBlogs.Model.Blog blog in Model)
+        @foreach (HxBlogs.WebApp.Models.BlogViewModel blog in Model)
             {
             <div class="blog-item clearfix" data-id="@blog.HexId">
                 <div class="blog-item-content">
@@ -22,8 +22,8 @@
                             <img src="~/images/avatar.png" />
                         </a>
                     </div>
-                    <div class="mr-1">@(UserContext.GetDisplayName(blog.User))</div>
-                    <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>
+                    @*<div class="mr-1">@(UserContext.GetDisplayName(blog.User))</div>
+                    <div class="mr-1">@(blog.Category != null ? blog.Category.Name : "")</div>*@
                     <div class="mr-1">@(WebHelper.GetDispayDate(blog.PublishDate))</div>
                     <div class="blog-read ml-auto">
                         <a>

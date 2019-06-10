@@ -26,6 +26,13 @@ namespace HxBlogs.BLL
         {
             return base.QueryEntity(lambdaWhere, addcondition);
         }
+        public override Dictionary<string, IParameter> GetParameters(Dictionary<string, IParameter> parameters)
+        {
+            parameters = base.GetParameters(parameters);
+            parameters.Add("IsPublish", new SqlParameter(SqlDbType.Bool) { ParamValue = true });
+            parameters.Add("IsPrivate", new SqlParameter(SqlDbType.Bool) { ParamValue = false });
+            return parameters;
+        }
         protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere)
         {
             ParameterExpression parameterExp = Expression.Parameter(typeof(Blog), "b");

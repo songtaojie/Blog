@@ -31,15 +31,23 @@ namespace HxBlogs.WebApp.Controllers
             }
             return View();
         }
-
         public ActionResult LoadArticle()
         {
             var profiler = MiniProfiler.Current;
             using (profiler.Step("文章"))
             {
-                IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
-                 .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
-                return PartialView("article", blogs.ToList());
+                //IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
+                // .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
+                List<string> fields = new List<string>();
+                fields.Add("Id");
+                fields.Add("Title");
+                fields.Add("ContentHtml");
+                fields.Add("UserName");
+                fields.Add("PublishDate");
+                fields.Add("ReadCount");
+                fields.Add("CmtCount");
+                List<Models.BlogViewModel> blogs = _blogService.QueryEntities<Models.BlogViewModel>(fields, null);
+                return PartialView("article", blogs);
             }
         }
 

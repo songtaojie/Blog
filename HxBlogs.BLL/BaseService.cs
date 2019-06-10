@@ -7,10 +7,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using HxBlogs.Model;
 
 namespace HxBlogs.BLL
 {
-    public abstract class BaseService<T> where T: Model.BaseModel, new()
+    public abstract class BaseService<T> where T : Model.BaseModel, new()
     {
         private static IDbSession _dbSession;
         protected internal IBaseDal<T> baseDal;
@@ -36,13 +37,13 @@ namespace HxBlogs.BLL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere,bool addcondition = true)
+        public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
             if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
             {
                 return this.baseDal.QueryEntity(GetLambda(lambdaWhere));
             }
-            
+
             return this.baseDal.QueryEntity(lambdaWhere);
         }
         /// <summary>
@@ -103,13 +104,29 @@ namespace HxBlogs.BLL
         /// <param name="lambdaWhere">获取数据的lambda</param>
         /// <param name="addcondition">是否添加额外的条件，如自动添加删除条件等</param>
         /// <returns></returns>
-        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere,bool addcondition = true)
+        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
             if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
             {
                 this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, GetLambda(lambdaWhere));
             }
             return this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, lambdaWhere);
+        }
+
+        public virtual List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters)
+            where TResoult : class
+        {
+            parameters = GetParameters(parameters);
+            return this.baseDal.QueryEntities<TResoult>(fieldList, parameters);
+        }
+        public virtual Dictionary<string, IParameter> GetParameters(Dictionary<string, IParameter> parameters)
+        {
+            if (parameters == null) parameters = new Dictionary<string, IParameter>();
+            parameters.Add("IsDeleted", new SqlParameter(SqlDbType.Bool)
+            {
+                ParamValue = false
+            });
+            return parameters;
         }
 
         /// <summary>

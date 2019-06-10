@@ -66,7 +66,16 @@
   <ItemGroup>
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Base\BaseModel.cs" />
-    <Compile Include="Base\SqlParameter.cs" />
+    <Compile Include="Mapping\BaseMatch.cs" />
+    <Compile Include="Mapping\IMatchValue.cs" />
+    <Compile Include="Mapping\IParameter.cs" />
+    <Compile Include="Mapping\MatchBool.cs" />
+    <Compile Include="Mapping\MatchDateTime.cs" />
+    <Compile Include="Mapping\MatchDecimal.cs" />
+    <Compile Include="Mapping\MatchInt.cs" />
+    <Compile Include="Mapping\MatchLong.cs" />
+    <Compile Include="Mapping\MatchString.cs" />
+    <Compile Include="Mapping\SqlParameter.cs" />
     <Compile Include="Context\BlogContext.cs" />
     <Compile Include="Context\DbSession.cs" />
     <Compile Include="Context\IDbSession.cs" />

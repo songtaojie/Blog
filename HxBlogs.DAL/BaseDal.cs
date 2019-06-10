@@ -1,7 +1,9 @@
-﻿using HxBlogs.Model.Context;
+﻿using HxBlogs.Model;
+using HxBlogs.Model.Context;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -33,25 +35,45 @@ namespace HxBlogs.DAL
             }
             return null;
         }
-        //public virtual TResoult QueryEntity<TResoult>(Expression<Func<T, bool>> lambdaWhere)
-        //    where TResoult:class,new()
-        //{
-        //    string tableName = nameof(T);
-        //    TableAttribute table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
-        //    if (table != null && !string.IsNullOrEmpty(table.Name))
-        //    {
-        //        tableName = table.Name;
-        //    }
-            
-        //    Context.Database.SqlQuery<TResoult>(tableName,)
-        //    var result = Context.Set<T>().Where(lambdaWhere).Select(t=>TResoult);
-        //    Context.Database.SqlQuery<>
-        //    if (result != null && result.Count() > 0)
-        //    {
-        //        return result.SingleOrDefault();
-        //    }
-        //    return null;
-        //}
+        /// <summary>
+        /// 查询出指定字段的集合
+        /// </summary>
+        /// <typeparam name="TResoult"></typeparam>
+        /// <param name="fieldList"></param>
+        /// <returns></returns>
+        public virtual List<TResoult> QueryEntities<TResoult>(List<string> fieldList,Dictionary<string,IParameter> parameters)
+            where TResoult : class
+        {
+            string fields = string.Empty;
+            if (fieldList == null || fieldList.Count == 0)
+            {
+                fields = "*";
+            }
+            else
+            {
+                fields = string.Join(",", fieldList);
+            }
+            string tableName = nameof(T);
+            TableAttribute table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
+            if (table != null && !string.IsNullOrEmpty(table.Name))
+            {
+                tableName = table.Name;
+            }
+            string sql = string.Format(@"select {0} from {1}", fields, tableName);
+            List<DbParameter> paramList = new List<DbParameter>();
+            if (parameters != null)
+            {
+                sql += " where 1=1 ";
+                foreach (string key in parameters.Keys)
+                {
+                    paramList.Add(parameters[key].Create("@"+key));
+                    sql += string.Format(" AND {0}=@{0}", key);
+                }
+            }
+            var result = Context.Database.SqlQuery<TResoult>(sql, paramList.ToArray());
+            return result.ToList();
+        }
+
         /// <summary>
         /// 根据ID获取指定的数据
         /// </summary>

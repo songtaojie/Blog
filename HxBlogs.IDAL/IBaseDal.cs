@@ -1,4 +1,5 @@
 ﻿using Hx.Framework.Dependency;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,8 @@ namespace HxBlogs.IDAL
         /// <returns></returns>
         IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere);
 
+        List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters) 
+            where TResoult : class;
         #endregion
 
         #region 添加

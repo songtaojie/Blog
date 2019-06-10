@@ -1,4 +1,5 @@
 ﻿using Hx.Framework.Dependency;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,9 @@ namespace HxBlogs.IBLL
         /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns>true代表存在;false代表不存在</returns>
         bool Exist(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+
+        List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters)
+            where TResoult : class;
         #endregion
 
         #region 添加
