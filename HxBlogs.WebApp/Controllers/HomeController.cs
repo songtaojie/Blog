@@ -21,7 +21,7 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            var profiler = MiniProfiler.Current;
+            var profiler = StackExchange.Profiling.MiniProfiler.Current;
             using (profiler.Step("主页"))
             {
                 ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();

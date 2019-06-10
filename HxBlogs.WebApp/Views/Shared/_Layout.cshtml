@@ -1,6 +1,4 @@
-﻿@using StackExchange.Profiling;
-@using StackExchange.Profiling.Mvc
-@{ 
+﻿@{ 
     var startHidden = !string.IsNullOrEmpty(Request.QueryString["startHidden"]);
 }
 <!DOCTYPE html>
@@ -15,8 +13,8 @@
     @RenderSection("styles", required: false)
 </head>
 <body>
-    
-    @{ 
+
+    @{
         Html.RenderPartial("~/Views/Layout/_Header.cshtml");
     }
     <div class="container-fluid">
@@ -46,14 +44,6 @@
         });
     </script>
     @RenderSection("scripts", required: false)
-    @if (ViewBag.Orientation != null)
-    {
-        var position = (RenderPosition)ViewBag.Orientation;
-        @MiniProfiler.Current.RenderIncludes(position: position, showTrivial: false, showTimeWithChildren: false, startHidden: startHidden)
-    }
-    else
-    {
-        @MiniProfiler.Current.RenderIncludes(position: RenderPosition.BottomLeft, showTrivial: false, showTimeWithChildren: false, startHidden: false)
-    }
+    @StackExchange.Profiling.MiniProfiler.RenderIncludes()
 </body>
 </html>

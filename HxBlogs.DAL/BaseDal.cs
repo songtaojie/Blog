@@ -1,6 +1,7 @@
 ﻿using HxBlogs.Model.Context;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -32,7 +33,25 @@ namespace HxBlogs.DAL
             }
             return null;
         }
-
+        //public virtual TResoult QueryEntity<TResoult>(Expression<Func<T, bool>> lambdaWhere)
+        //    where TResoult:class,new()
+        //{
+        //    string tableName = nameof(T);
+        //    TableAttribute table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
+        //    if (table != null && !string.IsNullOrEmpty(table.Name))
+        //    {
+        //        tableName = table.Name;
+        //    }
+            
+        //    Context.Database.SqlQuery<TResoult>(tableName,)
+        //    var result = Context.Set<T>().Where(lambdaWhere).Select(t=>TResoult);
+        //    Context.Database.SqlQuery<>
+        //    if (result != null && result.Count() > 0)
+        //    {
+        //        return result.SingleOrDefault();
+        //    }
+        //    return null;
+        //}
         /// <summary>
         /// 根据ID获取指定的数据
         /// </summary>

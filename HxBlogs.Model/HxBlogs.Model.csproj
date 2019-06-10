@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Base\BaseModel.cs" />
+    <Compile Include="Base\SqlParameter.cs" />
     <Compile Include="Context\BlogContext.cs" />
     <Compile Include="Context\DbSession.cs" />
     <Compile Include="Context\IDbSession.cs" />
