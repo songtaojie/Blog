@@ -28,13 +28,13 @@
                     <div class="blog-read ml-auto">
                         <a>
                             <span class="hx-gray-text">阅读</span>
-                            <span class="hx-blue-text">@blog.ReadCount</span>
+                            <span class="hx-blue-text">@(blog.ReadCount.HasValue? blog.ReadCount.Value.ToString():"")</span>
                         </a>
                     </div>
                     <div class="blog-comment ml-2">
                         <a>
                             <span class="hx-gray-text">评论</span>
-                            <span class="hx-blue-text">@blog.CmtCount</span>
+                            <span class="hx-blue-text">@(blog.CmtCount.HasValue? blog.CmtCount.Value.ToString():"")</span>
                         </a>
                     </div>
                 </div>

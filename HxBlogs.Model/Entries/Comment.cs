@@ -18,13 +18,19 @@ namespace HxBlogs.Model
         /// <summary>
         /// 评论内容
         /// </summary>
-        [StringLength(1000)]
+        [StringLength(2000)]
         public string Content { get; set; }
 
         /// <summary>
         /// 置顶
         /// </summary>
-        public bool Top { get; set; }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Top { get; set; }
+        public bool IsTop
+        {
+            get { return Hx.Common.Helper.Helper.IsYes(Top); }
+        }
 
         /// <summary>
         /// 记录IP地址（用于天机ip显示地区）

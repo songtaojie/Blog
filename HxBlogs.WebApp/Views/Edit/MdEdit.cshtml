@@ -8,7 +8,7 @@
 }
 <div class="blog-edit hx-container hx-white-container px-3">
     <form class="form-horizontal" role="form" action="/edit/save" method="post">
-        <input type="hidden" name="IsMarkDown" value="@(Model.IsMarkDown?"true":"false")"  />
+        <input type="hidden" name="MarkDown" value="@Model.MarkDown"  />
         <input type="hidden" name="HexId" value="@Model.HexId" />
         @{ 
             Html.RenderPartial("title", Model, new ViewDataDictionary()
@@ -38,8 +38,8 @@
         }
         <div class="form-row" hidden>
             <div class="col-sm-12">
-                <button type="button" value="true" class="btn btn-md btn-success btn-save">发布文章</button>
-                <button type="button" value="false" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
+                <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="N" class="btn btn-secondary btn-md btn-save" style="margin-left: .8rem;">保存草稿</button>
             </div>
         </div>
     </form>

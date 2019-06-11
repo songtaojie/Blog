@@ -60,7 +60,8 @@ namespace HxBlogs.Model.Context
                 NickName = "超级管理员",
                 RealName = "管理员",
                 Email = "stjworkemail@163.com",
-                IsAdmin = true
+                Admin = "Y",
+                UseMdEdit="Y"
             });
             context.Set<Category>().AddRange(new Category[] {
                 new Category{Name="前端",},

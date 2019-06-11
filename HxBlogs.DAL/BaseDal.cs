@@ -41,8 +41,8 @@ namespace HxBlogs.DAL
         /// <typeparam name="TResoult"></typeparam>
         /// <param name="fieldList"></param>
         /// <returns></returns>
-        public virtual List<TResoult> QueryEntities<TResoult>(List<string> fieldList,Dictionary<string,IParameter> parameters)
-            where TResoult : class
+        public virtual List<TResult> QueryEntities<TResult>(List<string> fieldList,Dictionary<string,IParameter> parameters)
+            where TResult : class
         {
             string fields = string.Empty;
             if (fieldList == null || fieldList.Count == 0)
@@ -70,7 +70,7 @@ namespace HxBlogs.DAL
                     sql += string.Format(" AND {0}=@{0}", key);
                 }
             }
-            var result = Context.Database.SqlQuery<TResoult>(sql, paramList.ToArray());
+            var result = Context.Database.SqlQuery<TResult>(sql, paramList.ToArray());
             return result.ToList();
         }
 
@@ -92,6 +92,17 @@ namespace HxBlogs.DAL
         public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>().Where(lambdaWhere);
+            return result;
+        }
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
+        {
+            var result = Context.Set<T>().Where(lambdaWhere).Select(select);
             return result;
         }
         /// <summary>

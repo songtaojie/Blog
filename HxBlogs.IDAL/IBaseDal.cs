@@ -51,8 +51,16 @@ namespace HxBlogs.IDAL
         /// <returns></returns>
         IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere);
 
-        List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters) 
-            where TResoult : class;
+        List<TResult> QueryEntities<TResult>(List<string> fieldList, Dictionary<string, IParameter> parameters) 
+            where TResult : class;
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select);
         #endregion
 
         #region 添加

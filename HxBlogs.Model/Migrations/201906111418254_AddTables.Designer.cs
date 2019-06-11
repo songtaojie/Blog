@@ -13,7 +13,7 @@ namespace HxBlogs.Model.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201906061541316_AddTables"; }
+            get { return "201906111418254_AddTables"; }
         }
         
         string IMigrationMetadata.Source

@@ -176,15 +176,15 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                if (blog.PersonTop)
+                if (blog.IsPersonTop)
                 {
                     result.Resultdata = "当前数据取消置顶成功!";
-                    blog.PersonTop = false;
+                    blog.PersonTop = "N";
                 }
                 else
                 {
                     result.Resultdata = "当前数据置顶成功!";
-                    blog.PersonTop = true;
+                    blog.PersonTop = "Y";
                 }
                 this._blogService.Update(blog);
             }

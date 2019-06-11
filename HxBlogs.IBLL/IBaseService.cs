@@ -73,6 +73,14 @@ namespace HxBlogs.IBLL
 
         List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters)
             where TResoult : class;
+        /// <summary>
+        /// 获取满足指定条件的数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <param name="addcondition">排除已删除的,即只查询出未被删除的 </param>
+        /// <returns>满足当前条件的一个实体</returns>
+        IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true);
         #endregion
 
         #region 添加

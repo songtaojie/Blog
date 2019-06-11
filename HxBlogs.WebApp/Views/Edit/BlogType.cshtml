@@ -17,21 +17,21 @@
         <div class="mt-2 ml-2">
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" name="PersonTop" id="PersonTop"
-                       @(Model.PersonTop? "checked value=true" : "value=false") />
+                      value="@Model.PersonTop"  @(Hx.Common.Helper.Helper.IsYes(Model.PersonTop)? "checked" : "") />
                 <label class="custom-control-label hx-control-label" for="PersonTop">
                     个人置顶
                 </label>
             </div>
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" name="IsPrivate" id="IsPrivate"
-                       @(Model.IsPrivate? "checked value=true" : "value=false") />
+                       value="@Model.Private" @(Hx.Common.Helper.Helper.IsYes(Model.Private)? "checked" : "") />
                 <label class="custom-control-label hx-control-label" for="IsPrivate">
                     仅自己可见
                 </label>
             </div>
             <div class="custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" name="CanCmt" id="CanCmt"
-                       @(Model.CanCmt? "checked value=true" : "value=false") />
+                      value="@Model.CanCmt"  @(Hx.Common.Helper.Helper.IsYes(Model.CanCmt)? "checked" : "") />
                 <label class="custom-control-label hx-control-label" for="CanCmt">
                     允许评论
                 </label>

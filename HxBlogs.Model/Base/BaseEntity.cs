@@ -40,8 +40,21 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否被删除
         /// </summary>
-        public virtual bool IsDeleted { get; set; }
+        [NotMapped]
+        public virtual bool IsDelete
+        {
+            get
+            {
+                return Hx.Common.Helper.Helper.IsYes(Delete);
+            }
+        }
 
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public virtual string Delete
+        {
+            get; set;
+        } = "N";
         /// <summary>
         /// 删除人
         /// </summary>

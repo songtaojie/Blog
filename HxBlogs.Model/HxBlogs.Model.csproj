@@ -90,9 +90,9 @@
     <Compile Include="Base\IEntity.cs" />
     <Compile Include="Context\DbFactory.cs" />
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
-    <Compile Include="Migrations\201906061541316_AddTables.cs" />
-    <Compile Include="Migrations\201906061541316_AddTables.Designer.cs">
-      <DependentUpon>201906061541316_AddTables.cs</DependentUpon>
+    <Compile Include="Migrations\201906111418254_AddTables.cs" />
+    <Compile Include="Migrations\201906111418254_AddTables.Designer.cs">
+      <DependentUpon>201906111418254_AddTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,8 +105,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906061541316_AddTables.resx">
-      <DependentUpon>201906061541316_AddTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201906111418254_AddTables.resx">
+      <DependentUpon>201906111418254_AddTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

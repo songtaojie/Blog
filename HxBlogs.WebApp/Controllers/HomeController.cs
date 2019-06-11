@@ -3,6 +3,7 @@ using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
 using HxBlogs.WebApp.Filters;
+using HxBlogs.WebApp.Models;
 using StackExchange.Profiling;
 using System;
 using System.Collections.Generic;
@@ -38,16 +39,17 @@ namespace HxBlogs.WebApp.Controllers
             {
                 //IEnumerable<Blog> blogs = _blogService.QueryEntities(b => true)
                 // .OrderByDescending<Blog, decimal?>(m => m.OrderFactor);
-                List<string> fields = new List<string>();
-                fields.Add("Id");
-                fields.Add("Title");
-                fields.Add("ContentHtml");
-                fields.Add("UserName");
-                fields.Add("PublishDate");
-                fields.Add("ReadCount");
-                fields.Add("CmtCount");
-                List<Models.BlogViewModel> blogs = _blogService.QueryEntities<Models.BlogViewModel>(fields, null);
-                return PartialView("article", blogs);
+                IEnumerable<BlogViewModel> blogs = _blogService.QueryEntities(b => true, b => new BlogViewModel()
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    ContentHtml = b.ContentHtml,
+                    CmtCount = b.CmtCount,
+                    ReadCount = b.ReadCount,
+                    PublishDate = b.PublishDate,
+                    UserName = b.UserName
+                });
+                return PartialView("article", blogs.ToList());
             }
         }
 

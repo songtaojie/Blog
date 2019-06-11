@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hx.Common.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,19 +34,45 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否使用MarkDown编辑的
         /// </summary>
-        public bool IsMarkDown { get; set; }
+        [NotMapped]
+        public bool IsMarkDown
+        {
+            get { return Helper.IsYes(MarkDown); }
+        }
+        [Column(TypeName = "char")]
+        [StringLength(1)]
+        public string MarkDown { get; set; } = "N";
+
         /// <summary>
         /// 是否是私人的
         /// </summary>
-        public bool IsPrivate { get; set; }
+        [NotMapped]
+        public bool IsPrivate
+        {
+            get { return Helper.IsYes(Private); }
+        }
+
+        public string Private { get; set; } = "N";
         /// <summary>
         /// 是否是转发文章
         /// </summary>
+        [NotMapped]
         public bool IsForward { get; set; }
+
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Forward { get; set; } = "N";
         /// <summary>
         /// 是否发布，true代表发布，false代表不发布即是草稿
         /// </summary>
-        public bool IsPublish { get; set; }
+        [NotMapped]
+        public bool IsPublish
+        {
+            get { return Helper.IsYes(Publish); }
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Publish { get; set; } = "Y";
 
         /// <summary>
         /// 发布日期
@@ -56,11 +83,27 @@ namespace HxBlogs.Model
         /// <summary>
         /// 置顶 Y权值加10年
         /// </summary>
-        public bool IsTop { get; set; }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Top { get; set; } = "N";
+
+        [NotMapped]
+        public bool IsTop
+        {
+            get{return Helper.IsYes(Top);}
+        }
         /// <summary>
         /// 精华 Y权值加10天
         /// </summary>
-        public bool IsEssence { get; set; }
+        [NotMapped]
+        public bool IsEssence
+        {
+            get{return Helper.IsYes(Essence);}
+        }
+
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Essence { get; set; } = "N";
         /// <summary>
         /// 原链接
         /// </summary>
@@ -87,7 +130,13 @@ namespace HxBlogs.Model
         /// <summary>
         /// 允许评论
         /// </summary>
-        public bool CanCmt { get; set; }
+        public bool CanCmted
+        {
+            get{return Helper.IsYes(CanCmt);}
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string CanCmt { get; set; } = "Y";
 
         /// <summary>
         /// 阅读量
@@ -108,7 +157,14 @@ namespace HxBlogs.Model
         /// <summary>
         /// 个人置顶 标识该文档是否置顶,置顶的文章在个人主页中排序靠前
         /// </summary>
-        public bool PersonTop { get; set; }
+        [NotMapped]
+        public bool IsPersonTop
+        {
+            get{return Helper.IsYes(PersonTop);}
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string PersonTop { get; set; } = "N";
         /// <summary>
         /// 主题中的第一张图的地址
         /// </summary>

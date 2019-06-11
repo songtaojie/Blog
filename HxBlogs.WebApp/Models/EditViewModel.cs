@@ -41,29 +41,29 @@ namespace HxBlogs.WebApp.Models
         {
             get;set;
         }
-        public bool PersonTop
+        public string PersonTop
         {
             get; set;
-        }
-        public bool IsPrivate
+        } = "N";
+        public string Private
         {
             get; set;
-        }
-        public bool IsPublish
+        } = "N";
+        public string Publish
         {
             get; set;
-        } = true;
-        public bool CanCmt
+        } = "Y";
+        public string CanCmt
         {
             get; set;
-        } = true;
+        } = "Y";
         public string PersonTags
         {
             get;set;
         }
-        public bool IsMarkDown
+        public string MarkDown
         {
             get; set;
-        }
+        } = "N";
     }
 }

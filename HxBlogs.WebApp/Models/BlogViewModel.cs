@@ -21,7 +21,7 @@ namespace HxBlogs.WebApp.Models
 
         public string UserName { get; set; }
         public DateTime? PublishDate { get; set; }
-        public int ReadCount { get; set; }
-        public int CmtCount { get; set; }
+        public int? ReadCount { get; set; }
+        public int? CmtCount { get; set; }
     }
 }

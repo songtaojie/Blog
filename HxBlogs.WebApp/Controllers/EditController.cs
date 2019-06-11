@@ -33,7 +33,7 @@ namespace HxBlogs.WebApp.Controllers
             if (string.IsNullOrEmpty(hexId))
             {
                 string view = "richedit";
-                if (user != null && user.UseMdEdit)
+                if (user != null && user.IsUseMdEdit)
                 {
                     view = "mdedit";
                 }
@@ -66,7 +66,7 @@ namespace HxBlogs.WebApp.Controllers
         [NonAction]
         private ActionResult Edit(string hexId,bool isMd)
         {
-            EditViewModel vm = new EditViewModel() { IsMarkDown = isMd};
+            EditViewModel vm = new EditViewModel() { MarkDown = isMd?"Y":"N"};
             if (string.IsNullOrEmpty(hexId))
             {
                 if(isMd)vm.Content = FileHelper.GetString(Server.MapPath("~/Plugins/editormd/template.md"));

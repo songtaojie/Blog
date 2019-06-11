@@ -250,6 +250,7 @@
     <Content Include="Plugins\editormd\template.md" />
     <Content Include="Plugins\WangEditor\fonts\w-e-icon.woff" />
     <Content Include="Plugins\WangEditor\wangEditor.min.js.map" />
+    <Content Include="Areas\Admin\Views\web .config.bak" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\css\blog-default.css" />
@@ -826,6 +827,8 @@
     <Content Include="Views\Edit\BlogTag.cshtml" />
     <Content Include="Views\Edit\Title.cshtml" />
     <Content Include="Views\View\MdView.cshtml" />
+    <Content Include="Web.config.bak" />
+    <Content Include="Views\Web .config.bak" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

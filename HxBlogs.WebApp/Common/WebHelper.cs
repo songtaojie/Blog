@@ -291,6 +291,7 @@ namespace HxBlogs.WebApp
         /// <returns></returns>
         public static string FilterHtmlP(string html,int maxSize,bool onlyText = true)
         {
+            if (string.IsNullOrEmpty(html)) return "";
             Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
             var matchs = Regex.Matches(html, @"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
             StringBuilder sb = new StringBuilder();

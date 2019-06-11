@@ -272,7 +272,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 }
                 else
                 {
-                    userInfo.IsActivate = true;
+                    userInfo.Activate = "Y";
                     this._userService.Update(userInfo);
                     result.Success = true;
                 }

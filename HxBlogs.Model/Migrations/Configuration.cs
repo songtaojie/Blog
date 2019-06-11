@@ -24,7 +24,8 @@
             //    NickName = "超级管理员",
             //    RealName = "管理员",
             //    Email = "stjworkemail@163.com",
-            //    IsAdmin = true,
+            //    Admin = "Y",
+            //    UseMdEdit="Y",
             //    RegisterTime = DateTime.Now
             //});
             //context.Set<Category>().AddRange(new Category[] {

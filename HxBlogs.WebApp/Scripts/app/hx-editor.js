@@ -2,9 +2,9 @@
     $('input:checkbox:not(.blog-tag)').change(function () {
         var $me = $(this);
         if ($me.is(':checked')) {
-            $me.val('true').attr('checked', '');
+            $me.val('Y').attr('checked', '');
         } else {
-            $me.val('false').removeAttr('checked');
+            $me.val('N').removeAttr('checked');
         }
     });
     $('#blogTag').on('change', 'input:checkbox', function (a, b, c) {
@@ -35,7 +35,7 @@
             var $me = $(this),
                 data = $('form').serializeArray(),
                 action = $('form').attr('action') || 'save';
-            data.push({ name: 'IsPublish', value: $me.val() });
+            data.push({ name: 'Publish', value: $me.val() });
             var content = data.find(d => { return d.name === 'Content'; }),
                 contentHtml = data.find(d => { return d.name === 'ContentHtml'; }),
                 d ,

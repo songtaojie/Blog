@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hx.Common.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -123,7 +124,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 自我描述
         /// </summary>
-        [StringLength(1000)]
+        [StringLength(2000)]
         public string Description
         {
             set; get;
@@ -138,11 +139,18 @@ namespace HxBlogs.Model
         /// <summary>
 		/// 是都锁定
 		/// </summary>
-        public bool IsLock { set; get; }
+        [NotMapped]
+        public bool IsLock
+        {
+            get { return Helper.IsYes(Lock); }
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Lock { set; get; } = "N";
         /// <summary>
         /// 头像存储文件路径
         /// </summary>
-        [StringLength(100)]
+        [StringLength(500)]
         public string AvatarUrl
         {
             get; set;
@@ -150,17 +158,34 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否是管理员
         /// </summary>
+        [NotMapped]
         public bool IsAdmin
         {
+            get { return Helper.IsYes(Admin); }
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Admin
+        {
             get; set;
+        } = "N";
+        /// <summary>
+        /// 是否激活
+        /// </summary>
+        [NotMapped]
+        public bool IsActivate
+        {
+            get { return Helper.IsYes(Activate); }
         }
         /// <summary>
         /// 是否激活
         /// </summary>
-        public bool IsActivate
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Activate
         {
             get; set;
-        }
+        } = "N";
         /// <summary>
         /// 用户注册时间
         /// </summary>
@@ -176,7 +201,17 @@ namespace HxBlogs.Model
         /// <summary>
         /// 是否被删除,假删除，数据库中还有记录
         /// </summary>
-        public virtual bool IsDeleted { get; set; }
+        [NotMapped]
+        public bool IsDeleted
+        {
+            get { return Helper.IsYes(Delete); }
+        }
+        /// <summary>
+        /// 是否被删除,假删除，数据库中还有记录
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Delete { get; set; } = "N";
 
         /// <summary>
         /// 删除时间
@@ -202,6 +237,16 @@ namespace HxBlogs.Model
         /// <summary>
         /// 使用MarkDown编辑器
         /// </summary>
-        public virtual bool UseMdEdit { get; set; }
+        [NotMapped]
+        public bool IsUseMdEdit
+        {
+            get { return Helper.IsYes(UseMdEdit); }
+        }
+        // <summary>
+        /// 使用MarkDown编辑器
+        /// </summary>
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string UseMdEdit { get; set; } = "N";
     }
 }
