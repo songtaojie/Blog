@@ -39,13 +39,21 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                return this.baseDal.QueryEntity(GetLambda(lambdaWhere));
-            }
-
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.QueryEntity(lambdaWhere);
         }
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据(无跟踪查询)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
+        {
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
+            return this.baseDal.QueryNoTrackEntity(lambdaWhere);
+        }
+
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
@@ -53,10 +61,7 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual async Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                return await this.baseDal.QueryEntitiesAsync(GetLambda(lambdaWhere));
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return await this.baseDal.QueryEntitiesAsync(lambdaWhere);
         }
         /// <summary>
@@ -67,11 +72,18 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                return this.baseDal.QueryEntities(GetLambda(lambdaWhere));
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.QueryEntities(lambdaWhere);
+        }
+        /// <summary>
+        /// 获取满足指定条件的一条数据（无跟踪查询）
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
+        {
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
+            return this.baseDal.QueryNoTrackEntities(lambdaWhere);
         }
 
         /// <summary>
@@ -106,19 +118,10 @@ namespace HxBlogs.BLL
         /// <returns></returns>
         public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, GetLambda(lambdaWhere));
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.QueryPageEntities(pageIndex, pageSize, out totalCount, isAsc, orderLambdaWhere, lambdaWhere);
         }
-
-        public virtual List<TResoult> QueryEntities<TResoult>(List<string> fieldList, Dictionary<string, IParameter> parameters)
-            where TResoult : class
-        {
-            parameters = GetParameters(parameters);
-            return this.baseDal.QueryEntities<TResoult>(fieldList, parameters);
-        }
+       
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
@@ -127,22 +130,19 @@ namespace HxBlogs.BLL
         /// <returns>满足当前条件的一个实体</returns>
         public virtual IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                this.baseDal.QueryEntities(GetLambda(lambdaWhere),select);
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.QueryEntities(lambdaWhere, select);
         }
-
-
-        public virtual Dictionary<string, IParameter> GetParameters(Dictionary<string, IParameter> parameters)
+        /// <summary>
+        /// 获取满足指定条件的一条数据,无跟踪查询(查询出来的数据不可以修改，如果你做了修改，你会发现修改并不成功)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true)
         {
-            if (parameters == null) parameters = new Dictionary<string, IParameter>();
-            parameters.Add("Delete", new SqlParameter()
-            {
-                ParamValue = "N"
-            });
-            return parameters;
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
+            return this.baseDal.QueryNoTrackEntities(lambdaWhere, select);
         }
 
         /// <summary>
@@ -321,10 +321,7 @@ namespace HxBlogs.BLL
         /// <returns></returns>
         public long LongCount(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                return this.baseDal.LongCount(GetLambda(lambdaWhere));
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.LongCount(lambdaWhere);
         }
         /// <summary>
@@ -334,21 +331,22 @@ namespace HxBlogs.BLL
         /// <returns></returns>
         public int Count(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
-            {
-                return this.baseDal.Count(GetLambda(lambdaWhere));
-            }
+            lambdaWhere = GetLambda(lambdaWhere, addcondition);
             return this.baseDal.Count(lambdaWhere);
         }
         #endregion
 
         #region 获取新的lambda
-        protected virtual Expression<Func<T,bool>> GetLambda(Expression<Func<T, bool>> lambdaWhere)
+        protected virtual Expression<Func<T,bool>> GetLambda(Expression<Func<T, bool>> lambdaWhere,bool addcondition)
         {
-            ParameterExpression parameterExp = Expression.Parameter(typeof(T), "b");
-            MemberExpression deleteProp = Expression.Property(parameterExp, "Delete");
-            var lambda = Expression.Lambda<Func<T, bool>>(Expression.Equal(deleteProp, Expression.Constant("N")), parameterExp);
-            return lambdaWhere.And(lambda);
+            if (addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
+            {
+                ParameterExpression parameterExp = Expression.Parameter(typeof(T), "table");
+                MemberExpression deleteProp = Expression.Property(parameterExp, "Delete");
+                var lambda = Expression.Lambda<Func<T, bool>>(Expression.Equal(deleteProp, Expression.Constant("N")), parameterExp);
+                return lambdaWhere.And(lambda);
+            }
+            return lambdaWhere;
         }
         #endregion
     }

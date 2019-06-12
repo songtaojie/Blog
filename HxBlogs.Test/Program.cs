@@ -79,7 +79,8 @@ namespace HxBlogs.Test
             //Blog b = DbFactory.GetDbContext().Set<Blog>().Find(4);
             //string html = b.ContentHtml;
             //string phtml = FilterHtmlP(html);
-            Console.WriteLine(PublicCount(r=>r.UserId==1));
+            DbContextTest.QuereyTest();
+            Console.WriteLine("sss");
             Console.ReadLine();
         }
 

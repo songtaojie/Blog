@@ -20,6 +20,14 @@ namespace HxBlogs.IDAL
         /// <returns>当前实体的集合</returns>
         IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere);
         /// <summary>
+        /// 获取满足指定条件的一条数据（无跟踪查询）
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere);
+
+
+        /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
@@ -31,6 +39,13 @@ namespace HxBlogs.IDAL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
         T QueryEntity(Expression<Func<T, bool>> lambdaWhere);
+        /// <summary>
+        /// 获取满足指定条件的一条数据(无跟踪查询)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere);
+
 
         /// <summary>
         /// 根据ID获取指定的数据
@@ -50,17 +65,21 @@ namespace HxBlogs.IDAL
         /// <param name="lambdaWhere">获取数据的lambda</param>
         /// <returns></returns>
         IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere);
-
-        List<TResult> QueryEntities<TResult>(List<string> fieldList, Dictionary<string, IParameter> parameters) 
-            where TResult : class;
-
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
-        /// <returns>满足当前条件的一个实体</returns>
+        /// <returns>满足当前条件的集合</returns>
         IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select);
+        /// <summary>
+        /// 获取满足指定条件的一条数据,无跟踪查询(查询出来的数据不可以修改，如果你做了修改，你会发现修改并不成功)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的实体集合</returns>
+        IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select);
+
         #endregion
 
         #region 添加

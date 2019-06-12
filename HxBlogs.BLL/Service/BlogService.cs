@@ -26,27 +26,22 @@ namespace HxBlogs.BLL
         {
             return base.QueryEntity(lambdaWhere, addcondition);
         }
-        public override Dictionary<string, IParameter> GetParameters(Dictionary<string, IParameter> parameters)
+        protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere,bool addcondition)
         {
-            parameters = base.GetParameters(parameters);
-            parameters.Add("Publish", new SqlParameter() { ParamValue = "Y" });
-            parameters.Add("Private", new SqlParameter() { ParamValue = "N" });
-            return parameters;
-        }
-        protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere)
-        {
-            ParameterExpression parameterExp = Expression.Parameter(typeof(Blog), "b");
-            MemberExpression publishProp = Expression.Property(parameterExp, "Publish"),
-                 deleteProp = Expression.Property(parameterExp, "Delete"),
-                 privateProp = Expression.Property(parameterExp, "Private");
-            ConstantExpression constN = Expression.Constant("N"),
-                   constY = Expression.Constant("Y");
-            BinaryExpression publishBin =  Expression.Equal(publishProp, constY),
-               deleteBin =  Expression.Equal(deleteProp, constN),
-               privateBin = Expression.Equal(privateProp, constN);
-            var bin = Expression.AndAlso(Expression.AndAlso(publishBin, deleteBin), privateBin);
-            var lambda = Expression.Lambda<Func<Blog, bool>>(bin, parameterExp);
-            return lambdaWhere.And(lambda);
+            if (addcondition)
+            {
+                ParameterExpression parameterExp = Expression.Parameter(typeof(Blog), "table");
+                MemberExpression publishProp = Expression.Property(parameterExp, "Publish"),
+                     deleteProp = Expression.Property(parameterExp, "Delete"),
+                     privateProp = Expression.Property(parameterExp, "Private");
+                BinaryExpression publishBin = Expression.Equal(publishProp, Expression.Constant("Y"));
+                BinaryExpression deleteBin = Expression.Equal(deleteProp, Expression.Constant("N"));
+                BinaryExpression privateBin = Expression.Equal(privateProp, Expression.Constant("N"));
+                var bin = Expression.AndAlso(Expression.AndAlso(publishBin, deleteBin), privateBin);
+                var lambda = Expression.Lambda<Func<Blog, bool>>(bin, parameterExp);
+                return lambdaWhere.And(lambda);
+            }
+            return lambdaWhere;
         }
     }
 }

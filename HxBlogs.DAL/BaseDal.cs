@@ -36,6 +36,24 @@ namespace HxBlogs.DAL
             return null;
         }
         /// <summary>
+        /// 获取满足指定条件的一条数据(无跟踪查询)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere)
+        {
+            var result = Context.Set<T>()
+                .AsNoTracking()
+                .Where(lambdaWhere);
+            if (result != null && result.Count() > 0)
+            {
+                return result.SingleOrDefault();
+            }
+            return null;
+        }
+
+
+        /// <summary>
         /// 查询出指定字段的集合
         /// </summary>
         /// <typeparam name="TResoult"></typeparam>
@@ -95,6 +113,20 @@ namespace HxBlogs.DAL
             return result;
         }
         /// <summary>
+        /// 获取满足指定条件的一条数据（无跟踪查询）
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere)
+        {
+            var result = Context.Set<T>()
+                .AsNoTracking()
+                .Where(lambdaWhere);
+            return result;
+        }
+
+
+        /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
@@ -105,6 +137,21 @@ namespace HxBlogs.DAL
             var result = Context.Set<T>().Where(lambdaWhere).Select(select);
             return result;
         }
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据,无跟踪查询(查询出来的数据不可以修改，如果你做了修改，你会发现修改并不成功)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
+        {
+            var result = Context.Set<T>().AsNoTracking()
+                .Where(lambdaWhere)
+                .Select(select);
+            return result;
+        }
+
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>

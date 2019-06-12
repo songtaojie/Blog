@@ -1,4 +1,5 @@
 ﻿using Hx.Common.Helper;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace HxBlogs.WebApp.Models
             }
         }
         public string ContentHtml { get; set; }
-
+        public int UserId { get; set; }
+        public User User { get; set; }
         public string UserName { get; set; }
         public DateTime? PublishDate { get; set; }
         public int? ReadCount { get; set; }
