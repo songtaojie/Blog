@@ -31,7 +31,7 @@
                 @if (UserContext.IsLoginUser(ViewBag.User))
                 {
                     <div class="ml-2">
-                        <a class="hx-a" data-id="@blog.HexId" data-url="/article/topblog" href="javascript:void(0)">@(blog.PersonTop ? "取消" : "")置顶</a>
+                        <a class="hx-a" data-id="@blog.HexId" data-url="/article/topblog" href="javascript:void(0)">@(blog.IsPersonTop ? "取消" : "")置顶</a>
                     </div>
                     <div class="ml-2">
                         <a class="hx-a" target="_blank" href="/edit/postedit/@blog.HexId">编辑</a>
