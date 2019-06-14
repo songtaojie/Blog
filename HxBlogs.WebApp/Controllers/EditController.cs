@@ -42,7 +42,7 @@ namespace HxBlogs.WebApp.Controllers
             else
             {
                 int blogId = Convert.ToInt32(Helper.FromHex(hexId));
-                Blog blog = this._blogService.QueryEntityByID(blogId);
+                Blog blog = this._blogService.QueryEntityBySql("id="+ blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 string view = "richedit";
                 if (blog.IsMarkDown)

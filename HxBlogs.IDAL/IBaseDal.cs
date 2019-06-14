@@ -24,7 +24,7 @@ namespace HxBlogs.IDAL
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere);
+        IEnumerable<T> QueryEntitiesNoTrack(Expression<Func<T, bool>> lambdaWhere);
 
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace HxBlogs.IDAL
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere);
+        T QueryEntityNoTrack(Expression<Func<T, bool>> lambdaWhere);
 
 
         /// <summary>
@@ -53,6 +53,12 @@ namespace HxBlogs.IDAL
         /// <param name="id"></param>
         /// <returns></returns>
         T QueryEntityByID(object id);
+        /// <summary>
+        /// 根据条件获取数据
+        /// </summary>
+        /// <param name="condition">where条件</param>
+        /// <returns></returns>
+        T QueryEntityBySql(string condition);
         /// <summary>
         /// 分页形式的数据获取
         /// </summary>
@@ -78,7 +84,7 @@ namespace HxBlogs.IDAL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
         /// <returns>满足当前条件的实体集合</returns>
-        IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select);
+        IEnumerable<TResult> QueryEntitiesNoTrack<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select);
 
         #endregion
 

@@ -48,10 +48,10 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
+        public virtual T QueryEntityNoTrack(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
             lambdaWhere = GetLambda(lambdaWhere, addcondition);
-            return this.baseDal.QueryNoTrackEntity(lambdaWhere);
+            return this.baseDal.QueryEntityNoTrack(lambdaWhere);
         }
 
         /// <summary>
@@ -80,10 +80,10 @@ namespace HxBlogs.BLL
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
+        public virtual IEnumerable<T> QueryEntitiesNoTrack(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true)
         {
             lambdaWhere = GetLambda(lambdaWhere, addcondition);
-            return this.baseDal.QueryNoTrackEntities(lambdaWhere);
+            return this.baseDal.QueryEntitiesNoTrack(lambdaWhere);
         }
 
         /// <summary>
@@ -96,13 +96,18 @@ namespace HxBlogs.BLL
             T model = this.baseDal.QueryEntityByID(id);
             if (model != null && addcondition && typeof(Model.BaseEntity).IsAssignableFrom(typeof(T)))
             {
-                if (string.Format("{0}", model["IsDeleted"]) == "Y")
+                if (string.Format("{0}", model["Delete"]) == "Y")
                 {
                     model = null;
                 }
             }
             return model;
         }
+        public T QueryEntityBySql(string condition)
+        {
+            return this.baseDal.QueryEntityBySql(condition);
+        }
+
 
         /// <summary>
         /// 分页形式的数据获取
@@ -139,10 +144,10 @@ namespace HxBlogs.BLL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true)
+        public virtual IEnumerable<TResult> QueryEntitiesNoTrack<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true)
         {
             lambdaWhere = GetLambda(lambdaWhere, addcondition);
-            return this.baseDal.QueryNoTrackEntities(lambdaWhere, select);
+            return this.baseDal.QueryEntitiesNoTrack(lambdaWhere, select);
         }
 
         /// <summary>

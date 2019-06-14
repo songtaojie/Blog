@@ -26,7 +26,7 @@ namespace HxBlogs.WebApp.Controllers
             using (profiler.Step("主页"))
             {
                 ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-                IEnumerable<Category> cateList = cateService.QueryNoTrackEntities(c => true)
+                IEnumerable<Category> cateList = cateService.QueryEntitiesNoTrack(c => true)
                     .OrderByDescending(c => c.Order);
                 ViewBag.CategoryList = cateList;
             }
@@ -37,7 +37,7 @@ namespace HxBlogs.WebApp.Controllers
             var profiler = MiniProfiler.Current;
             using (profiler.Step("文章"))
             {
-                IEnumerable<BlogViewModel> blogs = _blogService.QueryNoTrackEntities(b => true, b => new BlogViewModel()
+                IEnumerable<BlogViewModel> blogs = _blogService.QueryEntitiesNoTrack(b => true, b => new BlogViewModel()
                 {
                     Id = b.Id,
                     Title = b.Title,

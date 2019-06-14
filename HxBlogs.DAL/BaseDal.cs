@@ -29,27 +29,19 @@ namespace HxBlogs.DAL
         public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>().Where(lambdaWhere);
-            if (result != null && result.Count() > 0)
-            {
-                return result.SingleOrDefault();
-            }
-            return null;
+            return result.FirstOrDefault();
         }
         /// <summary>
         /// 获取满足指定条件的一条数据(无跟踪查询)
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual T QueryNoTrackEntity(Expression<Func<T, bool>> lambdaWhere)
+        public virtual T QueryEntityNoTrack(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>()
                 .AsNoTracking()
                 .Where(lambdaWhere);
-            if (result != null && result.Count() > 0)
-            {
-                return result.SingleOrDefault();
-            }
-            return null;
+            return result.FirstOrDefault();
         }
 
 
@@ -92,14 +84,27 @@ namespace HxBlogs.DAL
             return result.ToList();
         }
 
-        /// <summary>
-        /// 根据ID获取指定的数据
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public T QueryEntityByID(object id)
         {
             return Context.Set<T>().Find(id);
+        }
+
+       /// <summary>
+       /// 根据条件获取数据
+       /// </summary>
+       /// <param name="condition">where条件</param>
+       /// <returns></returns>
+        public T QueryEntityBySql(string condition)
+        {
+            if (string.IsNullOrWhiteSpace(condition)) return null;
+            string tableName = nameof(T);
+            TableAttribute table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
+            if (table != null && !string.IsNullOrEmpty(table.Name))
+            {
+                tableName = table.Name;
+            }
+            string sql = string.Format(@"select * from {0} where {1}",  tableName, condition);
+            return Context.Database.SqlQuery<T>(sql).FirstOrDefault();
         }
 
         /// <summary>
@@ -117,7 +122,7 @@ namespace HxBlogs.DAL
         /// </summary>
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual IEnumerable<T> QueryNoTrackEntities(Expression<Func<T, bool>> lambdaWhere)
+        public virtual IEnumerable<T> QueryEntitiesNoTrack(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>()
                 .AsNoTracking()
@@ -144,7 +149,7 @@ namespace HxBlogs.DAL
         /// <param name="lambdaWhere">获取数据的条件lambda</param>
         /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
         /// <returns>满足当前条件的一个实体</returns>
-        public virtual IEnumerable<TResult> QueryNoTrackEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
+        public virtual IEnumerable<TResult> QueryEntitiesNoTrack<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
         {
             var result = Context.Set<T>().AsNoTracking()
                 .Where(lambdaWhere)
