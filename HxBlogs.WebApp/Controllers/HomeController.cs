@@ -26,8 +26,8 @@ namespace HxBlogs.WebApp.Controllers
             using (profiler.Step("主页"))
             {
                 ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-                IEnumerable<Category> cateList = cateService.QueryEntitiesNoTrack(c => true)
-                    .OrderByDescending(c => c.Order);
+                IEnumerable<Category> cateList = cateService.GetEntitiesNoTrack(c => true)
+                    .OrderBy(c => c.Order);
                 ViewBag.CategoryList = cateList;
             }
             return View();
@@ -37,18 +37,19 @@ namespace HxBlogs.WebApp.Controllers
             var profiler = MiniProfiler.Current;
             using (profiler.Step("文章"))
             {
-                IEnumerable<BlogViewModel> blogs = _blogService.QueryEntitiesNoTrack(b => true, b => new BlogViewModel()
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    ContentHtml = b.ContentHtml,
-                    CmtCount = b.CmtCount,
-                    ReadCount = b.ReadCount,
-                    PublishDate = b.PublishDate,
-                    UserId = b.UserId,
-                    User = b.User,
-                    UserName = b.UserName
-                });
+                IEnumerable<BlogViewModel> blogs = _blogService.GetEntitiesNoTrack(b => true)
+                    .Select(b => new BlogViewModel()
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        ContentHtml = b.ContentHtml,
+                        CmtCount = b.CmtCount,
+                        ReadCount = b.ReadCount,
+                        PublishDate = b.PublishDate,
+                        UserId = b.UserId,
+                        User = b.User,
+                        UserName = b.UserName
+                    });
                 return PartialView("article", blogs.ToList());
             }
         }

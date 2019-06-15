@@ -42,7 +42,7 @@ namespace HxBlogs.WebApp.Controllers
             else
             {
                 int blogId = Convert.ToInt32(Helper.FromHex(hexId));
-                Blog blog = this._blogService.QueryEntityBySql("id="+ blogId);
+                Blog blog = this._blogService.GetEntityBySql("id="+ blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 string view = "richedit";
                 if (blog.IsMarkDown)
@@ -74,7 +74,7 @@ namespace HxBlogs.WebApp.Controllers
             else
             {
                 int blogId = Convert.ToInt32(Helper.FromHex(hexId));
-                Blog blog = this._blogService.QueryEntityByID(blogId);
+                Blog blog = this._blogService.GetEntityByID(blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 vm = MapperManager.Map<EditViewModel>(blog);
                 vm.PersonTags = blog.BlogTags;
@@ -85,7 +85,7 @@ namespace HxBlogs.WebApp.Controllers
                     string[] tagArr = blog.BlogTags.Split(',');
                     foreach (string tagId in tagArr)
                     {
-                        BlogTag blogTag = _tagService.QueryEntityByID(Convert.ToInt32(tagId));
+                        BlogTag blogTag = _tagService.GetEntityByID(Convert.ToInt32(tagId));
                         if (blogTag != null)
                         {
                             tagDic.Add(blogTag.Id, blogTag.Name);
@@ -97,9 +97,9 @@ namespace HxBlogs.WebApp.Controllers
             if (string.IsNullOrEmpty(vm.PersonTags)) vm.PersonTags = "";
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.QueryEntities(c => true).OrderByDescending(c => c.Order);
-            IEnumerable<BlogType> types = typeService.QueryEntities(t => true).OrderByDescending(t => t.Order);
-            IEnumerable<BlogTag> tags = _tagService.QueryEntities(t => t.UserId == UserContext.LoginUser.Id);
+            IEnumerable<Category> cateList = cateService.GetEntities(c => true).OrderByDescending(c=>c.Order);
+            IEnumerable<BlogType> types = typeService.GetEntities(t => true).OrderByDescending(t=>t.Order);
+            IEnumerable<BlogTag> tags = _tagService.GetEntities(t => t.UserId == UserContext.LoginUser.Id);
             ViewBag.CategoryList = cateList;
             ViewBag.Types = types;
             ViewBag.Tags = tags;
@@ -143,7 +143,7 @@ namespace HxBlogs.WebApp.Controllers
                                 if (item.Key.Contains("newData"))
                                 {
                                     string value = item.Value.Trim();
-                                    BlogTag tag = _tagService.QueryEntity(b => b.Name == value);
+                                    BlogTag tag = _tagService.GetEntity(b => b.Name == value);
                                     if (tag == null)
                                     {
                                         tag = new BlogTag()
