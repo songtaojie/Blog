@@ -81,7 +81,7 @@ namespace HxBlogs.WebApp
                     IBLL.IUserService userService = ContainerManager.Resolve<IBLL.IUserService>();
                     string userName = user[nameof(User.UserName)];
                     string pwd = user[nameof(User.PassWord)];
-                    userInfo = userService.GetEntity(u => u.UserName == userName && u.PassWord == pwd);
+                    userInfo = userService.QueryEntity(u => u.UserName == userName && u.PassWord == pwd);
                     if (userInfo != null)
                     {
                         UserContext.LoginUser = userInfo;

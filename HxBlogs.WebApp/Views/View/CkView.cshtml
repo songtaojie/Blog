@@ -4,14 +4,13 @@
 }
 @section styles{
     @Styles.Render("~/content/default")
+    @Styles.Render("~/content/default")
     <link href="~/Plugins/editormd/css/editormd.preview.css" rel="stylesheet" />
 }
 <div class="hx-container blog-view">
     <div class="d-flex">
         @{ 
-            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User,new ViewDataDictionary {
-                {"BlogId",Model.HexId }
-            });
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
         }
         <div class="flex-fill flex-column mt-2 ml-3 py-3 px-4 hx-white-container">
             <div class="mt-2">
@@ -38,6 +37,7 @@
             </div>
             <div class="mt-4 blog-content" id="test-editormd-view">
                 <textarea style="display:none;" placeholder="markdown语言">@Model.Content</textarea>
+                @*@(new HtmlString(Model.ContentHtml))*@
             </div>
         </div>
     </div>

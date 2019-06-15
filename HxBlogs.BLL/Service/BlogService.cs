@@ -22,9 +22,13 @@ namespace HxBlogs.BLL
             }
             return model;
         }
-        protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere,bool defaultFilter)
+        public override Blog QueryEntity(Expression<Func<Blog, bool>> lambdaWhere, bool addcondition = true)
         {
-            if (defaultFilter)
+            return base.QueryEntity(lambdaWhere, addcondition);
+        }
+        protected override Expression<Func<Blog, bool>> GetLambda(Expression<Func<Blog, bool>> lambdaWhere,bool addcondition)
+        {
+            if (addcondition)
             {
                 ParameterExpression parameterExp = Expression.Parameter(typeof(Blog), "table");
                 MemberExpression publishProp = Expression.Property(parameterExp, "Publish"),

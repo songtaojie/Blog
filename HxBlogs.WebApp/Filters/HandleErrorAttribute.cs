@@ -30,7 +30,7 @@ namespace HxBlogs.WebApp.Filters
             if (context.Exception is UserFriendlyException)
             {
                 result.Code = response.StatusCode = (int)HttpStatusCode.OK;
-                context.Result = new JsonResult() { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                context.Result = new JsonResult() { Data = result };
             }
             else if (context.Exception is NoAuthorizeException)
             {
@@ -41,7 +41,7 @@ namespace HxBlogs.WebApp.Filters
                 }
                 else
                 {
-                    context.Result = new JsonResult() { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    context.Result = new JsonResult() { Data = result };
                 }
             }
             else if (context.Exception is NotFoundException)
@@ -50,7 +50,7 @@ namespace HxBlogs.WebApp.Filters
                 result.Code = response.StatusCode = (int)HttpStatusCode.NotFound;
                 if (isAjax)
                 {
-                    context.Result = new JsonResult() { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    context.Result = new JsonResult() { Data = result };
                 }
                 else
                 {
@@ -70,8 +70,7 @@ namespace HxBlogs.WebApp.Filters
                 else
                 {
                     result.Message = error.Message;
-                    
-                    context.Result = new JsonResult() { Data = result,JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                    context.Result = new JsonResult() { Data = result };
                 }
             }
         }

@@ -32,11 +32,11 @@
             <span>100</span>
         </div>
     </div>
-    <div class="card my-1 partial-content" data-url="/article/@Model.UserName/side/loadarticle/@ViewBag.BlogId" hidden>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadarticle" hidden>
     </div>
-    <div class="card my-1 partial-content" data-url="/article/@Model.UserName/side/loadtag" hidden>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadtag" hidden>
     </div>
-    <div class="card my-1 partial-content" data-url="/article/@Model.UserName/side/loadarchive" hidden>
+    <div class="card my-1 partial-content" data-url="/article/@(Model==null?"":Model.UserName)/side/loadarchive" hidden>
     </div>
 </aside>
 

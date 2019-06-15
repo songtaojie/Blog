@@ -11,55 +11,71 @@ namespace HxBlogs.IBLL
 {
     public interface IBaseService<T>: ITransientDependency where T : class, new()
     {
-        #region 查询单个数据
+        #region 查询
+        /// <summary>
+        /// 获取满足指定条件的所有数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="addcondition">排除已删除的,即只查询出未被删除的 </param>
+        /// <returns>当前实体的集合</returns>
+        IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+        /// <summary>
+        /// 获取满足指定条件的一条数据（无跟踪查询）
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        IEnumerable<T> QueryEntitiesNoTrack(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+
         /// <summary>
         /// 获取满足指定条件的一条数据
         /// </summary>
-        /// <param name="lambda">获取数据的条件lambda</param>
-        /// <param name="defaultFilter">默认的过滤条件，如果为true，默认会添加删除字段为false的过滤条件</param>
-        /// <returns></returns>
-        T GetEntity(Expression<Func<T, bool>> lambda, bool defaultFilter = true);
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
+        /// <returns>满足当前条件的一个实体</returns>
+        T QueryEntity(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+        /// <summary>
+        /// 获取满足指定条件的一条数据(无跟踪查询)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="addcondition">排除已删除的,即只查询出未被删除的 </param>
+        /// <returns>满足当前条件的一个实体</returns>
+        T QueryEntityNoTrack(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+
+
         /// <summary>
         /// 根据ID获取指定的数据
         /// </summary>
-        /// <param name="id">当前实体的id</param>
-        /// <param name="defaultFilter">默认的过滤条件，如果为true，默认会添加删除字段为false的过滤条件</param>
+        /// <param name="id"></param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        T GetEntityByID(object id, bool defaultFilter = true);
-
+        T QueryEntityByID(object id, bool addcondition = true);
         /// <summary>
         /// 根据条件获取数据
         /// </summary>
         /// <param name="condition">where条件</param>
         /// <returns></returns>
-        T GetEntityBySql(string condition);
-        #endregion
-
-        #region 查询出数据得集合
-        /// <summary>
-        /// 获取满足指定条件的所有数据(可以进行排序)
-        /// </summary>
-        /// <typeparam name="S">排序的字段类型</typeparam>
-        /// <param name="lambda">查询的lambda表达式</param>
-        /// <param name="isAsc">升序还是降序，true是升序，false为降序，默认是升序</param>
-        /// <param name="orderLambda">排序的lambda表达式，如果为null则不进行排序</param>
-        /// <param name="defaultFilter">默认的过滤条件，如果为true，默认会添加删除字段为false的过滤条件</param>
-        /// <returns></returns>
-        IQueryable<T> GetEntities(Expression<Func<T, bool>> lambda, bool defaultFilter = true);
+        T QueryEntityBySql(string condition);
 
         /// <summary>
-        /// 获取满足指定条件的数据集合（无跟踪查询）
+        /// 分页形式的数据获取
         /// </summary>
-        /// <typeparam name="S">排序的字段类型</typeparam>
-        /// <param name="lambda">查询的lambda表达式</param>
-        /// <param name="isAsc">升序还是降序，true是升序，false为降序，默认是升序</param>
-        /// <param name="orderLambda">排序的lambda表达式，如果为null则不进行排序</param>
-        /// <param name="defaultFilter">默认的过滤条件，如果为true，默认会添加删除字段为false的过滤条件</param>
+        /// <typeparam name="S">在isAsc为false时，指定按什么类型的字段排序</typeparam>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示多少条数据</param>
+        /// <param name="totalCount">输出参数，输出总共的条数，为了在页面分页栏显示</param>
+        /// <param name="isAsc">true升序排序，false降序排序，false时需给出排序的lambda表达式</param>
+        /// <param name="oederLambdaWhere">排序的lambda表达式</param>
+        /// <param name="lambdaWhere">获取数据的lambda</param>
+        /// <param name="excludeDeleted">排除已删除的,即只查询出未被删除的 </param>
         /// <returns></returns>
-        IQueryable<T> GetEntitiesNoTrack(Expression<Func<T, bool>> lambda, bool defaultFilter = true);
-        #endregion
-        
-        #region 查询
+        IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> oederLambdaWhere, Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
+
         /// <summary>
         /// 根据记录的ID判断数据库中是否存在某条记录
         /// </summary>
@@ -77,6 +93,21 @@ namespace HxBlogs.IBLL
         bool Exist(Expression<Func<T, bool>> lambdaWhere, bool addcondition = true);
 
 
+        /// <summary>
+        /// 获取满足指定条件的数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <param name="addcondition">排除已删除的,即只查询出未被删除的 </param>
+        /// <returns>满足当前条件的一个实体</returns>
+        IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true);
+        /// <summary>
+        /// 获取满足指定条件的一条数据,无跟踪查询(查询出来的数据不可以修改，如果你做了修改，你会发现修改并不成功)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的实体集合</returns>
+        IEnumerable<TResult> QueryEntitiesNoTrack<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select, bool addcondition = true);
         #endregion
 
         #region 添加

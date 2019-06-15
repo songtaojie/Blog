@@ -167,7 +167,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             string userName = Request["UserName"];
             string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
-            User userInfo = this._userService.GetEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
+            User userInfo = this._userService.QueryEntity(u => (u.UserName == userName || u.Email == userName) && u.PassWord == pwd);
             if (userInfo == null)
             {
                 Session[ConstInfo.VCode] = null;
@@ -264,7 +264,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             if (MemcachedHelper.Get(key) != null)
             {
                 string userName = MemcachedHelper.Get(key).ToString();
-                User userInfo = this._userService.GetEntity(u => u.UserName == userName);
+                User userInfo = this._userService.QueryEntity(u => u.UserName == userName);
                 if (userInfo == null)
                 {
                     result.Success = false;

@@ -19,31 +19,82 @@ namespace HxBlogs.DAL
         {
             get { return DbFactory.GetDbSession().DbContext; }
         }
-        #region 查询出单条数据
-        public virtual T GetEntity(Expression<Func<T, bool>> lambda)
+        #region 查询
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual T QueryEntity(Expression<Func<T, bool>> lambdaWhere)
         {
-            var result = Context.Set<T>().Where(lambda);
+            var result = Context.Set<T>().Where(lambdaWhere);
             return result.FirstOrDefault();
         }
-
-        public virtual T QueryEntityNoTrack(Expression<Func<T, bool>> lambda)
+        /// <summary>
+        /// 获取满足指定条件的一条数据(无跟踪查询)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual T QueryEntityNoTrack(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>()
                 .AsNoTracking()
-                .Where(lambda);
+                .Where(lambdaWhere);
             return result.FirstOrDefault();
         }
-        public T GetEntityByID(object id)
+
+
+        /// <summary>
+        /// 查询出指定字段的集合
+        /// </summary>
+        /// <typeparam name="TResoult"></typeparam>
+        /// <param name="fieldList"></param>
+        /// <returns></returns>
+        public virtual List<TResult> QueryEntities<TResult>(List<string> fieldList,Dictionary<string,IParameter> parameters)
+            where TResult : class
+        {
+            string fields = string.Empty;
+            if (fieldList == null || fieldList.Count == 0)
+            {
+                fields = "*";
+            }
+            else
+            {
+                fields = string.Join(",", fieldList);
+            }
+            string tableName = nameof(T);
+            TableAttribute table = typeof(T).GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
+            if (table != null && !string.IsNullOrEmpty(table.Name))
+            {
+                tableName = table.Name;
+            }
+            string sql = string.Format(@"select {0} from {1}", fields, tableName);
+            List<DbParameter> paramList = new List<DbParameter>();
+            if (parameters != null)
+            {
+                sql += " where 1=1 ";
+                foreach (string key in parameters.Keys)
+                {
+                    paramList.Add(parameters[key].Create("@"+key));
+                    sql += string.Format(" AND {0}=@{0}", key);
+                }
+            }
+            var result = Context.Database.SqlQuery<TResult>(sql, paramList.ToArray());
+            return result.ToList();
+        }
+
+        public T QueryEntityByID(object id)
         {
             return Context.Set<T>().Find(id);
         }
 
-        /// <summary>
-        /// 根据条件获取数据
-        /// </summary>
-        /// <param name="condition">where条件</param>
-        /// <returns></returns>
-        public T GetEntityBySql(string condition)
+       /// <summary>
+       /// 根据条件获取数据
+       /// </summary>
+       /// <param name="condition">where条件</param>
+       /// <returns></returns>
+        public T QueryEntityBySql(string condition)
         {
             if (string.IsNullOrWhiteSpace(condition)) return null;
             string tableName = nameof(T);
@@ -52,47 +103,98 @@ namespace HxBlogs.DAL
             {
                 tableName = table.Name;
             }
-            string sql = string.Format(@"select * from {0} where {1}", tableName, condition);
+            string sql = string.Format(@"select * from {0} where {1}",  tableName, condition);
             return Context.Database.SqlQuery<T>(sql).FirstOrDefault();
         }
-        #endregion
-        #region 查询出数据的集合
-       
-        public virtual IQueryable<T> GetEntities(Expression<Func<T, bool>> lambda)
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<T> QueryEntities(Expression<Func<T, bool>> lambdaWhere)
         {
-            var result = Context.Set<T>().Where(lambda);
+            var result = Context.Set<T>().Where(lambdaWhere);
             return result;
         }
-      
-        public virtual IQueryable<T> GetEntitiesNoTrack(Expression<Func<T, bool>> lambda)
+        /// <summary>
+        /// 获取满足指定条件的一条数据（无跟踪查询）
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<T> QueryEntitiesNoTrack(Expression<Func<T, bool>> lambdaWhere)
         {
             var result = Context.Set<T>()
                 .AsNoTracking()
-                .Where(lambda);
+                .Where(lambdaWhere);
             return result;
         }
-        #endregion
 
-        #region 分页查询
 
-        public IQueryable<T> GetPageEntities<S>(Expression<Func<T, bool>> lambda, Expression<Func<T, S>> orderLambda, int pageIndex, int pageSize, bool isAsc, out int totalCount)
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<TResult> QueryEntities<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
         {
-            var items = Context.Set<T>().Where(lambda);
+            var result = Context.Set<T>().Where(lambdaWhere).Select(select);
+            return result;
+        }
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据,无跟踪查询(查询出来的数据不可以修改，如果你做了修改，你会发现修改并不成功)
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <param name="select">选择数据的条件表达式，可以用来选取指定的数据</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual IEnumerable<TResult> QueryEntitiesNoTrack<TResult>(Expression<Func<T, bool>> lambdaWhere, Expression<Func<T, TResult>> select)
+        {
+            var result = Context.Set<T>().AsNoTracking()
+                .Where(lambdaWhere)
+                .Select(select);
+            return result;
+        }
+
+        /// <summary>
+        /// 获取满足指定条件的一条数据
+        /// </summary>
+        /// <param name="lambdaWhere">获取数据的条件lambda</param>
+        /// <returns>满足当前条件的一个实体</returns>
+        public virtual async Task<List<T>> QueryEntitiesAsync(Expression<Func<T, bool>> lambdaWhere)
+        {
+            var result = await Context.Set<T>().Where(lambdaWhere).ToListAsync();
+            return result;
+        }
+
+        /// <summary>
+        /// 分页形式的数据获取
+        /// </summary>
+        /// <typeparam name="S">在isAsc为false时，指定按什么类型的字段排序</typeparam>
+        /// <param name="pageIndex">当前页码</param>
+        /// <param name="pageSize">每页显示多少条数据</param>
+        /// <param name="totalCount">输出参数，输出总共的条数，为了在页面分页栏显示</param>
+        /// <param name="isAsc">true升序排序，false降序排序，false时需给出排序的lambda表达式</param>
+        /// <param name="orderLambdaWhere">排序的lambda表达式</param>
+        /// <param name="lambdaWhere">获取数据的lambda</param>
+        /// <returns></returns>
+        public IEnumerable<T> QueryPageEntities<S>(int pageIndex, int pageSize, out int totalCount, bool isAsc, Expression<Func<T, S>> orderLambdaWhere, Expression<Func<T, bool>> lambdaWhere)
+        {
+            var items = Context.Set<T>().Where(lambdaWhere);
             if (isAsc)
             {
-                items = items.OrderBy(orderLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+                items = items.OrderBy(orderLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             }
             else
             {
-                items = items.OrderByDescending(orderLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+                items = items.OrderByDescending(orderLambdaWhere).Skip((pageIndex - 1) * pageSize).Take(pageSize);
             }
             totalCount = items.Count();
             return items;
         }
-
-        #endregion
-
         
+        #endregion
 
         #region 添加
         /// <summary>
@@ -160,7 +262,7 @@ namespace HxBlogs.DAL
         /// </summary>
         /// <param name="entity">实体，一个新创建的实体</param>
         /// <param name="fileds">更新字段数组</param>
-        public void UpdateEntityFields(T entity, IList<string> fields)
+        public void UpdateEntityFields(T entity, List<string> fields)
         {
             if (entity != null && fields != null)
             {
@@ -212,9 +314,11 @@ namespace HxBlogs.DAL
         /// <returns></returns>
         public void Delete(Expression<Func<T, bool>> lambdaWhere)
         {
-
-            var list = this.GetEntities(lambdaWhere);
-            Context.Set<T>().RemoveRange(list);
+            var list = this.QueryEntities(lambdaWhere);
+            if (list != null && list.Count() > 0)
+            {
+                Context.Set<T>().RemoveRange(list);
+            }
         }
         #endregion
 

@@ -30,9 +30,7 @@
 <div class="hx-container blog-view">
     <div class="d-flex">
         @{
-            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User, new ViewDataDictionary {
-                {"BlogId",Model.HexId }
-            });
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
         }
         <div id="@container" class="flex-fill flex-column mt-2 ml-2 py-3 px-4 hx-white-container">
             <div class="mt-2 pb-2 border-bottom">
