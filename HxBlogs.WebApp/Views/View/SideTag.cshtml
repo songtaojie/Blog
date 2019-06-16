@@ -1,11 +1,11 @@
-﻿@model System.Linq.IOrderedEnumerable<HxBlogs.Model.BlogTag>
+﻿@model System.Collections.Generic.IEnumerable<HxBlogs.Model.BlogTag>
 @{
     int i = 0;
 }
 <div class="card-header hx-card-header">
     随笔分类
 </div>
-<div class="card-body">
+<div class="card-body hx-card-body">
     <div class="d-flex flex-column justify-content-start">
         @if (Model != null)
         {

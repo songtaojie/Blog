@@ -2,12 +2,13 @@
 @{
     ViewBag.Title = Model.Title;
     string date = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond,
-        container = date+"001",
-        toc = date+"002";
+        container = date + "001",
+        toc = date + "002";
 }
 @section styles{
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/mdpreview")
+    @Styles.Render("~/content/login")
     <style type="text/css">
         .md-sidebar {
             max-width: 350px;
@@ -30,7 +31,10 @@
 <div class="hx-container blog-view">
     <div class="d-flex">
         @{
-            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User,
+                new ViewDataDictionary {
+                    { "BlogId",Model.HexId}
+                });
         }
         <div id="@container" class="flex-fill flex-column mt-2 ml-2 py-3 px-4 hx-white-container">
             <div class="mt-2 pb-2 border-bottom">
@@ -63,6 +67,13 @@
             <div class="markdown-body editormd-preview-container px-0 mb-3" >
             </div>
         </div>
+    </div>
+    <div id="loginForm" hidden>
+        @{ 
+            Html.RenderPartial("~/views/partial/login.cshtml",new ViewDataDictionary {
+                { "IsPop",true}
+            });
+        }
     </div>
 </div>
 @section scripts{
@@ -120,15 +131,12 @@
             });
         });
         function login() {
-            HxCore.ajax('@WebHelper.GetFullUrl("/partial/loginpartial")', {
-                data: {
-                    returnUrl: window.location.href
-                },
-                success(data) {
-                    alertify.genericDialog(data);
-                }
-            });
-
+            $('#loginForm').removeAttr('hidden');
+            alertify.genericDialog($('#loginForm')[0]).
+                set({
+                    selector: 'input[type="password"]',
+                    onclose: function () { alertify.error('Cancel'); }
+                });
         }
     </script>
 }

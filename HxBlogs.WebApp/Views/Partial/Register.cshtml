@@ -1,5 +1,5 @@
 ﻿@model HxBlogs.WebApp.Models.RegisterViewModel
-<div class="hx-register">
+<div class="hx-register" @(ViewBag.IsPop?"hidden":"")>
     @using (Ajax.BeginForm("registeruser", "account", new { },
                         new AjaxOptions()
                         {
@@ -61,11 +61,11 @@
             @Html.ValidationMessageFor(m => m.PwdConfirm)
         </div>
         <div class="form-row mb-4">
-            @if (ViewBag.Pop == true)
+            @if (ViewBag.IsPop == true)
             {
                 <input type="button" class="btn btn-outline-secondary w-50" id="btnBack" value="返回" />
             }
-            <input type="submit" class="btn btn-outline-secondary @(ViewBag.Pop == true?"w-50":"w-100")" id="btnReg" value="注册" />
+            <input type="submit" class="btn btn-outline-secondary @(ViewBag.IsPop == true?"w-50":"w-100")" id="btnReg" value="注册" />
         </div>
     }
 </div>

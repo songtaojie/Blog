@@ -15,6 +15,28 @@
             main: function (content) {
                 this.setContent(content);
             },
+            build(a, b, c) {
+                var width = this.get('width'),
+                    w = parseFloat(width),
+                    maxWidth = this.get('maxWidth'),
+                    mw = parseFloat(maxWidth),
+                    regex = /(\d*\.\d+|\d+)%/,
+                    dialog = this.elements.dialog;
+                if (!isNaN(w)) {
+                    if (('' + width).match(regex)) {
+                        dialog.style.width = width;
+                    } else {
+                        dialog.style.width = w + 'px';
+                    }
+                }
+                if (!isNaN(mw)) {
+                    if (('' + maxWidth).match(regex)) {
+                        dialog.style.maxWidth = maxWidth;
+                    } else {
+                        dialog.style.maxWidth = mw + 'px';
+                    }
+                }
+            },
             setup: function () {
                 return {
                     focus: {
@@ -28,12 +50,14 @@
                         basic: true,
                         maximizable: false,
                         resizable: false,
-                        padding: false
+                        padding: false,
                     }
                 };
             },
             settings: {
-                selector: undefined
+                selector: undefined,
+                width:320,
+                maxWidth:null
             }
         };
     });

@@ -3,10 +3,12 @@ using HxBlogs.IBLL;
 using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using StackExchange.Profiling;
 
 namespace HxBlogs.WebApp.Controllers
 {
@@ -29,32 +31,24 @@ namespace HxBlogs.WebApp.Controllers
             //查询是否存在当前用户
             if (!string.IsNullOrEmpty(username))
                 username = username.Trim();
-            User user = _userService.QueryEntity(u => u.UserName == username);
-            Blog blog = _blogService.QueryEntityByID(Convert.ToInt32(Helper.FromHex(blogId)));
+            User user = _userService.GetEntity(u => u.UserName == username);
+            Blog blog = _blogService.GetEntityByID(Convert.ToInt32(Helper.FromHex(blogId)));
             if (user == null || blog == null || blog.UserId != user.Id) throw new NotFoundException("找不到您访问的页面!");
             ViewBag.User = user;
             if (!string.IsNullOrEmpty(blog.BlogTags))
             {
-                List<BlogTag> tagList = new List<BlogTag>();
-                string[] tags = blog.BlogTags.Split(',');
-                foreach (string tagId in tags)
-                {
-                    BlogTag blogTag = _blogTagService.QueryEntityByID(Convert.ToInt32(tagId));
-                    if (blogTag != null)
-                    {
-                        tagList.Add(blogTag);
-                    }
-                }
+                string tags = blog.BlogTags;
+                List<BlogTag> tagList = _blogTagService.GetEntities(b => tags.Contains(b.Id + "")).ToList();
                 ViewBag.BlogTag = tagList;
             }
             if (blog.IsMarkDown)
             {
-                return View("mdview",blog);
+                return View("mdview", blog);
             }
             return View(blog);
         }
 
-        
+
 
         #region 加载侧边栏
         /// <summary>
@@ -63,21 +57,21 @@ namespace HxBlogs.WebApp.Controllers
         /// <param name="id">当前页面的博客id，侧边栏排除掉</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{username}/side/loadarticle")]
-        public ActionResult LoadSideArticle(string username, string id)
+        [Route("{username}/side/loadarticle/{hexId?}")]
+        public ActionResult LoadSideArticle(string username, string hexId)
         {
             User user = GetUser(username);
             IEnumerable<Blog> blogList = null;
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(hexId))
             {
-                blogList = this._blogService.QueryEntities(b => b.UserId == user.Id)
+                blogList = this._blogService.GetEntities(b => b.UserId == user.Id)
                     .OrderByDescending(b => b.PublishDate)
                     .Take(5);
             }
             else
             {
-                int blogId = Convert.ToInt32(Helper.FromHex(id));
-                blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.Id != blogId)
+                long blogId = Convert.ToInt32(Helper.FromHex(hexId));
+                blogList = this._blogService.GetEntities(b => b.UserId == user.Id && b.Id != blogId)
                     .OrderByDescending(b => b.PublishDate)
                     .Take(5);
             }
@@ -92,20 +86,21 @@ namespace HxBlogs.WebApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{username}/side/loadtag")]
-        public async Task<ActionResult> LoadSideTag(string username)
+        public ActionResult LoadSideTag(string username)
         {
             User user = GetUser(username);
-            var result = await this._blogTagService.QueryEntitiesAsync(t => t.UserId == user.Id);
+            List<BlogTag> result = this._blogTagService.GetEntities(t => t.UserId == user.Id)
+                .OrderBy(t => t.Order)
+                .ToList();
             Dictionary<long, int> tagCountList = new Dictionary<long, int>();
-            var tagList = result.OrderBy(t => t.Order);
-            foreach (BlogTag tag in tagList)
+            foreach (BlogTag tag in result)
             {
                 int count = this._blogService.Count(b => b.UserId == user.Id && b.BlogTags.Contains(tag.Id.ToString()));
                 tagCountList.Add(tag.Id, count);
             }
             ViewBag.TagCountList = tagCountList;
             ViewBag.UserName = username;
-            return PartialView("sidetag", tagList);
+            return PartialView("sidetag", result);
         }
 
         /// <summary>
@@ -117,8 +112,9 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult LoadSideArchive(string username)
         {
             User user = GetUser(username);
-            var archiveList = this._blogService.QueryEntities(b => b.UserId == user.Id)
-                .GroupBy(b => b.CreateTime.ToString("yyyyMM"))
+            IEnumerable<Blog> blogList = this._blogService.GetEntities(b => b.UserId == user.Id);
+
+            var archiveList = blogList.GroupBy(b => b.CreateTime.ToString("yyyyMM"))
                 .Select(g => new { Key = g.Key, Count = g.Count() })
                 .OrderByDescending(b => b.Key);
             Dictionary<string, int> result = new Dictionary<string, int>();
@@ -154,7 +150,7 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult LoadArticle(string username, int year, int month)
         {
             User user = GetUser(username);
-            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month)
+            IEnumerable<Blog> blogList = this._blogService.GetEntities(b => b.UserId == user.Id && b.CreateTime.Year == year && b.CreateTime.Month == month)
                 .OrderByDescending(b => b.PersonTop)
                 .ThenByDescending(b => b.PublishDate);
             ViewBag.User = user;
@@ -168,7 +164,7 @@ namespace HxBlogs.WebApp.Controllers
         {
             int blogId = Convert.ToInt32(Helper.FromHex(id));
             AjaxResult result = new AjaxResult();
-            Blog blog = this._blogService.QueryEntityByID(blogId);
+            Blog blog = this._blogService.GetEntityByID(blogId);
             if (blog == null)
             {
                 result.Success = false;
@@ -196,7 +192,7 @@ namespace HxBlogs.WebApp.Controllers
         {
             int blogId = Convert.ToInt32(Helper.FromHex(id));
             AjaxResult result = new AjaxResult();
-            Blog blog = this._blogService.QueryEntityByID(blogId);
+            Blog blog = this._blogService.GetEntityByID(blogId);
             if (blog == null)
             {
                 result.Success = false;
@@ -216,12 +212,12 @@ namespace HxBlogs.WebApp.Controllers
         /// 随笔分类
         /// </summary>
         [Route("{username}/tag/{hexId}")]
-        public ActionResult EssayTag(string username,string hexId)
+        public ActionResult EssayTag(string username, string hexId)
         {
             User user = GetUser(username);
             int tagId = Convert.ToInt32(Helper.FromHex(hexId));
-            BlogTag tag = _blogTagService.QueryEntity(t => t.Id == tagId && t.UserId == user.Id);
-            ViewBag.TagName = tag==null?"":tag.Name;
+            BlogTag tag = _blogTagService.GetEntity(t => t.Id == tagId && t.UserId == user.Id);
+            ViewBag.TagName = tag == null ? "" : tag.Name;
             ViewBag.User = user;
             ViewBag.TagId = hexId;
             return View();
@@ -233,7 +229,7 @@ namespace HxBlogs.WebApp.Controllers
         {
             User user = GetUser(username);
             string tagId = Helper.FromHex(hexId);
-            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id && b.BlogTags.Contains(tagId))
+            IEnumerable<Blog> blogList = this._blogService.GetEntities(b => b.UserId == user.Id && b.BlogTags.Contains(tagId))
                 .OrderByDescending(b => b.PersonTop)
                 .ThenByDescending(b => b.PublishDate);
             ViewBag.User = user;
@@ -253,7 +249,7 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult LoadArticle(string username)
         {
             User user = GetUser(username);
-            IEnumerable<Blog> blogList = this._blogService.QueryEntities(b => b.UserId == user.Id)
+            IEnumerable<Blog> blogList = this._blogService.GetEntities(b => b.UserId == user.Id)
                 .OrderByDescending(b => b.PersonTop)
                 .ThenByDescending(b => b.PublishDate);
             ViewBag.User = user;
@@ -268,7 +264,7 @@ namespace HxBlogs.WebApp.Controllers
             if (!string.IsNullOrEmpty(username))
             {
                 username = username.Trim();
-                user = _userService.QueryEntity(u => u.UserName == username);
+                user = _userService.GetEntity(u => u.UserName == username);
             }
             if (user == null) throw new NotFoundException("找不到您访问的页面!");
             return user;

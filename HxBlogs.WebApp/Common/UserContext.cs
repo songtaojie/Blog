@@ -81,7 +81,7 @@ namespace HxBlogs.WebApp
                     IBLL.IUserService userService = ContainerManager.Resolve<IBLL.IUserService>();
                     string userName = user[nameof(User.UserName)];
                     string pwd = user[nameof(User.PassWord)];
-                    userInfo = userService.QueryEntity(u => u.UserName == userName && u.PassWord == pwd);
+                    userInfo = userService.GetEntity(u => u.UserName == userName && u.PassWord == pwd);
                     if (userInfo != null)
                     {
                         UserContext.LoginUser = userInfo;
@@ -141,7 +141,7 @@ namespace HxBlogs.WebApp
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static bool IsLoginUser(int userId)
+        public static bool IsLoginUser(long userId)
         {
             User loginUser = LoginUser;
             if (userId<0 || loginUser == null) return false;

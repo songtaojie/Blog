@@ -156,7 +156,9 @@ a {
 .hx-card-header {
     padding: 0.5rem 1rem;
 }
-
+.hx-card-body {
+    padding:0.8rem;
+}
 .hx-card-footer {
     padding: 0.5rem 1rem;
 }
