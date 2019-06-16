@@ -32,7 +32,7 @@ namespace HxBlogs.Test
     public class BlogViewModel
     {
         public string Title { get; set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string ContentHtml { get; set; }
 
         public string UserName { get; set; }

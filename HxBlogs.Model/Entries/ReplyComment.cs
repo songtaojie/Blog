@@ -15,12 +15,12 @@ namespace HxBlogs.Model
         /// <summary>
         /// 回复的评论id
         /// </summary>
-        public int CommentId { get; set; }
+        public long CommentId { get; set; }
 
         /// <summary>
         /// 回复给用户
         /// </summary>      
-        public int ReplyToUserId { get; set; }
+        public long ReplyToUserId { get; set; }
 
         /// <summary>
         /// 回复给用户的名字（为了兼容迁移博客）

@@ -117,11 +117,11 @@ namespace HxBlogs.Model
         /// <summary>
         /// 博客类型，是转发，原创，还是翻译等
         /// </summary>
-        public int TypeId { get; set; }
+        public long TypeId { get; set; }
         /// <summary>
         /// 系统分类，前端、后端、编程语言等
         /// </summary>
-        public int CatId { get; set; }
+        public long CatId { get; set; }
         /// <summary>
         /// 博客的个人标签，对应的是BlogTag表中主键，以，号隔开
         /// </summary>
@@ -141,19 +141,19 @@ namespace HxBlogs.Model
         /// <summary>
         /// 阅读量
         /// </summary>
-        public int? ReadCount { get; set; } = 0;
+        public long ReadCount { get; set; }
         /// <summary>
         /// 博客被推荐的次数
         /// </summary>
-        public int? LikeCount { get; set; } = 0;
+        public long LikeCount { get; set; }
         /// <summary>
         /// 被收藏次数
         /// </summary>
-        public int? FavCount { get; set; } = 0;
+        public long FavCount { get; set; }
         /// <summary>
         /// 被评论次数
         /// </summary>
-        public int? CmtCount { get; set; } = 0;
+        public long CmtCount { get; set; }
         /// <summary>
         /// 个人置顶 标识该文档是否置顶,置顶的文章在个人主页中排序靠前
         /// </summary>
@@ -189,7 +189,7 @@ namespace HxBlogs.Model
         /// </summary>
         [Column]
         [DecimalPrecision]
-        public decimal? OrderFactor { get; set; }
+        public decimal OrderFactor { get; set; }
 
         /// <summary>
         /// 用户

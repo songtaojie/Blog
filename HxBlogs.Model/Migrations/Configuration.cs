@@ -16,7 +16,6 @@
 
         protected override void Seed(HxBlogs.Model.Context.BlogContext context)
         {
-            //This method will be called after migrating to the latest version.
             //context.Set<User>().Add(new User()
             //{
             //    UserName = "Admin",
@@ -25,7 +24,7 @@
             //    RealName = "管理员",
             //    Email = "stjworkemail@163.com",
             //    Admin = "Y",
-            //    UseMdEdit="Y",
+            //    UseMdEdit = "Y",
             //    RegisterTime = DateTime.Now
             //});
             //context.Set<Category>().AddRange(new Category[] {

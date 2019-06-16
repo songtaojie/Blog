@@ -41,7 +41,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 评论的博客
         /// </summary>
-        public int BlogId { get; set; }
+        public long BlogId { get; set; }
 
         /// <summary>
         /// 博客

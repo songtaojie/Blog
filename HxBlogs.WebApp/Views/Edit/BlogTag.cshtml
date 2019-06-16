@@ -1,7 +1,7 @@
 ﻿@model HxBlogs.WebApp.Models.EditViewModel
 @{ 
-    Dictionary<int, string> tags = new Dictionary<int, string>();
-    Dictionary<int, string> inputtags = new Dictionary<int, string>();
+    Dictionary<long, string> tags = new Dictionary<long, string>();
+    Dictionary<long, string> inputtags = new Dictionary<long, string>();
 }
 <div class="form-row mb-2" hidden>
     <div class="col-sm-12" id="person-tags">
@@ -9,7 +9,7 @@
 
         @if (ViewBag.PersonTags != null)
         {
-            foreach (KeyValuePair<int,string> item in ViewBag.PersonTags)
+            foreach (KeyValuePair<long,string> item in ViewBag.PersonTags)
             {
 
                 tags.Add(item.Key, Guid.NewGuid().ToString());

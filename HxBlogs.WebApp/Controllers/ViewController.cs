@@ -96,7 +96,7 @@ namespace HxBlogs.WebApp.Controllers
         {
             User user = GetUser(username);
             var result = await this._blogTagService.QueryEntitiesAsync(t => t.UserId == user.Id);
-            Dictionary<int, int> tagCountList = new Dictionary<int, int>();
+            Dictionary<long, int> tagCountList = new Dictionary<long, int>();
             var tagList = result.OrderBy(t => t.Order);
             foreach (BlogTag tag in tagList)
             {

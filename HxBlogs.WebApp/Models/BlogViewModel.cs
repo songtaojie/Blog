@@ -10,7 +10,7 @@ namespace HxBlogs.WebApp.Models
     public class BlogViewModel
     {
         public string Title { get; set; }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string HexId
         {
             get
@@ -19,11 +19,11 @@ namespace HxBlogs.WebApp.Models
             }
         }
         public string ContentHtml { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public User User { get; set; }
         public string UserName { get; set; }
         public DateTime? PublishDate { get; set; }
-        public int? ReadCount { get; set; }
-        public int? CmtCount { get; set; }
+        public long ReadCount { get; set; }
+        public long CmtCount { get; set; }
     }
 }

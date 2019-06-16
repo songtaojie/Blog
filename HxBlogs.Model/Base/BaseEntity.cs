@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.Model
 {
-    public abstract class BaseEntity : BaseModel, IEntity<int>
+    public abstract class BaseEntity : BaseModel, IEntity<long>
     {
         [Key]
-        public virtual int Id { get; set; }
+        public virtual long Id { get; set; }
 
         [NotMapped]
         public virtual string HexId
@@ -28,7 +28,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 这条记录属于哪个用户
         /// </summary>
-        public virtual int UserId { get; set; }
+        public virtual long UserId { get; set; }
         /// <summary>
         /// 用户的登录名称
         /// </summary>
@@ -58,7 +58,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 删除人
         /// </summary>
-        public virtual int? DeleteId { get; set; }
+        public virtual long? DeleteId { get; set; }
 
         /// <summary>
         /// 删除时间

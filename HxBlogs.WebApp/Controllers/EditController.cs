@@ -81,7 +81,7 @@ namespace HxBlogs.WebApp.Controllers
                 vm.HexId = hexId;
                 if (!string.IsNullOrEmpty(blog.BlogTags))
                 {
-                    Dictionary<int, string> tagDic = new Dictionary<int, string>();
+                    Dictionary<long, string> tagDic = new Dictionary<long, string>();
                     string[] tagArr = blog.BlogTags.Split(',');
                     foreach (string tagId in tagArr)
                     {

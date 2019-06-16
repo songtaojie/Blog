@@ -11,12 +11,12 @@ namespace HxBlogs.Model
 {
     [Table("User")]
     [Serializable]
-    public class User:BaseModel,IEntity<int>
+    public class User:BaseModel,IEntity<long>
     {
 
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
-        public int Id { get; set; }
+        public long Id { get; set; }
         [NotMapped]
         public virtual string HexId
         {
@@ -56,7 +56,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 身份证号
         /// </summary>
-        [StringLength(20)]
+        [StringLength(40)]
         public string CardId
         {
             set; get;
@@ -81,7 +81,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 用户的QQ
         /// </summary>
-        [StringLength(20)]
+        [StringLength(40)]
         public string QQ
         {
             get; set;
@@ -89,7 +89,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 用户微信号
         /// </summary>
-        [StringLength(20)]
+        [StringLength(40)]
         public string WeChat
         {
             get;set;
@@ -97,7 +97,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 邮箱
         /// </summary>
-        [StringLength(80)]
+        [StringLength(100)]
         [Required]
         [EmailAddress(ErrorMessage = "邮箱格式不正确")]
         [Display(Name = "邮箱")]
@@ -108,7 +108,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 电话
         /// </summary>
-        [StringLength(20)]
+        [StringLength(40)]
         public string Telephone
         {
             set; get;
@@ -116,7 +116,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 手机号码
         /// </summary>
-        [StringLength(20)]
+        [StringLength(40)]
         public string Mobile
         {
             get; set;
@@ -190,7 +190,7 @@ namespace HxBlogs.Model
         /// 用户注册时间
         /// </summary>
         [DataType(DataType.DateTime)]
-        public virtual DateTime? RegisterTime { get; set; } = DateTime.Now;
+        public DateTime RegisterTime { get; set; } = DateTime.Now;
         /// <summary>
         /// 用户注册时的ip
         /// </summary>
@@ -221,7 +221,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 用户地址
         /// </summary>
-        [StringLength(100)]
+        [StringLength(200)]
         public string Address
         {
             get;set;
@@ -229,7 +229,7 @@ namespace HxBlogs.Model
         /// <summary>
         /// 用户毕业学校
         /// </summary>
-        [StringLength(100)]
+        [StringLength(200)]
         public string School
         {
             get;set;
@@ -248,5 +248,11 @@ namespace HxBlogs.Model
         [StringLength(1)]
         [Column(TypeName = "char")]
         public string UseMdEdit { get; set; } = "N";
+        /// <summary>
+        /// 登录的ip
+        /// </summary>
+        [StringLength(100)]
+        public string LoginIp { get; set; }
+
     }
 }

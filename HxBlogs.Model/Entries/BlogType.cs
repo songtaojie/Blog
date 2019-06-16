@@ -27,6 +27,6 @@ namespace HxBlogs.Model
         /// <summary>
         /// 备注
         /// </summary>
-        public string Remark { get; set; }
+        public string Description { get; set; }
     }
 }
