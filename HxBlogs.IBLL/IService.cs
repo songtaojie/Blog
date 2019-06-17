@@ -1,6 +1,9 @@
 ﻿using HxBlogs.Model;
 namespace HxBlogs.IBLL
 {
+	public partial interface IAttentionService:IBaseService<Attention>
+	{
+	}
 	public partial interface IBlogService:IBaseService<Blog>
 	{
 	}

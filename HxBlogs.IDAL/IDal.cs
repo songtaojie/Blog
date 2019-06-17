@@ -1,6 +1,10 @@
 ﻿using HxBlogs.Model;
 namespace HxBlogs.IDAL
 {
+	public partial interface IAttentionDal:IBaseDal<Attention>
+	{
+
+	}
 	public partial interface IBlogDal:IBaseDal<Blog>
 	{
 

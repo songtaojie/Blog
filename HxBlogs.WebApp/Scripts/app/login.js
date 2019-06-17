@@ -9,7 +9,6 @@ var HxAccount = function () {
         },
         afterLogin: function (data, textStatus, jqXHR) {
             HxCore.ajaxSuccess(jqXHR, function (d) {
-                debugger
                 window.location.href = d && decodeURIComponent(d) || "/";
                 if (HxCore.unblockUI)
                 HxCore.unblockUI();

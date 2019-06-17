@@ -2,6 +2,9 @@
 using HxBlogs.IDAL;
 namespace HxBlogs.DAL
 {
+	public partial class AttentionDal:BaseDal<Attention>,IAttentionDal
+	{
+	}
 	public partial class BlogDal:BaseDal<Blog>,IBlogDal
 	{
 	}

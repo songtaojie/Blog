@@ -231,7 +231,7 @@
             if (result) {
                 if (result.hasOwnProperty('Success')) {
                     succeed = result.Success;
-                    if (result.hasOwnProperty('Resultdata') && result.Resultdata) {
+                    if (result.hasOwnProperty('Resultdata')) {
                         data = result.Resultdata;
                     }
                 }
@@ -251,13 +251,12 @@
                     }
                 }
                 if (hxCore.isFunction(success)) {
-                    success.call(this, data);
+                    success.call(this, data,result);
                 }
             } else {
-                const msg = result.Message || '',
-                    errcode = result.Code;
+                const msg = result.Message || '';
                 if (hxCore.isFunction(failure)) {
-                    failure.call(this, msg, errcode);
+                    failure.call(this, msg, result);
                 } else if (!hxCore.isEmpty(msg)) {
                     if (window.alertify) {
                         alertify.alert(msg);

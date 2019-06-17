@@ -257,6 +257,39 @@ namespace HxBlogs.WebApp.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// 关注
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Attention(string userId)
+        {
+            User logUser = UserContext.LoginUser;
+            AjaxResult result = new AjaxResult();
+            if (logUser != null)
+            {
+                long id = Convert.ToInt64(Helper.FromHex(userId));
+                if (logUser.Id == id)
+                {
+                    result.Resultdata = false;
+                }
+                else
+                {
+                    IAttentionService _attService = Hx.Framework.ContainerManager.Resolve<IAttentionService>();
+                    Attention attention = new Model.Attention()
+                    {
+                        UserId = logUser.Id,
+                        AttentionId = id
+                    };
+                    _attService.Insert(attention);
+                    result.Resultdata = true;
+                }
+            } else
+            {
+                result.Success = false;
+            }
+            return Json(result);
+        }
         public User GetUser(string username)
         {
             //查询是否存在当前用户

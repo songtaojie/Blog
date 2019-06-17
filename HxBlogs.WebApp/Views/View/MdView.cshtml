@@ -3,7 +3,8 @@
     ViewBag.Title = Model.Title;
     string date = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond,
         container = date + "001",
-        toc = date + "002";
+        toc = date + "002",
+        attention = date + "003";
 }
 @section styles{
     @Styles.Render("~/content/default")
@@ -37,7 +38,8 @@
         @{
             Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User,
                 new ViewDataDictionary {
-                    { "BlogId",Model.HexId}
+                    { "BlogId",Model.HexId},
+                    {"Attention", attention}
                 });
         }
         <div id="@container" class="flex-fill flex-column mt-2 ml-2 py-3 px-4 hx-white-container">
@@ -144,12 +146,29 @@
                 }
             });
             HxAccount.init();
+            $('#@attention').click(function () {
+                HxCore.ajax('/article/attention', {
+                    data:{
+                        userId:'@(Hx.Common.Helper.Helper.ToHex(Model.UserId))'
+                    },
+                    success(data) {
+                        if (data) {
+                            alertify.success('关注成功');
+                        } else {
+                            alertify.error('不能管住自己');
+                        }
+                    },
+                    failure() {
+                        login();
+                    }
+                });
+            });
         });
         function login() {
             $('#login').removeAttr('hidden');
             alertify.genericDialog($('#login')[0]).
                 set({
-                    selector: 'input[type="password"]',
+                    selector: 'input[name="UserName"]',
                     onclose: function () { alertify.error('Cancel'); }
                 });
         }

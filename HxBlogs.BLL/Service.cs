@@ -3,6 +3,15 @@ using HxBlogs.Model;
 using HxBlogs.IDAL;
 namespace HxBlogs.BLL
 {
+	public partial class AttentionService:BaseService<Attention>,IAttentionService
+	{
+		private IAttentionDal _dal;
+		public AttentionService(IAttentionDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
 	public partial class BlogService:BaseService<Blog>,IBlogService
 	{
 		private IBlogDal _dal;
