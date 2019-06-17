@@ -2,20 +2,25 @@
 var HxAccount = function () {
     return {
         beforeLogin: function (a, b) {
+            if (HxCore.blockUI)
             HxCore.blockUI({ label: '登陆中...' });
         },
         finishLogin: function (op, success, r) {
         },
         afterLogin: function (data, textStatus, jqXHR) {
             HxCore.ajaxSuccess(jqXHR, function (d) {
+                debugger
                 window.location.href = d && decodeURIComponent(d) || "/";
+                if (HxCore.unblockUI)
                 HxCore.unblockUI();
             }, function () {
                 $('#img').attr('src', $('#img').attr('src') + 1);
+                if (HxCore.unblockUI)
                 HxCore.unblockUI();
             });
         },
         doFailure(data, err) {
+            if (HxCore.unblockUI)
             HxCore.unblockUI();
             HxCore.ajaxError(data);
         },
@@ -30,7 +35,7 @@ var HxAccount = function () {
                     ValidateCode: {
                         required: true,
                         remote: {
-                            url: 'admin/account/checkcode',
+                            url: '/admin/account/checkcode',
                             type: 'post',
                             data: {
                                 code: function () {
@@ -71,6 +76,14 @@ var HxAccount = function () {
                     }
                 });
             }
+            $('#btn2register').click(function () {
+                $('.hx-login').attr('hidden', '');
+                $('.hx-register').removeAttr('hidden');
+            });
+            $('#btnBack').click(function () {
+                $('.hx-login').removeAttr('hidden');
+                $('.hx-register').attr('hidden', '');
+            });
         },
         //如果按钮时禁用状态，禁止提交
         beforeRegister: function () {

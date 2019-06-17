@@ -41,7 +41,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                int blogId = Convert.ToInt32(Helper.FromHex(hexId));
+                long blogId = Convert.ToInt64(Helper.FromHex(hexId));
                 Blog blog = this._blogService.GetEntityBySql("id="+ blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 string view = "richedit";
@@ -73,7 +73,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                int blogId = Convert.ToInt32(Helper.FromHex(hexId));
+                long blogId = Convert.ToInt64(Helper.FromHex(hexId));
                 Blog blog = this._blogService.GetEntityByID(blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
                 vm = MapperManager.Map<EditViewModel>(blog);
@@ -120,7 +120,7 @@ namespace HxBlogs.WebApp.Controllers
                     if (!string.IsNullOrEmpty(editInfo.HexId))
                     {
                         isEdit = true;
-                        blogInfo.Id = Convert.ToInt32(Helper.FromHex(editInfo.HexId));
+                        blogInfo.Id = Convert.ToInt64(Helper.FromHex(editInfo.HexId));
                     }
                     DbContextManager dbContext = new DbContextManager();
                     string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);

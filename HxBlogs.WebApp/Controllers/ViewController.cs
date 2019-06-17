@@ -32,7 +32,7 @@ namespace HxBlogs.WebApp.Controllers
             if (!string.IsNullOrEmpty(username))
                 username = username.Trim();
             User user = _userService.GetEntity(u => u.UserName == username);
-            Blog blog = _blogService.GetEntityByID(Convert.ToInt32(Helper.FromHex(blogId)));
+            Blog blog = _blogService.GetEntityByID(Convert.ToInt64(Helper.FromHex(blogId)));
             if (user == null || blog == null || blog.UserId != user.Id) throw new NotFoundException("找不到您访问的页面!");
             ViewBag.User = user;
             if (!string.IsNullOrEmpty(blog.BlogTags))
@@ -70,7 +70,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             else
             {
-                long blogId = Convert.ToInt32(Helper.FromHex(hexId));
+                long blogId = Convert.ToInt64(Helper.FromHex(hexId));
                 blogList = this._blogService.GetEntities(b => b.UserId == user.Id && b.Id != blogId)
                     .OrderByDescending(b => b.PublishDate)
                     .Take(5);
@@ -162,7 +162,7 @@ namespace HxBlogs.WebApp.Controllers
         [HttpPost]
         public ActionResult TopBlog(string id)
         {
-            int blogId = Convert.ToInt32(Helper.FromHex(id));
+            long blogId = Convert.ToInt64(Helper.FromHex(id));
             AjaxResult result = new AjaxResult();
             Blog blog = this._blogService.GetEntityByID(blogId);
             if (blog == null)
@@ -190,7 +190,7 @@ namespace HxBlogs.WebApp.Controllers
         [HttpPost]
         public ActionResult DeleteBlog(string id)
         {
-            int blogId = Convert.ToInt32(Helper.FromHex(id));
+            long blogId = Convert.ToInt64(Helper.FromHex(id));
             AjaxResult result = new AjaxResult();
             Blog blog = this._blogService.GetEntityByID(blogId);
             if (blog == null)
@@ -215,7 +215,7 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult EssayTag(string username, string hexId)
         {
             User user = GetUser(username);
-            int tagId = Convert.ToInt32(Helper.FromHex(hexId));
+            long tagId = Convert.ToInt64(Helper.FromHex(hexId));
             BlogTag tag = _blogTagService.GetEntity(t => t.Id == tagId && t.UserId == user.Id);
             ViewBag.TagName = tag == null ? "" : tag.Name;
             ViewBag.User = user;

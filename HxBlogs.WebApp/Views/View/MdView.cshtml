@@ -10,22 +10,26 @@
     @Styles.Render("~/content/mdpreview")
     @Styles.Render("~/content/login")
     <style type="text/css">
+
         .md-sidebar {
             max-width: 350px;
             height: 100%;
             overflow: hidden;
         }
+
         .md-sidebar-fixed {
             position: fixed;
             z-index: 100;
             right: 1rem;
         }
+
         .md-sidebar:hover {
             overflow: auto;
         }
-            .md-sidebar h1 {
-                font-size: 16px;
-            }
+
+        .md-sidebar h1 {
+            font-size: 16px;
+        }
     </style>
 }
 <div class="hx-container blog-view">
@@ -64,20 +68,30 @@
             </div>
         </div>
         <div id="@toc" class="md-sidebar mt-2 border-left pl-0 " data-fixed="false" data-width="0">
-            <div class="markdown-body editormd-preview-container px-0 mb-3" >
+            <div class="markdown-body editormd-preview-container px-0 mb-3">
             </div>
         </div>
     </div>
-    <div id="loginForm" hidden>
-        @{ 
-            Html.RenderPartial("~/views/partial/login.cshtml",new ViewDataDictionary {
-                { "IsPop",true}
+    <div id="login" hidden>
+        @{
+            Html.RenderPartial("~/views/partial/login.cshtml", new ViewDataDictionary {
+                { "IsPop",true},
+                { "ReturnUrl",Request.Url.LocalPath}
+            });
+        }
+        @{
+            Html.RenderPartial("~/views/partial/register.cshtml", new ViewDataDictionary {
+                { "IsPop",true},
+                { "ReturnUrl",Request.Url.LocalPath}
             });
         }
     </div>
 </div>
 @section scripts{
     @Scripts.Render("~/bundles/mdpreview")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/app/login.js"></script>
     <script>
         var _HxMdView;
         $(function () {
@@ -129,10 +143,11 @@
                     $('#@container').css('margin-right','');
                 }
             });
+            HxAccount.init();
         });
         function login() {
-            $('#loginForm').removeAttr('hidden');
-            alertify.genericDialog($('#loginForm')[0]).
+            $('#login').removeAttr('hidden');
+            alertify.genericDialog($('#login')[0]).
                 set({
                     selector: 'input[type="password"]',
                     onclose: function () { alertify.error('Cancel'); }
