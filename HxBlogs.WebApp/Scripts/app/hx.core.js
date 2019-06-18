@@ -14,8 +14,9 @@
         return {
             main: function (content) {
                 this.setContent(content);
+                this.setBack(this.get('back'));
             },
-            build(a, b, c) {
+            build() {
                 var width = this.get('width'),
                     w = parseFloat(width),
                     maxWidth = this.get('maxWidth'),
@@ -36,7 +37,9 @@
                         dialog.style.maxWidth = mw + 'px';
                     }
                 }
+               
             },
+            
             setup: function () {
                 return {
                     focus: {
@@ -46,8 +49,6 @@
                         select: true
                     },
                     options: {
-                        title:'系统提示',
-                        basic: true,
                         maximizable: false,
                         resizable: false,
                         padding: false,
@@ -55,10 +56,35 @@
                 };
             },
             settings: {
+                back: false,
+                backClick:null,
                 selector: undefined,
                 width:320,
                 maxWidth:null
-            }
+            },
+            setBack: function (back) {
+                if (back === true) {
+                    var $back = $('<span class="i-hx-back" '
+                        + 'style="vertical-align:middle;">'
+                        + '</span> ');
+                    var click = this.get('backClick');
+                    this.setHeader($back[0]);
+                    debugger
+                    if (typeof click === 'function') {
+                        $(this.elements.header).on('click', '.i-hx-back', click);
+                        //$back.on('click', click);
+                    }
+                } else {
+                    this.setHeader(this.get('title'));
+                }
+            },
+            settingUpdated: function (key, oldValue, newValue) {
+                switch (key) {
+                    case 'back':
+                        this.setBack(newValue);
+                        break;
+                }
+            },
         };
     });
 }

@@ -93,9 +93,10 @@
     @Scripts.Render("~/bundles/mdpreview")
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/app/login.js"></script>
+    <script src="~/scripts/app/login.js"></script>
     <script>
-        var _HxMdView;
+        var _HxMdView,
+            _HxLogin;
         $(function () {
             $(".partial-content").each(function (index, item) {
                 var url = $(item).data("url");
@@ -146,6 +147,11 @@
                 }
             });
             HxAccount.init();
+            HxAccount.registerShow = function () {
+                if (_HxLogin) {
+                    _HxLogin.set('back',true);
+                }
+            }
             $('#@attention').click(function () {
                 HxCore.ajax('/article/attention', {
                     data:{
@@ -159,17 +165,24 @@
                         }
                     },
                     failure() {
-                        login();
+                        showLogin();
                     }
                 });
             });
         });
-        function login() {
-            $('#login').removeAttr('hidden');
-            alertify.genericDialog($('#login')[0]).
+        function showLogin() {
+            _HxLogin = alertify.genericDialog($('#login').removeAttr('hidden')[0]).
                 set({
+                    title: '&nbsp;',
+                    backClick: function () {
+                        debugger
+                        _HxLogin.set('back', false);
+                        HxAccount.switchShow(true);
+                    },
                     selector: 'input[name="UserName"]',
-                    onclose: function () { alertify.error('Cancel'); }
+                    onclose: function () {
+                        HxAccount.switchShow(true);
+                    }
                 });
         }
     </script>

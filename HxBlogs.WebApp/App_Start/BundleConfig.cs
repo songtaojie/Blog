@@ -45,7 +45,8 @@ namespace HxBlogs.WebApp
                        "~/scripts/bootstrap.js"));
             bundles.Add(new StyleBundle("~/content/boot").Include(
                "~/content/bootstrap.css",
-               "~/font/font-awesome.css"
+               "~/font/font-awesome.css",
+               "~/font/hx-font.css"
               ));
         }
         /// <summary>

@@ -1,9 +1,24 @@
 ﻿"use strict";
 var HxAccount = function () {
+    /**
+    * 是否显示登录页
+    * @param {boolean} showLogin true显示登录页，隐藏注册账号页
+    */
+    var switchShow = function (showLogin) {
+        if (showLogin) {
+            $('.hx-login').removeAttr('hidden');
+            $('.hx-register').attr('hidden', '');
+        } else {
+            $('.hx-login').attr('hidden', '');
+            $('.hx-register').removeAttr('hidden');
+        }
+    };
     return {
+        switchShow,
+        registerShow:null,
         beforeLogin: function (a, b) {
             if (HxCore.blockUI)
-            HxCore.blockUI({ label: '登陆中...' });
+                HxCore.blockUI({ label: '登陆中...' });
         },
         finishLogin: function (op, success, r) {
         },
@@ -11,16 +26,16 @@ var HxAccount = function () {
             HxCore.ajaxSuccess(jqXHR, function (d) {
                 window.location.href = d && decodeURIComponent(d) || "/";
                 if (HxCore.unblockUI)
-                HxCore.unblockUI();
+                    HxCore.unblockUI();
             }, function () {
                 $('#img').attr('src', $('#img').attr('src') + 1);
                 if (HxCore.unblockUI)
-                HxCore.unblockUI();
+                    HxCore.unblockUI();
             });
         },
         doFailure(data, err) {
             if (HxCore.unblockUI)
-            HxCore.unblockUI();
+                HxCore.unblockUI();
             HxCore.ajaxError(data);
         },
         init: function (keypress) {
@@ -76,12 +91,13 @@ var HxAccount = function () {
                 });
             }
             $('#btn2register').click(function () {
-                $('.hx-login').attr('hidden', '');
-                $('.hx-register').removeAttr('hidden');
+                switchShow();
+                if (HxCore.isFunction(HxAccount.registerShow)) {
+                    HxAccount.registerShow();
+                }
             });
             $('#btnBack').click(function () {
-                $('.hx-login').removeAttr('hidden');
-                $('.hx-register').attr('hidden', '');
+                switchShow(true);
             });
         },
         //如果按钮时禁用状态，禁止提交
@@ -103,6 +119,6 @@ var HxAccount = function () {
             if (btnReg.hasClass('disabled')) {
                 btnReg.removeClass('disabled');
             }
-        }
+        },
     };
 }();
