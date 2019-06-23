@@ -23,18 +23,31 @@ namespace HxBlogs.WebApp
 
             #region 样式文件
             
-            bundles.Add(new StyleBundle("~/content/login").Include(
-             "~/content/app/css/hx-login.css"
-             ));
+            
             bundles.Add(new StyleBundle("~/content/default").Include(
-              "~/content/app/css/blog-default.css"
+              "~/content/app/blog-default.css"
               ));
 
             #endregion
             RegisterSite(bundles);
             RegisterBoot(bundles);
             RegisterEditor(bundles);
+            RegisterLogin(bundles);
         }
+
+        #region 登录注册
+        private static void RegisterLogin(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                       "~/scripts/app/login.js"));
+            bundles.Add(new ScriptBundle("~/bundles/poplogin").Include(
+                       "~/scripts/app/login.js",
+                       "~/scripts/app/pop.login.js"));
+            bundles.Add(new StyleBundle("~/content/login").Include(
+             "~/content/app/hx-login.css"
+             ));
+        }
+        #endregion
         /// <summary>
         /// 注册bootstrap
         /// </summary>
@@ -63,12 +76,12 @@ namespace HxBlogs.WebApp
                       "~/plugins/blockui/jquery.blockUI.js"));
 
             bundles.Add(new StyleBundle("~/content/load").Include(
-             "~/content/app/css/hx-loading.css"
+             "~/content/app/hx-loading.css"
              ));
             bundles.Add(new StyleBundle("~/content/site").Include(
               "~/plugins/alertifyjs/css/alertify.css",
               "~/plugins/alertifyjs/css/themes/default.css",
-             "~/content/app/css/hx-site.css"
+             "~/content/app/hx-site.css"
              ));
         }
         /// <summary>
@@ -83,7 +96,7 @@ namespace HxBlogs.WebApp
              "~/scripts/app/hx-editor.js"));
             bundles.Add(new ScriptBundle("~/bundles/mdpreview").Include(
                     "~/plugins/editormd/lib/marked.min.js",
-                    "~/Plugins/editormd/lib/prettify.min.js",
+                    "~/plugins/editormd/lib/prettify.min.js",
                     "~/plugins/editormd/lib/raphael.min.js",
                     "~/plugins/editormd/lib/underscore.min.js",
                     "~/plugins/editormd/lib/sequence-diagram.min.js",

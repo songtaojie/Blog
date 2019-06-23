@@ -1,7 +1,7 @@
 ﻿@model HxBlogs.Model.Blog
 @{
     ViewBag.Title = Model.Title;
-    string date = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond,
+    string date = Hx.Common.Helper.Helper.GetTimestamp().ToString(),
         container = date + "001",
         toc = date + "002",
         attention = date + "003";
@@ -49,7 +49,7 @@
                 </div>
                 <div class="d-flex flex-wrap align-content-start hx-light-content">
                     <span class="hx-text">@(UserContext.GetDisplayName(Model.User)) 发布于</span>
-                    <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate, "yyyy-MM-dd")</span>
+                    <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate)</span>
                     <span class="hx-text mr-2">阅读数:@Model.ReadCount</span>
                     <span class="hx-text mr-2">收藏:@Model.FavCount</span>
                     <span class="hx-text mr-2">点赞:@Model.LikeCount</span>
@@ -93,7 +93,7 @@
     @Scripts.Render("~/bundles/mdpreview")
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/scripts/app/login.js"></script>
+    @Scripts.Render("~/bundles/poplogin")
     <script>
         var _HxMdView,
             _HxLogin;
@@ -105,7 +105,7 @@
                         if (status == 'success') {
                             $(this).removeAttr('hidden');
                         } else {
-                            HxCore.ajaxError(xhr);
+                            hxCore.ajaxError(xhr);
                             $(this).attr('hidden','');
                         }
                     });
@@ -136,7 +136,7 @@
                             .addClass('md-sidebar-fixed')
                             .data('fixed', true)
                             .width(w);
-                        $('#@container').css('margin-right',w+'px');
+                        $('#@container').css('margin-right',w + 1+'px');
                     }
                 } else {
                     toc.data('fixed', false)
@@ -146,14 +146,9 @@
                     $('#@container').css('margin-right','');
                 }
             });
-            HxAccount.init();
-            HxAccount.registerShow = function () {
-                if (_HxLogin) {
-                    _HxLogin.set('back',true);
-                }
-            }
+            
             $('#@attention').click(function () {
-                HxCore.ajax('/article/attention', {
+                hxCore.ajax('/article/attention', {
                     data:{
                         userId:'@(Hx.Common.Helper.Helper.ToHex(Model.UserId))'
                     },
@@ -165,25 +160,10 @@
                         }
                     },
                     failure() {
-                        showLogin();
+                        hxAccount.showLogin();
                     }
                 });
             });
         });
-        function showLogin() {
-            _HxLogin = alertify.genericDialog($('#login').removeAttr('hidden')[0]).
-                set({
-                    title: '&nbsp;',
-                    backClick: function () {
-                        debugger
-                        _HxLogin.set('back', false);
-                        HxAccount.switchShow(true);
-                    },
-                    selector: 'input[name="UserName"]',
-                    onclose: function () {
-                        HxAccount.switchShow(true);
-                    }
-                });
-        }
     </script>
 }

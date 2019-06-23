@@ -2,7 +2,7 @@
     editormd("editor", {
         //width: "90%",
         height: 740,
-        path: '/Plugins/editormd/lib/',
+        path: '/plugins/editormd/lib/',
         //theme: "default",
         //previewTheme: "default",
         placeholder: '开始编写博客!',

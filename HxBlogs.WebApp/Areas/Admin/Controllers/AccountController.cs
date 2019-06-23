@@ -38,9 +38,8 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         // GET: Admin/Account
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            string returnUrl = Request[ConstInfo.returnUrl];
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 ViewBag.ReturnUrl = returnUrl;

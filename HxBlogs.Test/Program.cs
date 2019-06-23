@@ -79,11 +79,10 @@ namespace HxBlogs.Test
             //Blog b = DbFactory.GetDbContext().Set<Blog>().Find(4);
             //string html = b.ContentHtml;
             //string phtml = FilterHtmlP(html);
-            DbContextTest.QuereyTest();
-            Console.WriteLine("sss");
+            //DbContextTest.QuereyTest();
             Console.ReadLine();
         }
-
+        
         static string FilterHtmlP(string html)
         {
             Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);

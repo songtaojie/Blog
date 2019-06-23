@@ -1,19 +1,19 @@
-﻿<div class="hx-login">
+﻿<div class="hx-login" >
     @using (Ajax.BeginForm("dologin", "account", new { },
             new AjaxOptions()
             {
-                OnBegin = "HxAccount.beforeLogin",
+                OnBegin = "hxAccount.login.begin",
                 HttpMethod = "post",
-                OnSuccess = "HxAccount.afterLogin",
-                OnComplete = "HxAccount.finishLogin",
-                OnFailure = "HxAccount.doFailure"
+                OnSuccess = "hxAccount.login.success",
+                OnComplete = "hxAccount.login.finish",
+                OnFailure = "hxAccount.login.failure"
             }, new
             {
-                @class = "form-vertical login-form",
-                role = "form",
-                id = "loginForm"
+                @class = "form-vertical",
+                role = "form"
             }))
     {
+        
         <h3 class="mb-3 text-center">用户登录</h3>
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
         <div class="form-row  mb-3">
@@ -23,7 +23,7 @@
                         <i class="fa fa-user hx-fa-same"></i>
                     </div>
                 </div>
-                <input class="form-control" type="text" placeholder="用户名/邮箱" name="UserName" />
+                <input class="form-control" type="text" placeholder="用户名/邮箱" name="UserName"/>
             </div>
         </div>
         <div class="form-row  mb-3">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="col">
-                <button type="submit" class="btn btn-success pull-right" id="btnLogin">
+                <button type="submit" class="btn btn-success pull-right">
                     登录 <i class="fa fa-arrow-circle-o-right "></i>
                 </button>
             </div>
@@ -81,7 +81,7 @@
                 }
                 else
                 {
-                    <a href="/register@(string.IsNullOrEmpty(ViewBag.ReturnUrl)?"":"?returnUrl="+ ViewBag.ReturnUrl)" id="btn-to-register">注册账号</a>
+                    <a href="/register@(string.IsNullOrEmpty(ViewBag.ReturnUrl)?"":"?returnUrl="+ ViewBag.ReturnUrl)" id="btn2register">注册账号</a>
                 }
             </p>
         </div>

@@ -32,8 +32,10 @@ namespace HxBlogs.WebApp.Controllers
             if (!string.IsNullOrEmpty(username))
                 username = username.Trim();
             User user = _userService.GetEntity(u => u.UserName == username);
-            Blog blog = _blogService.GetEntityByID(Convert.ToInt64(Helper.FromHex(blogId)));
-            if (user == null || blog == null || blog.UserId != user.Id) throw new NotFoundException("找不到您访问的页面!");
+            Blog blog = _blogService.GetEntityByID(Convert.ToInt64(Helper.FromHex(blogId)),false);
+            bool canView = false;
+            if (!blog.IsPublish && UserContext.IsLoginUser(blog.User)) canView = true;
+            if (user == null || blog == null || blog.UserId != user.Id || !canView) throw new NotFoundException("找不到您访问的页面!");
             ViewBag.User = user;
             if (!string.IsNullOrEmpty(blog.BlogTags))
             {

@@ -10,11 +10,70 @@
     alertify.defaults.theme.cancel = "btn btn-danger";
     alertify.defaults.notifier.delay = 3;
     alertify.defaults.notifier.position = 'top-center';
-    alertify.genericDialog || alertify.dialog('genericDialog', function () {
+    alertify.hxDialog || alertify.dialog('hxDialog', function () {
+        var templates = {
+            back:`<span class="i-hx-back" style="cursor: pointer;"></span> `
+        };
+        var on = (function () {
+            if (document.addEventListener) {
+                return function (el, event, fn, useCapture) {
+                    el.addEventListener(event, fn, useCapture === true);
+                };
+            } else if (document.attachEvent) {
+                return function (el, event, fn) {
+                    el.attachEvent('on' + event, fn);
+                };
+            }
+        }());
+        var off = (function () {
+            if (document.removeEventListener) {
+                return function (el, event, fn, useCapture) {
+                    el.removeEventListener(event, fn, useCapture === true);
+                };
+            } else if (document.detachEvent) {
+                return function (el, event, fn) {
+                    el.detachEvent('on' + event, fn);
+                };
+            }
+        }());
+        function createBack(instance) {
+            var backDiv = document.createElement('div'),
+                first = instance.elements.dialog.firstChild,
+                custom = {};
+            backDiv.style.display = 'none';
+            backDiv.style.position = 'absolute';
+            backDiv.style.left = '4px';
+            backDiv.style.margin = '-10px 0 0 24px';
+            backDiv.style.zIndex = '2';
+            backDiv.innerHTML = templates.back;
+            custom.back = backDiv.firstChild;
+            instance.elements.dialog.insertBefore(backDiv, first);
+            instance.elements.custom = custom;
+            instance.__internal.backhanlder = instance.settings.onback;
+        } 
+        function bindBackEvent(instance) {
+            var c = instance.elements.custom;
+            // 返回功能
+            if (instance.get('backable')) {
+                if (typeof instance.__internal.backhanlder === 'function' && !instance.__internal.initback) {
+                    on(c.back, 'click', instance.__internal.backhanlder);
+                    instance.__internal.initback = true;
+                }
+            }
+        }
+        function unbindBackEvent(instance) {
+            var c = instance.elements.custom;
+            // 返回功能
+            if (instance.get('backable')) {
+                if (typeof instance.__internal.backhanlder === 'function') {
+                    off(c.back, 'click', instance.__internal.backhanlder);
+                    instance.__internal.initback = false;
+                }
+            }
+        }
         return {
             main: function (content) {
                 this.setContent(content);
-                this.setBack(this.get('back'));
             },
             build() {
                 var width = this.get('width'),
@@ -37,9 +96,13 @@
                         dialog.style.maxWidth = mw + 'px';
                     }
                 }
-               
+                createBack(this);
             },
-            
+            hooks: {
+                onclose: function () {
+                    unbindBackEvent(this);
+                }
+            },
             setup: function () {
                 return {
                     focus: {
@@ -49,39 +112,46 @@
                         select: true
                     },
                     options: {
+                        closableByDimmer: false,
+                        title: '&nbsp;',
                         maximizable: false,
                         resizable: false,
-                        padding: false,
+                        padding: false
                     }
                 };
             },
             settings: {
-                back: false,
-                backClick:null,
+                onback: null,
+                backable: false,
                 selector: undefined,
                 width:320,
                 maxWidth:null
             },
             setBack: function (back) {
                 if (back === true) {
-                    var $back = $('<span class="i-hx-back" '
-                        + 'style="vertical-align:middle;">'
-                        + '</span> ');
-                    var click = this.get('backClick');
-                    this.setHeader($back[0]);
-                    debugger
-                    if (typeof click === 'function') {
-                        $(this.elements.header).on('click', '.i-hx-back', click);
-                        //$back.on('click', click);
-                    }
+                    this.elements.custom.back.parentElement.style.display = 'block';
+                    bindBackEvent(this);
                 } else {
-                    this.setHeader(this.get('title'));
+                    this.elements.custom.back.parentElement.style.display = 'none';
+                    unbindBackEvent(this);
                 }
+            },
+            prepare:function(){
+                bindBackEvent(this);
             },
             settingUpdated: function (key, oldValue, newValue) {
                 switch (key) {
-                    case 'back':
+                    case 'backable':
                         this.setBack(newValue);
+                        break;
+                    case 'onback':
+                        if (typeof newValue === 'function') {
+                            this.__internal.backhanlder = newValue;
+                            bindBackEvent(this);
+                        } else {
+                            this.__internal.backhanlder = oldValue;
+                            unbindBackEvent(this);
+                        }
                         break;
                 }
             },
@@ -100,7 +170,7 @@
     var intRex = /^[-+]?\d+(?:[Ee]\+?\d+)?$/,
         floatRex = /^[-+]?(?:\d+|\d*\.\d*)(?:[Ee][+-]?\d+)?$/,
         _ajaxRootUrl = '';
-    var hxCore = {
+    var _hxCore = {
         /**
          * 全局设置ajax请求时处理方法前面的根路径
          * @param {String} root 根路径
@@ -342,7 +412,7 @@
             delete opt.always;
 
             if (opt.maskTarget) {
-                hxLoad.blockUI(opt.maskTarget);
+                _hxLoad.blockUI(opt.maskTarget);
             }
             if (opt.button) {
                 $.each(opt.button, function (key, $b) {
@@ -369,7 +439,7 @@
                     });
                 }
                 if (hxCore.isObject(opt.maskTarget)) {
-                    hxLoad.unblockUI(opt.maskTarget.target);
+                    _hxLoad.unblockUI(opt.maskTarget.target);
                 }
                 if (hxCore.isFunction(complete)) {
                     complete.call(this, r, textStatus);
@@ -415,9 +485,9 @@
         },
 
     };
-    var hxLoad = null;
+    var _hxLoad = null;
     if ($.blockUI) {
-        hxLoad = {
+        _hxLoad = {
             blockUI: function (opt) {
                 opt = $.extend(true, {}, opt);
                 var me = this,
@@ -529,7 +599,7 @@
     var _handleOptions = function (options) {
         options = options || {};
         // 遮罩层
-        if (hxLoad && options.maskTarget) {
+        if (_hxLoad && options.maskTarget) {
             var maskOpt = {};
             if (options.maskTarget === true) {
                 maskOpt = {};
@@ -687,8 +757,7 @@
         return str;
     }
 
-
-    window.HxCore = $.extend(true, hxCore, hxLoad, {
+    window.hxCore = $.extend(true, _hxCore, _hxLoad, {
         /**
          * 自定义的提醒
          * @param {any} opt 配置

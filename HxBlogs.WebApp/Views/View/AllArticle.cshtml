@@ -23,15 +23,15 @@
                 var $me = $(this),
                     id = $me.data('id'),
                     url = $me.data('url');
-                if (HxCore.isEmpty(url)) return;
+                if (hxCore.isEmpty(url)) return;
                 alertify.confirm(`确定要${$me.text()}当前文章?`, function () {
-                    HxCore.ajax(url, {
+                    hxCore.ajax(url, {
                         data: {
                             id: id
                         },
                         success(data) {
                             loadPartial();
-                            HxCore.remindSuccess(data);
+                            hxCore.remindSuccess(data);
                         }
                     });
                 });
@@ -45,7 +45,7 @@
                         if (status == 'success') {
                             $(this).removeAttr('hidden');
                         } else {
-                            HxCore.ajaxError(xhr);
+                            hxCore.ajaxError(xhr);
                         }
                     });
                 }

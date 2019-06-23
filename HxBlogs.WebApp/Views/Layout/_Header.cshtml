@@ -15,12 +15,12 @@
             @if (UserContext.LoginUser == null)
             {
                 <li class="nav-item my-auto ml-2 ml-md-0">
-                    <a href="/register" class="text-light">
+                    <a href="/register?returnUrl=@Request.Url.LocalPath" class="text-light" target="_blank">
                         <i class="fa fa-user"></i> 注册
                     </a>
                 </li>
                 <li class="nav-item my-auto ml-2 ml-md-0">
-                    <a href="/login" class="text-light">
+                    <a href="/login?returnUrl=@Request.Url.LocalPath" class="text-light" target="_blank">
                         <i class="fa  fa-arrow-circle-o-right"></i> 登录
                     </a>
                 </li>

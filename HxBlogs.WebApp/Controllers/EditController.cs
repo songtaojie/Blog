@@ -32,7 +32,7 @@ namespace HxBlogs.WebApp.Controllers
             User user = UserContext.LoginUser;
             if (string.IsNullOrEmpty(hexId))
             {
-                string view = "richedit";
+                string view = "ckedit";
                 if (user != null && user.IsUseMdEdit)
                 {
                     view = "mdedit";
@@ -44,7 +44,7 @@ namespace HxBlogs.WebApp.Controllers
                 long blogId = Convert.ToInt64(Helper.FromHex(hexId));
                 Blog blog = this._blogService.GetEntityBySql("id="+ blogId);
                 if (blog == null) throw new NotFoundException("找不到当前文章!");
-                string view = "richedit";
+                string view = "ckedit";
                 if (blog.IsMarkDown)
                 {
                     view = "mdedit";
@@ -53,8 +53,8 @@ namespace HxBlogs.WebApp.Controllers
             }
             
         }
-        [Route("richedit/{hexId?}")]
-        public ActionResult RichEdit(string hexId)
+        [Route("ckedit/{hexId?}")]
+        public ActionResult CkEdit(string hexId)
         {
             return Edit(hexId, false);
         }
@@ -97,16 +97,17 @@ namespace HxBlogs.WebApp.Controllers
             if (string.IsNullOrEmpty(vm.PersonTags)) vm.PersonTags = "";
             IBlogTypeService typeService = ContainerManager.Resolve<IBlogTypeService>();
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.GetEntities(c => true).
+            IEnumerable<Category> categories = cateService.GetEntities(c => true).
                 OrderByDescending(c => c.Order);
             IEnumerable<BlogType> types = typeService.GetEntities(t => true).
                 OrderByDescending(t => t.Order);
             IEnumerable<BlogTag> tags = _tagService.GetEntities(t => t.UserId == UserContext.LoginUser.Id);
-            ViewBag.CategoryList = cateList;
+            ViewBag.Categories = categories;
             ViewBag.Types = types;
             ViewBag.Tags = tags;
             return View(vm);
         }
+        #region 博客的保存编辑
         [HttpPost]
         public ActionResult Save(Models.EditViewModel editInfo)
         {
@@ -174,16 +175,15 @@ namespace HxBlogs.WebApp.Controllers
                     if (isEdit)
                     {
                         _blogService.UpdateEntityFields(blogInfo,
-                            "Title", "ContentHtml","Content", "TypeId", "CatId", "PersonTop", "IsPrivate",
-                            "IsPublish", "CanCmt", "IsMarkDown", "BlogTags", "PublishDate");
+                            "Title", "ContentHtml","Content", "TypeId", "CatId", "PersonTop", "Private",
+                            "Publish", "CanCmt", "MarkDown", "BlogTags", "PublishDate");
                     }
                     else
                     {
                         blogInfo = FillAddModel(blogInfo);
-                        _blogService.Insert(blogInfo);
+                        blogInfo = _blogService.Insert(blogInfo);
                     }
-                    //blogInfo = dbContext.Add(blogInfo);
-                    // dbContext.SaveChages();
+                    result.Resultdata = "/article/"+ blogInfo .UserName + "/"+blogInfo.HexId;
                 });
             }
             else
@@ -201,5 +201,6 @@ namespace HxBlogs.WebApp.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        #endregion
     }
 }

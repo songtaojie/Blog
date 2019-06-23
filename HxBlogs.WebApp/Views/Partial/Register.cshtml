@@ -1,18 +1,18 @@
 ﻿@model HxBlogs.WebApp.Models.RegisterViewModel
-<div class="hx-register" @(ViewBag.IsPop?"hidden":"")>
+<div class="hx-register" @(ViewBag.IsPop==true?"hidden":"")>
     @using (Ajax.BeginForm("registeruser", "account", new { },
-                        new AjaxOptions()
-                        {
-                            OnBegin = "HxAccount.beforeRegister",
-                            HttpMethod = "post",
-                            OnSuccess = "HxAccount.afterRegister",
-                            OnComplete = "HxAccount.finishRegister"
-                        }, new
-                        {
-                            @class = "form-vertical register-form",
-                            role = "form",
-                            id = "registerForm"
-                        }))
+        new AjaxOptions()
+        {
+            OnBegin = "hxAccount.register.begin",
+            HttpMethod = "post",
+            OnSuccess = "hxAccount.register.success",
+            OnComplete = "hxAccount.register.finish"
+        }, new
+        {
+            @class = "form-vertical register-form",
+            role = "form",
+            id = "registerForm"
+        }))
     {
         <h3 class="mb-4 text-center">用户注册</h3>
         <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
@@ -23,9 +23,8 @@
                         <i class="fa fa-user hx-fa-same"></i>
                     </div>
                 </div>
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "用户名" })
+                <input class="form-control" type="text" placeholder="用户名" name="UserName" />
             </div>
-            @Html.ValidationMessageFor(m => m.UserName)
         </div>
         <div class="form-row  mb-3">
             <div class="input-group">
@@ -34,9 +33,8 @@
                         <i class="fa fa-envelope hx-fa-same"></i>
                     </div>
                 </div>
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "邮箱" })
+                <input class="form-control" type="text" placeholder="邮箱" name="Email"/>
             </div>
-            @Html.ValidationMessageFor(m => m.Email)
         </div>
         <div class="form-row  mb-3">
             <div class="input-group">
@@ -45,9 +43,8 @@
                         <i class="fa fa-lock hx-fa-same"></i>
                     </div>
                 </div>
-                @Html.PasswordFor(m => m.PassWord, new { @class = "form-control", placeholder = "密码" })
+                <input type="password" class="form-control" placeholder = "密码" name="PassWord" />
             </div>
-            @Html.ValidationMessageFor(m => m.PassWord)
         </div>
         <div class="form-row  mb-3">
             <div class="input-group">
@@ -56,16 +53,11 @@
                         <i class="fa fa-check hx-fa-same"></i>
                     </div>
                 </div>
-                @Html.PasswordFor(m => m.PwdConfirm, new { @class = "form-control", placeholder = "确认密码" })
+                <input type="password" class="form-control" name="PwdConfirm" placeholder = "确认密码"/>
             </div>
-            @Html.ValidationMessageFor(m => m.PwdConfirm)
         </div>
         <div class="form-row mb-4">
-            @if (ViewBag.IsPop == true)
-            {
-                <input type="button" class="btn btn-outline-secondary w-50" id="btnBack" value="返回" />
-            }
-            <input type="submit" class="btn btn-outline-secondary @(ViewBag.IsPop == true?"w-50":"w-100")" id="btnReg" value="注册" />
+            <input type="submit" class="btn btn-outline-secondary w-100" value="注册" />
         </div>
     }
 </div>

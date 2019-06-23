@@ -1,0 +1,45 @@
+﻿@model HxBlogs.WebApp.Models.EditViewModel
+@{
+    ViewBag.Title = "写文章";
+}
+@section styles{
+    @Styles.Render("~/content/default")
+}
+<div class="blog-edit hx-container hx-white-container px-3">
+    <form class="form-horizontal" role="form" action="save" method="post">
+        <input type="hidden" name="MarkDown" value="@Model.MarkDown" />
+        @{
+            Html.RenderPartial("title", Model, new ViewDataDictionary()
+            {
+                {"Categories",ViewBag.Categories }
+            });
+        }
+        <div class="form-row mb-2">
+            <div class="col-sm-12">
+                <textarea name="ContentHtml" class="d-none" id="editor">@Model.ContentHtml</textarea>
+            </div>
+        </div>
+        @{ 
+            Html.RenderPartial("blogtag",Model, new ViewDataDictionary()
+            {
+                {"Tags",ViewBag.Tags },
+                {"PersonTags",ViewBag.PersonTags }
+            });
+        }
+        @{
+            Html.RenderPartial("blogtype",Model, new ViewDataDictionary()
+            {
+                {"Types",ViewBag.Types }
+            });
+        }
+        <div class="form-row" hidden>
+            <div class="col-sm-12">
+                <button type="button" value="Y" class="btn btn-md btn-success btn-save">发布文章</button>
+                <button type="button" value="N" class="btn btn-secondary btn-md btn-save ml-2">保存草稿</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/ckeditor")
+}

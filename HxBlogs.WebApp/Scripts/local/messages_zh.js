@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Translated default messages for the jQuery validation plugin.
  * Locale: ZH (Chinese, 中文 (Zhōngwén), 汉语, 漢語)
  */
@@ -14,8 +14,8 @@ $.extend( $.validator.messages, {
 	creditcard: "请输入有效的信用卡号码",
 	equalTo: "你的输入不相同",
 	extension: "请输入有效的后缀",
-	maxlength: $.validator.format( "最多可以输入 {0} 个字符" ),
-	minlength: $.validator.format( "最少要输入 {0} 个字符" ),
+	maxlength: $.validator.format( "不得多于 {0} 个字符" ),
+	minlength: $.validator.format( "不得少于 {0} 个字符" ),
 	rangelength: $.validator.format( "请输入长度在 {0} 到 {1} 之间的字符串" ),
 	range: $.validator.format( "请输入范围在 {0} 到 {1} 之间的数值" ),
 	step: $.validator.format( "请输入 {0} 的整数倍值" ),

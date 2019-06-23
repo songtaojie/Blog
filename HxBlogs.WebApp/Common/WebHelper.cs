@@ -13,83 +13,24 @@ namespace HxBlogs.WebApp
     public class WebHelper
     {
         #region 日期处理函数
-        /// <summary>
-        /// 根据时间获取要显示的日期格式形式
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <param name="format"></param>
-        /// <param name="showTime"></param>
-        /// <returns></returns>
-        public static string GetDispayDate(DateTime dateTime, string format = "M", bool showTime = false)
+        public static string GetDispayDate(DateTime? date, bool showTime = false)
         {
-            string result = string.Empty;
-            if (dateTime == null) return result;
-            DateTime nowTime = DateTime.Now;
-            TimeSpan ts = nowTime.Subtract(dateTime);
-            if (ts.Days <= 1)
-            {
-                if (ts.Hours <= 1)
-                {
-                    result = ts.Minutes + "分钟前";
-                }
-                else
-                {
-                    result = ts.Hours + "小时前";
-                }
-            }
-            else if (ts.Days <= 2)
-            {
-                result = "1天前";
-            }
-            else if (ts.Days <= 3)
-            {
-                result = "2天前";
-            }
-            else if (ts.Days <= 4)
-            {
-                result = "3天前";
-            }
-            else if (ts.Days <= 5)
-            {
-                result = "4天前";
-            }
-            else if (ts.Days <= 6)
-            {
-                result = "5天前";
-            }
-            else if (ts.Days <= 7)
-            {
-                result = "6天前";
-            }
-            else if (ts.Days <= 8)
-            {
-                result = "7天前";
-            }
-            else if (ts.Days > 365 || dateTime.Year != nowTime.Year)
-            {
-                result = dateTime.ToString("yyyy年MM月dd日");
-            }
-            else
-            {
-                result = dateTime.ToString(format);
-            }
-            if (showTime)
-            {
-                result += dateTime.ToString("t");
-            }
-            return result;
+            if (!date.HasValue) return "";
+            return GetDispayDate(date.Value, showTime);
         }
-        public static string GetDispayDate(DateTime? dateTime, string format = "M", bool showTime = false)
+        public static string GetDispayDate(DateTime date,bool showTime = false)
         {
-            string result = string.Empty;
-            if (dateTime == null || !dateTime.HasValue) return result;
-            return GetDispayDate(dateTime.Value, format, showTime);
-        }
-        public static string GetDetailDate(DateTime? dateTime, string format = "yyyy年MM月dd日 HH:ss")
-        {
-            string result = string.Empty;
-            if (dateTime == null || !dateTime.HasValue) return result;
-            return dateTime.Value.ToString(format);
+            TimeSpan ts = DateTime.Now.Subtract(date);
+            if (ts.TotalMinutes < 60) return string.Format("{0} 分钟前", (int)Math.Floor(ts.TotalMinutes));
+            if (ts.TotalHours <= 24) return string.Format("{0} 小时前", (int)Math.Floor(ts.TotalHours));
+            if (ts.TotalDays <= 7) return string.Format("{0} 天前", (int)Math.Floor(ts.TotalDays));
+            if (date.Year == DateTime.Now.Year)
+            {
+                string timeFormat = showTime ? "MM-dd HH:ss" : "MM-dd";
+                return date.ToString(timeFormat);
+            }
+            string format = showTime ? "yyyy-MM-dd HH:ss" : "yyyy-MM-dd";
+            return date.ToString(format); ;
         }
         #endregion
         /// <summary>

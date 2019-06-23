@@ -224,7 +224,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\css\blog-header-footer.css" />
+    <Content Include="Content\app\blog-header-footer.css" />
     <Content Include="font\fonts\hx-font.svg" />
     <Content Include="Plugins\ckeditor\hx-ckeditor.js" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.eot" />
@@ -253,11 +253,9 @@
     <Content Include="font\fonts\hx-font.woff" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Content\app\css\blog-default.css" />
-    <Content Include="Content\app\css\hx-loading.css" />
+    <Content Include="Content\app\blog-default.css" />
+    <Content Include="Content\app\hx-loading.css" />
     <Content Include="font\hx-font.css" />
-    <Content Include="Content\app\images\hx-icons-white.png" />
-    <Content Include="Content\app\images\hx-icons.png" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="images\avatar.png" />
     <Content Include="images\avatar1.jpg" />
@@ -659,6 +657,7 @@
     <Content Include="Plugins\WangEditor\wangEditor.min.js" />
     <Content Include="Scripts\app\hx-editor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
+    <Content Include="Scripts\app\pop.login.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -714,12 +713,12 @@
     <Content Include="Content\Images\t03.jpg" />
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\yu.png" />
-    <Content Include="Content\app\css\about-us.css" />
-    <Content Include="Content\app\css\hx-login-soft.css" />
-    <Content Include="Content\app\css\hx-login.css" />
+    <Content Include="Content\app\about-us.css" />
+    <Content Include="Content\app\hx-login-soft.css" />
+    <Content Include="Content\app\hx-login.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\app\css\hx-site.css" />
+    <Content Include="Content\app\hx-site.css" />
     <Content Include="Scripts\app\jquery.extendsion.js" />
     <Content Include="Scripts\app\scrollReveal.js" />
     <Content Include="ApplicationInsights.config">
@@ -795,7 +794,7 @@
     <Content Include="Views\Layout\_Header.cshtml" />
     <Content Include="Views\Layout\_Footer.cshtml" />
     <Content Include="Views\Home\Index2.cshtml" />
-    <Content Include="Views\Edit\RichEdit.cshtml" />
+    <Content Include="Views\Edit\CkEdit.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
     <Content Include="Views\Error\Error401.cshtml" />

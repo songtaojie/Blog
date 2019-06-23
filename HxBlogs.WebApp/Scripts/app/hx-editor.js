@@ -15,7 +15,7 @@
             guid;
         tagObj[$me.val()] = text;
         if ($me.is(':checked')) {
-            guid = HxCore.guid();
+            guid = hxCore.guid();
             $me.prop('checked', true).data('id', guid);
             Edit.addTag({
                 id: $me.attr('id'),
@@ -57,12 +57,12 @@
             } else {
                 data.push({ name: 'ContentHtml', value: hd });
             }
-            HxCore.ajax(action, {
+            hxCore.ajax(action, {
                 button: '.btn-save',
                 data: data,
                 maskTarget: true,
                 success: function (d) {
-                    debugger
+                    window.location.href = d || '/';
                 }
             });
         }
@@ -83,22 +83,22 @@
                         isEmpty = true;
                     }
                 } else if (field.is('select')) {
-                    if (field.val() === '-1') {
+                    if (hxCore.isEmpty(field.val())) {
                         isEmpty = true;
                     }
                 }
                 if (isEmpty) {
                     var prompt = field.data('prompt');
-                    HxCore.remindError(`请输入${prompt}!`);
+                    hxCore.remindError(`请输入${prompt}!`);
                     result = false;
                     return false;
                 }
             });
             if (result) {
-                var isMdEmpty = Edit.isMd() && HxCore.isEmpty(window._HxEditor.getMarkdown()),
-                    isCkEmpty = !Edit.isMd() && HxCore.isEmpty(window._HxEditor.getData());
+                var isMdEmpty = Edit.isMd() && hxCore.isEmpty(window._HxEditor.getMarkdown()),
+                    isCkEmpty = !Edit.isMd() && hxCore.isEmpty(window._HxEditor.getData());
                 if (isMdEmpty || isCkEmpty) {
-                    HxCore.remindError('请输入博客内容!');
+                    hxCore.remindError('请输入博客内容!');
                     result = false;
                 }
             }
@@ -166,7 +166,7 @@
             //$div.find('i.fa-times').click(function () {
                
             //});
-            if (HxCore.isObject(tagObj) && tagObj.hasOwnProperty('id') && tagObj.hasOwnProperty('text')) {
+            if (hxCore.isObject(tagObj) && tagObj.hasOwnProperty('id') && tagObj.hasOwnProperty('text')) {
                 $div.attr('id', tagObj.guid).data('id', tagObj.id);
                 $span.text($.trim(tagObj.text)).attr('contenteditable', 'false');
             } else {
@@ -209,7 +209,7 @@
             id = $p.data('id'),
             $prev = $me.prev();
         $p.remove();
-        if (!HxCore.isEmpty(id)) {
+        if (!hxCore.isEmpty(id)) {
             $('#' + id).prop('checked', false);
         }
         Edit.doPersonTag($prev.text());

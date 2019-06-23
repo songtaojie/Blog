@@ -6,9 +6,9 @@
     <div class="col-md-4">
         <select class="form-control" data-prompt="系统分类" required name="CatId">
             <option value="" selected="selected">请选择系统分类</option>
-            @if (ViewBag.CategoryList != null)
+            @if (ViewBag.Categories != null)
             {
-                foreach (HxBlogs.Model.Category item in ViewBag.CategoryList)
+                foreach (HxBlogs.Model.Category item in ViewBag.Categories)
                 {
                     <option value="@item.Id" @(Model.CatId == item.Id ? "selected" : "")>@item.Name</option>
                 }
