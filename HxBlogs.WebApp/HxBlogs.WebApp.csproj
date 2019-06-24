@@ -198,6 +198,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserCenterController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
     <Compile Include="Common\ConstInfo.cs" />
@@ -251,6 +253,9 @@
     <Content Include="font\fonts\hx-font.eot" />
     <Content Include="font\fonts\hx-font.ttf" />
     <Content Include="font\fonts\hx-font.woff" />
+    <Content Include="Areas\Admin\Views\UserCenter\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_UCLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCenter\Side.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\blog-default.css" />
@@ -830,9 +835,11 @@
     <Content Include="Views\Web .config.bak">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\Side.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Profile\" />
     <Folder Include="Config\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\File\" />

@@ -25,7 +25,7 @@ namespace HxBlogs.WebApp.Controllers
             ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
             IEnumerable<Category> cateList = cateService.GetEntitiesNoTrack(c => true)
                 .OrderByDescending(c => c.Order);
-            ViewBag.CategoryList = cateList;
+            ViewBag.Categories = cateList;
             return View();
         }
         public ActionResult LoadArticle()
