@@ -1,0 +1,110 @@
+﻿@model HxBlogs.WebApp.Models.UserViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_UCLayout.cshtml";
+}
+@section styles{
+    @Styles.Render("~/content/picker")
+    @Styles.Render("~/content/remind")
+}
+<div class="d-flex hx-container hx-white-container py-3">
+    <div>
+        @{
+            Html.RenderPartial("side");
+        }
+    </div>
+    <div class="flex-fill flex-grow-1 ml-2 px-3">
+        @{
+            Html.RenderPartial("profiled",Model);
+        }
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/picker")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @Scripts.Render("~/bundles/remind")
+    @Scripts.Render("~/bundles/core")
+    <script>
+        $(function () {
+            $('.date-picker').datepicker({
+                autoclose:true,
+                format: 'yyyy-mm-dd',
+                orientation:'auto bottom',
+                language: 'zh-CN'
+            });
+            $.validator.addMethod("checkName", function (value, element, params) {
+                var regular = /^([a-zA-Z]|[\u4E00-\u9FA5])([a-zA-Z0-9]|[\u4E00-\u9FA5]|[_]){1,21}$/;
+                return this.optional(element) || (regular.test(value));
+            }, "昵称由字母、数字、下划线和中文组成，以中文或字母开头");
+            $('#basicForm').validate({
+                errorElement: 'span',
+                errorClass: 'text-danger',
+                //提交表单后，（第一个）未通过验证的表单获得焦点
+                focusInvalid: true,
+                //当未通过验证的元素获得焦点时，移除错误提示
+                //focusCleanup: true,
+                rules: {
+                    NickName: {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 320,
+                        checkName: true,
+                    },
+                },
+                messages: {
+                    NickName: {
+                        required: '昵称不能为空!'
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    $(element).next().hide();
+                    error.addClass(['small ','my-auto']).insertAfter(element);
+                },
+                ////display error alert on form submit
+                invalidHandler: function (event, validator) {
+                    $('.alert-error', $('#basicForm')).show();
+                },
+                //highlight: function (element) {
+                //    $(element).closest('.form-row').addClass('error'); 
+                //},
+                success: function (error, element) {
+                    //error.closest('.form-row').removeClass('error');
+                    $(error).next().show();
+                    error.remove();
+                }
+            });
+
+           
+        })
+        var uc = function () {
+            var basic = {
+                begin: function () {
+                    var submitBtn = $('#basicForm').find('input[type=submit]');
+                    if (submitBtn.hasClass('disabled')) {
+                        return false;
+                    }
+                    submitBtn.addClass('disabled');
+                },
+                success: function (data, textStatus, jqXHR) {
+                    hxCore.ajaxSuccess(jqXHR, function (data) {
+                        hxCore.remindSuccess('用户资料修改成功!');
+                    });
+                },
+                failure(r) {
+                    hxCore.ajaxError(r);
+                },
+                finish:function(){
+                    var submitBtn = $('#basicForm').find('input[type=submit]');
+                    if (submitBtn.hasClass('disabled')) {
+                        submitBtn.removeClass('disabled');
+                    }
+                }
+            }
+
+            return {
+                basic
+            }
+        }();
+    </script>
+    }
+

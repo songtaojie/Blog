@@ -1,28 +1,11 @@
 ﻿/************************博客首页*******************************/
-/**侧边栏**/
-.blog-sidebar {
-    position: fixed;
-    width: 6rem;
-    top: 0;
-    z-index: 1030;
-    height: 100%;
-    /*font-family: PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Verdana,Roboto,Noto,Helvetica Neue,sans-serif !important;*/
-}
-    .blog-sidebar .active,
-    .blog-sidebar li:hover {
-        background-color: #545b62 !important;
-    }
-        .blog-sidebar .active a,
-        .blog-sidebar li:hover a {
-            color: #fff !important;
-        }
-    .blog-sidebar li {
-        margin-bottom: 0.05rem !important;
-    }
-
 /**博客内容**/
 .blog-container {
-    transform: translate3d(6.5rem,0,0);
+    transform: translate3d(6.5rem,3rem,0);
+    -ms-transform: translate3d(6.5rem,3rem,0); /* IE 9 */
+    -moz-transform: translate3d(6.5rem,3rem,0); /* Firefox */
+    -webkit-transform: translate3d(6.5rem,3rem,0); /* Safari 和 Chrome */
+    -o-transform: translate3d(6.5rem,3rem,0); /* Opera */
     max-width: calc(100% - 6.5rem);
 }
 

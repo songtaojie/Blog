@@ -28,8 +28,8 @@ namespace HxBlogs.WebApp.Areas.Admin
             });
             context.MapRoute(
                 "Uc_Route",
-                "admin/u/{action}/{*extend}",
-                new { controller = "UserCenter", action = "Index", extend = UrlParameter.Optional }
+                "admin/uc/{action}/{*extend}",
+                new { controller = "UserCenter", action = "Profiles", extend = UrlParameter.Optional }
             );
             context.MapRoute(
                 "Admin_Default",

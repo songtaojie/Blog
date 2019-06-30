@@ -1,0 +1,132 @@
+﻿@model HxBlogs.WebApp.Models.UserViewModel
+@{
+    string date = "uc" + Hx.Common.Helper.Helper.GetTimestamp().ToString(),
+        basicInfo = date + "002",
+        jobSkill = date + "003";
+}
+<div class="hx-portlet">
+    <ul class="nav nav-tabs d-flex justify-content-end align-items-center" role="tablist">
+        <li class="ml-2 mr-auto">
+            <a target="_blank" href="#">@(Model.NickName)的个人空间</a>
+            <span>&nbsp;>&nbsp;</span>
+            <span>修改个人资料</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#@basicInfo">基本资料</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#@jobSkill">职业技能</a>
+        </li>
+    </ul>
+    <div class="tab-content py-3">
+        <div id="@basicInfo" class="container tab-pane active">
+            @using (Ajax.BeginForm("saveprofile", "usercenter", new { },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "post",
+                        OnBegin = "uc.basic.begin",
+                        OnSuccess = "uc.basic.success",
+                        OnFailure = "uc.basic.failure",
+                        OnComplete = "uc.basic.finish"
+                    }, new
+                    {
+                        role = "form",
+                        id = "basicForm"
+                    }))
+            {
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="NickName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称</label>
+                    <input type="text" id="NickName" name="NickName" class="form-control w-auto mx-sm-3" value="@Model.NickName" aria-describedby="nickNameHelp">
+                    <small id="nickNameHelp" class="form-text text-muted my-auto">
+                        2~20个字符.
+                    </small>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="RealName">真实姓名</label>
+                    <input type="text" id="RealName" name="RealName" class="form-control w-auto mx-sm-3" value="@Model.RealName" >
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="Mobile">手机号码</label>
+                    <input type="text" id="Mobile" name="Mobile" class="form-control w-auto mx-sm-3" value="@Model.Mobile">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="QQ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ</label>
+                    <input type="text" id="QQ" name="QQ" class="form-control w-auto mx-sm-3" value="@Model.QQ">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="WeChat">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信</label>
+                    <input type="text" id="WeChat" name="WeChat" class="form-control w-auto mx-sm-3" value="@Model.WeChat">
+                </div>
+                <div class="form-group row">
+                    <label class="control-label mr-3 font-weight-bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                    <div class=" custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="male" name="Gender" value="1"
+                               @(!string.IsNullOrEmpty(Model.Gender)?(Model.Gender == "1"? "checked disabled" : "disabled") :"")
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="male">男</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="female" name="Gender" value="0"
+                                @(!string.IsNullOrEmpty(Model.Gender)?(Model.Gender == "0"? "checked disabled" : "disabled") :"")
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="female">女</label>
+                    </div>
+                    <small id="nickNameHelp" class="form-text text-muted">
+                        性别确认后不可修改.
+                    </small>
+                </div>
+                <div class="form-group row ">
+                    <label class="col-form-label font-weight-bold mr-3" for="Birthday">出生日期</label>
+                    <div class="input-group w-auto date-picker date">
+                        <input type="text" class="form-control" name="Birthday" id="Birthday" size="16" value="@(Model.Birthday.HasValue?Model.Birthday.Value.ToString("yyyy-MM-dd"):"")" readonly />
+                        <div class="input-group-append">
+                            <span class="input-group-addon input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="col-form-label font-weight-bold mr-3" for="Address">居住地区</label>
+                    <input id="Address" name="Address" class="form-control w-auto" value="@Model.Address"
+                           readonly type="text" placeholder="请选择地址" data-toggle="city-picker">
+                </div>
+                <div class="form-group row ">
+                    <label class="font-weight-bold mr-3" for="Description">个性签名</label>
+                    <textarea name="Description" class="form-control hx-minh-1 hx-maxh-2" rows="3" placeholder="请输入个性签名">@Model.Description</textarea>
+                </div>
+                <div class="form-group row ">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" id="Redmind" name="Redmind" checked class="custom-control-input" />
+                        <label class="custom-control-label" for="Redmind">有回复或者邮件时提醒我</label>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <input type="submit" class="btn btn-secondary" value="保存修改" />
+                </div>
+            }
+        </div>
+        <div id="@jobSkill" class="container tab-pane fade">
+            @using (Ajax.BeginForm("savecontact", "usercenter", new { },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "post",
+                        OnBegin = "uc.begin",
+                        OnSuccess = "uc.success",
+                        OnFailure = "uc.failure",
+                        OnComplete = "uc.finish"
+                    }, new
+                    {
+                        role = "form",
+                        id = "jobForm"
+                    }))
+            {
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="NickName">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
+                    <input type="text" name="NickName" class="form-control w-auto mx-sm-3" value="@Model.NickName" aria-describedby="nickNameHelp">
+                </div>
+                <div class="form-group row ">
+                    <input type="submit" class="btn btn-secondary" value="保存修改" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+﻿/*bootstrap复选框和单选框颜色样式重写*/
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(84, 91, 98,0.25);
+}
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    border-color: rgba(84, 91, 98,1);
+}
+.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: rgba(84, 91, 98, 0.5);
+}
+.custom-control-input:not(:disabled):active ~ .custom-control-label::before {
+    background-color: rgba(84, 91, 98,0.25);
+    border-color: rgba(84, 91, 98,0.25);
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: rgba(84, 91, 98,1);
+    background-color: rgba(84, 91, 98,1);
+}
+.city-picker-span.focus,
+.city-picker-span.open ,
+.form-control:focus {
+    border-color: rgba(84, 91, 98,1) !important;
+    box-shadow: 0 0 0 0.2rem rgba(84, 91, 98,0.25) !important;
+}
+/**侧边栏**/
+.hx-sidebar,
+.hx-sidebar-fixed {
+    width: 6rem;
+    top: 0;
+    z-index: 1030;
+    height: 100%;
+}
+
+.hx-sidebar-fixed {
+    position: fixed;
+}
+
+    .hx-sidebar .active,
+    .hx-sidebar-fixed .active,
+    .hx-sidebar li:hover,
+    .hx-sidebar-fixed li:hover,
+    .hx-sidebar .hx-sidebar-item:hover,
+    .hx-sidebar-fixed .hx-sidebar-item:hover {
+        background-color: #545b62 !important;
+    }
+
+.hx-sidebar li {
+    position: relative;
+}
+
+.hx-sidebar .active::after {
+    content: '';
+    display: inline-block;
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-left: 6px solid #545b62;
+    position: absolute;
+    top: 12px;
+    right: -5px;
+}
+
+.hx-sidebar .active a,
+.hx-sidebar li:hover a,
+.hx-sidebar .hx-sidebar-item:hover a,
+.hx-sidebar-fixed .active a,
+.hx-sidebar-fixed li:hover a,
+.hx-sidebar-fixed .hx-sidebar-item:hover a {
+    color: rgba(255,255,255,.7) !important;
+}
+
+.hx-sidebar li,
+.hx-sidebar .hx-sidebar-item,
+.hx-sidebar-fixed li,
+.hx-sidebar-fixed .hx-sidebar-item {
+    margin-bottom: 0.05rem !important;
+}
+/*tab标签*/
+.hx-portlet > .nav-tabs {
+    background-color: #545b62 !important;
+    color: rgba(255,255,255,.7);
+    border-bottom: none;
+}
+
+    .hx-portlet > .nav-tabs .nav-link {
+        border-radius: unset;
+    }
+
+    .hx-portlet > .nav-tabs a:not(.active) {
+        color: rgba(255,255,255,.7);
+    }
+
+        .hx-portlet > .nav-tabs a:not(.active):hover {
+            color: #fff;
+        }
+
+    .hx-portlet > .nav-tabs .nav-link:hover {
+        color: #495057 !important;
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
+    }
+/*日期选择器*/
+.datepicker table thead {
+    background-color: rgba(61, 61, 61,1);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.5), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.7), inset 0 -10px 20px rgba(0,0,0,0.2), inset 0 40px 40px rgba(255,255,255,0.3);
+    overflow: hidden;
+    color: rgba(255,255,255,.7);
+}
+
+    .datepicker table thead tr td,
+    .datepicker table thead tr th {
+        border-radius: unset;
+    }
+
+.datepicker table tr td.active:active,
+.datepicker table tr td.active.highlighted:active,
+.datepicker table tr td.active.active,
+.datepicker table tr td.active.highlighted.active {
+    color: rgba(255,255,255,.7) !important;
+    background-color: rgb(84, 91, 98) !important;
+    border-color: rgb(84, 91, 98) !important;
+}
+
+.datepicker table tr td span.active:active,
+.datepicker table tr td span.active:hover:active,
+.datepicker table tr td span.active.disabled:active,
+.datepicker table tr td span.active.disabled:hover:active,
+.datepicker table tr td span.active.active,
+.datepicker table tr td span.active:hover.active,
+.datepicker table tr td span.active.disabled.active,
+.datepicker table tr td span.active.disabled:hover.active {
+    color: rgba(255,255,255,.7) !important;
+    background-color: rgb(84, 91, 98) !important;
+    border-color: rgb(84, 91, 98) !important;
+}
+
+.datepicker .datepicker-switch:hover,
+.datepicker .prev:hover,
+.datepicker .next:hover,
+.datepicker tfoot tr th:hover {
+    background: #575757 !important;
+    color: #ffffff !important;
+}
+

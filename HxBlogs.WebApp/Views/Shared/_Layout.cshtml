@@ -8,8 +8,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 海·星の博客</title>
-    @Styles.Render("~/content/boot")
     @Styles.Render("~/content/site")
+    @*@Styles.Render("~/content/remind")*@
+    @Styles.Render("~/content/default")
+    @Styles.Render("~/content/darkblack")
     @RenderSection("styles", required: false)
 </head>
 <body>
@@ -24,9 +26,8 @@
     {
         Html.RenderPartial("~/Views/Layout/_Footer.cshtml");
     }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/boot")
     @Scripts.Render("~/bundles/site")
+    @Scripts.Render("~/bundles/core")
     <script>
         //if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
         //    (function () {

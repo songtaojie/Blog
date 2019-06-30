@@ -254,5 +254,11 @@ namespace HxBlogs.Model
         [StringLength(100)]
         public string LoginIp { get; set; }
 
+        /// <summary>
+        /// 最后更新时间
+        /// </summary>
+        [DataType(DataType.DateTime)]
+        public virtual DateTime? LastModifyTime { get; set; }
+
     }
 }

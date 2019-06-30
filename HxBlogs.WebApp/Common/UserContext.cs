@@ -114,6 +114,22 @@ namespace HxBlogs.WebApp
                 WebHelper.SetCookieValue(ConstInfo.CookieName, desUser, DateTime.Now.AddDays(7));
             }
         }
+        /// <summary>
+        /// 更新缓存和session中存的值
+        /// </summary>
+        public static void UpdateUser(User userInfo)
+        {
+            string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                string jsonData = JsonConvert.SerializeObject(userInfo);
+                MemcachedHelper.Set(sessionId, jsonData, DateTime.Now.AddHours(2));
+            }
+            UserContext.LoginUser = userInfo;
+        }
+        /// <summary>
+        /// 清空缓存和session中存的值
+        /// </summary>
         public static void ClearUserInfo()
         {
             UserContext.LoginUser = null;
