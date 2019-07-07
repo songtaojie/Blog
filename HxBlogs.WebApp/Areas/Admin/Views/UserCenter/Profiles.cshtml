@@ -1,4 +1,4 @@
-﻿@model HxBlogs.WebApp.Models.UserViewModel
+﻿@model HxBlogs.WebApp.Models.BasicInfoDTO
 @{
     Layout = "~/Areas/Admin/Views/Shared/_UCLayout.cshtml";
 }
@@ -14,7 +14,9 @@
     </div>
     <div class="flex-fill flex-grow-1 ml-2 px-3">
         @{
-            Html.RenderPartial("profiled",Model);
+            Html.RenderPartial("tabs",Model,new ViewDataDictionary {
+                {"JobInfo",ViewBag.JobInfo }
+            });
         }
     </div>
 </div>
@@ -32,10 +34,6 @@
                 orientation:'auto bottom',
                 language: 'zh-CN'
             });
-            $.validator.addMethod("checkName", function (value, element, params) {
-                var regular = /^([a-zA-Z]|[\u4E00-\u9FA5])([a-zA-Z0-9]|[\u4E00-\u9FA5]|[_]){1,21}$/;
-                return this.optional(element) || (regular.test(value));
-            }, "昵称由字母、数字、下划线和中文组成，以中文或字母开头");
             $('#basicForm').validate({
                 errorElement: 'span',
                 errorClass: 'text-danger',
@@ -48,8 +46,20 @@
                         required: true,
                         minlength: 2,
                         maxlength: 320,
-                        checkName: true,
+                        checkNickName: true,
                     },
+                    RealName: {
+                        checkRealName:true
+                    },
+                    Mobile: {
+                        checkMobile:true
+                    },
+                    QQ: {
+                        checkQQ: true
+                    },
+                    WeChat: {
+                        checkWeChat:true
+                    }
                 },
                 messages: {
                     NickName: {
@@ -73,8 +83,6 @@
                     error.remove();
                 }
             });
-
-           
         })
         var uc = function () {
             var basic = {
@@ -87,7 +95,7 @@
                 },
                 success: function (data, textStatus, jqXHR) {
                     hxCore.ajaxSuccess(jqXHR, function (data) {
-                        hxCore.remindSuccess('用户资料修改成功!');
+                        hxCore.remindSuccess('用户基本资料修改成功!');
                     });
                 },
                 failure(r) {
@@ -100,9 +108,32 @@
                     }
                 }
             }
-
+            var job = {
+                begin: function () {
+                    var submitBtn = $('#jobForm').find('input[type=submit]');
+                    if (submitBtn.hasClass('disabled')) {
+                        return false;
+                    }
+                    submitBtn.addClass('disabled');
+                },
+                success: function (data, textStatus, jqXHR) {
+                    hxCore.ajaxSuccess(jqXHR, function (data) {
+                        hxCore.remindSuccess('职业技能修改成功!');
+                    });
+                },
+                failure(r) {
+                    hxCore.ajaxError(r);
+                },
+                finish: function () {
+                    var submitBtn = $('#jobForm').find('input[type=submit]');
+                    if (submitBtn.hasClass('disabled')) {
+                        submitBtn.removeClass('disabled');
+                    }
+                }
+            };
             return {
-                basic
+                basic,
+                job
             }
         }();
     </script>

@@ -1,6 +1,7 @@
 ﻿using Hx.Framework;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
+using HxBlogs.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,44 +25,85 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         // GET: Admin/UserCenter
         public ActionResult Profiles()
         {
-            HxBlogs.WebApp.Models.UserViewModel userViewModel = MapperManager.Map<Models.UserViewModel>(UserContext.LoginUser);
-            return View(userViewModel);
+            Models.BasicInfoDTO basicInfo = MapperManager.Map<Models.BasicInfoDTO>(UserContext.LoginUser.BasicInfo);
+            basicInfo.NickName = UserContext.LoginUser.NickName;
+            Models.JobInfoDTO jobInfo = MapperManager.Map<Models.JobInfoDTO>(UserContext.LoginUser.JobInfo);
+            ViewBag.JobInfo = jobInfo;
+            return View(basicInfo);
         }
-        public ActionResult SaveProfile(HxBlogs.WebApp.Models.UserViewModel userViewModel)
+
+        public ActionResult SaveBasicInfo(Models.BasicInfoDTO infoDTO)
         {
             AjaxResult result = new AjaxResult();
             if (ModelState.IsValid)
             {
-                User logUser = UserContext.LoginUser;
-                HxBlogs.Model.User user = MapperManager.Map<User>(logUser);
-                user = MapperManager.Map<User>(userViewModel);
-                user.Id = logUser.Id;
-                user.UserName = logUser.UserName;
-                user.Email = logUser.Email;
-                user.PassWord = logUser.PassWord;
-                List<string> fields = new List<string>();
-                fields.AddRange(new string[] { "NickName", "RealName", "QQ", "WeChat", "Mobile", "Birthday",  "Address", "Description", "LastModifyTime" });
-                if (string.IsNullOrEmpty(logUser.Gender))
-                {
-                    fields.Add("Gender");
-                }
-                _userService.UpdateEntityFields(user, fields);
-                UserContext.UpdateUser(user);
+                TransactionManager.Excute(delegate{
+                    IBasicInfoService basicService = ContainerManager.Resolve<IBasicInfoService>();
+                    UserInfo logUser = UserContext.LoginUser;
+                    HxBlogs.Model.UserInfo user = MapperManager.Map<UserInfo>(logUser);
+                    BasicInfo basicInfo = MapperManager.Map<BasicInfo>(infoDTO);
+                    basicInfo.Id = user.BasicId;
+                    user.BasicInfo = basicInfo;
+                    user.NickName = infoDTO.NickName;
+                    List<string> fields = new List<string>();
+                    fields.AddRange(new string[] { "RealName", "QQ", "WeChat", "Mobile", "Birthday", "Address", "Description" });
+                    if (string.IsNullOrEmpty(logUser.BasicInfo.Gender))
+                    {
+                        fields.Add("Gender");
+                    }
+                    _userService.UpdateEntityFields(user, "NickName");
+                    basicService.UpdateEntityFields(basicInfo, fields);
+                    UserContext.UpdateUser(user);
+                });
             }
             else
             {
-                result.Success = false;
-                foreach (var key in ModelState.Keys)
-                {
-                    var modelstate = ModelState[key];
-                    if (modelstate.Errors.Any())
-                    {
-                        result.Message = modelstate.Errors.FirstOrDefault().ErrorMessage;
-                        break;
-                    }
-                }
+                result = GetErrorResult();
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SaveJobInfo(Models.JobInfoDTO infoDTO)
+        {
+            AjaxResult result = new AjaxResult();
+            if (ModelState.IsValid)
+            {
+                TransactionManager.Excute(delegate {
+                    IJobInfoService jobService = ContainerManager.Resolve<IJobInfoService>();
+                    UserInfo logUser = UserContext.LoginUser;
+                    HxBlogs.Model.UserInfo user = MapperManager.Map<UserInfo>(logUser);
+                    JobInfo jobInfo = MapperManager.Map<JobInfo>(infoDTO);
+                    jobInfo.Id = user.JobId;
+                    user.JobInfo = jobInfo;
+                    List<string> fields = new List<string>();
+                    fields.AddRange(new string[] { "Position", "Industry", "WorkUnit", "WorkYear", "Status", "Skills", "GoodAreas" });
+                    jobService.UpdateEntityFields(jobInfo, fields);
+                    _userService.UpdateEntityFields(user);
+                    UserContext.UpdateUser(user);
+                });
+            }
+            else
+            {
+                result = GetErrorResult();
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        private AjaxResult GetErrorResult()
+        {
+            AjaxResult result = new AjaxResult
+            {
+                Success = false
+            };
+            foreach (var key in ModelState.Keys)
+            {
+                var modelstate = ModelState[key];
+                if (modelstate.Errors.Any())
+                {
+                    result.Message = modelstate.Errors.FirstOrDefault().ErrorMessage;
+                    break;
+                }
+            }
+            return result;
         }
     }
 }

@@ -19,34 +19,11 @@ namespace HxBlogs.Test
     {
         static void Main(string[] args)
         {
-            DateTime? time = DateTime.Now;
-            Console.WriteLine(time.ToString());
+            Regex reg = new Regex("^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$");
+            Console.WriteLine(reg.IsMatch("宋"));
             Console.ReadLine();
         }
-        static void CheckCode() {
-            string str = "--璇烽€夋嫨鐪佷唤--";
-            EncodingInfo[] encodingInfos =  Encoding.GetEncodings();
-            Encoding gb2312 = Encoding.UTF8;
-            Encoding encoding;
-            string text = "";
-            foreach (EncodingInfo info in encodingInfos)
-            {
-                try
-                {
-                    encoding = info.GetEncoding();
-                    byte[] temp = encoding.GetBytes(str);
-                    byte[] temp1 = Encoding.Convert(encoding, gb2312, temp);
-                    string result = gb2312.GetString(temp1);
-                    text += result + "编码：" + encoding.BodyName+ Environment.NewLine;
-                }
-                catch (Exception e)
-                {
-
-                }
-            }
-            File.WriteAllText(@"D:\a.txt", text);
-            Console.WriteLine(text);
-        }
+      
         static string FilterHtmlP(string html)
         {
             Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);

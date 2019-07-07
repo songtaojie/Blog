@@ -22,11 +22,11 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 当前登录用户
         /// </summary>
-        public static User LoginUser
+        public static UserInfo LoginUser
         {
             get
             {
-                User userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as User;
+                UserInfo userInfo = HttpContext.Current.Items[ConstInfo.LoginUser] as UserInfo;
                 if (userInfo == null)
                 {
                     userInfo = ValidateSession();
@@ -46,9 +46,9 @@ namespace HxBlogs.WebApp
         /// 验证Session中(即Memcached中)是否有数据
         /// </summary>
         /// <returns></returns>
-        public static User ValidateSession()
+        public static UserInfo ValidateSession()
         {
-            User userInfo = null;
+            UserInfo userInfo = null;
             string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
             if (!string.IsNullOrEmpty(sessionId))
             {
@@ -56,7 +56,7 @@ namespace HxBlogs.WebApp
                 if (value != null)
                 {
                     string jsonData = value.ToString();
-                    userInfo = JsonConvert.DeserializeObject<User>(jsonData);
+                    userInfo = JsonConvert.DeserializeObject<UserInfo>(jsonData);
                     UserContext.LoginUser = userInfo;
                     //模拟滑动过期时间，就像Session中默认20分钟那这样
                     MemcachedHelper.Set(sessionId, value, DateTime.Now.AddHours(2));
@@ -68,19 +68,19 @@ namespace HxBlogs.WebApp
         /// 验证Cookie中是否有数据(正常保存7天)
         /// </summary>
         /// <returns></returns>
-        public static User ValidateCookie()
+        public static UserInfo ValidateCookie()
         {
-            User userInfo = null;
+            UserInfo userInfo = null;
             string cookieName = WebHelper.GetCookieValue(ConstInfo.CookieName);
             if (!string.IsNullOrEmpty(cookieName))
             {
                 string jsonUser = Hx.Common.Security.SafeHelper.DESDecrypt(cookieName);
                 Dictionary<string, string> user = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonUser);
-                if (user.ContainsKey(nameof(User.UserName)) && user.ContainsKey(nameof(User.PassWord)))
+                if (user.ContainsKey(nameof(UserInfo.UserName)) && user.ContainsKey(nameof(UserInfo.PassWord)))
                 {
                     IBLL.IUserService userService = ContainerManager.Resolve<IBLL.IUserService>();
-                    string userName = user[nameof(User.UserName)];
-                    string pwd = user[nameof(User.PassWord)];
+                    string userName = user[nameof(UserInfo.UserName)];
+                    string pwd = user[nameof(UserInfo.PassWord)];
                     userInfo = userService.GetEntity(u => u.UserName == userName && u.PassWord == pwd);
                     if (userInfo != null)
                     {
@@ -95,7 +95,7 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 把用户信息存储在Memcached缓存中
         /// </summary>
-        public static void CacheUserInfo(User userInfo, bool isRemember = false)
+        public static void CacheUserInfo(UserInfo userInfo, bool isRemember = false)
         {
             if (userInfo == null) return;
             //模拟Session
@@ -117,7 +117,7 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 更新缓存和session中存的值
         /// </summary>
-        public static void UpdateUser(User userInfo)
+        public static void UpdateUser(UserInfo userInfo)
         {
             string sessionId = WebHelper.GetCookieValue(ConstInfo.SessionID);
             if (!string.IsNullOrEmpty(sessionId))
@@ -146,9 +146,9 @@ namespace HxBlogs.WebApp
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static bool IsLoginUser(User user)
+        public static bool IsLoginUser(UserInfo user)
         {
-            User loginUser = LoginUser;
+            UserInfo loginUser = LoginUser;
             if (user == null || loginUser == null) return false;
             return user.Id == loginUser.Id;
         }
@@ -159,7 +159,7 @@ namespace HxBlogs.WebApp
         /// <returns></returns>
         public static bool IsLoginUser(long userId)
         {
-            User loginUser = LoginUser;
+            UserInfo loginUser = LoginUser;
             if (userId<0 || loginUser == null) return false;
             return userId == loginUser.Id;
         }
@@ -168,7 +168,7 @@ namespace HxBlogs.WebApp
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public static string GetDisplayName(User user)
+        public static string GetDisplayName(UserInfo user)
         {
             if (user == null) return "";
             if (!string.IsNullOrWhiteSpace(user.NickName)) return user.NickName;

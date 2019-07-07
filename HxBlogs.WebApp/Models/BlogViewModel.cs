@@ -20,7 +20,7 @@ namespace HxBlogs.WebApp.Models
         }
         public string ContentHtml { get; set; }
         public long UserId { get; set; }
-        public User User { get; set; }
+        public UserInfo User { get; set; }
         public string UserName { get; set; }
         public DateTime? PublishDate { get; set; }
         public long ReadCount { get; set; }

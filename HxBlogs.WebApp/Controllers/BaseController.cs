@@ -23,7 +23,7 @@ namespace HxBlogs.WebApp.Controllers
         }
         protected T FillAddModel<T>(T model) where T : BaseEntity
         {
-            User userInfo = UserContext.LoginUser;
+            UserInfo userInfo = UserContext.LoginUser;
             if (userInfo != null)
             {
                 model.UserId = userInfo.Id;
@@ -33,7 +33,7 @@ namespace HxBlogs.WebApp.Controllers
         }
         protected T FillDeleteModel<T>(T model) where T : BaseEntity
         {
-            User userInfo = UserContext.LoginUser;
+            UserInfo userInfo = UserContext.LoginUser;
             if (userInfo != null)
             {
                 model.DeleteId = userInfo.Id;

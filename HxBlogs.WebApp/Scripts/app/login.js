@@ -117,7 +117,7 @@
     $.validator.addMethod("checkName", function (value, element, params) {
         var regular = /^([a-zA-Z]|[\u4E00-\u9FA5])([a-zA-Z0-9]|[\u4E00-\u9FA5]|[_]){4,31}$/;
         return this.optional(element) || (regular.test(value));
-    }, "用户名由字母、数字、下划线和中文组成，以中文或字母开头");
+    }, "用户名由字母、数字、下划线和中文组成，以中文或字母开头，且长度为4~30");
     var registerValid = function (instance) {
         var $form = $('.hx-register form');
         instance.validator = $form.validate({
@@ -130,8 +130,6 @@
             rules: {
                 UserName: {
                     required: true,
-                    minlength: 5,
-                    maxlength: 30,
                     checkName: true,
                     remote: {
                         url: '/admin/account/checkusername',

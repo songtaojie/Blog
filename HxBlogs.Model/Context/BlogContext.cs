@@ -54,12 +54,12 @@ namespace HxBlogs.Model.Context
         protected override void Seed(BlogContext context)
         {
             base.Seed(context);
-            context.Set<User>().Add(new User()
+            context.Set<UserInfo>().Add(new UserInfo()
             {
                 UserName = "Admin",
                 PassWord = Hx.Common.Security.SafeHelper.MD5TwoEncrypt("123456"),
                 NickName = "超级管理员",
-                RealName = "管理员",
+                //RealName = "管理员",
                 Email = "stjworkemail@163.com",
                 Admin = "Y",
                 UseMdEdit="Y",

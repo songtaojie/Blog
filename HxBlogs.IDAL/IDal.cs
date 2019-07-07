@@ -5,6 +5,14 @@ namespace HxBlogs.IDAL
 	{
 
 	}
+	public partial interface IBasicInfoDal:IBaseDal<BasicInfo>
+	{
+
+	}
+	public partial interface IJobInfoDal:IBaseDal<JobInfo>
+	{
+
+	}
 	public partial interface IBlogDal:IBaseDal<Blog>
 	{
 
@@ -29,7 +37,7 @@ namespace HxBlogs.IDAL
 	{
 
 	}
-	public partial interface IUserDal:IBaseDal<User>
+	public partial interface IUserInfoDal:IBaseDal<UserInfo>
 	{
 
 	}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.IBLL
 {
-    public partial interface IUserService : IBaseService<User>
+    public partial interface IUserService : IBaseService<UserInfo>
     {
         /// <summary>
         /// 根据用户名判断是否存在该用户
@@ -21,6 +21,6 @@ namespace HxBlogs.IBLL
         /// <param name="info">要插入的用户</param>
         /// <param name="result">结果信息</param>
         /// <returns></returns>
-        User Insert(User info, out AjaxResult result);
+        UserInfo Insert(UserInfo info, out AjaxResult result);
     }
 }

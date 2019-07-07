@@ -7,13 +7,13 @@ namespace HxBlogs.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddLastModifyTime : IMigrationMetadata
+    public sealed partial class AddTabls : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddLastModifyTime));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTabls));
         
         string IMigrationMetadata.Id
         {
-            get { return "201906300549013_AddLastModifyTime"; }
+            get { return "201907060734380_AddTabls"; }
         }
         
         string IMigrationMetadata.Source

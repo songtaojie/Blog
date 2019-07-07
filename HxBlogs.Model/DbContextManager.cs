@@ -164,5 +164,13 @@ namespace HxBlogs.Model
             return Context.SaveChanges() > 0;
         }
         #endregion
+
+        public void ChangeHoldingEntityInContext<T>(T entity)where T:class
+        {
+            var objContext = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)Context).ObjectContext;
+            var SetEntry = objContext.ObjectStateManager.GetObjectStateEntry(entity);
+            List<string> fields = SetEntry.GetModifiedProperties().ToList();
+            SetEntry.AcceptChanges();
+        }
     }
 }

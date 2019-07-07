@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\IBlogDal.cs" />
-    <Compile Include="DataAccess\IUserDal.cs" />
+    <Compile Include="DataAccess\IUserInfoDal.cs" />
     <Compile Include="IBaseDal.cs" />
     <Compile Include="IDal.cs">
       <AutoGen>True</AutoGen>

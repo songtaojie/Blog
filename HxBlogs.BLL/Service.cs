@@ -12,6 +12,24 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+	public partial class BasicInfoService:BaseService<BasicInfo>,IBasicInfoService
+	{
+		private IBasicInfoDal _dal;
+		public BasicInfoService(IBasicInfoDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
+	public partial class JobInfoService:BaseService<JobInfo>,IJobInfoService
+	{
+		private IJobInfoDal _dal;
+		public JobInfoService(IJobInfoDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
 	public partial class BlogService:BaseService<Blog>,IBlogService
 	{
 		private IBlogDal _dal;
@@ -66,10 +84,10 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
-	public partial class UserService:BaseService<User>,IUserService
+	public partial class UserInfoService:BaseService<UserInfo>,IUserInfoService
 	{
-		private IUserDal _dal;
-		public UserService(IUserDal dal)
+		private IUserInfoDal _dal;
+		public UserInfoService(IUserInfoDal dal)
         {
 			this._dal = dal;
 			this.baseDal = dal;

@@ -5,6 +5,12 @@ namespace HxBlogs.DAL
 	public partial class AttentionDal:BaseDal<Attention>,IAttentionDal
 	{
 	}
+	public partial class BasicInfoDal:BaseDal<BasicInfo>,IBasicInfoDal
+	{
+	}
+	public partial class JobInfoDal:BaseDal<JobInfo>,IJobInfoDal
+	{
+	}
 	public partial class BlogDal:BaseDal<Blog>,IBlogDal
 	{
 	}
@@ -23,7 +29,7 @@ namespace HxBlogs.DAL
 	public partial class ReplyCommentDal:BaseDal<ReplyComment>,IReplyCommentDal
 	{
 	}
-	public partial class UserDal:BaseDal<User>,IUserDal
+	public partial class UserInfoDal:BaseDal<UserInfo>,IUserInfoDal
 	{
 	}
 }

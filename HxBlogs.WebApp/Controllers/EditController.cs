@@ -1,8 +1,8 @@
 ﻿using Hx.Common.Helper;
 using Hx.Framework;
-using HxBlogs.BLL;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
+using HxBlogs.Transactions;
 using HxBlogs.WebApp.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -29,7 +29,7 @@ namespace HxBlogs.WebApp.Controllers
         [Route("postedit/{hexId?}")]
         public ActionResult PostEdit(string hexId)
         {
-            User user = UserContext.LoginUser;
+            UserInfo user = UserContext.LoginUser;
             if (string.IsNullOrEmpty(hexId))
             {
                 string view = "ckedit";

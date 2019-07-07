@@ -14,7 +14,7 @@ namespace HxBlogs.WebApp.Filters
             bool result = base.AuthorizeCore(httpContext);
             if (!result)
             {
-                User userInfo = UserContext.ValidateSession();
+                UserInfo userInfo = UserContext.ValidateSession();
                 result = userInfo != null;
                 if (!result)
                 {

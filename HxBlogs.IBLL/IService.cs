@@ -4,6 +4,12 @@ namespace HxBlogs.IBLL
 	public partial interface IAttentionService:IBaseService<Attention>
 	{
 	}
+	public partial interface IBasicInfoService:IBaseService<BasicInfo>
+	{
+	}
+	public partial interface IJobInfoService:IBaseService<JobInfo>
+	{
+	}
 	public partial interface IBlogService:IBaseService<Blog>
 	{
 	}
@@ -22,7 +28,7 @@ namespace HxBlogs.IBLL
 	public partial interface IReplyCommentService:IBaseService<ReplyComment>
 	{
 	}
-	public partial interface IUserService:IBaseService<User>
+	public partial interface IUserInfoService:IBaseService<UserInfo>
 	{
 	}
 }

@@ -200,7 +200,9 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserCenterController.cs" />
-    <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
+    <Compile Include="Areas\Admin\Models\BasicInfoDTO.cs" />
+    <Compile Include="Areas\Admin\Models\JobInfoDTO.cs" />
+    <Compile Include="Areas\Admin\Models\UserInfoDTO.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
     <Compile Include="Common\ConstInfo.cs" />
@@ -223,7 +225,6 @@
     <Compile Include="Models\EditViewModel.cs" />
     <Compile Include="Models\EmailManager.cs" />
     <Compile Include="Models\ExceptionMessage.cs" />
-    <Compile Include="Areas\Admin\Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -405,7 +406,7 @@
     <Content Include="Areas\Admin\Views\UserCenter\Profiles.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_UCLayout.cshtml" />
     <Content Include="Areas\Admin\Views\UserCenter\Side.cshtml" />
-    <Content Include="Areas\Admin\Views\UserCenter\Profiled.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCenter\Tabs.cshtml" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker3.css.map" />
@@ -816,6 +817,7 @@
     <Content Include="Plugins\WangEditor\wangEditor.min.js" />
     <Content Include="Scripts\app\hx-editor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
+    <Content Include="Scripts\app\hx.validator.js" />
     <Content Include="Scripts\app\pop.login.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

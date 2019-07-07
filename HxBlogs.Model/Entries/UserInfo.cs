@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace HxBlogs.Model
 {
-    [Table("User")]
+    [Table("UserInfo")]
     [Serializable]
-    public class User:BaseModel,IEntity<long>
+    public class UserInfo:BaseModel,IEntity<long>
     {
 
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] //自增
         public long Id { get; set; }
+
         [NotMapped]
         public virtual string HexId
         {
@@ -49,87 +50,15 @@ namespace HxBlogs.Model
         [StringLength(100)]
         public string NickName { get; set; }
         /// <summary>
-        /// 真实的名字
-        /// </summary>
-        [StringLength(100)]
-        public string RealName { get; set; }
-        /// <summary>
-        /// 身份证号
-        /// </summary>
-        [StringLength(40)]
-        public string CardId
-        {
-            set; get;
-        }
-        /// <summary>
-        /// 生日
-        /// </summary>
-        [DataType(DataType.DateTime)]
-        public DateTime? Birthday
-        {
-            set; get;
-        }
-
-        /// <summary>
-        /// 性别
-        /// </summary>
-        [StringLength(8)]
-        public string Gender
-        {
-            set; get;
-        }
-        /// <summary>
-        /// 用户的QQ
-        /// </summary>
-        [StringLength(40)]
-        public string QQ
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 用户微信号
-        /// </summary>
-        [StringLength(40)]
-        public string WeChat
-        {
-            get;set;
-        }
-        /// <summary>
         /// 邮箱
         /// </summary>
         [StringLength(100)]
         [Required]
-        [EmailAddress(ErrorMessage = "邮箱格式不正确")]
         [Display(Name = "邮箱")]
         public string Email
         {
             set; get;
         }
-        /// <summary>
-        /// 电话
-        /// </summary>
-        [StringLength(40)]
-        public string Telephone
-        {
-            set; get;
-        }
-        /// <summary>
-        /// 手机号码
-        /// </summary>
-        [StringLength(40)]
-        public string Mobile
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 自我描述
-        /// </summary>
-        [StringLength(2000)]
-        public string Description
-        {
-            set; get;
-        }
-
         /// <summary>
         /// 第三方登录唯一标识
         /// </summary>
@@ -218,22 +147,7 @@ namespace HxBlogs.Model
         /// </summary>
         [DataType(DataType.DateTime)]
         public virtual DateTime? DeleteTime { get; set; }
-        /// <summary>
-        /// 用户地址
-        /// </summary>
-        [StringLength(200)]
-        public string Address
-        {
-            get;set;
-        }
-        /// <summary>
-        /// 用户毕业学校
-        /// </summary>
-        [StringLength(200)]
-        public string School
-        {
-            get;set;
-        }
+       
         /// <summary>
         /// 使用MarkDown编辑器
         /// </summary>
@@ -253,12 +167,40 @@ namespace HxBlogs.Model
         /// </summary>
         [StringLength(100)]
         public string LoginIp { get; set; }
-
         /// <summary>
         /// 最后更新时间
         /// </summary>
         [DataType(DataType.DateTime)]
         public virtual DateTime? LastModifyTime { get; set; }
-
+        /// <summary>
+        /// 基础信息的ID
+        /// </summary>
+        public long BasicId
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 基础信息
+        /// </summary>
+        [ForeignKey("BasicId")]
+        public virtual BasicInfo BasicInfo
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 职位信息的ID
+        /// </summary>
+        public long JobId
+        {
+            get;set;
+        }
+        /// <summary>
+        /// 职位信息
+        /// </summary>
+        [ForeignKey("JobId")]
+        public virtual JobInfo JobInfo
+        {
+            get; set;
+        }
     }
 }

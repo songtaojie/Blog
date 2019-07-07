@@ -67,6 +67,8 @@
     <Compile Include="Base\BaseEntity.cs" />
     <Compile Include="Base\BaseModel.cs" />
     <Compile Include="Entries\Attention.cs" />
+    <Compile Include="Entries\BasicInfo.cs" />
+    <Compile Include="Entries\JobInfo.cs" />
     <Compile Include="Mapping\BaseMatch.cs" />
     <Compile Include="Mapping\IMatchValue.cs" />
     <Compile Include="Mapping\IParameter.cs" />
@@ -87,21 +89,13 @@
     <Compile Include="Entries\Category.cs" />
     <Compile Include="Entries\Comment.cs" />
     <Compile Include="Entries\ReplyComment.cs" />
-    <Compile Include="Entries\User.cs" />
+    <Compile Include="Entries\UserInfo.cs" />
     <Compile Include="Base\IEntity.cs" />
     <Compile Include="Context\DbFactory.cs" />
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
-    <Compile Include="Migrations\201906151541213_AddTables.cs" />
-    <Compile Include="Migrations\201906151541213_AddTables.Designer.cs">
-      <DependentUpon>201906151541213_AddTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906171320322_AddAttention.cs" />
-    <Compile Include="Migrations\201906171320322_AddAttention.Designer.cs">
-      <DependentUpon>201906171320322_AddAttention.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906300549013_AddLastModifyTime.cs" />
-    <Compile Include="Migrations\201906300549013_AddLastModifyTime.Designer.cs">
-      <DependentUpon>201906300549013_AddLastModifyTime.cs</DependentUpon>
+    <Compile Include="Migrations\201907060734380_AddTabls.cs" />
+    <Compile Include="Migrations\201907060734380_AddTabls.Designer.cs">
+      <DependentUpon>201907060734380_AddTabls.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,14 +108,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906151541213_AddTables.resx">
-      <DependentUpon>201906151541213_AddTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906171320322_AddAttention.resx">
-      <DependentUpon>201906171320322_AddAttention.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906300549013_AddLastModifyTime.resx">
-      <DependentUpon>201906300549013_AddLastModifyTime.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907060734380_AddTabls.resx">
+      <DependentUpon>201907060734380_AddTabls.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

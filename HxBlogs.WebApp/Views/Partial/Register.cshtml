@@ -1,5 +1,4 @@
-﻿@model HxBlogs.WebApp.Models.RegisterViewModel
-<div class="hx-register" @(ViewBag.IsPop==true?"hidden":"")>
+﻿<div class="hx-register" @(ViewBag.IsPop==true?"hidden":"")>
     @using (Ajax.BeginForm("registeruser", "account", new { },
         new AjaxOptions()
         {

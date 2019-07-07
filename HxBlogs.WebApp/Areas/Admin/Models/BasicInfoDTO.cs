@@ -7,28 +7,8 @@ using System.Web;
 
 namespace HxBlogs.WebApp.Models
 {
-    public class UserViewModel: IAutoMapper<Model.User>
+    public class BasicInfoDTO : IAutoMapper<Model.BasicInfo>
     {
-        public long Id { get; set; }
-        public virtual string HexId
-        {
-            get { return Hx.Common.Helper.Helper.ToHex(Id); }
-        }
-        /// <summary>
-        /// 用户名称
-        /// </summary>
-        public string UserName
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 密码
-        /// </summary>
-        public string PassWord
-        {
-            set;
-            get;
-        }
         /// <summary>
         /// 昵称
         /// </summary>
@@ -36,9 +16,11 @@ namespace HxBlogs.WebApp.Models
         [RegularExpression("^([a-zA-Z]|[\u4E00-\u9FA5])([a-zA-Z0-9]|[\u4E00-\u9FA5]|[_]){1,21}$",
             ErrorMessage = "昵称由2~20个字符且由字母、数字、下划线和中文组成，以中文或字母开头")]
         public string NickName { get; set; }
+
         /// <summary>
         /// 真实的名字
         /// </summary>
+        [RegularExpression("^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$", ErrorMessage = "请输入正确的姓名")]
         public string RealName { get; set; }
         /// <summary>
         /// 身份证号
@@ -58,6 +40,7 @@ namespace HxBlogs.WebApp.Models
         /// <summary>
         /// 性别
         /// </summary>
+        [StringLength(1)]
         public string Gender
         {
             set; get;
@@ -65,6 +48,7 @@ namespace HxBlogs.WebApp.Models
         /// <summary>
         /// 用户的QQ
         /// </summary>
+        [RegularExpression("^[1-9]\\d{4,10}$", ErrorMessage = "请输入正确的QQ号!")]
         public string QQ
         {
             get; set;
@@ -72,6 +56,7 @@ namespace HxBlogs.WebApp.Models
         /// <summary>
         /// 用户微信号
         /// </summary>
+        [RegularExpression("^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$", ErrorMessage = "请输入正确的微信号!")]
         public string WeChat
         {
             get; set;
@@ -93,6 +78,7 @@ namespace HxBlogs.WebApp.Models
         /// <summary>
         /// 手机号码
         /// </summary>
+        [RegularExpression("^1(3|4|5|6|7|8|9)\\d{9}$", ErrorMessage = "手机号格式不正确!")]
         public string Mobile
         {
             get; set;
@@ -103,24 +89,6 @@ namespace HxBlogs.WebApp.Models
         public string Description
         {
             set; get;
-        }
-        /// <summary>
-        /// 头像存储文件路径
-        /// </summary>
-        public string AvatarUrl
-        {
-            get; set;
-        }
-        /// <summary>
-        /// 用户注册时间
-        /// </summary>
-        public DateTime RegisterTime { get; set; } = DateTime.Now;
-        /// <summary>
-        /// 用户注册时的ip
-        /// </summary>
-        public string RegisterIp
-        {
-            get; set;
         }
         /// <summary>
         /// 用户地址

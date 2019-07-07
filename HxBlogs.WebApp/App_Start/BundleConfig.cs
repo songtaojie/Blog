@@ -13,7 +13,8 @@ namespace HxBlogs.WebApp
                         "~/scripts/jquery.unobtrusive-ajax.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/scripts/jquery.validate*",
-                        "~/scripts/local/messages_zh.js"));
+                        "~/scripts/local/messages_zh.js",
+                        "~/scripts/app/hx.validator.js"));
             bundles.Add(new ScriptBundle("~/bundles/scroll").Include(
                         "~/scripts/app/scrollReveal.js"));
             #endregion

@@ -64,13 +64,13 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public async Task<JsonResult> RegisterUser(RegisterViewModel info)
+        public async Task<JsonResult> RegisterUser(UserInfoDTO info)
         {
             AjaxResult result = new AjaxResult();
-            User userInfo = null;
+            UserInfo userInfo = null;
             if (ModelState.IsValid)
             {
-                userInfo = MapperManager.Map<User>(info);
+                userInfo = MapperManager.Map<UserInfo>(info);
                 userInfo = this._userService.Insert(userInfo,out result);
             }
             if (result.Success)
@@ -166,7 +166,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             string userName = Request["UserName"];
             string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
-            User userInfo = this._userService.GetEntity(u => u.PassWord == pwd && (u.UserName == userName || u.Email == userName));
+            UserInfo userInfo = this._userService.GetEntity(u => u.PassWord == pwd && (u.UserName == userName || u.Email == userName));
             if (userInfo == null)
             {
                 Session[ConstInfo.VCode] = null;
@@ -263,7 +263,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             if (MemcachedHelper.Get(key) != null)
             {
                 string userName = MemcachedHelper.Get(key).ToString();
-                User userInfo = this._userService.GetEntity(u => u.UserName == userName);
+                UserInfo userInfo = this._userService.GetEntity(u => u.UserName == userName);
                 if (userInfo == null)
                 {
                     result.Success = false;

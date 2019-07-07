@@ -1,4 +1,4 @@
-﻿@model HxBlogs.WebApp.Models.UserViewModel
+﻿@model HxBlogs.WebApp.Models.BasicInfoDTO
 @{
     string date = "uc" + Hx.Common.Helper.Helper.GetTimestamp().ToString(),
         basicInfo = date + "002",
@@ -20,7 +20,7 @@
     </ul>
     <div class="tab-content py-3">
         <div id="@basicInfo" class="container tab-pane active">
-            @using (Ajax.BeginForm("saveprofile", "usercenter", new { },
+            @using (Ajax.BeginForm("savebasicinfo", "usercenter", new { },
                     new AjaxOptions()
                     {
                         HttpMethod = "post",
@@ -35,7 +35,7 @@
                     }))
             {
                 <div class="form-group row">
-                    <label class="col-form-label font-weight-bold" for="NickName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称</label>
+                    <label class="col-form-label font-weight-bold" for="NickName">&emsp;&emsp;昵称</label>
                     <input type="text" id="NickName" name="NickName" class="form-control w-auto mx-sm-3" value="@Model.NickName" aria-describedby="nickNameHelp">
                     <small id="nickNameHelp" class="form-text text-muted my-auto">
                         2~20个字符.
@@ -50,15 +50,15 @@
                     <input type="text" id="Mobile" name="Mobile" class="form-control w-auto mx-sm-3" value="@Model.Mobile">
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label font-weight-bold" for="QQ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ</label>
+                    <label class="col-form-label font-weight-bold" for="QQ">&emsp;&emsp;&nbsp;QQ</label>
                     <input type="text" id="QQ" name="QQ" class="form-control w-auto mx-sm-3" value="@Model.QQ">
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label font-weight-bold" for="WeChat">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;微信</label>
+                    <label class="col-form-label font-weight-bold" for="WeChat">&emsp;&emsp;微信</label>
                     <input type="text" id="WeChat" name="WeChat" class="form-control w-auto mx-sm-3" value="@Model.WeChat">
                 </div>
                 <div class="form-group row">
-                    <label class="control-label mr-3 font-weight-bold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                    <label class="control-label mr-3 font-weight-bold">&emsp;&emsp;性别</label>
                     <div class=" custom-control custom-radio custom-control-inline">
                         <input type="radio" id="male" name="Gender" value="1"
                                @(!string.IsNullOrEmpty(Model.Gender)?(Model.Gender == "1"? "checked disabled" : "disabled") :"")
@@ -105,14 +105,14 @@
             }
         </div>
         <div id="@jobSkill" class="container tab-pane fade">
-            @using (Ajax.BeginForm("savecontact", "usercenter", new { },
+            @using (Ajax.BeginForm("savejobinfo", "usercenter", new { },
                     new AjaxOptions()
                     {
                         HttpMethod = "post",
-                        OnBegin = "uc.begin",
-                        OnSuccess = "uc.success",
-                        OnFailure = "uc.failure",
-                        OnComplete = "uc.finish"
+                        OnBegin = "uc.job.begin",
+                        OnSuccess = "uc.job.success",
+                        OnFailure = "uc.job.failure",
+                        OnComplete = "uc.job.finish"
                     }, new
                     {
                         role = "form",
@@ -120,8 +120,47 @@
                     }))
             {
                 <div class="form-group row">
-                    <label class="col-form-label font-weight-bold" for="NickName">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
-                    <input type="text" name="NickName" class="form-control w-auto mx-sm-3" value="@Model.NickName" aria-describedby="nickNameHelp">
+                    <label class="col-form-label font-weight-bold" for="WorkUnit">工作单位</label>
+                    <input type="text" id="WorkUnit" name="WorkUnit" class="form-control w-auto mx-sm-3" value="@ViewBag.JobInfo.WorkUnit">
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label font-weight-bold" for="Position">&emsp;&emsp;职位</label>
+                    <input type="text" id="Position" name="Position" class="form-control w-auto mx-sm-3" value="@ViewBag.JobInfo.Position">
+                </div>
+                <div class="form-group row">
+                    <label class="control-label mr-3 font-weight-bold" for="WorkYear">工作年限</label>
+                    <select id="WorkYear" class="custom-control custom-select w-auto hx-minw-2">
+                        <option value="">--请选择--</option>
+                        <option value="0">在读</option>
+                        <option value="1">应届</option>
+                        <option value="2">1年</option>
+                        <option value="3">2年</option>
+                        <option value="4">3年</option>
+                        <option value="5">4年</option>
+                        <option value="6">5年</option>
+                        <option value="7">6年</option>
+                        <option value="8">7年</option>
+                        <option value="9">8年</option>
+                        <option value="10">9年</option>
+                        <option value="11">10年</option>
+                        <option value="12">10年以上</option>
+                    </select>
+                    @*<input type="text" id="WorkYear" name="WorkYear" class="form-control w-auto mx-sm-3" value="@ViewBag.JobInfo.WorkYear">*@
+                </div>
+                <div class="form-group row">
+                    <label class="control-label mr-3 font-weight-bold" for="Status">目前状态</label>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="student" name="Status" value="0" class="custom-control-input">
+                        <label class="custom-control-label" for="student">学生</label>
+                    </div>
+                    <div class=" custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="work" name="Status" value="1" class="custom-control-input">
+                        <label class="custom-control-label" for="work">在职</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="leave" name="Status" value="2" class="custom-control-input">
+                        <label class="custom-control-label" for="leave">离职</label>
+                    </div>
                 </div>
                 <div class="form-group row ">
                     <input type="submit" class="btn btn-secondary" value="保存修改" />

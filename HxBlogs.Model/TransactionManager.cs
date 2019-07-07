@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HxBlogs.BLL
+namespace HxBlogs.Transactions
 {
     /// <summary>
     /// 包含事务的操作类

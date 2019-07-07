@@ -195,7 +195,7 @@ namespace HxBlogs.Model
         /// 用户
         /// </summary>
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual UserInfo User { get; set; }
         ///// <summary>
         ///// 系统分类，前端、后端、编程语言等
         ///// </summary> 
