@@ -83,6 +83,17 @@
                     error.remove();
                 }
             });
+            $('#WorkYear').val('@ViewBag.JobInfo.WorkYear');
+            $('.hx-avatar').mouseenter(function () {
+                var first = $(this).children().first();
+                first.removeClass('hx-hidden').addClass('hx-visiable hx-active');
+            }).mouseleave(function () {
+                var first = $(this).children().first();
+                first.removeClass(['hx-visiable', 'hx-active']).addClass('hx-hidden');
+                });
+            $('.btn-edit-avatar').click(function () {
+
+            });
         })
         var uc = function () {
             var basic = {

@@ -236,6 +236,16 @@
     <Content Include="Plugins\citypicker\js\city-picker.data.js" />
     <Content Include="Plugins\citypicker\js\city-picker.js" />
     <Content Include="Plugins\ckeditor\hx-ckeditor.js" />
+    <Content Include="Plugins\cropper\js\cropper.common.js" />
+    <Content Include="Plugins\cropper\css\cropper.css" />
+    <Content Include="Plugins\cropper\js\cropper.esm.js" />
+    <Content Include="Plugins\cropper\js\cropper.js" />
+    <Content Include="Plugins\cropper\css\cropper.min.css" />
+    <Content Include="Plugins\cropper\js\cropper.min.js" />
+    <Content Include="Plugins\cropper\js\jquery-cropper.common.js" />
+    <Content Include="Plugins\cropper\js\jquery-cropper.esm.js" />
+    <Content Include="Plugins\cropper\js\jquery-cropper.js" />
+    <Content Include="Plugins\cropper\js\jquery-cropper.min.js" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.css" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.min.css" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.standalone.css" />
