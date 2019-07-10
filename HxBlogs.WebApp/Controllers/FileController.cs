@@ -1,5 +1,6 @@
 ﻿using Hx.Common.Helper;
 using Hx.WebCommon;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -73,6 +74,13 @@ namespace HxBlogs.WebApp.Controllers
             result["uploaded"] = true;
             result["url"] = WebHelper.ToRelativePath(newFilePath);
             return Json(result);
+        }
+
+        public ActionResult UploadAvatar()
+        {
+            AjaxResult result = new AjaxResult();
+            result.Resultdata = "成功";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

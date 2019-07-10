@@ -389,6 +389,14 @@
     <Content Include="Plugins\datetimepicker\locales\bootstrap-datetimepicker.uk.js" />
     <Content Include="Plugins\datetimepicker\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="Plugins\datetimepicker\locales\bootstrap-datetimepicker.zh-TW.js" />
+    <Content Include="Plugins\dropzone\css\basic.css" />
+    <Content Include="Plugins\dropzone\js\dropzone-amd-module.js" />
+    <Content Include="Plugins\dropzone\css\dropzone.css" />
+    <Content Include="Plugins\dropzone\js\dropzone.js" />
+    <Content Include="Plugins\dropzone\css\basic.min.css" />
+    <Content Include="Plugins\dropzone\js\dropzone-amd-module.min.js" />
+    <Content Include="Plugins\dropzone\css\dropzone.min.css" />
+    <Content Include="Plugins\dropzone\js\dropzone.min.js" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.eot" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.ttf" />
     <Content Include="Plugins\editormd\fonts\editormd-logo.woff" />

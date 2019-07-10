@@ -119,6 +119,15 @@
                 </div>
             </div>
         </div>
+        <div id="imageDialog" hidden>
+            <form action="/file/uploadavatar" id="uploadavatar">
+                <div class="dz-message needsclick">
+                    拖拽或点击选择文件
+                </div>
+
+            </form>
+            <button type="button" class="btn btn-success" id="btn_upload">Upload</button>
+        </div>
         <div id="@jobSkill" class="container-fluid tab-pane fade">
             @using (Ajax.BeginForm("savejobinfo", "usercenter", new { },
                     new AjaxOptions()

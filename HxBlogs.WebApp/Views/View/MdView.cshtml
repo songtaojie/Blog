@@ -36,7 +36,7 @@
 <div class="hx-container blog-view">
     <div class="d-flex">
         @{
-            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User,
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.UserInfo,
                 new ViewDataDictionary {
                     { "BlogId",Model.HexId},
                     {"Attention", attention}
