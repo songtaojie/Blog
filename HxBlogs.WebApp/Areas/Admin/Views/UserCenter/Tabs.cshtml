@@ -120,12 +120,17 @@
             </div>
         </div>
         <div id="imageDialog" hidden>
-            <form action="/file/uploadavatar" id="uploadavatar">
+            @*<div class="dropzone needsclick dz-clickable" id="myAwesomeDropzone">
+            </div>*@
+            <form action="/file/uploadavatar" class="dropzone needsclick dz-clickable"  id="uploadavatar">
                 <div class="dz-message needsclick">
                     拖拽或点击选择文件
                 </div>
+                <div class="dz-preview dropzone-previews">
 
+                </div>
             </form>
+           
             <button type="button" class="btn btn-success" id="btn_upload">Upload</button>
         </div>
         <div id="@jobSkill" class="container-fluid tab-pane fade">
