@@ -231,6 +231,8 @@
     <Content Include="Content\app\blog-header-footer.css" />
     <Content Include="Content\app\themes\hx-default.css" />
     <Content Include="font\fonts\hx-font.svg" />
+    <Content Include="Plugins\alertifyjs\css\themes\hx.alertify.css" />
+    <Content Include="Plugins\alertifyjs\hx.alertify.js" />
     <Content Include="Plugins\citypicker\css\city-picker.css" />
     <Content Include="Plugins\citypicker\images\drop-arrow.png" />
     <Content Include="Plugins\citypicker\js\city-picker.data.js" />
@@ -835,6 +837,7 @@
     <Content Include="Plugins\WangEditor\wangEditor.min.js" />
     <Content Include="Scripts\app\hx-editor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
+    <Content Include="Scripts\app\hx.uc.js" />
     <Content Include="Scripts\app\hx.validator.js" />
     <Content Include="Scripts\app\pop.login.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

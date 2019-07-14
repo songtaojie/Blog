@@ -19,8 +19,17 @@ namespace HxBlogs.Test
     {
         static void Main(string[] args)
         {
-            Regex reg = new Regex("^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$");
-            Console.WriteLine(reg.IsMatch("宋"));
+            //Regex reg = new Regex("^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$");
+            //Console.WriteLine(reg.IsMatch("宋"));
+            for (int i = 0; i < 10; i++)
+            {
+                var j = i;
+                Task.Run(() =>
+                {
+                    Console.WriteLine("异步hhhhhh" + j);
+                });
+                Console.WriteLine("同步" + i);
+            }
             Console.ReadLine();
         }
       

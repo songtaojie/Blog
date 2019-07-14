@@ -4,11 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 海·星の博客</title>
+    @RenderSection("beginstyles", required: false)
     @Styles.Render("~/content/site")
     @*@Styles.Render("~/content/remind")*@
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/darkblack")
-    @RenderSection("styles", required: false)
+    @RenderSection("endstyles", required: false)
 </head>
 <body>
     @{

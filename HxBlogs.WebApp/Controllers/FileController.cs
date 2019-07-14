@@ -1,11 +1,14 @@
 ﻿using Hx.Common.Helper;
+using Hx.Framework;
 using Hx.WebCommon;
+using HxBlogs.IBLL;
 using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -52,7 +55,7 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/"+ DateTime.Now.ToString("yyyyMM") + "/";
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/"+ DateTime.Now.ToString("yyyyMM") + "/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
@@ -79,7 +82,48 @@ namespace HxBlogs.WebApp.Controllers
         public ActionResult UploadAvatar()
         {
             AjaxResult result = new AjaxResult();
-            result.Resultdata = "成功";
+            HttpFileCollectionBase imgFiles = Request.Files;
+            if (imgFiles.Count <= 0) {
+                result.Success = false;
+                result.Message = "请上传文件!";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            UserInfo logUser = UserContext.LoginUser;
+            UserInfo userInfo = MapperManager.Map<UserInfo>(logUser);
+            //路径处理
+            string rootPath = WebHelper.GetAppSettingValue(ConstInfo.UploadPath);
+            string dirPath = rootPath + "/" + userInfo.UserName + "/avatar/"+ DateTime.Now.ToString("yyyyMM") + "/";
+            //绝对路径
+            string mapPath = Server.MapPath(dirPath);
+            FileHelper.TryCreateDirectory(mapPath);
+            string avatarUrl = string.Empty;
+            //文件名
+            foreach (string key in imgFiles)
+            {
+                HttpPostedFileBase file = imgFiles[key];
+                long fileLength = file.InputStream.Length;
+                if (fileLength > 2 * 1024 * 1024)
+                {
+                    result.Message = "文件超出限制. 最大为: 2MB.";
+                    result.Success = false;
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                string filePath = Path.Combine(mapPath, file.FileName);
+                if (file.FileName.Contains("50x50"))
+                {
+                    avatarUrl = Path.Combine(dirPath, file.FileName);
+                }
+                Task.Run(() =>
+                {
+                    file.SaveAs(filePath);
+                });
+            }
+            userInfo.AvatarUrl = avatarUrl;
+            result.Resultdata = WebHelper.GetFullUrl(avatarUrl);
+            IUserInfoService _userService = ContainerManager.Resolve<IUserInfoService>();
+            _userService.UpdateEntityFields(userInfo, "AvatarUrl");
+            UserContext.UpdateUser(userInfo);
+            //HttpPostedFileBase file = Request.Files["file"];
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

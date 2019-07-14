@@ -28,8 +28,10 @@
             else
             {
                 <li class="dropdown user nav-item ml-2 ml-md-0">
-                    <a href="#" class="dropdown-toggle text-light" data-toggle="dropdown">
-                        <img class="hx-header-image" src="~/images/avatar1_small.jpg" />
+                    <a href="#" class="dropdown-toggle text-light " data-toggle="dropdown">
+                        <div class="hx-avatar _32x32 d-inline-block">
+                            <img src="@WebHelper.GetAvatarUrl(0)" />
+                        </div>
                         <span>@UserContext.LoginUser.NickName</span>
                     </a>
                     <div class="dropdown-menu">

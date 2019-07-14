@@ -18,7 +18,7 @@ namespace HxBlogs.WebApp
             if (!date.HasValue) return "";
             return GetDispayDate(date.Value, showTime);
         }
-        public static string GetDispayDate(DateTime date,bool showTime = false)
+        public static string GetDispayDate(DateTime date, bool showTime = false)
         {
             TimeSpan ts = DateTime.Now.Subtract(date);
             if (ts.TotalMinutes < 60) return string.Format("{0} 分钟前", (int)Math.Floor(ts.TotalMinutes));
@@ -230,7 +230,7 @@ namespace HxBlogs.WebApp
         /// <param name="maxSize">返回的字符串最大长度为多少</param>
         /// <param name="onlyText">是否只返回纯文本，还是返回带有标签的</param>
         /// <returns></returns>
-        public static string FilterHtmlP(string html,int maxSize,bool onlyText = true)
+        public static string FilterHtmlP(string html, int maxSize, bool onlyText = true)
         {
             if (string.IsNullOrEmpty(html)) return "";
             Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
@@ -250,6 +250,41 @@ namespace HxBlogs.WebApp
             if (string.IsNullOrEmpty(result) || result.Length < maxSize) return result;
             return result.Substring(0, maxSize);
         }
+        #region 获取头像url
+        /// <summary>
+        /// 获取头像的url
+        /// </summary>
+        /// <param name="type">0：代表50*50,1代表80*80,2代表160*160</param>
+        /// <returns></returns>
+        public static string GetAvatarUrl(int type)
+        {
+            Model.UserInfo userInfo = UserContext.LoginUser;
+            string avatarUrl = string.Empty;
+            if (userInfo != null && !string.IsNullOrEmpty(userInfo.AvatarUrl))
+            {
+                avatarUrl = userInfo.AvatarUrl;
+                if (type == 1 || type == 2)
+                {
+                    int index = avatarUrl.LastIndexOf("50x50");
+                    string newUrl = avatarUrl.Substring(0, index);
+                    string fullPath = string.Empty;
+                    if (type == 1)
+                    {
+                        fullPath = HttpContext.Current.Server.MapPath(newUrl + "80x80.png");
+                    }
+                    else if (type == 2)
+                    {
+                        fullPath = HttpContext.Current.Server.MapPath(newUrl + "160x160.png");
+                    }
+                    if (File.Exists(fullPath))
+                        avatarUrl = newUrl;
+                }
+
+            }
+            if (string.IsNullOrEmpty(avatarUrl)) avatarUrl = GetFullUrl("/images/avatar.png");
+            return GetFullUrl(avatarUrl);
+        }
+        #endregion
         /// <summary>
         /// 获取客户端ip
         /// </summary>

@@ -1,163 +1,4 @@
 ﻿; if (!jQuery) { throw new Error("hxCore requires jQuery"); }
-; if (window.alertify) {
-    alertify.defaults.transition = "zoom";
-
-    alertify.defaults.glossary.title = '系统提示';
-    alertify.defaults.glossary.ok = '确定';
-    alertify.defaults.glossary.cancel = '取消';
-  
-    alertify.defaults.theme.ok = "btn btn-primary";
-    alertify.defaults.theme.cancel = "btn btn-danger";
-    alertify.defaults.notifier.delay = 3;
-    alertify.defaults.notifier.position = 'top-center';
-    alertify.hxDialog || alertify.dialog('hxDialog', function () {
-        var templates = {
-            back:`<span class="i-hx-back" style="cursor: pointer;"></span> `
-        };
-        var on = (function () {
-            if (document.addEventListener) {
-                return function (el, event, fn, useCapture) {
-                    el.addEventListener(event, fn, useCapture === true);
-                };
-            } else if (document.attachEvent) {
-                return function (el, event, fn) {
-                    el.attachEvent('on' + event, fn);
-                };
-            }
-        }());
-        var off = (function () {
-            if (document.removeEventListener) {
-                return function (el, event, fn, useCapture) {
-                    el.removeEventListener(event, fn, useCapture === true);
-                };
-            } else if (document.detachEvent) {
-                return function (el, event, fn) {
-                    el.detachEvent('on' + event, fn);
-                };
-            }
-        }());
-        function createBack(instance) {
-            var backDiv = document.createElement('div'),
-                first = instance.elements.dialog.firstChild,
-                custom = {};
-            backDiv.style.display = 'none';
-            backDiv.style.position = 'absolute';
-            backDiv.style.left = '4px';
-            backDiv.style.margin = '-10px 0 0 24px';
-            backDiv.style.zIndex = '2';
-            backDiv.innerHTML = templates.back;
-            custom.back = backDiv.firstChild;
-            instance.elements.dialog.insertBefore(backDiv, first);
-            instance.elements.custom = custom;
-            instance.__internal.backhanlder = instance.settings.onback;
-        } 
-        function bindBackEvent(instance) {
-            var c = instance.elements.custom;
-            // 返回功能
-            if (instance.get('backable')) {
-                if (typeof instance.__internal.backhanlder === 'function' && !instance.__internal.initback) {
-                    on(c.back, 'click', instance.__internal.backhanlder);
-                    instance.__internal.initback = true;
-                }
-            }
-        }
-        function unbindBackEvent(instance) {
-            var c = instance.elements.custom;
-            // 返回功能
-            if (instance.get('backable')) {
-                if (typeof instance.__internal.backhanlder === 'function') {
-                    off(c.back, 'click', instance.__internal.backhanlder);
-                    instance.__internal.initback = false;
-                }
-            }
-        }
-        return {
-            main: function (content) {
-                this.setContent(content);
-            },
-            build() {
-                var width = this.get('width'),
-                    w = parseFloat(width),
-                    maxWidth = this.get('maxWidth'),
-                    mw = parseFloat(maxWidth),
-                    regex = /(\d*\.\d+|\d+)%/,
-                    dialog = this.elements.dialog;
-                if (!isNaN(w)) {
-                    if (('' + width).match(regex)) {
-                        dialog.style.width = width;
-                    } else {
-                        dialog.style.width = w + 'px';
-                    }
-                }
-                if (!isNaN(mw)) {
-                    if (('' + maxWidth).match(regex)) {
-                        dialog.style.maxWidth = maxWidth;
-                    } else {
-                        dialog.style.maxWidth = mw + 'px';
-                    }
-                }
-                createBack(this);
-            },
-            hooks: {
-                onclose: function () {
-                    unbindBackEvent(this);
-                }
-            },
-            setup: function () {
-                return {
-                    focus: {
-                        element: function () {
-                            return this.elements.body.querySelector(this.get('selector'));
-                        },
-                        select: true
-                    },
-                    options: {
-                        closableByDimmer: false,
-                        title: '&nbsp;',
-                        maximizable: false,
-                        resizable: false,
-                        padding: false
-                    }
-                };
-            },
-            settings: {
-                onback: null,
-                backable: false,
-                selector: undefined,
-                width:320,
-                maxWidth:null
-            },
-            setBack: function (back) {
-                if (back === true) {
-                    this.elements.custom.back.parentElement.style.display = 'block';
-                    bindBackEvent(this);
-                } else {
-                    this.elements.custom.back.parentElement.style.display = 'none';
-                    unbindBackEvent(this);
-                }
-            },
-            prepare:function(){
-                bindBackEvent(this);
-            },
-            settingUpdated: function (key, oldValue, newValue) {
-                switch (key) {
-                    case 'backable':
-                        this.setBack(newValue);
-                        break;
-                    case 'onback':
-                        if (typeof newValue === 'function') {
-                            this.__internal.backhanlder = newValue;
-                            bindBackEvent(this);
-                        } else {
-                            this.__internal.backhanlder = oldValue;
-                            unbindBackEvent(this);
-                        }
-                        break;
-                }
-            },
-        };
-    });
-}
 ; (function ($, window) {
     "use strict";
     /**
@@ -347,7 +188,7 @@
                     }
                 }
                 if (hxCore.isFunction(success)) {
-                    success.call(this, data,result);
+                    success.call(this, data, result);
                 }
             } else {
                 const msg = result.Message || '';
@@ -483,7 +324,24 @@
                 _remind(opt);
             }
         },
-
+        dataURLtoFile: function (dataurl, filename) {
+            var arr = dataurl.split(',');
+            var mime = arr[0].match(/:(.*?);/)[1];
+            var bstr = atob(arr[1]);
+            var n = bstr.length;
+            var u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            //转换成file对象
+            return new File([u8arr], filename, { type: mime });
+        },
+        blogToFile(blog, filename) {
+            if (window.File) {
+                return new File([blog], filename, { type: b.type });
+            }
+            return null;
+        }
     };
     var _hxLoad = null;
     if ($.blockUI) {

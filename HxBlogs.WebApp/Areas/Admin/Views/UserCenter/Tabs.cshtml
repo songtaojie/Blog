@@ -23,18 +23,18 @@
             <div class="d-flex">
                 <div class="flex-fill">
                     @using (Ajax.BeginForm("savebasicinfo", "usercenter", new { },
-                         new AjaxOptions()
-                         {
-                             HttpMethod = "post",
-                             OnBegin = "uc.basic.begin",
-                             OnSuccess = "uc.basic.success",
-                             OnFailure = "uc.basic.failure",
-                             OnComplete = "uc.basic.finish"
-                         }, new
-                         {
-                             role = "form",
-                             id = "basicForm"
-                         }))
+                 new AjaxOptions()
+                 {
+                     HttpMethod = "post",
+                     OnBegin = "uc.basic.begin",
+                     OnSuccess = "uc.basic.success",
+                     OnFailure = "uc.basic.failure",
+                     OnComplete = "uc.basic.finish"
+                 }, new
+                 {
+                     role = "form",
+                     id = "basicForm"
+                 }))
                     {
                         <div class="form-group row">
                             <label class="col-form-label font-weight-bold" for="NickName">&emsp;&emsp;昵称</label>
@@ -109,29 +109,51 @@
                 <div class="w-25 hx-minw-1 hx-maxw-2">
                     <div class="text-center">
                         <label class="font-weight-bold">头像</label>
-                        <div class="hx-avatar">
+                        <div class="hx-avatar _160x160">
                             <div class="hx-dimmer hx-circle hx-transition">
                                 <button id="" class="btn btn-success btn-edit-avatar">修改头像</button>
                             </div>
-                            <img src="~/images/avatar.png" class="img-fluid hx-circle w-100" />
+                            <img src="@WebHelper.GetFullUrl(ViewBag.AvatarUrl)" class="img-fluid hx-circle w-100" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="imageDialog" hidden>
-            @*<div class="dropzone needsclick dz-clickable" id="myAwesomeDropzone">
-            </div>*@
-            <form action="/file/uploadavatar" class="dropzone needsclick dz-clickable"  id="uploadavatar">
-                <div class="dz-message needsclick">
-                    拖拽或点击选择文件
+            <div class="d-flex p-3">
+                <div id="dzavatar" class="flex-fill">
+                    <div  class="d-flex align-items-center justify-content-center dropzone needsclick dz-clickable h-100 border-0 img-container">
+                        <div class="dz-message needsclick">
+                            <i class="fa fa-upload fa-3x"></i><br>
+                            <span class="note needsclick">
+                                <strong>拖入或点击上传文件</strong><br />
+                                (只支持图片文件，且最大为2MB)
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="dz-preview dropzone-previews">
-
+                <div id="cropperavatar" class="img-container flex-fill" hidden>
                 </div>
-            </form>
-           
-            <button type="button" class="btn btn-success" id="btn_upload">Upload</button>
+                <div class="pl-3">
+                    <div class="img-container font-weight-bold">预览</div>
+                    <div class="card">
+                        <div class="img-preview preview-lg card-img-top"></div>
+                        <small class="text-muted text-center">160 x 160</small>
+                    </div>
+                    
+                    <div class="d-flex flex-row justify-content-start">
+                        <div class="card mr-2">
+                            <div class="img-preview preview-md card-img-top" ></div>
+                            <small class="text-muted text-center">80 x 80</small>
+                        </div>
+                        <div class="card align-self-start">
+                            <div class="img-preview preview-sm card-img-top"></div>
+                            <small class="text-muted text-center">50 x 50</small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="@jobSkill" class="container-fluid tab-pane fade">
             @using (Ajax.BeginForm("savejobinfo", "usercenter", new { },

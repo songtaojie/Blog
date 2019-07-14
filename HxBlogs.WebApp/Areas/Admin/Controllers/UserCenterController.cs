@@ -29,6 +29,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             basicInfo.NickName = UserContext.LoginUser.NickName;
             Models.JobInfoDTO jobInfo = MapperManager.Map<Models.JobInfoDTO>(UserContext.LoginUser.JobInfo);
             ViewBag.JobInfo = jobInfo;
+            ViewBag.AvatarUrl = UserContext.LoginUser.AvatarUrl;
             return View(basicInfo);
         }
 

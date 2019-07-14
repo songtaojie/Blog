@@ -86,11 +86,12 @@ namespace HxBlogs.WebApp
         {
             bundles.Add(new ScriptBundle("~/bundles/remind").Include(
                      "~/plugins/blockui/jquery.blockUI.js",
-                     "~/plugins/alertifyjs/alertify.js"));
+                     "~/plugins/alertifyjs/alertify.js",
+                     "~/plugins/alertifyjs/hx.alertify.js"));
 
             bundles.Add(new StyleBundle("~/content/remind").Include(
                 "~/plugins/alertifyjs/css/alertify.css",
-                "~/plugins/alertifyjs/css/themes/default.css",
+                "~/plugins/alertifyjs/css/themes/hx.alertify.css",
                 "~/content/app/hx-loading.css"
             ));
             bundles.Add(new ScriptBundle("~/bundles/picker").Include(
