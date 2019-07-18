@@ -46,7 +46,7 @@ namespace HxBlogs.WebApp.Controllers
                 return Json(result);
             }
             long fileLength = imgFile.InputStream.Length;
-            
+
             long max = WebHelper.GetAppSettingValue(ConstInfo.maxLength, 5242880);
             if (fileLength > max)
             {
@@ -55,13 +55,13 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/"+ DateTime.Now.ToString("yyyyMM") + "/";
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/" + DateTime.Now.ToString("yyyyMM") + "/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
             //文件名
-           
-            string guid = DateTime.Now.ToString("yyyyMMddHHmmss")+ DateTime.Now.Millisecond;
+
+            string guid = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond;
             string sourceFileName = guid + "_" + fileName;
             string newFileName = string.Format("{0}{1}", guid, fileExt);
             //文件全路径
@@ -70,7 +70,7 @@ namespace HxBlogs.WebApp.Controllers
             imgFile.SaveAs(sourceFilePath);
             imgFile.SaveAs(newFilePath);
             // ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
-            string letter = Request.Url.Scheme +":"+ Request.Url.Authority+"/" + UserContext.LoginUser.UserName;
+            string letter = Request.Url.Scheme + ":" + Request.Url.Authority + "/" + UserContext.LoginUser.UserName;
             //加水印
             ImageManager.LetterWatermark(newFilePath, 16, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
 
@@ -83,47 +83,49 @@ namespace HxBlogs.WebApp.Controllers
         {
             AjaxResult result = new AjaxResult();
             HttpFileCollectionBase imgFiles = Request.Files;
-            if (imgFiles.Count <= 0) {
+            if (imgFiles.Count <= 0)
+            {
                 result.Success = false;
                 result.Message = "请上传文件!";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            HttpPostedFileBase file = imgFiles["file"];
+            long fileLength = file.InputStream.Length;
+            if (fileLength > 2 * 1024 * 1024)
+            {
+                result.Message = "文件超出限制. 最大为: 2MB.";
+                result.Success = false;
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             UserInfo logUser = UserContext.LoginUser;
             UserInfo userInfo = MapperManager.Map<UserInfo>(logUser);
             //路径处理
             string rootPath = WebHelper.GetAppSettingValue(ConstInfo.UploadPath);
-            string dirPath = rootPath + "/" + userInfo.UserName + "/avatar/"+ DateTime.Now.ToString("yyyyMM") + "/";
+            string dirPath = rootPath + "/" + userInfo.UserName + "/avatar/" + DateTime.Now.ToString("yyyyMM") + "/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
-            string avatarUrl = string.Empty;
             //文件名
-            foreach (string key in imgFiles)
+            string sourceFileName = file.FileName;
+            string sourceName = Path.GetFileNameWithoutExtension(sourceFileName);
+            HttpPostedFileBase _160x160File = imgFiles["file1"];
+            string _160x160FileName = _160x160File.FileName;
+            string _160x160Path = Path.Combine(mapPath, _160x160FileName);
+            _160x160File.SaveAs(_160x160Path);
+            string _50x50FileName = sourceName + "-50x50" + Path.GetExtension(_160x160FileName);
+            userInfo.AvatarUrl = Path.Combine(dirPath, _50x50FileName);
+            //异步保存
+            Task.Run(()=> 
             {
-                HttpPostedFileBase file = imgFiles[key];
-                long fileLength = file.InputStream.Length;
-                if (fileLength > 2 * 1024 * 1024)
-                {
-                    result.Message = "文件超出限制. 最大为: 2MB.";
-                    result.Success = false;
-                    return Json(result, JsonRequestBehavior.AllowGet);
-                }
-                string filePath = Path.Combine(mapPath, file.FileName);
-                if (file.FileName.Contains("50x50"))
-                {
-                    avatarUrl = Path.Combine(dirPath, file.FileName);
-                }
-                Task.Run(() =>
-                {
-                    file.SaveAs(filePath);
-                });
-            }
-            userInfo.AvatarUrl = avatarUrl;
-            result.Resultdata = WebHelper.GetFullUrl(avatarUrl);
-            IUserInfoService _userService = ContainerManager.Resolve<IUserInfoService>();
-            _userService.UpdateEntityFields(userInfo, "AvatarUrl");
+                string _50x50Path = Path.Combine(mapPath, _50x50FileName);
+                ImageManager.MakeThumbnail(_160x160Path, _50x50Path, 50, 50, ThumbnailMode.Cut);
+                string filePath = Path.Combine(mapPath, sourceFileName);
+                file.SaveAs(filePath);
+                IUserInfoService _userService = ContainerManager.Resolve<IUserInfoService>();
+                _userService.UpdateEntityFields(userInfo, "AvatarUrl");
+            });
             UserContext.UpdateUser(userInfo);
-            //HttpPostedFileBase file = Request.Files["file"];
+            result.Resultdata = WebHelper.GetFullUrl(Path.Combine(dirPath, _160x160FileName));
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

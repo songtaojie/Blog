@@ -270,11 +270,13 @@ namespace HxBlogs.WebApp
                     string fullPath = string.Empty;
                     if (type == 1)
                     {
-                        fullPath = HttpContext.Current.Server.MapPath(newUrl + "80x80.png");
+                        newUrl = newUrl + "80x80.png";
+                        fullPath = HttpContext.Current.Server.MapPath(newUrl);
                     }
                     else if (type == 2)
                     {
-                        fullPath = HttpContext.Current.Server.MapPath(newUrl + "160x160.png");
+                        newUrl = newUrl + "160x160.png";
+                        fullPath = HttpContext.Current.Server.MapPath(newUrl);
                     }
                     if (File.Exists(fullPath))
                         avatarUrl = newUrl;

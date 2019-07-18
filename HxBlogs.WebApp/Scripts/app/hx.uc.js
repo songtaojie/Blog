@@ -112,15 +112,11 @@ $(function () {
             this.on('sending', function (data, xhr, formData) {
                 if (uc.cropper) {
                     var previews = uc.cropper.previews;
-                    $.each(previews, function (i, v) {
-                        var paramName = uc.dropzone._getParamName(),
-                            w = v.cropperPreview && v.cropperPreview.width,
-                            h = v.cropperPreview && v.cropperPreview.height,
-                            fileName = uc.originalFile.name + '-' + w + 'x' + h + '.png';
-                        var file = hxCore.dataURLtoFile(v.firstChild.src, fileName);
-                        //向后台发送该文件的参数
-                        formData.append(paramName + i, file, fileName);
-                    });
+                    if (previews && previews.length > 0) {
+                        var fileName = uc.originalFile.name + '-160x160.png',
+                            file = hxCore.dataURLtoFile(previews[0].firstChild.src, fileName);
+                        formData.append('file1', file, fileName);
+                    }
                 }
             });
             this.on('maxfilesexceeded', function (file) {

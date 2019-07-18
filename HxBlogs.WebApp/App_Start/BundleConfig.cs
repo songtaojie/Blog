@@ -94,6 +94,7 @@ namespace HxBlogs.WebApp
                 "~/plugins/alertifyjs/css/themes/hx.alertify.css",
                 "~/content/app/hx-loading.css"
             ));
+            //日期和城市选择下拉框
             bundles.Add(new ScriptBundle("~/bundles/picker").Include(
                  "~/plugins/datepicker/js/bootstrap-datepicker.js",
                  "~/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.min.js",
@@ -104,6 +105,20 @@ namespace HxBlogs.WebApp
                   "~/plugins/datepicker/css/bootstrap-datepicker3.css",
                   "~/plugins/citypicker/css/city-picker.css"
               ));
+            //文件上传
+            bundles.Add(new ScriptBundle("~/bundles/dropzone").Include(
+                "~/plugins/dropzone/js/dropzone.js"));
+            bundles.Add(new ScriptBundle("~/bundles/cropper").Include(
+                "~/plugins/dropzone/js/dropzone.js",
+                "~/plugins/cropper/js/cropper.js",
+                "~/plugins/cropper/js/jquery-cropper.min.js"));
+            bundles.Add(new StyleBundle("~/content/dropzone").Include(
+                 "~/plugins/dropzone/css/dropzone.css"
+             ));
+            bundles.Add(new StyleBundle("~/content/cropper").Include(
+                 "~/plugins/dropzone/css/dropzone.css",
+                 "~/plugins/cropper/css/cropper.css"
+             ));
         }
         #endregion
 

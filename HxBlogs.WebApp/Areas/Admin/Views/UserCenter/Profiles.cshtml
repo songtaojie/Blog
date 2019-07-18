@@ -5,9 +5,7 @@
 @section endstyles{
     @Styles.Render("~/content/remind")
     @Styles.Render("~/content/picker")
-    @*<link href="~/Plugins/dropzone/css/basic.css" rel="stylesheet" />*@
-    <link href="~/Plugins/dropzone/css/dropzone.css" rel="stylesheet" />
-    <link href="~/Plugins/cropper/css/cropper.css" rel="stylesheet" />
+    @Styles.Render("~/content/cropper")
     <style>
         .img-container,
         .img-preview {
@@ -32,10 +30,6 @@
         .img-preview > img {
             max-width: 100%;
         }
-        /*.cropper-view-box,
-        .cropper-face {
-            border-radius: 50%;
-        }*/
     </style>
 }
 <div class="d-flex hx-container hx-white-container py-3">
@@ -59,10 +53,8 @@
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/remind")
     @Scripts.Render("~/bundles/core")
-    <script src="~/Plugins/dropzone/js/dropzone.js"></script>
-    <script src="~/Plugins/cropper/js/cropper.js"></script>
-    <script src="~/Plugins/cropper/js/jquery-cropper.min.js"></script>
-<script src="~/Scripts/app/hx.uc.js"></script>
+    @Scripts.Render("~/bundles/cropper")
+    <script src="~/scripts/app/hx.uc.js"></script>
     <script>
         var _hxDialog;
         $(function () {
