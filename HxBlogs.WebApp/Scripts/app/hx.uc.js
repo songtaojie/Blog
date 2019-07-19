@@ -88,7 +88,7 @@ $(function () {
                     file,
                     name,
                     ext
-                }
+                };
             });
             this.on('thumbnail', function (file, dataUrl) {
                 uc.$dropzone = $(uc.dropzone.element.parentElement).attr('hidden', 'hidden');
@@ -217,7 +217,7 @@ $(function () {
             },
             validator: validate()
         }
-    }
+    };
     var job = function () {
         var $form = $('#jobForm');
         return {

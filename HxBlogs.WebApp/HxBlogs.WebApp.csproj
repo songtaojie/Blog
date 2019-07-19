@@ -418,7 +418,7 @@
     <Content Include="Plugins\editormd\plugins\html-entities-dialog\html-entities.json" />
     <Content Include="Plugins\editormd\template.md" />
     <Content Include="Plugins\WangEditor\fonts\w-e-icon.woff" />
-    <Content Include="Plugins\WangEditor\wangEditor.min.js.map" />
+    <Content Include="Plugins\WangEditor\js\wangEditor.min.js.map" />
     <Content Include="Areas\Admin\Views\web .config.bak" />
     <Content Include="font\fonts\hx-font.eot" />
     <Content Include="font\fonts\hx-font.ttf" />
@@ -831,10 +831,10 @@
     <Content Include="Plugins\editormd\plugins\reference-link-dialog\reference-link-dialog.js" />
     <Content Include="Plugins\editormd\plugins\table-dialog\table-dialog.js" />
     <Content Include="Plugins\editormd\plugins\test-plugin\test-plugin.js" />
-    <Content Include="Plugins\WangEditor\wangEditor.css" />
-    <Content Include="Plugins\WangEditor\wangEditor.js" />
-    <Content Include="Plugins\WangEditor\wangEditor.min.css" />
-    <Content Include="Plugins\WangEditor\wangEditor.min.js" />
+    <Content Include="Plugins\WangEditor\css\wangEditor.css" />
+    <Content Include="Plugins\WangEditor\js\wangEditor.js" />
+    <Content Include="Plugins\WangEditor\css\wangEditor.min.css" />
+    <Content Include="Plugins\WangEditor\js\wangEditor.min.js" />
     <Content Include="Scripts\app\hx-editor.js" />
     <Content Include="Scripts\app\hx.core.min.js" />
     <Content Include="Scripts\app\hx.uc.js" />
@@ -862,7 +862,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\app\hx.core.js" />
-    <Content Include="Scripts\app\editor.js" />
+    <Content Include="Plugins\WangEditor\editor.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
