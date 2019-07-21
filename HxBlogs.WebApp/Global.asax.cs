@@ -59,13 +59,13 @@ namespace HxBlogs.WebApp
         }
         protected void Application_BeginRequest(Object source, EventArgs e)
         {
+
+#if DEBUG
             if (Request.IsLocal)
             {
                 MiniProfiler.Start();
             }
-            //#if DEBUG
-            //            
-            //#endif
+#endif
         }
         protected void Application_EndRequest()
         {

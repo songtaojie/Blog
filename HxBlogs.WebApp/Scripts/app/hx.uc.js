@@ -195,7 +195,7 @@ $(function () {
         return {
             $form,
             begin: function () {
-                var submitBtn = this.$form.find('input[type=submit]');
+                var submitBtn = $form.find('input[type=submit]');
                 if (submitBtn.hasClass('disabled')) {
                     return false;
                 }
@@ -210,7 +210,7 @@ $(function () {
                 hxCore.ajaxError(r);
             },
             finish: function () {
-                var submitBtn = this.$form.find('input[type=submit]');
+                var submitBtn = $form.find('input[type=submit]');
                 if (submitBtn.hasClass('disabled')) {
                     submitBtn.removeClass('disabled');
                 }
@@ -223,7 +223,7 @@ $(function () {
         return {
             $form,
             begin: function () {
-                var submitBtn = this.$form.find('input[type=submit]');
+                var submitBtn = $form.find('input[type=submit]');
                 if (submitBtn.hasClass('disabled')) {
                     return false;
                 }
@@ -238,7 +238,7 @@ $(function () {
                 hxCore.ajaxError(r);
             },
             finish: function () {
-                var submitBtn = this.$form.find('input[type=submit]');
+                var submitBtn = $form.find('input[type=submit]');
                 if (submitBtn.hasClass('disabled')) {
                     submitBtn.removeClass('disabled');
                 }

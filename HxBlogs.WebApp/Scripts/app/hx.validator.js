@@ -3,7 +3,7 @@
         var regular = /^([a-zA-Z]|[\u4E00-\u9FA5])([a-zA-Z0-9]|[\u4E00-\u9FA5]|[_]){1,21}$/;
         return this.optional(element) || (regular.test(value));
     }, "昵称由字母、数字、下划线和中文组成，以中文或字母开头");
-    $.validator.addMethod("checkPassWord", function (value, element, params) {
+    $.validator.addMethod("checkPwd", function (value, element, params) {
         var regular = /^.*(?=.{6,16})(?=.*\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,})(?=.*[.!@#$%^&*]).*$/;
         return this.optional(element) || (regular.test(value));
     }, "密码必须包含数字、大小写字母、和一个特殊符号,且长度为6~16");

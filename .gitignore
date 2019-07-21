@@ -32,6 +32,7 @@ bld/
 [Bb]uild[Ll]og.*
 
 HxBlogs.WebApp/file[U|u]pload/
+HxBlogs.WebApp/[U|u]pload/
 [w|W]eb.config
 
 

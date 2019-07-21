@@ -234,6 +234,7 @@
     <Content Include="Plugins\alertifyjs\css\themes\hx.alertify.css" />
     <Content Include="Plugins\alertifyjs\hx.alertify.js" />
     <Content Include="Plugins\citypicker\css\city-picker.css" />
+    <Content Include="Plugins\citypicker\css\city-picker.min.css" />
     <Content Include="Plugins\citypicker\images\drop-arrow.png" />
     <Content Include="Plugins\citypicker\js\city-picker.data.js" />
     <Content Include="Plugins\citypicker\js\city-picker.js" />
@@ -431,6 +432,7 @@
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker3.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Areas\Admin\Views\UserCenter\ChPwd.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\blog-default.css" />

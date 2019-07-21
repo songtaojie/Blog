@@ -1,0 +1,136 @@
+﻿@model HxBlogs.Model.UserInfo
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_UCLayout.cshtml";
+}
+@section endstyles{
+    @Styles.Render("~/content/remind")    
+}
+
+<div class="d-flex hx-container hx-white-container py-3">
+    <div>
+        @{
+            Html.RenderPartial("side", new ViewDataDictionary {
+                {"Active","chpwd" }
+            });
+        }
+    </div>
+    <div class="flex-fill flex-grow-1 px-3">
+        <div class="hx-portlet">
+            <ul class="nav nav-tabs d-flex justify-content-end align-items-center">
+                <li class="ml-2 mr-auto py-2">
+                    <a target="_blank" href="#">@UserContext.GetDisplayName(Model)的个人空间</a>
+                    <span>&nbsp;>&nbsp;</span>
+                    <span>修改密码</span>
+                </li>
+            </ul>
+            <div class="pt-3">
+                @using (Ajax.BeginForm("changepwd", "usercenter", new AjaxOptions()
+                {
+                    HttpMethod = "post",
+                    OnBegin = "cp.begin",
+                    OnSuccess = "cp.success",
+                    OnFailure = "cp.failure",
+                    OnComplete = "cp.finish"
+                }, new
+                {
+                    role = "form",
+                }))
+                {
+                    <div class="form-group form-row">
+                        <label class="col-form-label font-weight-bold" for="OldPwd">&emsp;&emsp;旧密码</label>
+                        <input type="password" id="OldPwd" name="OldPwd" class="form-control w-auto mx-sm-3">
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label font-weight-bold" for="NewPwd">&emsp;&emsp;新密码</label>
+                        <input type="password" id="NewPwd" name="NewPwd" class="form-control w-auto mx-sm-3">
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label font-weight-bold" for="CinfirmPwd">确认新密码</label>
+                        <input type="password" id="CinfirmPwd" name="CinfirmPwd" class="form-control w-auto mx-sm-3">
+                    </div>
+                    <div class="form-group form-row">
+                        <label class="col-form-label mr-3">&emsp;&emsp;&emsp;&emsp;&emsp;</label>
+                        <input type="submit" class="btn btn-secondary" value="保存密码" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/unobtrusive")
+@Scripts.Render("~/bundles/remind")
+@Scripts.Render("~/bundles/core")
+    <script>
+        $(function () {
+            $('form').validate({
+                errorElement: 'span',
+                errorClass: 'text-danger',
+                //提交表单后，（第一个）未通过验证的表单获得焦点
+                focusInvalid: true,
+                //当未通过验证的元素获得焦点时，移除错误提示
+                //focusCleanup: true,
+                rules: {
+                    OldPwd: {
+                        required: true
+                    },
+                    NewPwd: {
+                        required: true,
+                        checkPwd: true
+                    },
+                    CinfirmPwd: {
+                        required: true,
+                        equalTo: 'input[name="NewPwd"]'
+                    }
+                },
+                messages: {
+                    OldPwd: '旧密码不能为空!',
+                    NewPwd: {
+                        required:'新密码不能为空!'
+                    },
+                    CinfirmPwd: {
+                        required: '确认新密码不能为空!',
+                        equalTo:'确认新密码与新密码不相等!'
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    $(element).next().hide();
+                    error.addClass(['small ', 'my-auto']).insertAfter(element);
+                },
+                ////display error alert on form submit
+                invalidHandler: function (event, validator) {
+                    $('.alert-error', $('form')).show();
+                },
+                success: function (error, element) {
+                    //error.closest('.form-row').removeClass('error');
+                    $(error).next().show();
+                    error.remove();
+                }
+            });
+        });
+        var cp = {
+            begin: function () {
+                var submitBtn = $('form').find('input[type=submit]');
+                if (submitBtn.hasClass('disabled')) {
+                    return false;
+                }
+                submitBtn.addClass('disabled');
+            },
+            success: function (data, textStatus, jqXHR) {
+                hxCore.ajaxSuccess(jqXHR, function (data) {
+                    hxCore.remindSuccess('用户密码修改成功!');
+                });
+            },
+            failure(r) {
+                hxCore.ajaxError(r);
+            },
+            finish: function () {
+                var submitBtn = $('form').find('input[type=submit]');
+                if (submitBtn.hasClass('disabled')) {
+                    submitBtn.removeClass('disabled');
+                }
+            },
+        }
+    </script>
+}

@@ -109,9 +109,8 @@ namespace HxBlogs.WebApp
             bundles.Add(new ScriptBundle("~/bundles/dropzone").Include(
                 "~/plugins/dropzone/js/dropzone.js"));
             bundles.Add(new ScriptBundle("~/bundles/cropper").Include(
-                "~/plugins/dropzone/js/dropzone.js",
                 "~/plugins/cropper/js/cropper.js",
-                "~/plugins/cropper/js/jquery-cropper.min.js"));
+                "~/plugins/dropzone/js/dropzone.js"));
             bundles.Add(new StyleBundle("~/content/dropzone").Include(
                  "~/plugins/dropzone/css/dropzone.css"
              ));

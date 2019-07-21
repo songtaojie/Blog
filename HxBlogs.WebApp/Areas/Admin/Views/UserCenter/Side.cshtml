@@ -1,11 +1,11 @@
 ﻿<div class="hx-sidebar hx-minw-3">
     <nav class="nav flex-column">
         <ul class="navbar-nav nav-fill">
-            <li class="nav-item active px-4 bg-light">
-                <a class="nav-link text-secondary" href="#">推荐</a>
+            <li class="nav-item  px-4 bg-light" data-active>
+                <a class="nav-link text-secondary" href="@WebHelper.GetFullUrl("/admin/uc")">修改个人资料</a>
             </li>
-            <li class="nav-item bg-light">
-                <a class="nav-link text-secondary" href="#">关注</a>
+            <li class="nav-item bg-light" data-active="chpwd">
+                <a class="nav-link text-secondary" href="@WebHelper.GetFullUrl("/admin/uc/chpwd")">修改登录密码</a>
             </li>
             <li class="nav-item bg-light">
                 <a class="nav-link text-secondary" href="#">专题</a>
@@ -13,3 +13,17 @@
         </ul>
     </nav>
 </div>
+<script>
+    (function () {
+         var hxsidebar = document.querySelector('.hx-sidebar'),
+        activeEl = hxsidebar.querySelector('[data-active@(string.IsNullOrEmpty(ViewBag.Active)?"":"="+ ViewBag.Active)]');
+        if (activeEl) {
+            if (activeEl.classList) {
+                activeEl.classList.add('active');
+            } else {
+                var className = (element.className || '') .trim();
+                element.className = "".concat(className, " ").concat('active');
+            }
+        }
+    })();
+</script>

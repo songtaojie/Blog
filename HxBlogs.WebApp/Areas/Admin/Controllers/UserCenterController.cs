@@ -89,6 +89,10 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        /// <summary>
+        /// 获取没有验证通过的错误结果
+        /// </summary>
+        /// <returns></returns>
         private AjaxResult GetErrorResult()
         {
             AjaxResult result = new AjaxResult
@@ -106,5 +110,41 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             return result;
         }
+
+        #region 修改密码
+
+        public ActionResult ChPwd()
+        {
+            return View(UserContext.LoginUser);
+        }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="newPwd">新密码</param>
+        /// <param name="oldPwd">旧密码</param>
+        /// <returns></returns>
+        public ActionResult ChangePwd(string newPwd,string oldPwd)
+        {
+            AjaxResult result = new AjaxResult();
+            string reg = "^.*(?=.{6,16})(?=.*\\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,})(?=.*[.!@#$%^&*]).*$";
+            if (!Regex.IsMatch(newPwd, reg))
+            {
+                result.Success = false;
+                result.Message = "密码必须包含数字、大小写字母、和一个特殊符号,且长度为6~16";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            UserInfo userInfo = UserContext.LoginUser;
+            if (userInfo.PassWord != Hx.Common.Security.SafeHelper.MD5TwoEncrypt(oldPwd))
+            {
+                result.Success = false;
+                result.Message = "旧密码输入有误";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            userInfo.PassWord = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(newPwd);
+            _userService.UpdateEntityFields(userInfo, "PassWord");
+            UserContext.UpdateUser(userInfo);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }
