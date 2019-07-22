@@ -4,14 +4,14 @@
 @section styles{
     @Styles.Render("~/content/default")
 }
-@{ 
+@*@{ 
     Html.RenderPartial("side", new ViewDataDictionary
     {
         {"Categories",ViewBag.Categories }
     });
-}
-<div class="hx-container blog-container hx-white-container partial-content" data-url="/home/loadarticle" hidden>
-</div>
+}*@
+@*<div class="hx-container blog-container hx-white-container partial-content" data-url="/home/loadarticle" hidden>
+</div>*@
 @section scripts{
     <script>
         $(function () {

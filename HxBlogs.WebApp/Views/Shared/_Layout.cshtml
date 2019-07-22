@@ -13,6 +13,7 @@
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/darkblack")
     @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/site")
 </head>
 <body>
 
@@ -26,7 +27,7 @@
     {
         Html.RenderPartial("~/Views/Layout/_Footer.cshtml");
     }
-    @Scripts.Render("~/bundles/site")
+    
     @Scripts.Render("~/bundles/core")
     <script>
         //if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -35,7 +36,7 @@
         //    })();
         //};
         $(function () {
-            $('li.dropdown.user').mouseenter(function () {
+            $('.dropdown').mouseenter(function () {
                 $(this).addClass('show');
                 $(this).children('.dropdown-menu').addClass('show');
             }).mouseleave(function () {

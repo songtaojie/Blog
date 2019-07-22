@@ -33,15 +33,18 @@ namespace HxBlogs.WebApp
         private static void RegisterSite(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
-                        "~/scripts/jquery-{version}.js",
-                        "~/scripts/app/jquery.extendsion.js",
-                       "~/scripts/bootstrap.js"));
+                        "~/scripts/jquery-{version}.js"));
             bundles.Add(new StyleBundle("~/content/site").Include(
                "~/content/bootstrap.css",
                "~/font/font-awesome.css",
                "~/font/hx-font.css",
                "~/content/app/hx-site.css"
               ));
+
+            bundles.Add(new ScriptBundle("~/bundles/core").Include(
+                        "~/scripts/app/jquery.extendsion.js",
+                       "~/scripts/bootstrap.js",
+                   "~/scripts/app/hx.core.js"));
         }
 
         /// <summary>
@@ -50,9 +53,6 @@ namespace HxBlogs.WebApp
         /// <param name="bundles"></param>
         private static void RegisterBlog(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/core").Include(
-                     "~/scripts/app/hx.core.js"));
-
             bundles.Add(new StyleBundle("~/content/darkblack").Include(
              "~/content/app/themes/hx-default.css"
              ));
