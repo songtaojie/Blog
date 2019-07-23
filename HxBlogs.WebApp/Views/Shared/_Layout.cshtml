@@ -35,15 +35,6 @@
         //        window.scrollReveal = new scrollReveal({ reset: true });
         //    })();
         //};
-        $(function () {
-            $('.dropdown').mouseenter(function () {
-                $(this).addClass('show');
-                $(this).children('.dropdown-menu').addClass('show');
-            }).mouseleave(function () {
-                $(this).removeClass('show');
-                $(this).children('.dropdown-menu').removeClass('show');
-            });
-        });
     </script>
     @RenderSection("scripts", required: false)
     @StackExchange.Profiling.MiniProfiler.RenderIncludes()
