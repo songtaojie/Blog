@@ -165,6 +165,7 @@ a {
 /**************博客的头部*************************/
 .hx-header {
     height: 3.25rem;
+    line-height:2.25rem;
 }
 
     .hx-header::before {
@@ -186,13 +187,13 @@ a {
     .hx-header .nav-item {
         font-size: 1em;
     }
-        .hx-header .dropdown-item:active,
-        .hx-header .dropdown-item:hover,
-        .hx-header .nav-item.active > a,
-        .hx-header .nav-item:hover > a {
-            color: #00c1de !important;
-            background-color: transparent;
-        }
+    .hx-header .navbar-collapse:not(.hx-show) .dropdown-item:active,
+    .hx-header .navbar-collapse:not(.hx-show) .dropdown-item:hover,
+    .hx-header .navbar-collapse:not(.hx-show) .nav-item.active > a,
+    .hx-header .navbar-collapse:not(.hx-show) .nav-item:hover > a {
+        color: #00c1de !important;
+        background-color: transparent;
+    }
 
     .hx-header .dropdown-item {
         line-height: 2rem;
@@ -207,8 +208,7 @@ a {
         transition: all .5s ease;
     }
 
-        .hx-header .dropdown.show .dropdown-toggle::after,
-        .hx-header .dropdown:hover .dropdown-toggle::after {
+        .hx-header .dropdown.show .dropdown-toggle::after{
             transform: rotate(180deg);
             border-top: 0.3rem solid #fff;
         }
@@ -218,8 +218,8 @@ a {
 }
 .hx-search-bar {
     position: absolute;
+    top:0;
     width: 0%;
-    /*height: 1.875rem;*/
     overflow: hidden;
     -webkit-transition: width 0.3s;
     -moz-transition: width 0.3s;
@@ -240,13 +240,48 @@ a {
 .hx-search-open {
     width: 200px;
 }
-
     .hx-search-open .hx-input {
         border-bottom: #222 1px solid;
         background: #fff;
         width: 100%;
     }
 /*导航栏*/
+.navbar-collapse.hx-show {
+    width: 100%;
+    height: auto;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    z-index: 999;
+    top: 3.25rem;
+}
+    .navbar-collapse.hx-show li {
+        width: 35%;
+        min-width: 10rem;
+        text-align: center;
+        background: #12b7de;
+        float: none;
+        display: block;
+        font-weight: bold;
+    }
+        .navbar-collapse.hx-show li:last-child {
+            padding-bottom: 100%;
+        }
+.hx-header .navbar-collapse.hx-show a {
+    color: #fff;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    background: #12b7de;
+    border-bottom: #49ccea 1px solid;
+}
+.hx-header .navbar-collapse.hx-show .dropdown-menu.show,
+.hx-header .navbar-collapse.hx-show .dropdown-menu.show a {
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
 /*.navbar .nav > li > .dropdown-menu {
     margin-top: 4px;
 }
@@ -267,6 +302,18 @@ a {
         right: 13px;
         left: auto;
     }*/
+.hx-header .navbar-toggler {
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+.hx-search {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    cursor: pointer;
+    padding-right: 0.75rem;
+}
 
 @media (min-width: 576px) {
 }
@@ -278,6 +325,11 @@ a {
 }
 
 @media (min-width: 768px) {
+    .hx-search {
+        position: static;
+        top: auto;
+        right: auto;
+    }
 }
 
 
