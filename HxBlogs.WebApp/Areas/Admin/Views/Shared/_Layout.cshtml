@@ -10,11 +10,13 @@
     @Styles.Render("~/content/darkblack")
     @Styles.Render("~/content/login")
     <style>
+
         body {
             background: rgba(239, 233, 242, 0.8) url(/images/login/newbg.png) center bottom no-repeat;
         }
     </style>
     @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/site")
 </head>
 <body>
     <div class="container hx-content">
@@ -28,7 +30,6 @@
             @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
         </div>
     </div>
-    @Scripts.Render("~/bundles/site")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/unobtrusive")
     @Scripts.Render("~/bundles/remind")

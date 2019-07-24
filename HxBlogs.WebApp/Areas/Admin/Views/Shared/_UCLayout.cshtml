@@ -9,6 +9,7 @@
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/darkblack")
     @RenderSection("endstyles", required: false)
+    @Scripts.Render("~/bundles/site")
 </head>
 <body>
     @{
@@ -21,18 +22,6 @@
     {
         Html.RenderPartial("~/Views/Layout/_Footer.cshtml");
     }
-    @Scripts.Render("~/bundles/site")
-    <script>
-        $(function () {
-            $('li.dropdown.user').mouseenter(function () {
-                $(this).addClass('show');
-                $(this).children('.dropdown-menu').addClass('show');
-            }).mouseleave(function () {
-                $(this).removeClass('show');
-                $(this).children('.dropdown-menu').removeClass('show');
-            });
-        });
-    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

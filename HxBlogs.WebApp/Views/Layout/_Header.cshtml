@@ -10,46 +10,67 @@
         </div>
         <div class="collapse navbar-collapse flex-grow-0" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="nav-item px-md-3 active">
-                    <a class="text-white" href="index.html">网站首页</a>
+                <li class="nav-item  active">
+                    <a class="text-white px-3" href="index.html">网站首页</a>
                 </li>
-                <li class="nav-item px-md-3">
-                    <a class="text-white" href="about.html">关于我</a>
+                <li class="nav-item">
+                    <a class="text-white px-3" href="about.html">关于我</a>
                 </li>
-                <li class="nav-item px-md-3">
-                    <a class="text-white" href="share.html">模板分享</a>
+                <li class="nav-item">
+                    <a class="text-white px-3" href="share.html">模板分享</a>
                 </li>
-                <li class="nav-item px-md-3">
-                    <a class="text-white" href="list.html">博客日记</a>
+                <li class="nav-item">
+                    <a class="text-white px-3" href="list.html">博客日记</a>
                 </li>
-                <li class="dropdown user nav-item px-md-3">
-                    <a   class="dropdown-toggle text-white" href="fengmian.html" data-toggle="dropdown">学无止境</a>
-                    <div class="dropdown-menu bg-dark">
-                        <a  class="dropdown-item text-white" href="extra_profile.html">
-                            <i class="fa fa-heart-o hx-fa-same"></i> 我的关注
+            </ul>
+        </div>
+        @if (UserContext.LoginUser == null)
+        {
+            @*<li class="nav-item my-auto ml-2 ml-md-0">
+                    <a href="/register?returnUrl=@Request.Url.LocalPath" class="text-light" target="_blank">
+                        <i class="fa fa-user"></i> 注册
+                    </a>
+                </li>*@
+            <span class="nav-item my-auto p-0 p-absolute">
+                <a href="/login?returnUrl=@Request.Url.LocalPath" class="text-white hx-1x" target="_blank">
+                    <i class="fa  fa-arrow-circle-o-right"></i> 登录
+                </a>
+            </span>
+        }
+        else
+        {
+            <ul class="nav navbar-nav p-absolute">
+                <li class="dropdown user nav-item ml-2 ml-md-0">
+                    <a href="#" class="dropdown-toggle text-light hx-avatar _32x32 " data-toggle="dropdown">
+                        <img class="hx-circle" src="~/images/avatar1_small.jpg" />
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="/edit/postedit" target="_blank" class="text-light">
+                            <span class="fa fa-edit"></span> 写博客
                         </a>
-                        <a class="dropdown-item text-white" href="page_calendar.html">
-                            <i class="fa fa-bookmark-o hx-fa-same"></i> 我的收藏
+                        @*<div class="dropdown-divider"></div>*@
+                        <a class="dropdown-item" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
+                            <i class="fa fa-user-o hx-fa-same"></i> 个人中心
+                        </a>
+                        <a class="dropdown-item" href="extra_lock.html">
+                            <i class="fa fa-cog hx-fa-same"></i> 账号设置
+                        </a>
+                        <a class="dropdown-item" href="/admin/account/logout">
+                            <i class="fa fa-sign-out hx-fa-same"></i> 退出
                         </a>
                     </div>
                 </li>
             </ul>
-        </div>
-        <form class="form-inline ml-md-3 hx-search-bar">
-            <input type="text" class="hx-input" name="Search" placeholder="想搜点什么呢..">
-        </form>
-        <span class="fa fa-search px-md-3 hx-2x hx-search text-white" ></span>
+        }
+
+        @*<form class="form-inline ml-md-3 hx-search-bar">
+                <input type="text" class="hx-input" name="Search" placeholder="想搜点什么呢..">
+            </form>
+            <span class="fa fa-search px-md-3 hx-2x hx-search text-white" ></span>*@
     </nav>
 </header>
 <script>
     (function () {
-        //$('.dropdown').mouseenter(function () {
-        //    $(this).addClass('show');
-        //    $(this).children('.dropdown-menu').addClass('show');
-        //}).mouseleave(function () {
-        //    $(this).removeClass('show');
-        //    $(this).children('.dropdown-menu').removeClass('show');
-        //});
         $('header span.fa-search').click(function (e) {
             var width = 220,
                 bodyWidth = $(document.body).width(),
@@ -65,7 +86,7 @@
             } else {
                 width = '';
             }
-            $bar.width(width).css('right',right);
+            $bar.width(width).css('right', right);
             var $input = $('header form input[name=Search]');
             if ($input.val().length > 2) {
                 $input.val('');
@@ -84,11 +105,24 @@
             }
         });
         //折叠
-        $('#navbar-collapse').on('show.bs.collapse', function () {
-            $(this).addClass('hx-show');
-        })
-        $('#navbar-collapse').on('hide.bs.collapse', function () {
-            $(this).removeClass('hx-show');
-        })
+        $('#navbar-collapse').on({
+            'show.bs.collapse': function () {
+                $(this).addClass('hx-show');
+            },
+            'hide.bs.collapse': function () {
+                $(this).removeClass(['show', 'hx-show']);
+            }
+        });
+        $('.dropdown').on({
+            'show.bs.dropdown': function () {
+                var bodyWidth = $(document.body).width();
+                if (bodyWidth < 768) {
+                    $(this).addClass('hx-show');
+                }
+            },
+            'hide.bs.dropdown': function () {
+                $(this).removeClass('hx-show');
+            }
+        });
     })();
 </script>
