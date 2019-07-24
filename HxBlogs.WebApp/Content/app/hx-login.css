@@ -15,17 +15,17 @@ Login page
     padding-bottom: 1rem;
 }
 
-.hx-logo,
+/*.hx-logo,
 .hx-logo {
     margin: 0 auto;
     padding: 1rem;
     text-align: center;
-}
+}*/
 
-    .hx-logo a,
+    /*.hx-logo a,
     .hx-logo a {
         display: inline-block;
-    }
+    }*/
 
 .hx-login .hx-login-content,
 .hx-register .hx-register-content {

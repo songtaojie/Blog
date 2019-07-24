@@ -24,6 +24,8 @@ body {
     -o-transform: translateY(3rem); /* Opera */
     padding-left: initial;
     padding-right: initial;
+    margin:0 auto;
+    max-width:1270px;
 }
 
 .hx-color {
@@ -195,9 +197,8 @@ a {
     .hx-header .nav-item {
         font-size: 1em;
     }
-
-    .hx-header .navbar-collapse:not(.hx-show) .dropdown-item:active,
-    .hx-header .navbar-collapse:not(.hx-show) .dropdown-item:hover,
+    .hx-header .dropdown-menu:not(.hx-show) .dropdown-item:active,
+    .hx-header .dropdown-menu:not(.hx-show) .dropdown-item:hover,
     .hx-header .navbar-collapse:not(.hx-show) .nav-item.active > a,
     .hx-header .navbar-collapse:not(.hx-show) .nav-item:hover > a {
         color: #00c1de !important;
@@ -223,6 +224,9 @@ a {
         border-top: 0.3rem solid #fff;
     }
 /*导航栏*/
+    .hx-header .dropdown-menu {
+        background-color: #343a40;
+    }
 .dropdown.hx-show .dropdown-menu.show,
 .navbar-collapse.hx-show {
     width: 100%;
@@ -233,10 +237,13 @@ a {
     top: 3.25rem;
 }
 
+.dropdown.hx-show .dropdown-menu.show {
+    padding: 0;
+    margin: 0;
+}
+
     .dropdown.hx-show .dropdown-menu.show a,
     .navbar-collapse.hx-show li {
-        width: 30%;
-        min-width: 10rem;
         text-align: center;
         background: #12b7de;
         float: none;
@@ -244,29 +251,32 @@ a {
         font-weight: bold;
     }
 
-    .navbar-collapse.hx-show li {
-        text-align: left;
+.navbar-collapse.hx-show li {
+    text-align: left;
+    min-width: 10rem;
+    width: 8.25rem;
+}
+
+.dropdown.hx-show .dropdown-menu.show a {
+    width: 8.25rem;
+    text-align: right;
+    float: right;
+}
+
+    .dropdown.hx-show .dropdown-menu.show a:last-child,
+    .navbar-collapse.hx-show li:last-child {
+        padding-bottom: 100%;
     }
 
-    .dropdown.hx-show .dropdown-menu.show a {
-        text-align: right;
-        float: right;
-    }
-
-        .dropdown.hx-show .dropdown-menu.show a:last-child,
-        .navbar-collapse.hx-show li:last-child {
-            padding-bottom: 100%;
-        }
-
-    .hx-header .navbar-collapse.hx-show a {
-        color: #fff;
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 0;
-        background: #12b7de;
-        border-bottom: #49ccea 1px solid;
-    }
+.hx-header .navbar-collapse.hx-show a {
+    color: #fff;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    background: #12b7de;
+    border-bottom: #49ccea 1px solid;
+}
 
 .hx-header .navbar-collapse.hx-show a {
     text-align: left;

@@ -40,22 +40,22 @@
         else
         {
             <ul class="nav navbar-nav p-absolute">
-                <li class="dropdown user nav-item ml-2 ml-md-0">
+                <li class="dropdown nav-item ml-2 ml-md-0">
                     <a href="#" class="dropdown-toggle text-light hx-avatar _32x32 " data-toggle="dropdown">
                         <img class="hx-circle" src="~/images/avatar1_small.jpg" />
                     </a>
                     <div class="dropdown-menu">
-                        <a href="/edit/postedit" target="_blank" class="text-light">
+                        <a class="dropdown-item text-white" href="/edit/postedit" target="_blank" >
                             <span class="fa fa-edit"></span> 写博客
                         </a>
                         @*<div class="dropdown-divider"></div>*@
-                        <a class="dropdown-item" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
+                        <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
                             <i class="fa fa-user-o hx-fa-same"></i> 个人中心
                         </a>
-                        <a class="dropdown-item" href="extra_lock.html">
+                        <a class="dropdown-item text-white" href="extra_lock.html">
                             <i class="fa fa-cog hx-fa-same"></i> 账号设置
                         </a>
-                        <a class="dropdown-item" href="/admin/account/logout">
+                        <a class="dropdown-item text-white" href="/admin/account/logout">
                             <i class="fa fa-sign-out hx-fa-same"></i> 退出
                         </a>
                     </div>
@@ -96,16 +96,22 @@
             }
         });
         $(window).resize(function () {
-            var bodyWidth = $(document.body).width();
-            if (bodyWidth > 768) {
-                var collapse = $('#navbar-collapse');
-                if (collapse.hasClass('show')) {
-                    collapse.collapse('hide');
-                }
+            var c = $('#navbar-collapse'),
+                d = $('.dropdown');
+            if (c.hasClass('show')) {
+                c.collapse('toggle');
+            }
+            if (d.hasClass('show')) {
+                d.dropdown('toggle');
             }
         });
         //折叠
         $('#navbar-collapse').on({
+            'click.bs.collapse': function () {
+                if ($(this).hasClass('show')) {
+                    $(this).collapse('toggle');
+                }
+            },
             'show.bs.collapse': function () {
                 $(this).addClass('hx-show');
             },
@@ -115,7 +121,11 @@
         });
         $('.dropdown').on({
             'show.bs.dropdown': function () {
-                var bodyWidth = $(document.body).width();
+                var c = $('#navbar-collapse'),
+                    bodyWidth = $(document.body).width();
+                if (c.hasClass('show')) {
+                    c.collapse('hide');
+                }
                 if (bodyWidth < 768) {
                     $(this).addClass('hx-show');
                 }

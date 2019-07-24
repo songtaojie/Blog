@@ -22,12 +22,16 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            IEnumerable<Category> cateList = cateService.GetEntitiesNoTrack(c => true)
-                .OrderByDescending(c => c.Order);
-            ViewBag.Categories = cateList;
+            //ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
+            //IEnumerable<Category> cateList = cateService.GetEntitiesNoTrack(c => true)
+            //    .OrderByDescending(c => c.Order);
+            //ViewBag.Categories = cateList;
             return View();
         }
+        /// <summary>
+        /// 加载文章
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LoadArticle()
         {
             var profiler = MiniProfiler.Current;
