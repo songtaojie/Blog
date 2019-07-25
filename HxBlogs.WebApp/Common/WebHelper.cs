@@ -188,6 +188,28 @@ namespace HxBlogs.WebApp
             int index = random.Next(0, imgUrlArr.Length);
             return imgUrlArr[index];
         }
+
+
+        /// <summary>
+        ///获取轮播图
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCarousel(string file)
+        {
+            string path = HttpContext.Current.Server.MapPath("~/images/carousel/" + file);
+            if (Directory.Exists(path))
+            {
+                string[] files = Directory.GetFiles(path);
+                Random random = new Random();
+                int index = random.Next(0, files.Length);
+                return GetFullUrl(ToRelativePath(files[index]));
+            }
+            else if (File.Exists(path))
+            {
+                return GetFullUrl(ToRelativePath(path));
+            }
+            return string.Empty;
+        }
         #endregion
 
         #region 路径相关方法

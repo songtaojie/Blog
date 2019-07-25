@@ -231,6 +231,14 @@
     <Content Include="Content\app\blog-header-footer.css" />
     <Content Include="Content\app\themes\hx-default.css" />
     <Content Include="font\fonts\hx-font.svg" />
+    <Content Include="images\carousel\v\1.jpg" />
+    <Content Include="images\carousel\v\2.jpg" />
+    <Content Include="images\carousel\v\3.jpg" />
+    <Content Include="images\carousel\v\4.jpg" />
+    <Content Include="images\carousel\h\75842f4d1e18d692a66c38eb172a40ab.jpg" />
+    <Content Include="images\carousel\h\b02.jpg" />
+    <Content Include="images\carousel\h\h1.jpg" />
+    <Content Include="images\carousel\h\h2.jpg" />
     <Content Include="Plugins\alertifyjs\css\themes\hx.alertify.css" />
     <Content Include="Plugins\alertifyjs\hx.alertify.js" />
     <Content Include="Plugins\citypicker\css\city-picker.css" />

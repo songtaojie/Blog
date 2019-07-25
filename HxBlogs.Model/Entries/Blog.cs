@@ -211,5 +211,17 @@ namespace HxBlogs.Model
         ///// </summary> 
         [ForeignKey("TypeId")]
         public virtual BlogType BlogType { get; set; }
+
+        /// <summary>
+        /// 是否是轮播的博客，在首页的轮播图中显示
+        /// </summary>
+        [NotMapped]
+        public bool IsCarousel
+        {
+            get { return Helper.IsYes(Carousel); }
+        }
+        [StringLength(1)]
+        [Column(TypeName = "char")]
+        public string Carousel { get; set; } = "N";
     }
 }

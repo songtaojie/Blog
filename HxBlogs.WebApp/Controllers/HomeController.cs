@@ -22,21 +22,25 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            IEnumerable<BlogViewModel> blogs = _blogService.GetEntitiesNoTrack(b => b.ImgUrl != "")
+            List<BlogViewModel> blogs = _blogService.GetEntitiesNoTrack(b => b.Carousel == "Y")
                      .Select(b => new BlogViewModel()
                      {
                          Id = b.Id,
                          Title = b.Title,
                          ImgUrl = b.ImgUrl,
-                         ContentHtml = b.ContentHtml,
-                         CmtCount = b.CmtCount,
-                         ReadCount = b.ReadCount,
-                         PublishDate = b.PublishDate,
-                         UserId = b.UserId,
-                         User = b.User,
-                         UserName = b.UserName
-                     });
-            return View(blogs.ToList());
+                     }).ToList();
+            foreach (BlogViewModel item in blogs)
+            {
+                item.ImgUrl = WebHelper.GetRandomImgUrl(item.ImgUrl);
+            }
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/1.jpg") });
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/2.jpg") });
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/3.jpg") });
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/4.jpg") });
+
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("h/h1.jpg") });
+            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("h/h2.jpg") });
+            return View(blogs);
         }
         /// <summary>
         /// 加载文章
