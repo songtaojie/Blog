@@ -55,25 +55,35 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/" + DateTime.Now.ToString("yyyyMM") + "/";
+            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/" + DateTime.Now.Year + "/"+ DateTime.Now.Month.ToString("00")+"/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
             //文件名
-
             string guid = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond;
-            string sourceFileName = guid + "_" + fileName;
             string newFileName = string.Format("{0}{1}", guid, fileExt);
             //文件全路径
-            string sourceFilePath = mapPath + sourceFileName;
             string newFilePath = mapPath + newFileName;
-            imgFile.SaveAs(sourceFilePath);
             imgFile.SaveAs(newFilePath);
-            // ImageManager.MakeThumbnail(sourceFilePath, newFilePath, 100, 125, ThumbnailMode.Cut);
+            Task.Run(() => {
+                //源文件
+                string sourceFileName = guid + "_" + fileName;
+                string sourceFilePath = mapPath + sourceFileName;
+                imgFile.SaveAs(sourceFilePath);
+                //缩略图文件
+                string _280FileName = string.Format("{0}_635x280{1}?&h=280&w=635", guid, fileExt);
+                string _280FilePath = Path.Combine(mapPath, _280FileName);
+                ImageManager.MakeThumbnail(sourceFilePath, _280FilePath, 635, 280, ThumbnailMode.H);
+
+                string _120FileName = string.Format("{0}_200x120{1}?&h=120&w=200", guid, fileExt);
+                string _120FilePath = Path.Combine(mapPath, _120FileName);
+                ImageManager.MakeThumbnail(sourceFilePath, _120FilePath, 200, 120, ThumbnailMode.H);
+            });
             string letter = Request.Url.Scheme + ":" + Request.Url.Authority + "/" + UserContext.LoginUser.UserName;
             //加水印
             ImageManager.LetterWatermark(newFilePath, 16, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
 
+            result["success"] = 1;
             result["uploaded"] = true;
             result["url"] = WebHelper.ToRelativePath(newFilePath);
             return Json(result);

@@ -18,7 +18,7 @@
         htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
         //toolbar  : false,             //关闭工具栏
         //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-        emoji: true,
+        emoji: false,
         taskList: true,
         tocm: true,         // Using [TOCM]
         tex: true,                   // 开启科学公式TeX语言支持，默认关闭
@@ -31,22 +31,27 @@
         //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-        imageUploadURL: "./php/upload.php",
+        imageUploadURL: "/file/upload",
         toolbarIcons: function () {
             // Or return editormd.toolbarModes[name]; // full, simple, mini
             // Using "||" set icons align right.
-            return ["undo", "redo", "|", "bold", "del", "italic", "ucwords", "uppercase", "lowercase", "|",
-                "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "image", "code",
-                "table", "datetime", "emoji", "|", "||",
-                "watch", "preview", "fullscreen", "clear", "help"];
+            var w = window.innerWidth;
+            if (w < 768) {
+                return ["undo", "redo", "|", "image", "|", "||",
+                     "preview", "fullscreen", "clear"];
+            }
+            return ["undo", "redo", "|", "bold",  "italic", "|",
+                "h1", "h2", "h3",  "|", "list-ul", "list-ol","|", "image", "code",
+                "table", "||",
+                "watch","preview", "fullscreen", "clear", "help"];
         },
         onfullscreen() {
-            $('nav,div.form-row:not(.hx-editor)').hide();
+            $('header,div.form-row:not(.hx-editor)').hide();
             //this.toolbar.css('margin-top', 'auto');
             //this.resize();
         },
         onfullscreenExit() {
-            $('nav,div.form-row:not(.hx-editor)').show();
+            $('header,div.form-row:not(.hx-editor)').show();
             this.width('100%');
         },
         onload: function () {
@@ -57,7 +62,8 @@
                 editor = me.editor,
                 toolbar = me.toolbar,
                 settings = me.settings,
-                $window = $(window);
+                $window = $(window),
+                w = $window.width();
             var autoFixedHandle = function () {
                 var top = $window.scrollTop();
                 if (!settings.toolbarAutoFixed) {
@@ -66,7 +72,7 @@
                 if (top - editor.offset().top > -8 && top < editor.height() && !state.fullscreen) {
 
                     toolbar.css({
-                        'margin-top': '3rem',
+                        'margin-top': '3.25rem',
                         position: "fixed",
                         width: editor.width() + "px",
                         left: ($window.width() - editor.width()) / 2 + "px"
@@ -84,7 +90,18 @@
             if (!state.fullscreen && !state.preview && settings.toolbar && settings.toolbarAutoFixed) {
                 $(window).bind("scroll", autoFixedHandle);
             }
+            var smallScreen = function () {
+                me.unwatch();
+                me.config('lineNumbers', false);
+            };
+            if (w < 768) {
+                smallScreen();
+            }
             $window.resize(function () {
+                var width = $window.width();
+                if (width < 768) {
+                    smallScreen();
+                }
                 if (state.fullscreen) {
                     editor.css({
                         width: $window.width(),

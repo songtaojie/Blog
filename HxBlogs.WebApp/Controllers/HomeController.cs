@@ -22,11 +22,21 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            //ICategoryService cateService = ContainerManager.Resolve<ICategoryService>();
-            //IEnumerable<Category> cateList = cateService.GetEntitiesNoTrack(c => true)
-            //    .OrderByDescending(c => c.Order);
-            //ViewBag.Categories = cateList;
-            return View();
+            IEnumerable<BlogViewModel> blogs = _blogService.GetEntitiesNoTrack(b => b.ImgUrl != "")
+                     .Select(b => new BlogViewModel()
+                     {
+                         Id = b.Id,
+                         Title = b.Title,
+                         ImgUrl = b.ImgUrl,
+                         ContentHtml = b.ContentHtml,
+                         CmtCount = b.CmtCount,
+                         ReadCount = b.ReadCount,
+                         PublishDate = b.PublishDate,
+                         UserId = b.UserId,
+                         User = b.User,
+                         UserName = b.UserName
+                     });
+            return View(blogs.ToList());
         }
         /// <summary>
         /// 加载文章

@@ -1,7 +1,4 @@
-﻿@{ 
-    var startHidden = !string.IsNullOrEmpty(Request.QueryString["startHidden"]);
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,7 +17,7 @@
     @{
         Html.RenderPartial("~/Views/Layout/_Header.cshtml");
     }
-    <div class="container-fluid">
+    <div class="container-fluid px-0 px-md-3">
         @RenderBody()
     </div>
     @if (ViewBag.ShowFooter != false)

@@ -82,6 +82,8 @@ namespace HxBlogs.WebApp
         {
             SetCookieValue(cookieName, "", DateTime.Now.AddDays(-1));
         }
+
+        #region 图片相关内容
         /// <summary>
         /// 根据图片的全路径判断是否是图片文件,
         /// 如果根据后缀名判断是图片，在判断是否能转换成图片对象，能转换则是图片
@@ -153,18 +155,10 @@ namespace HxBlogs.WebApp
             }
         }
         /// <summary>
-        /// 把绝对路径转换成相对路径
+        /// 获取图片链接
         /// </summary>
-        /// <param name="imagesurl1"></param>
+        /// <param name="sHtmlText">html文本</param>
         /// <returns></returns>
-        public static string ToRelativePath(string imagesurl1)
-        {
-            string tmpRootDir = HttpContext.Current.Server.MapPath(HttpContext.Current.Request.ApplicationPath.ToString());//获取程序根目录
-            string imagesurl2 = imagesurl1.Replace(tmpRootDir, "/"); //转换成相对路径
-            imagesurl2 = imagesurl2.Replace(@"\", @"/");
-            return imagesurl2;
-        }
-
         public static string[] GetHtmlImageUrlList(string sHtmlText)
         {
             // 定义正则表达式用来匹配 img 标签   
@@ -180,30 +174,36 @@ namespace HxBlogs.WebApp
                 sUrlList[i++] = match.Groups["imgUrl"].Value;
             return sUrlList;
         }
+
         /// <summary>
-        /// 获取Web.Config中的AppSetting中节点的值
+        /// 随机获取其中的一个imgurl地址
         /// </summary>
-        /// <param name="key">AppSetting中节点键</param>
-        /// <param name="defValue">默认值</param>
+        /// <param name="imgUrl">图片地址，中间用,分割</param>
         /// <returns></returns>
-        public static string GetAppSettingValue(string key, string defValue = null)
+        public static string GetRandomImgUrl(string imgUrl)
         {
-            if (string.IsNullOrEmpty(key)) return defValue;
-            return ConfigurationManager.AppSettings[key];
+            if (string.IsNullOrEmpty(imgUrl)) return imgUrl;
+            string[] imgUrlArr = imgUrl.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            Random random = new Random();
+            int index = random.Next(0, imgUrlArr.Length);
+            return imgUrlArr[index];
         }
+        #endregion
+
+        #region 路径相关方法
         /// <summary>
-        /// 获取Web.Config中的AppSetting中节点的值
+        /// 把绝对路径转换成相对路径
         /// </summary>
-        /// <param name="key">AppSetting中节点键</param>
-        /// <param name="defValue">默认值</param>
+        /// <param name="imagesurl1"></param>
         /// <returns></returns>
-        public static long GetAppSettingValue(string key, long defValue)
+        public static string ToRelativePath(string imagesurl1)
         {
-            if (string.IsNullOrEmpty(key)) return defValue;
-            string value = ConfigurationManager.AppSettings[key];
-            long.TryParse(value, out defValue);
-            return defValue;
+            string tmpRootDir = HttpContext.Current.Server.MapPath(HttpContext.Current.Request.ApplicationPath.ToString());//获取程序根目录
+            string imagesurl2 = imagesurl1.Replace(tmpRootDir, "/"); //转换成相对路径
+            imagesurl2 = imagesurl2.Replace(@"\", @"/");
+            return imagesurl2;
         }
+
         /// <summary>
         /// 获取路由的全路径
         /// </summary>
@@ -223,34 +223,7 @@ namespace HxBlogs.WebApp
             }
             return rootPath + "/" + routeUrl;
         }
-        /// <summary>
-        /// 过滤html中的p标签
-        /// </summary>
-        /// <param name="html">html字符串</param>
-        /// <param name="maxSize">返回的字符串最大长度为多少</param>
-        /// <param name="onlyText">是否只返回纯文本，还是返回带有标签的</param>
-        /// <returns></returns>
-        public static string FilterHtmlP(string html, int maxSize, bool onlyText = true)
-        {
-            if (string.IsNullOrEmpty(html)) return "";
-            Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
-            var matchs = Regex.Matches(html, @"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
-            StringBuilder sb = new StringBuilder();
-            foreach (Match match in matchs)
-            {
-                string pContent = match.Value;
-                if (onlyText)
-                {
-                    pContent = Regex.Replace(pContent, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
-                    pContent = Regex.Replace(pContent, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
-                }
-                sb.Append(pContent);
-            }
-            string result = sb.ToString();
-            if (string.IsNullOrEmpty(result) || result.Length < maxSize) return result;
-            return result.Substring(0, maxSize);
-        }
-        #region 获取头像url
+
         /// <summary>
         /// 获取头像的url
         /// </summary>
@@ -287,6 +260,61 @@ namespace HxBlogs.WebApp
             return GetFullUrl(avatarUrl);
         }
         #endregion
+
+        #region 设置方法
+        /// <summary>
+        /// 获取Web.Config中的AppSetting中节点的值
+        /// </summary>
+        /// <param name="key">AppSetting中节点键</param>
+        /// <param name="defValue">默认值</param>
+        /// <returns></returns>
+        public static string GetAppSettingValue(string key, string defValue = null)
+        {
+            if (string.IsNullOrEmpty(key)) return defValue;
+            return ConfigurationManager.AppSettings[key];
+        }
+        /// <summary>
+        /// 获取Web.Config中的AppSetting中节点的值
+        /// </summary>
+        /// <param name="key">AppSetting中节点键</param>
+        /// <param name="defValue">默认值</param>
+        /// <returns></returns>
+        public static long GetAppSettingValue(string key, long defValue)
+        {
+            if (string.IsNullOrEmpty(key)) return defValue;
+            string value = ConfigurationManager.AppSettings[key];
+            long.TryParse(value, out defValue);
+            return defValue;
+        }
+        #endregion
+
+        /// <summary>
+        /// 过滤html中的p标签
+        /// </summary>
+        /// <param name="html">html字符串</param>
+        /// <param name="maxSize">返回的字符串最大长度为多少</param>
+        /// <param name="onlyText">是否只返回纯文本，还是返回带有标签的</param>
+        /// <returns></returns>
+        public static string FilterHtmlP(string html, int maxSize, bool onlyText = true)
+        {
+            if (string.IsNullOrEmpty(html)) return "";
+            Regex rReg = new Regex(@"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            var matchs = Regex.Matches(html, @"<P>[\s\S]*?</P>", RegexOptions.IgnoreCase);
+            StringBuilder sb = new StringBuilder();
+            foreach (Match match in matchs)
+            {
+                string pContent = match.Value;
+                if (onlyText)
+                {
+                    pContent = Regex.Replace(pContent, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
+                    pContent = Regex.Replace(pContent, @"&(nbsp|#160);", "   ", RegexOptions.IgnoreCase);
+                }
+                sb.Append(pContent);
+            }
+            string result = sb.ToString();
+            if (string.IsNullOrEmpty(result) || result.Length < maxSize) return result;
+            return result.Substring(0, maxSize);
+        }
         /// <summary>
         /// 获取客户端ip
         /// </summary>

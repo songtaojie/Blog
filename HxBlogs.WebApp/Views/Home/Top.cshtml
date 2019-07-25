@@ -1,0 +1,46 @@
+﻿@model System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>
+@{ 
+    string date = "h"+Hx.Common.Helper.Helper.GetTimestamp().ToString(),
+       carousel = date + "001";
+}
+<div class="d-flex mt-2">
+    <div class="w-50">
+        @if (Model.Count > 0)
+        {
+            <div id="@carousel" class="carousel slide " data-ride="carousel">
+                <!-- 指示符 -->
+                <ul class="carousel-indicators">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li data-target="#@carousel" data-slide-to="@i" class="@(i==0?"active":"")"></li>
+                    }
+                </ul>
+                <!-- 轮播图片 -->
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="carousel-item @(i==0?"active":"")">
+                            <img class="carousel-img" src="@WebHelper.GetRandomImgUrl(Model[i].ImgUrl)">
+                            <div class="carousel-caption">
+                                @*<h3>@blog.Title</h3>*@
+                                <p>@Model[i].Title</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- 左右切换按钮 -->
+                <a class="carousel-control-prev" href="#@carousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#@carousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        }
+
+    </div>
+    <div class="flex-fill">
+        Flex item 1
+    </div>
+</div>

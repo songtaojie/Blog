@@ -16,16 +16,23 @@ body {
     background: #efefef;
 }
 /**************公共的样式*************************/
-.hx-container {
-    transform: translateY(3rem);
-    -ms-transform: translateY(3rem); /* IE 9 */
-    -moz-transform: translateY(3rem); /* Firefox */
-    -webkit-transform: translateY(3rem); /* Safari 和 Chrome */
-    -o-transform: translateY(3rem); /* Opera */
+/*.hx-container {
+    transform: translateY(3.5rem);
+    -ms-transform: translateY(3.5rem); 
+    -moz-transform: translateY(3.5rem); 
+    -webkit-transform: translateY(3.5rem); 
+    -o-transform: translateY(3.5rem); 
     padding-left: initial;
     padding-right: initial;
     margin:0 auto;
     max-width:1270px;
+}*/
+.hx-container {
+    padding-left: initial;
+    padding-right: initial;
+    margin: 0 auto;
+    max-width: 1270px;
+    margin-top:3.5rem;
 }
 
 .hx-color {
@@ -558,4 +565,10 @@ a {
 */
 .dl-horizontal dt {
     white-space: normal;
+}
+/*轮播图*/
+.carousel-img {
+    width: 100%;
+    max-height: 17.5rem;
+    margin: auto;
 }

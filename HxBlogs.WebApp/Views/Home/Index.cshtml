@@ -5,55 +5,10 @@
     @Styles.Render("~/content/default")
 }
 <div class="hx-container">
-    <div class="d-flex align-items-lg-stretch">
-        <div class="flex-fill w-50 flex-grow-1">
-            <div id="#demo" class="carousel slide " data-ride="carousel">
-                <!-- 指示符 -->
-                @*<ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>*@
-                <!-- 轮播图片 -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="w-100" src="https://static.runoob.com/images/mix/img_fjords_wide.jpg">
-                        <div class="carousel-caption">
-                            <h3>第一张图片描述标题</h3>
-                            <p>描述文字!</p>
-                        </div>
-                    </div>
-                    @*<div class="carousel-item">
-                    <img src="https://static.runoob.com/images/mix/img_nature_wide.jpg">
-                    <div class="carousel-caption">
-                        <h3>第二张图片描述标题</h3>
-                        <p>描述文字!</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="https://static.runoob.com/images/mix/img_mountains_wide.jpg">
-                    <div class="carousel-caption">
-                        <h3>第三张图片描述标题</h3>
-                        <p>描述文字!</p>
-                    </div>
-                </div>*@
-                </div>
-
-                <!-- 左右切换按钮 -->
-                <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#demo" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
-        </div>
-        <div class="flex-fill">
-            Flex item 1
-        </div>
-    </div>
-    
-    <div class="hx-white-container partial-content" data-url="/home/loadarticle" hidden>
+    @{ 
+        Html.RenderPartial("top", Model as System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>);
+    }
+    <div class="hx-white-container partial-content mt-3" data-url="/home/loadarticle" hidden>
     </div>
 </div>
 @section scripts{

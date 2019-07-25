@@ -125,7 +125,10 @@ namespace HxBlogs.WebApp.Controllers
                     }
                     DbContextManager dbContext = new DbContextManager();
                     string[] imgList = WebHelper.GetHtmlImageUrlList(blogInfo.ContentHtml);
-                    if (imgList.Length > 0) blogInfo.ImgUrl = imgList[0];
+                    if (imgList.Length > 0)
+                    {
+                        blogInfo.ImgUrl = string.Join(",", imgList);
+                    }
                     if (!blogInfo.IsMarkDown)
                     {
                         blogInfo.Content = HttpUtility.HtmlEncode(blogInfo.ContentHtml);

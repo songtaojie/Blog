@@ -18,6 +18,7 @@ namespace HxBlogs.WebApp.Models
                 return Helper.ToHex(Id.ToString());
             }
         }
+        public string ImgUrl { get; set; }
         public string ContentHtml { get; set; }
         public long UserId { get; set; }
         public UserInfo User { get; set; }
