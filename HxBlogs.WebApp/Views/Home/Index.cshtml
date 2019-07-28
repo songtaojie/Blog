@@ -4,11 +4,17 @@
 @section styles{
     @Styles.Render("~/content/default")
 }
-<div class="hx-container">
-    @{ 
-        Html.RenderPartial("top", Model as System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>);
-    }
-    <div class="hx-white-container partial-content mt-3" data-url="/home/loadarticle" hidden>
+<div class="hx-container d-flex">
+    <div class="flex-fill">
+        @{
+            Html.RenderPartial("top", Model as System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>);
+        }
+        <article class="bg-white partial-content mt-2" data-url="/home/loadarticle" hidden></article>
+    </div>
+    <div class="d-none d-md-block ml-2 pt-2">
+        @{
+            Html.RenderPartial("side");
+        }
     </div>
 </div>
 @section scripts{

@@ -69,6 +69,7 @@
     <Compile Include="Entries\Attention.cs" />
     <Compile Include="Entries\BasicInfo.cs" />
     <Compile Include="Entries\JobInfo.cs" />
+    <Compile Include="Extend\AllowAdminAttribute.cs" />
     <Compile Include="Mapping\BaseMatch.cs" />
     <Compile Include="Mapping\IMatchValue.cs" />
     <Compile Include="Mapping\IParameter.cs" />

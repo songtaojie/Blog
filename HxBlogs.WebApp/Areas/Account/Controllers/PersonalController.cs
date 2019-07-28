@@ -9,20 +9,19 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace HxBlogs.WebApp.Areas.Admin.Controllers
+namespace HxBlogs.WebApp.Areas.Account.Controllers
 {
     /// <summary>
     /// 用户中心
     /// </summary>
-    public class UserCenterController : Controller
+    public class PersonalController : Controller
     {
         private IUserService _userService;
-        public UserCenterController(IUserService userService)
+        public PersonalController(IUserService userService)
         {
             _userService = userService;
         }
 
-        // GET: Admin/UserCenter
         public ActionResult Profiles()
         {
             Models.BasicInfoDTO basicInfo = MapperManager.Map<Models.BasicInfoDTO>(UserContext.LoginUser.BasicInfo);
@@ -38,7 +37,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             AjaxResult result = new AjaxResult();
             if (ModelState.IsValid)
             {
-                TransactionManager.Excute(delegate{
+                TransactionManager.Excute(delegate {
                     IBasicInfoService basicService = ContainerManager.Resolve<IBasicInfoService>();
                     UserInfo logUser = UserContext.LoginUser;
                     HxBlogs.Model.UserInfo user = MapperManager.Map<UserInfo>(logUser);
@@ -123,7 +122,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// <param name="newPwd">新密码</param>
         /// <param name="oldPwd">旧密码</param>
         /// <returns></returns>
-        public ActionResult ChangePwd(string newPwd,string oldPwd)
+        public ActionResult ChangePwd(string newPwd, string oldPwd)
         {
             AjaxResult result = new AjaxResult();
             string reg = "^.*(?=.{6,16})(?=.*\\d)(?=.*[A-Z]{1,})(?=.*[a-z]{1,})(?=.*[.!@#$%^&*]).*$";

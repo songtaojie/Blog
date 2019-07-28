@@ -1,12 +1,12 @@
 ﻿@model HxBlogs.Model.UserInfo
 @{
-    Layout = "~/Areas/Admin/Views/Shared/_UCLayout.cshtml";
+    Layout = "~/Areas/Account/Views/Shared/_UCLayout.cshtml";
 }
 @section endstyles{
     @Styles.Render("~/content/remind")    
 }
 
-<div class="d-flex hx-container hx-white-container py-3">
+<div class="d-flex hx-container bg-white py-3">
     <div>
         @{
             Html.RenderPartial("side", new ViewDataDictionary {

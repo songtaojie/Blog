@@ -6,7 +6,7 @@
     @Styles.Render("~/content/default")
     @Styles.Render("~/content/mdeditor")
 }
-<div class="blog-edit hx-container hx-white-container px-3">
+<div class="blog-edit hx-container bg-white px-3">
     <form class="form-horizontal" role="form" action="/edit/save" method="post">
         <input type="hidden" name="MarkDown" value="@Model.MarkDown"  />
         <input type="hidden" name="HexId" value="@Model.HexId" />

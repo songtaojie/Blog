@@ -64,7 +64,6 @@ namespace HxBlogs.WebApp.Filters
                 var s = JsonConvert.SerializeObject(error);
                 if (!isAjax)
                 {
-
                     response.RedirectToRoute("Default", new { controller = "error", action = "error500", data = HttpUtility.UrlEncode(s) });
                 }
                 else

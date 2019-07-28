@@ -30,14 +30,11 @@ namespace HxBlogs.WebApp.Models
         /// <param name="isShowException">是否显示异常页面</param>
         public ExceptionMessage(Exception ex, bool isShowException)
         {
-            MsgType = ex.GetType().Name;
             Exception inner = ex;
             while (inner != null)
             {
                 Message = inner.Message;
                 //StackTrace = inner.StackTrace.Length > 100 ? inner.StackTrace.Substring(0, 100) : inner.StackTrace;
-                Source = inner.Source;
-                Assembly = inner.TargetSite.Module.Assembly.FullName;
                 Method = inner.TargetSite.Name;
                 inner = inner.InnerException;
             }
@@ -45,14 +42,8 @@ namespace HxBlogs.WebApp.Models
             ShowException = isShowException;
             var request = HttpContext.Current.Request;
             //IP = WebHelper.GetClientIp();
-            UserAgent = request.UserAgent;
             Path = request.Path;
-            HttpMethod = request.HttpMethod;
         }
-        /// <summary>
-        /// 消息类型
-        /// </summary>
-        public string MsgType { get; set; }
 
         /// <summary>
         /// 消息内容
@@ -65,39 +56,14 @@ namespace HxBlogs.WebApp.Models
         public string Path { get; set; }
 
         /// <summary>
-        /// 程序集名称
-        /// </summary>
-        public string Assembly { get; set; }
-
-        /// <summary>
-        /// 异常参数
-        /// </summary>
-        public string ActionArguments { get; set; }
-
-        /// <summary>
-        /// 请求类型
-        /// </summary>
-        public string HttpMethod { get; set; }
-
-        /// <summary>
         /// 异常堆栈
         /// </summary>
         public string StackTrace { get; set; }
 
         /// <summary>
-        /// 异常源
-        /// </summary>
-        public string Source { get; set; }
-
-        /// <summary>
         /// 服务器IP 端口
         /// </summary>
         public string IP { get; set; }
-
-        /// <summary>
-        /// 客户端浏览器标识
-        /// </summary>
-        public string UserAgent { get; set; }
         /// <summary>
         /// 是否显示异常界面
         /// </summary>

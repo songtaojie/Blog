@@ -1,24 +1,21 @@
-﻿<div class="hx-container hx-sidebar-fixed hx-white-container">
-    <nav class="nav flex-column mt-1">
-        <ul class="navbar-nav nav-fill">
-            <li class="nav-item active bg-light">
-                <a class="nav-link text-secondary" href="#">推荐</a>
-            </li>
-            <li class="nav-item bg-light">
-                <a class="nav-link text-secondary" href="#">关注</a>
-            </li>
-            <li class="nav-item bg-light">
-                <a class="nav-link text-secondary" href="#">专题</a>
-            </li>
-            @if (ViewBag.Categories != null)
-            {
-                foreach (HxBlogs.Model.Category item in ViewBag.Categories)
-                {
-                    <li class="nav-item bg-light">
-                        <a class="nav-link text-secondary" href="#">@item.Name</a>
-                    </li>
-                }
-            }
-        </ul>
-    </nav>
+﻿<div class="hx-about-me">
+    <h2 class="mx-2 my-3 hx-about-header">关于我</h2>
+    <p>网名：演绎~陌路离殇</p>
+    <p>职业：Web前端设计师、后端开发</p>
+    <p>现居：河南省-郑州市</p>
+    <p>Email：stjworkemail@163.com</p>
+    <div class="d-none d-lg-flex  align-items-center justify-content-around ">
+        <a class="hx-about-info" href="/" target="_blank" title="网站地址">
+            <i class="fa fa-home fa-2x text-info"></i>
+        </a>
+        <a class="hx-about-info" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=977601042@qq.com" target="_blank" title="邮箱">
+            <i class="fa fa-envelope fa-2x hx-text-mail"></i>
+        </a>
+        <a class="hx-about-info" href="#" target="_blank" title="QQ">
+            <i class="fa fa-qq fa-2x text-info"></i>
+        </a>
+        <a class="hx-about-info" href="#" target="_blank" title="微信">
+            <i class="fa fa-wechat hx-3x hx-text-wechart"></i>
+        </a>
+    </div>
 </div>

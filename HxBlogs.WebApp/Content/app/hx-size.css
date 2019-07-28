@@ -1,0 +1,235 @@
+﻿.hx-minw-0 {
+    min-width: 1rem !important;
+}
+
+.hx-minw-1 {
+    min-width: 5rem !important;
+}
+
+.hx-minw-2 {
+    min-width: 10rem !important;
+}
+
+.hx-minw-3 {
+    min-width: 15rem !important;
+}
+
+.hx-minw-4 {
+    min-width: 20rem !important;
+}
+
+.hx-minw-5 {
+    min-width: 25rem !important;
+}
+
+.hx-maxw-0 {
+    max-width: 1rem !important;
+}
+
+.hx-maxw-1 {
+    max-width: 5rem !important;
+}
+
+.hx-maxw-2 {
+    max-width: 10rem !important;
+}
+
+.hx-maxw-3 {
+    max-width: 15rem !important;
+}
+
+.hx-maxw-4 {
+    max-width: 20rem !important;
+}
+
+.hx-maxw-5 {
+    max-width: 25rem !important;
+}
+
+.hx-minh-0 {
+    min-height: 1rem !important;
+}
+
+.hx-minh-1 {
+    min-height: 5rem !important;
+}
+
+.hx-minh-2 {
+    min-height: 10rem !important;
+}
+
+.hx-minh-3 {
+    min-height: 15rem !important;
+}
+
+.hx-minh-4 {
+    min-height: 20rem !important;
+}
+
+.hx-minh-5 {
+    min-height: 25rem !important;
+}
+
+.hx-maxh-0 {
+    max-height: 1rem !important;
+}
+
+.hx-maxh-1 {
+    max-height: 5rem !important;
+}
+
+.hx-maxh-2 {
+    max-height: 10rem !important;
+}
+
+.hx-maxh-3 {
+    max-height: 15rem !important;
+}
+
+.hx-maxh-4 {
+    max-height: 20rem !important;
+}
+
+.hx-minh-5 {
+    min-height: 25rem !important;
+}
+.w-30 {
+    width: 30% !important;
+}
+
+.w-70 {
+    width: 70% !important;
+}
+.hx-about-me,
+.carousel-item {
+    height: 11.875rem;
+}
+
+.carousel-thumbnail {
+    height: 5.875rem;
+}
+/*小屏*/
+@media (min-width: 576px) {
+    .w-sm-25 {
+        width: 25% !important;
+    }
+
+    .w-sm-30 {
+        width: 30% !important;
+    }
+
+    .w-sm-50 {
+        width: 50% !important;
+    }
+
+    .w-sm-70 {
+        width: 70% !important;
+    }
+
+    .w-sm-100 {
+        width: 100% !important;
+    }
+    .carousel-thumbnail, 
+    .carousel-item {
+        height: 14.5rem;
+    }
+}
+/*中屏*/
+@media (min-width: 768px) {
+    .hx-header .p-absolute {
+        position: static;
+        padding-right: 0.75rem;
+        right: auto;
+    }
+
+    .w-md-25 {
+        width: 25% !important;
+    }
+
+    .w-md-30 {
+        width: 30% !important;
+    }
+
+    .w-md-50 {
+        width: 50% !important;
+    }
+
+    .w-md-70 {
+        width: 70% !important;
+    }
+
+    .w-md-100 {
+        width: 100% !important;
+    }
+    .hx-about-me,
+    .carousel-thumbnail,
+    .carousel-item {
+        height: 13rem;
+    }
+
+    .hx-about-me {
+        width: 13.875rem;
+    }
+}
+/*大屏*/
+@media (min-width: 992px) {
+    .w-lg-25 {
+        width: 25% !important;
+    }
+
+    .w-lg-30 {
+        width: 30% !important;
+    }
+
+    .w-lg-50 {
+        width: 50% !important;
+    }
+
+    .w-lg-70 {
+        width: 70% !important;
+    }
+
+    .w-lg-100 {
+        width: 100% !important;
+    }
+    .hx-about-me,
+    .carousel-thumbnail,
+    .carousel-item {
+        height: 16.25rem;
+    }
+
+    .hx-about-me {
+        width: 16.375rem;
+    }
+}
+/*超大屏*/
+@media (min-width: 1200px) {
+    .w-xl-25 {
+        width: 25% !important;
+    }
+
+    .w-xl-30 {
+        width: 30% !important;
+    }
+
+    .w-xl-50 {
+        width: 50% !important;
+    }
+
+    .w-xl-70 {
+        width: 70% !important;
+    }
+
+    .w-xl-100 {
+        width: 100% !important;
+    }
+    .hx-about-me,
+    .carousel-thumbnail,
+    .carousel-item {
+        height: 17.375rem;
+    }
+
+    .hx-about-me {
+        width: 17.625rem;
+    }
+}

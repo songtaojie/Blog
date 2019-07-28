@@ -48,25 +48,22 @@
                         <a class="dropdown-item text-white" href="/edit/postedit" target="_blank" >
                             <span class="fa fa-edit"></span> 写博客
                         </a>
-                        @*<div class="dropdown-divider"></div>*@
-                        <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
+                        <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/uc/p")" target="_blank">
                             <i class="fa fa-user-o hx-fa-same"></i> 个人中心
                         </a>
-                        <a class="dropdown-item text-white" href="extra_lock.html">
-                            <i class="fa fa-cog hx-fa-same"></i> 账号设置
-                        </a>
-                        <a class="dropdown-item text-white" href="/admin/account/logout">
+                        @if (UserContext.LoginUser.IsAdmin)
+                        {
+                            <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
+                                <i class="fa fa-cog hx-fa-same"></i> 系统管理
+                            </a>
+                        }
+                        <a class="dropdown-item text-white" href="/uc/a/logout">
                             <i class="fa fa-sign-out hx-fa-same"></i> 退出
                         </a>
                     </div>
                 </li>
             </ul>
         }
-
-        @*<form class="form-inline ml-md-3 hx-search-bar">
-                <input type="text" class="hx-input" name="Search" placeholder="想搜点什么呢..">
-            </form>
-            <span class="fa fa-search px-md-3 hx-2x hx-search text-white" ></span>*@
     </nav>
 </header>
 <script>

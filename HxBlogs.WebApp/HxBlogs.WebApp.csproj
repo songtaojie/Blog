@@ -196,13 +196,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Account\AccountAreaRegistration.cs" />
+    <Compile Include="Areas\Account\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Account\Controllers\PersonalController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UserCenterController.cs" />
-    <Compile Include="Areas\Admin\Models\BasicInfoDTO.cs" />
-    <Compile Include="Areas\Admin\Models\JobInfoDTO.cs" />
-    <Compile Include="Areas\Admin\Models\UserInfoDTO.cs" />
+    <Compile Include="Areas\Account\Models\BasicInfoDTO.cs" />
+    <Compile Include="Areas\Account\Models\JobInfoDTO.cs" />
+    <Compile Include="Areas\Account\Models\UserInfoDTO.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
     <Compile Include="Common\ConstInfo.cs" />
@@ -229,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\blog-header-footer.css" />
+    <Content Include="Content\app\hx-size.css" />
     <Content Include="Content\app\themes\hx-default.css" />
     <Content Include="font\fonts\hx-font.svg" />
     <Content Include="images\carousel\v\1.jpg" />
@@ -239,6 +241,7 @@
     <Content Include="images\carousel\h\b02.jpg" />
     <Content Include="images\carousel\h\h1.jpg" />
     <Content Include="images\carousel\h\h2.jpg" />
+    <Content Include="images\quote-bg.png" />
     <Content Include="Plugins\alertifyjs\css\themes\hx.alertify.css" />
     <Content Include="Plugins\alertifyjs\hx.alertify.js" />
     <Content Include="Plugins\citypicker\css\city-picker.css" />
@@ -432,15 +435,20 @@
     <Content Include="font\fonts\hx-font.eot" />
     <Content Include="font\fonts\hx-font.ttf" />
     <Content Include="font\fonts\hx-font.woff" />
-    <Content Include="Areas\Admin\Views\UserCenter\Profiles.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_UCLayout.cshtml" />
-    <Content Include="Areas\Admin\Views\UserCenter\Side.cshtml" />
-    <Content Include="Areas\Admin\Views\UserCenter\Tabs.cshtml" />
+    <Content Include="Areas\Account\Views\Personal\Profiles.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_UCLayout.cshtml" />
+    <Content Include="Areas\Account\Views\Personal\Side.cshtml" />
+    <Content Include="Areas\Account\Views\Personal\Tabs.cshtml" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker3.css.map" />
     <Content Include="Plugins\datepicker\css\bootstrap-datepicker3.standalone.css.map" />
-    <Content Include="Areas\Admin\Views\UserCenter\ChPwd.cshtml" />
+    <Content Include="Areas\Account\Views\Personal\ChPwd.cshtml" />
+    <Content Include="Areas\Account\Views\web.config" />
+    <Content Include="Areas\Account\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Account\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Account\Views\Account\Activation.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\blog-default.css" />
@@ -918,10 +926,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Account\Views\Layout\_Header.cshtml" />
     <Content Include="font\fonts\fontawesome-webfont.eot" />
     <Content Include="font\fonts\fontawesome-webfont.ttf" />
     <Content Include="font\fonts\fontawesome-webfont.woff" />
@@ -930,8 +937,6 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Admin\Views\Account\Activation.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
@@ -1027,7 +1032,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\Profile\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Layout\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Config\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\File\" />

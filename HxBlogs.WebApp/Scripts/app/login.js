@@ -17,7 +17,7 @@
                 ValidateCode: {
                     required: true,
                     remote: {
-                        url: '/admin/account/checkcode',
+                        url: '/uc/a/checkcode',
                         type: 'post',
                         data: {
                             code: function () {
@@ -132,7 +132,7 @@
                     required: true,
                     checkName: true,
                     remote: {
-                        url: '/admin/account/checkusername',
+                        url: 'uc/a/checkusername',
                         type: 'post',
                         data: {
                             userName: function () {
@@ -145,7 +145,7 @@
                     required: true,
                     email: true,
                     remote: {
-                        url: '/admin/account/checkemail',
+                        url: '/uc/a/checkemail',
                         type: 'post',
                         data: {
                             email: function () {

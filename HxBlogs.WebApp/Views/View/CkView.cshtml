@@ -10,9 +10,9 @@
 <div class="hx-container blog-view">
     <div class="d-flex">
         @{ 
-            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.User);
+            Html.RenderPartial("side", ViewBag.User as HxBlogs.Model.UserInfo);
         }
-        <div class="flex-fill flex-column mt-2 ml-2 py-3 px-4 hx-white-container">
+        <div class="flex-fill flex-column mt-2 ml-2 py-3 px-4 bg-white">
             <div class="mt-2">
                 <div>
                     <h4>@Model.Title</h4>

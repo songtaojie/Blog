@@ -1,14 +1,14 @@
 ﻿@model System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>
-@{ 
-    string date = "h"+Hx.Common.Helper.Helper.GetTimestamp().ToString(),
+@{
+    string date = "h" + Hx.Common.Helper.Helper.GetTimestamp().ToString(),
        carousel = date + "001";
 }
-<div class="d-flex mt-2">
-    
+<div class="d-flex pt-2">
+    <div class="flex-fill d-flex flex-column flex-sm-row">
         @if (Model.Count > 0)
         {
-            <div class="w-50">
-                <div id="@carousel" class="carousel slide " data-ride="carousel">
+            <div class="w-100 w-sm-70">
+                <div class="carousel slide h-100">
                     <!-- 指示符 -->
                     <ul class="carousel-indicators">
                         @for (int i = 0; i < 4; i++)
@@ -17,7 +17,7 @@
                         }
                     </ul>
                     <!-- 轮播图片 -->
-                    <div class="carousel-inner">
+                    <div class="carousel-inner h-100">
                         @for (int i = 0; i < 4; i++)
                         {
                             <div class="carousel-item @(i==0?"active":"")">
@@ -39,15 +39,16 @@
                     </a>
                 </div>
             </div>
-            <div class="ml-2">
-                <div class="d-flex flex-column">
-                    <a class="mb-2">
-                        <img src="@(Model[Model.Count - 1].ImgUrl)" class="img-thumbnail" >
+            <div class="ml-sm-2 mt-2 mt-sm-0 w-100 w-sm-30">
+                <div class="d-flex flex-row flex-sm-column carousel-thumbnail">
+                    <a class="mb-2 w-50 w-sm-100">
+                        <img src="@(Model[1].ImgUrl)" class="img-thumbnail">
                     </a>
-                    <a>
-                        <img src="@(Model[Model.Count - 2].ImgUrl)" class="img-thumbnail" >
+                    <a class="w-50 w-sm-100 ml-1 ml-sm-0">
+                        <img src="@(Model[Model.Count - 2].ImgUrl)" class=" img-thumbnail">
                     </a>
                 </div>
             </div>
         }
+    </div>
 </div>

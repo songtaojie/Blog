@@ -14,22 +14,10 @@ namespace HxBlogs.WebApp.Areas.Admin
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
-            context.MapRoute("HxBlogs_Register", "register", new
-            {
-                area = "admin",
-                controller = "account",
-                action = "register"
-            });
-            context.MapRoute("HxBlogs_Login", "login", new
-            {
-                area = "admin",
-                controller = "account",
-                action = "login"
-            });
             context.MapRoute(
-                "Uc_Route",
-                "admin/uc/{action}/{*extend}",
-                new { controller = "UserCenter", action = "Profiles", extend = UrlParameter.Optional }
+                "Admin_Index",
+                "admin/",
+                new {controller="home",  action = "Index"}
             );
             context.MapRoute(
                 "Admin_Default",

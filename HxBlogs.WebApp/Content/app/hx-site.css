@@ -1,5 +1,4 @@
-﻿
-/*@import url('/Content/font/');*/
+﻿@import url('hx-size.css');
 
 * {
     margin: 0;
@@ -14,6 +13,9 @@ body {
     font-family: 'Microsoft YaHei UI','Microsoft YaHei',Arial,Helvetica,sans-serif;
     color: #555;
     background: #efefef;
+}
+.flex-fill {
+    width: 0;
 }
 /**************公共的样式*************************/
 /*.hx-container {
@@ -32,21 +34,21 @@ body {
     padding-right: initial;
     margin: 0 auto;
     max-width: 1270px;
-    margin-top:3.5rem;
+    margin-top: 3.5rem;
 }
 
 .hx-color {
     background-color: #ad93d2;
 }
-
+.hx-text-wechart {
+    color: #07AF12;
+}
+.hx-text-mail {
+    color: #ef5509;
+}
 .hx-font-color {
     color: #ad93d2;
 }
-
-.hx-white-container {
-    background: #fff;
-}
-
 .hx-content-nowrap {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -83,102 +85,10 @@ a {
     width: 1rem;
     text-align: center;
 }
-
-.hx-minw-0 {
-    min-width: 1rem !important;
+.hx-3x {
+   font-size:1.75em; 
 }
 
-.hx-minw-1 {
-    min-width: 5rem !important;
-}
-
-.hx-minw-2 {
-    min-width: 10rem !important;
-}
-
-.hx-minw-3 {
-    min-width: 15rem !important;
-}
-
-.hx-minw-4 {
-    min-width: 20rem !important;
-}
-
-.hx-minw-5 {
-    min-width: 25rem !important;
-}
-
-.hx-maxw-0 {
-    max-width: 1rem !important;
-}
-
-.hx-maxw-1 {
-    max-width: 5rem !important;
-}
-
-.hx-maxw-2 {
-    max-width: 10rem !important;
-}
-
-.hx-maxw-3 {
-    max-width: 15rem !important;
-}
-
-.hx-maxw-4 {
-    max-width: 20rem !important;
-}
-
-.hx-maxw-5 {
-    max-width: 25rem !important;
-}
-
-.hx-minh-0 {
-    min-height: 1rem !important;
-}
-
-.hx-minh-1 {
-    min-height: 5rem !important;
-}
-
-.hx-minh-2 {
-    min-height: 10rem !important;
-}
-
-.hx-minh-3 {
-    min-height: 15rem !important;
-}
-
-.hx-minh-4 {
-    min-height: 20rem !important;
-}
-
-.hx-minh-5 {
-    min-height: 25rem !important;
-}
-
-.hx-maxh-0 {
-    max-height: 1rem !important;
-}
-
-.hx-maxh-1 {
-    max-height: 5rem !important;
-}
-
-.hx-maxh-2 {
-    max-height: 10rem !important;
-}
-
-.hx-maxh-3 {
-    max-height: 15rem !important;
-}
-
-.hx-maxh-4 {
-    max-height: 20rem !important;
-}
-
-.hx-minh-5 {
-    min-height: 25rem !important;
-}
 /**************博客的头部*************************/
 .hx-header {
     height: 3.25rem;
@@ -196,7 +106,6 @@ a {
 
     .hx-2x,
     .hx-header .hx-logo {
-        white-space: nowrap;
         font-size: 1.5em;
     }
 
@@ -204,6 +113,7 @@ a {
     .hx-header .nav-item {
         font-size: 1em;
     }
+
     .hx-header .dropdown-menu:not(.hx-show) .dropdown-item:active,
     .hx-header .dropdown-menu:not(.hx-show) .dropdown-item:hover,
     .hx-header .navbar-collapse:not(.hx-show) .nav-item.active > a,
@@ -230,10 +140,11 @@ a {
         transform: rotate(180deg);
         border-top: 0.3rem solid #fff;
     }
-/*导航栏*/
+    /*导航栏*/
     .hx-header .dropdown-menu {
         background-color: #343a40;
     }
+
 .dropdown.hx-show .dropdown-menu.show,
 .navbar-collapse.hx-show {
     width: 100%;
@@ -308,28 +219,6 @@ a {
     padding-right: 0.75rem;
     right: 0.75rem;
 }
-
-@media (min-width: 576px) {
-}
-
-@media (min-width: 1200px) {
-}
-
-@media (min-width: 992px) {
-}
-
-@media (min-width: 768px) {
-    .hx-header .p-absolute {
-        position: static;
-        padding-right: 0.75rem;
-        right: auto;
-    }
-}
-
-
-
-
-
 
 .hx-navicon {
     display: block;
@@ -566,9 +455,67 @@ a {
 .dl-horizontal dt {
     white-space: normal;
 }
+
 /*轮播图*/
-.carousel-img {
-    width: 100%;
-    max-height: 17.5rem;
-    margin: auto;
+    .carousel-thumbnail a {
+        overflow: hidden;
+        height: 100%;
+    }
+        .carousel-thumbnail a img,
+        .carousel-item img {
+            height: 100%;
+            width: 100%;
+            -moz-transition: all .5s ease;
+            -webkit-transition: all .5s ease;
+            -ms-transition: all .5s ease;
+            -o-transition: all .5s ease;
+            transition: all .5s ease;
+            transition: all 0.5s;
+        }
+.carousel-thumbnail a img {
+    opacity: .75;
+}
+.carousel-thumbnail a:hover img {
+    transform: scale(1.1);
+    opacity: 1;
+}
+.hx-about-me {
+    box-shadow: 0px 1px 0px rgba(255,255,255,.1), inset 0px 1px 1px rgba(0,0,0,.7);
+    border-radius: 3px;
+    background: url(/images/quote-bg.png) no-repeat top right rgba(42,42,42,1);
+    overflow: hidden;
+    border: 0.25rem solid #fff;
+}
+    .hx-about-me .hx-about-header {
+        font-size:1.375rem;
+        color: #89919a;
+    }
+    .hx-about-me p {
+        font-size: 12px;
+        padding-left:1rem;
+        text-shadow: 0px 1px 2px rgba(0,0,0,.5);
+        color: #d0d2d4;
+        -webkit-animation: animations2 5s ease-in-out 5s;
+        -moz-animation: animations2 5s ease-in-out 5s;
+        -o-animation: animations2 5s ease-in-out 5s;
+        -ms-animation: animations2 5s ease-in-out 5s;
+        animation: animations2 5s ease-in-out 5s;
+    }
+    .hx-about-me .hx-about-info {
+        display: block;
+        overflow: hidden;
+        box-shadow: 0px 1px 0px rgba(255,255,255,.1), inset 0px 1px 1px rgba(0,0,0,.7);
+        border-radius: 50%;
+        padding: 0.5rem 0.6rem;
+    }
+        .hx-about-me .hx-about-info:hover {
+            opacity:0.65;
+        }
+        /*媒体类型*/
+@media (min-width: 768px) {
+    .hx-header .p-absolute {
+        position: static;
+        padding-right: 0.75rem;
+        right: auto;
+    }
 }

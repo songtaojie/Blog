@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 海·星の博客</title>
+    @RenderSection("beginstyles", required: false)
+    @Styles.Render("~/content/site")
+    @Styles.Render("~/content/default")
+    @Styles.Render("~/content/darkblack")
+    @RenderSection("endstyles", required: false)
+    @Scripts.Render("~/bundles/site")
+</head>
+<body>
+    @{
+        Html.RenderPartial("~/Views/Layout/_Header.cshtml");
+    }
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+    @if (ViewBag.ShowFooter != false)
+    {
+        Html.RenderPartial("~/Views/Layout/_Footer.cshtml");
+    }
+    @RenderSection("scripts", required: false)
+</body>
+</html>

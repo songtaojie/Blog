@@ -1,9 +1,11 @@
-﻿using HxBlogs.Model;
+﻿using Hx.Common.Helper;
+using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace HxBlogs.WebApp.Filters
 {
@@ -21,8 +23,25 @@ namespace HxBlogs.WebApp.Filters
                     userInfo = UserContext.ValidateCookie();
                     result = userInfo != null;
                 }
+                if (result && Helper.AreEqual("admin", this.Roles))
+                {
+                    if (!userInfo.IsAdmin) throw new Exception("您没有访问权限");
+                }
             }
             return result;
+        }
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (AllowAdminAccess(filterContext))
+            {
+                this.Roles = "Admin";
+            }
+            else
+            {
+                this.Roles = string.Empty;
+            }
+            base.OnAuthorization(filterContext);
+
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
@@ -157,19 +176,19 @@ namespace HxBlogs.WebApp.Filters
         //}
         #endregion
         /// <summary>
-        /// 是否允许匿名访问
+        /// 只允许管理员访问
         /// </summary>
         /// <param name="filterContext"></param>
         /// <returns></returns>
-        private bool AllowAnonymous(AuthorizationContext filterContext)
+        private bool AllowAdminAccess(AuthorizationContext filterContext)
         {
             if (filterContext.HttpContext.Request.Url == null)
             {
                 throw new ArgumentNullException("filterContext");
             }
             // 1、允许匿名访问 用于标记在授权期间要跳过 AuthorizeAttribute 的控制器和操作的特性 
-            var actionAnonymous = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
-            var controllerAnonymous = filterContext.Controller.GetType().GetCustomAttributes(typeof(AllowAnonymousAttribute), true) as IEnumerable<AllowAnonymousAttribute>;
+            var actionAnonymous = filterContext.ActionDescriptor.GetCustomAttributes(typeof(AllowAdminAttribute), true) as IEnumerable<AllowAdminAttribute>;
+            var controllerAnonymous = filterContext.Controller.GetType().GetCustomAttributes(typeof(AllowAdminAttribute), true) as IEnumerable<AllowAdminAttribute>;
 
             if ((actionAnonymous != null && actionAnonymous.Any()) || (controllerAnonymous != null && controllerAnonymous.Any()))
             {

@@ -1,8 +1,9 @@
-﻿using Hx.Common.Email;
+﻿using Hx.Common.Cache;
+using Hx.Common.Email;
 using Hx.Common.Helper;
 using Hx.Common.Logs;
-using Hx.Common.Cache;
 using Hx.Framework;
+using Hx.WebCommon;
 using HxBlogs.IBLL;
 using HxBlogs.Model;
 using HxBlogs.WebApp.Models;
@@ -13,11 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Hx.Common.Json;
-using Newtonsoft.Json.Linq;
-using Hx.WebCommon;
 
-namespace HxBlogs.WebApp.Areas.Admin.Controllers
+namespace HxBlogs.WebApp.Areas.Account.Controllers
 {
     [AllowAnonymous]
     public class AccountController : Controller
@@ -25,7 +23,8 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         private IUserService _userService;
         public ILogger Logger
         {
-            get {
+            get
+            {
                 return ContainerManager.Resolve<ILogger>();
             }
         }
@@ -37,7 +36,6 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         /// 登录页面
         /// </summary>
         /// <returns></returns>
-        // GET: Admin/Account
         public ActionResult Login(string returnUrl)
         {
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -71,7 +69,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 userInfo = MapperManager.Map<UserInfo>(info);
-                userInfo = this._userService.Insert(userInfo,out result);
+                userInfo = this._userService.Insert(userInfo, out result);
             }
             if (result.Success)
             {
@@ -97,9 +95,9 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             Guid key = Guid.NewGuid();
             MemcachedHelper.Set(key.ToString(), userName, DateTime.Now.AddMinutes(30));
             var checkUrl = Request.Url.Scheme + "://" + Request.Url.Host + ":" +
-                Request.Url.Port + "/admin/account/activation?key=" + key;
+                Request.Url.Port + "/uc/account/activation?key=" + key;
             string mailAccount = WebHelper.GetAppSettingValue("MailAccount")
-                ,mailPwd = WebHelper.GetAppSettingValue("");
+                , mailPwd = WebHelper.GetAppSettingValue("");
             await Task.Run(() =>
             {
                 EmailHelper email = new EmailHelper()
@@ -130,7 +128,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             AjaxResult result = new AjaxResult();
             result = ValidateCode(result);
-            if(!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
+            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
             result = ValidateUser(result);
             if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
             string returnUrl = Request[ConstInfo.returnUrl];
@@ -179,7 +177,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             }
             return result;
         }
-        
+
         /// <summary>
         /// 显示验证码
         /// </summary>
@@ -203,6 +201,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             return Redirect("/login");
         }
         #endregion
+
         #region 验证用户输入的信息
         /// <summary>
         /// 检查用户名是否存在
@@ -250,6 +249,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         #region 激活用户
         [HttpGet]
         public ActionResult Activation()
@@ -282,7 +282,7 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
                 result.Success = false;
                 result.Message = "此激活链接已失效!";
             }
-            
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion
