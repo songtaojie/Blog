@@ -35,6 +35,8 @@ namespace HxBlogs.WebApp
 
             GlobalFilters.Filters.Add(new ProfilingActionFilter());
             MiniProfilerEF6.Initialize();
+
+            SystemConfig.Initialize();
         }
         protected void Application_Error(object sender, EventArgs e)
         {

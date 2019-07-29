@@ -32,6 +32,8 @@ namespace HxBlogs.WebApp.Areas.Account.Controllers
         {
             this._userService = userService;
         }
+       
+        #region 用户登录
         /// <summary>
         /// 登录页面
         /// </summary>
@@ -45,18 +47,93 @@ namespace HxBlogs.WebApp.Areas.Account.Controllers
             return View();
         }
         /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DoLogin()
+        {
+            AjaxResult result = new AjaxResult();
+            result = ValidateCode(result);
+            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
+            result = ValidateUser(result);
+            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
+            string returnUrl = Request[ConstInfo.returnUrl];
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                result.Resultdata = returnUrl.Trim();
+            }
+            return Json(result, string.Empty, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 验证验证码
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private AjaxResult ValidateCode(AjaxResult result)
+        {
+            string validateCode = Request["ValidateCode"];
+            string code = Session[ConstInfo.VCode].ToString();
+            if (!Helper.AreEqual(code, validateCode))
+            {
+                result.Success = false;
+                result.Message = "验证码不正确";
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 验证用户名密码是否正确
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private AjaxResult ValidateUser(AjaxResult result)
+        {
+            string userName = Request["UserName"];
+            string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
+            UserInfo userInfo = this._userService.GetEntity(u => u.PassWord == pwd && (u.UserName == userName || u.Email == userName));
+            if (userInfo == null)
+            {
+                Session[ConstInfo.VCode] = null;
+                result.Success = false;
+                result.Message = "用户名或密码错误!";
+            }
+            else
+            {
+                UserContext.CacheUserInfo(userInfo, Helper.IsYes(Request["Remember"]));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 用户退出
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Logout()
+        {
+            UserContext.ClearUserInfo();
+            return Redirect("/login");
+        }
+
+        #endregion
+
+        #region 用户注册
+
+        /// <summary>
         /// 注册页面
         /// </summary>
         /// <returns></returns>
         public ActionResult Register(string returnUrl)
         {
+            if (!Config.SystemConfig.AllowRegister) throw new NotFoundException("页面不存在!");
             if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
                 ViewBag.ReturnUrl = returnUrl;
             }
             return View();
         }
-        #region 用户登录注册
+
         /// <summary>
         /// 用户注册
         /// </summary>
@@ -119,64 +196,6 @@ namespace HxBlogs.WebApp.Areas.Account.Controllers
             return true;
         }
 
-        /// <summary>
-        /// 用户登录
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult DoLogin()
-        {
-            AjaxResult result = new AjaxResult();
-            result = ValidateCode(result);
-            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
-            result = ValidateUser(result);
-            if (!result.Success) return Json(result, JsonRequestBehavior.AllowGet);
-            string returnUrl = Request[ConstInfo.returnUrl];
-            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-            {
-                result.Resultdata = returnUrl.Trim();
-            }
-            // string jsonStr = JsonHelper.ToJsonInclude(result, nameof(ReturnResult.ReturnUrl), nameof(ReturnResult.IsSuccess), nameof(ReturnResult.Message));
-            return Json(result, string.Empty, JsonRequestBehavior.AllowGet);
-        }
-        /// <summary>
-        /// 验证验证码
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        private AjaxResult ValidateCode(AjaxResult result)
-        {
-            string validateCode = Request["ValidateCode"];
-            string code = Session[ConstInfo.VCode].ToString();
-            if (!Helper.AreEqual(code, validateCode))
-            {
-                result.Success = false;
-                result.Message = "验证码不正确";
-            }
-            return result;
-        }
-        /// <summary>
-        /// 验证用户名密码是否正确
-        /// </summary>
-        /// <param name="result"></param>
-        /// <returns></returns>
-        private AjaxResult ValidateUser(AjaxResult result)
-        {
-            string userName = Request["UserName"];
-            string pwd = Hx.Common.Security.SafeHelper.MD5TwoEncrypt(Request["PassWord"]);
-            UserInfo userInfo = this._userService.GetEntity(u => u.PassWord == pwd && (u.UserName == userName || u.Email == userName));
-            if (userInfo == null)
-            {
-                Session[ConstInfo.VCode] = null;
-                result.Success = false;
-                result.Message = "用户名或密码错误!";
-            }
-            else
-            {
-                UserContext.CacheUserInfo(userInfo, Helper.IsYes(Request["Remember"]));
-            }
-            return result;
-        }
 
         /// <summary>
         /// 显示验证码
@@ -195,11 +214,7 @@ namespace HxBlogs.WebApp.Areas.Account.Controllers
             return File(bytes, "image/jpeg");
         }
 
-        public ActionResult Logout()
-        {
-            UserContext.ClearUserInfo();
-            return Redirect("/login");
-        }
+        
         #endregion
 
         #region 验证用户输入的信息

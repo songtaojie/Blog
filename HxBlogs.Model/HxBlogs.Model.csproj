@@ -69,6 +69,7 @@
     <Compile Include="Entries\Attention.cs" />
     <Compile Include="Entries\BasicInfo.cs" />
     <Compile Include="Entries\JobInfo.cs" />
+    <Compile Include="Entries\SystemConfig.cs" />
     <Compile Include="Extend\AllowAdminAttribute.cs" />
     <Compile Include="Mapping\BaseMatch.cs" />
     <Compile Include="Mapping\IMatchValue.cs" />
@@ -102,6 +103,10 @@
     <Compile Include="Migrations\201907251323506_UpdateBlog.Designer.cs">
       <DependentUpon>201907251323506_UpdateBlog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907290341516_AddConfig.cs" />
+    <Compile Include="Migrations\201907290341516_AddConfig.Designer.cs">
+      <DependentUpon>201907290341516_AddConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\AjaxResult.cs" />
@@ -118,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907251323506_UpdateBlog.resx">
       <DependentUpon>201907251323506_UpdateBlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907290341516_AddConfig.resx">
+      <DependentUpon>201907290341516_AddConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

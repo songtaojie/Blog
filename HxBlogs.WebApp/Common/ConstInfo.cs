@@ -30,6 +30,11 @@ namespace HxBlogs.WebApp
         /// </summary>
         public const string maxLength = "maxRequestLength";
 
+        /// <summary>
+        /// 返回连接
+        /// </summary>
         public const string returnUrl = "returnUrl";
+
+        public const string systemConfig = "SystemConfig";
     }
 }

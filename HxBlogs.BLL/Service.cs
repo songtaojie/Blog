@@ -1,8 +1,18 @@
-﻿using HxBlogs.IBLL;
+﻿
+
+
+
+
+
+
+
+
+using HxBlogs.IBLL;
 using HxBlogs.Model;
 using HxBlogs.IDAL;
 namespace HxBlogs.BLL
 {
+
 	public partial class AttentionService:BaseService<Attention>,IAttentionService
 	{
 		private IAttentionDal _dal;
@@ -12,6 +22,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class BasicInfoService:BaseService<BasicInfo>,IBasicInfoService
 	{
 		private IBasicInfoDal _dal;
@@ -21,6 +32,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class JobInfoService:BaseService<JobInfo>,IJobInfoService
 	{
 		private IJobInfoDal _dal;
@@ -30,6 +42,17 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
+	public partial class SystemConfigService:BaseService<SystemConfig>,ISystemConfigService
+	{
+		private ISystemConfigDal _dal;
+		public SystemConfigService(ISystemConfigDal dal)
+        {
+			this._dal = dal;
+			this.baseDal = dal;
+        }
+	}
+
 	public partial class BlogService:BaseService<Blog>,IBlogService
 	{
 		private IBlogDal _dal;
@@ -39,6 +62,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class BlogTagService:BaseService<BlogTag>,IBlogTagService
 	{
 		private IBlogTagDal _dal;
@@ -48,6 +72,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class BlogTypeService:BaseService<BlogType>,IBlogTypeService
 	{
 		private IBlogTypeDal _dal;
@@ -57,6 +82,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class CategoryService:BaseService<Category>,ICategoryService
 	{
 		private ICategoryDal _dal;
@@ -66,6 +92,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class CommentService:BaseService<Comment>,ICommentService
 	{
 		private ICommentDal _dal;
@@ -75,6 +102,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class ReplyCommentService:BaseService<ReplyComment>,IReplyCommentService
 	{
 		private IReplyCommentDal _dal;
@@ -84,6 +112,7 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 	public partial class UserInfoService:BaseService<UserInfo>,IUserInfoService
 	{
 		private IUserInfoDal _dal;
@@ -93,4 +122,5 @@ namespace HxBlogs.BLL
 			this.baseDal = dal;
         }
 	}
+
 }

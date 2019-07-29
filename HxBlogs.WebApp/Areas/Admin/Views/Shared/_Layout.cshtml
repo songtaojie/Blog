@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - 海·星の博客</title>
+    @RenderSection("beginstyles", required: false)
+   
+    @RenderSection("endstyles", required: false)
+</head>
+<body>
+    <div class="container hx-content">
+        <div class="hx-logo">
+            <a href="/">
+                <img src="~/images/logo.png" />
+            </a>
+        </div>
+        @RenderBody()
+        <div class="hx-copyright">
+            @DateTime.Now.Year &copy; HxBlogs by JIE.Tong
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @Scripts.Render("~/bundles/remind")
+    @Scripts.Render("~/bundles/core")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

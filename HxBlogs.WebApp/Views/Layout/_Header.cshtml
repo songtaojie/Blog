@@ -22,17 +22,21 @@
                 <li class="nav-item">
                     <a class="text-white px-3" href="list.html">博客日记</a>
                 </li>
+                @if (UserContext.LoginUser == null && HxBlogs.WebApp.Models.Config.SystemConfig.AllowRegister)
+                {
+                    <li class="nav-item">
+                        <a href="/register" class="text-white px-3" target="_blank">
+                            <i class="fa fa-user"></i> 注册
+                        </a>
+                    </li>
+                }
             </ul>
         </div>
         @if (UserContext.LoginUser == null)
         {
-            @*<li class="nav-item my-auto ml-2 ml-md-0">
-                    <a href="/register?returnUrl=@Request.Url.LocalPath" class="text-light" target="_blank">
-                        <i class="fa fa-user"></i> 注册
-                    </a>
-                </li>*@
+           
             <span class="nav-item my-auto p-0 p-absolute">
-                <a href="/login?returnUrl=@Request.Url.LocalPath" class="text-white hx-1x" target="_blank">
+                <a href="/login" class="text-white hx-1x" target="_blank">
                     <i class="fa  fa-arrow-circle-o-right"></i> 登录
                 </a>
             </span>
@@ -45,7 +49,7 @@
                         <img class="hx-circle" src="~/images/avatar1_small.jpg" />
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item text-white" href="/edit/postedit" target="_blank" >
+                        <a class="dropdown-item text-white" href="/edit/postedit" target="_blank">
                             <span class="fa fa-edit"></span> 写博客
                         </a>
                         <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/uc/p")" target="_blank">
@@ -53,7 +57,7 @@
                         </a>
                         @if (UserContext.LoginUser.IsAdmin)
                         {
-                            <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/admin/uc")" target="_blank">
+                            <a class="dropdown-item text-white" href="@WebHelper.GetFullUrl("/admin")" target="_blank">
                                 <i class="fa fa-cog hx-fa-same"></i> 系统管理
                             </a>
                         }

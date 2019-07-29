@@ -48,6 +48,8 @@ namespace HxBlogs.Model.Context
         public DbSet<Blog> Blog { get; set; }
         public DbSet<BlogTag> BlogTag { get; set; }
         public DbSet<Attention> Attention { get; set; }
+
+        public DbSet<SystemConfig> SystemConfig { get; set; }
     }
     internal class SeedDataInitializer : CreateDatabaseIfNotExists<BlogContext>
     {

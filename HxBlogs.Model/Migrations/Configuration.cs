@@ -43,6 +43,7 @@
             //    new BlogType{Name="转载",},
             //    new BlogType{Name="翻译",}
             //});
+            context.Set<SystemConfig>().Add(new SystemConfig());
         }
     }
 }

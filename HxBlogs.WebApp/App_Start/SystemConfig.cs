@@ -1,12 +1,30 @@
-﻿using Hx.Framework;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Hx.Common.Logs;
+using Hx.Framework;
+using HxBlogs.IBLL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using System.Reflection;
 
 namespace HxBlogs.WebApp
 {
+    /// <summary>
+    /// 系统配置
+    /// </summary>
+    public class SystemConfig
+    {
+        public static void Initialize()
+        {
+            Models.Config.SystemConfig = Model.Context.DbFactory.GetDbContext().Database.SqlQuery<HxBlogs.Model.SystemConfig>("select * from SystemConfig").First();
+        }
+    }
+
+    /// <summary>
+    /// Autofac配置
+    /// </summary>
     public class AutofacConfig
     {
         /// <summary>
@@ -33,6 +51,9 @@ namespace HxBlogs.WebApp
             // ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
         }
     }
+    /// <summary>
+    /// AutoMapper配置
+    /// </summary>
     public class AutoMapperConfig
     {
         public static void Register()
