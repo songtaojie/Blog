@@ -14,5 +14,10 @@ namespace HxBlogs.WebApp.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult Index2()
+        {
+            return View();
+        }
     }
 }

@@ -21,6 +21,11 @@ namespace HxBlogs.WebApp.Areas.Admin
                 new string[] { "HxBlogs.WebApp.Areas.Admin.Controllers" }
             );
             context.MapRoute(
+               "Admin_Blog",
+               "admin/b/{action}/{id}",
+               new { controller="Blog", action = "Index", id = UrlParameter.Optional }
+           );
+            context.MapRoute(
                 "Admin_Default",
                 "admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }

@@ -203,6 +203,7 @@
     <Compile Include="Areas\Account\Models\BasicInfoDTO.cs" />
     <Compile Include="Areas\Account\Models\JobInfoDTO.cs" />
     <Compile Include="Areas\Account\Models\UserInfoDTO.cs" />
+    <Compile Include="Areas\Admin\Controllers\BlogController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Autofac\MvcControllerModule.cs" />
     <Compile Include="Autofac\AutofacControllerFactory.cs" />
@@ -752,6 +753,12 @@
     <Content Include="Plugins\metronic\vendors\base\fonts\summernote\summernote.eot" />
     <Content Include="Plugins\metronic\vendors\base\fonts\summernote\summernote.ttf" />
     <Content Include="Plugins\metronic\vendors\base\fonts\summernote\summernote.woff" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\_Header.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\Sidebar.cshtml" />
+    <Content Include="Areas\Admin\Views\Layout\LeftSide.cshtml" />
+    <Content Include="Areas\Admin\Views\Blog\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index2.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\app\blog-default.css" />
@@ -1336,7 +1343,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Layout\" />
     <Folder Include="Config\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\File\" />
