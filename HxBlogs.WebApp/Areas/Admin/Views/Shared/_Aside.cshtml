@@ -1,0 +1,50 @@
+﻿<aside class="d-flex flex-column hx-aside">
+    <div class="d-flex align-items-center hx-bg-dark hx-aside-brand">
+        <a href="/" target="_blank" class="navbar-brand">
+            <img alt="" src="~/plugins/metronic/demo/default/media/img/logo/logo_default_dark.png" />
+        </a>
+        <div class="ml-auto navbar-toggler">
+            <i class="hx-navbar-toggler-icon"></i>
+        </div>
+    </div>
+    <div class="hx-aside-menu flex-fill hx-bg-light">
+        <ul class="nav flex-column">
+            <li class="nav-item " data-active>
+                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/admin")">
+                    <i class="fa fa-cog"></i>
+                    <span class="hx-nav-text">系统设置</span>
+                </a>
+            </li>
+            <li class="nav-item" data-active="blog">
+                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/admin/b")">
+                    <i class="fa fa-file-text"></i>
+                    <span class="hx-nav-text">博客管理</span>
+
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-4" href="#">
+                    <i class="fa fa-edge"></i>
+                    <span class="hx-nav-text">专题</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+<script>
+    $(function () {
+        $('.navbar-toggler').click(function () {
+            $('.hx-aside').toggleClass('hx-nav-collapse');
+        })
+        var hxsidebar = document.querySelector('.hx-aside'),
+        activeEl = hxsidebar.querySelector('[data-active@(string.IsNullOrEmpty(ViewBag.Active)?"":"="+ ViewBag.Active)]');
+        if (activeEl) {
+            if (activeEl.classList) {
+                activeEl.classList.add('active');
+            } else {
+                var className = (element.className || '') .trim();
+                element.className = "".concat(className, " ").concat('active');
+            }
+        }
+    })
+</script>

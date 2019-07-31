@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - 海·星の博客</title>
+    @RenderSection("beginstyles", required: false)
+    @*<link href="~/Plugins/metronic/vendors/base/vendors.bundle.css" rel="stylesheet" />
+    <link href="~/Plugins/metronic/demo/default/base/style.bundle.css" rel="stylesheet" />*@
+    @RenderSection("endstyles", required: false)
+</head>
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default">
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+        @{
+            Html.RenderPartial("~/Areas/Admin/Views/Layout/_Header.cshtml");
+        }
+        <!-- begin::Body -->
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+            @{
+                Html.RenderPartial("~/Areas/Admin/Views/Layout/LeftSide.cshtml");
+            }
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- end:: Body -->
+    </div>
+    @{
+        Html.RenderPartial("~/Areas/Admin/Views/Layout/SideBar.cshtml");
+    }
+    <!-- begin::Scroll Top -->
+    <div id="m_scroll_top" class="m-scroll-top">
+        <i class="la la-arrow-up"></i>
+    </div>
+    <!-- end::Scroll Top -->
+    <script src="~/Plugins/metronic/vendors/base/vendors.bundle.js"></script>
+    <script src="~/Plugins/metronic/demo/default/base/scripts.bundle.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<aside class="d-flex flex-column hx-aside">
+    <div class="d-flex align-items-center hx-bg-dark hx-aside-brand">
+        <a href="/" target="_blank" class="navbar-brand">
+            <img alt="" src="~/plugins/metronic/demo/default/media/img/logo/logo_default_dark.png" />
+        </a>
+        <div class="ml-auto navbar-toggler">
+            <i class="hx-navbar-toggler-icon"></i>
+        </div>
+    </div>
+    <div class="hx-aside-menu flex-fill hx-bg-light">
+        <ul class="nav flex-column">
+            <li class="nav-item active " data-active>
+                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/uc/p")">
+                    <i class="fa fa-cog"></i>
+                    <span class="hx-nav-text">系统设置</span>
+                </a>
+            </li>
+            <li class="nav-item" data-active="chpwd">
+                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/uc/p/chpwd")">
+                    <i class="fa fa-file-text"></i>
+                    <span class="hx-nav-text">博客管理</span>
+
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link px-4" href="#">
+                    <i class="fa fa-edge"></i>
+                    <span class="hx-nav-text">专题</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

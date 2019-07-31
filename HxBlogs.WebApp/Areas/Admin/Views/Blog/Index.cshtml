@@ -1,43 +1,76 @@
 ﻿@model List<HxBlogs.Model.Blog>
 @{
     ViewBag.Title = "博客管理";
+    ViewBag.Active = "blog";
 }
-<div class="m-content">
-    <table class="table table-bordered m-table m-table--border-primary m-table--head-bg-primary">
-        <thead>
-            <tr>
-                <th>博客名字</th>
-                <th>是否发布</th>
-                <th>发布人</th>
-                <th>发布日期</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (HxBlogs.Model.Blog b in Model)
+@section endstyles{
+<link href="~/Plugins/dataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+}
+<div>
+    <ol class="breadcrumb hx-bg-dark border-0">
+        <li class="breadcrumb-item">后台管理</li>
+        <li class="breadcrumb-item active">博客管理</li>
+    </ol>
+    <div class="container">
+        <table class="table table-bordered table-sm table-hover">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th>博客名字</th>
+                    <th>是否发布</th>
+                    <th>发布人</th>
+                    <th>发布日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            @*<tbody>
+                @foreach (HxBlogs.Model.Blog b in Model)
             {
-            <tr>
-                <td>
-                    <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+b.UserName+"/"+b.HexId))">@b.Title</a>
-                </td>
-                <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" 
-                               value="@b.Publish"  @(b.IsPublish ? "checked" : "") />
-                    </div>
-                </td>
-                <td>@b.UserName</td>
-                <td>@(b.PublishDate.HasValue ? b.PublishDate.Value.ToString("yyyy-MM-dd HH:ss") : "")</td>
-                <td>
-                    <button class="btn btn-danger btn-sm">
-                        <i class=" fa flaticon-delete-2"></i>
-                    </button>
-                    <button class="btn btn-danger m-btn m-btn--icon m-btn--icon-only">
-                        <i class=" fa flaticon-delete-2"></i>
-                    </button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
+                    <tr>
+                        <td>
+                            <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+b.UserName+"/"+b.HexId))">@b.Title</a>
+                        </td>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"
+                                       value="@b.Publish" @(b.IsPublish ? "checked" : "") />
+                            </div>
+                        </td>
+                        <td>@b.UserName</td>
+                        <td>@(b.PublishDate.HasValue ? b.PublishDate.Value.ToString("yyyy-MM-dd HH:ss") : "")</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm">
+                                <i class=" fa fa-remove"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>*@
+        </table>
+    </div>
 </div>
+@section scripts{
+<script src="~/Plugins/dataTables/js/jquery.dataTables.js"></script>
+    <script>
+        $(function () {
+            $('table').DataTable({
+                processing: true,
+                serverSide: true,
+                pagingType: "full_numbers",
+                ajax: {
+                    url: "/admin/b/loadlist",
+                    type: "POST",
+                    data: function (d) {
+                        debugger
+                    }
+                },
+                columns: [
+                    { "data": "Title" },
+                    { "data": "Title" },
+                    { "data": "Title" },
+                    { "data": "Title" },
+                    { "data": "Title" }
+                ]
+            });
+        })
+    </script>
+    }
