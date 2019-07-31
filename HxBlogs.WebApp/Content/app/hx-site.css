@@ -14,7 +14,7 @@ body {
     color: #555;
     background: #efefef;
 }
-.flex-fill {
+.d-flex:not(.flex-column) > .flex-fill {
     width: 0;
 }
 /**************公共的样式*************************/
@@ -129,11 +129,11 @@ a {
     /*下拉按钮*/
     .hx-header .dropdown .dropdown-toggle::after {
         border-top: 0.3rem solid #FFF;
+        transition: all .5s ease;
         -ms-transition: all .5s ease;
         -moz-transition: all .5s ease;
         -webkit-transition: all .5s ease;
         -o-transition: all .5s ease;
-        transition: all .5s ease;
         margin-left: 0;
     }
 

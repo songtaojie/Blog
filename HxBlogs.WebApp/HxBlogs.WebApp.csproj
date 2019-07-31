@@ -232,6 +232,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app\blog-header-footer.css" />
+    <Content Include="Content\app\hx-navbar.css" />
     <Content Include="Content\app\hx-size.css" />
     <Content Include="Content\app\themes\hx-default.css" />
     <Content Include="font\fonts\hx-font.svg" />
