@@ -4,6 +4,7 @@
 }
 @section endstyles{
     <link href="~/Plugins/dataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Plugins/dataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <style type="text/css">
         .hx-control-label::before,
         .hx-control-label::after {
@@ -16,15 +17,19 @@
         <li class="breadcrumb-item">后台管理</li>
         <li class="breadcrumb-item active">博客管理</li>
     </ol>
-    <div class="container bg-white">
-        <table class="table table-bordered table-sm table-hover">
-            <thead class="thead-dark text-center">
+    <div class="container-fluid bg-white py-4">
+        <table class="table table-bordered table-sm">
+            <thead class="thead-light text-center">
                 <tr>
                     <th>博客名字</th>
-                    <th>是否发布</th>
-                    <th>所属用户</th>
-                    <th>发布日期</th>
-                    <th>操作</th>
+                    <th style="width:65px;">博客类型</th>
+                    <th style="width:65px;">系统分类</th>
+                    <th style="width:65px;">所属用户</th>
+                    <th style="width:35px;">发布</th>
+                    <th style="width:120px;">发布日期</th>
+                    <th style="width:35px;">置顶</th>
+                    <th style="width:35px;">轮播</th>
+                    <th style="width:70px;">操作</th>
                 </tr>
             </thead>
         </table>
@@ -32,53 +37,82 @@
 </div>
 @section scripts{
     <script src="~/Plugins/dataTables/js/jquery.dataTables.js"></script>
+    <script src="~/Plugins/dataTables/js/dataTables.bootstrap4.js"></script>
     <script>
+        var _hxTable;
         $(function () {
-            $('table').DataTable({
+            var className = 'text-center',
+                orderable = false;
+            _hxTable = $('table').DataTable({
                 oLanguage: {
-                    sUrl: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
+                    //sUrl: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
+                    sUrl:'/plugins/dataTables/i18n/Chinese.json'
                 },
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 pagingType: "full_numbers",
                 ajax: function (data, callback, settings) {
                     hxCore.ajax('/admin/b/loadlist', {
                         data,
-                        success: function (data, r, a) {
+                        success: function (data) {
                             callback(data);
                         }
                     })
                 },
                 columns: [
-                    { data: "Title" },
                     {
-                        data: "Publish",
-                        className: 'text-center',
+                        data: "Title",
                         render: function (data, type, row, meta) {
-                            var s = ` <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input type="checkbox" class="custom-control-input" name="Publish""
-                                                value="${data}"  ${data === 'Y' ? 'checked' : ''} disabled/>
-                                        <label class="custom-control-label hx-control-label" >
-                                        </label>
-                                    </div>`
-                            return s;
+                            var id = hxCore.toHex(row.Id);
+                            return `<a target="_blank" href="/article/${row.UserName}/${id}">${data}</a>`;
                         }
                     },
-                    { data: "UserName", className: 'text-center', },
-                    { data: "PublishDate", className: 'text-center', },
+                    { data: "BlogType.Name", className },
+                    { data: "Category.Name", className },
+                    { data: "UserName", className },
+                    { data: "Publish", className, render: renderCheckbox },
+                    { data: "PublishDate", className, },
+                    { data: "Top", className, render: renderCheckbox },
+                    { data: "Carousel", className, render: renderCheckbox },
                     {
                         data: "Id",
                         className: 'text-center',
-                        render: function (data) {
-                            data = hxCore.toHex(data); 
-                            var del = `<button class="btn btn-danger btn-sm" data-id="${data}">
-                                            <i class=" fa fa-remove"></i>
-                                        </button>`
-                            return del;
+                        render: function (data, type, row, meta) {
+                            data = hxCore.toHex(data);
+                            var del = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='delete' title='删除'><i class=" fa fa-remove hx-2x"></i></a>`,
+                                top = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='top' title='${row.Top === "Y" ?"取消":""}置顶'><i class=" fa fa-upload hx-2x"></i></a>`,
+                                carousel = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='carousel' title='${row.Carousel === "Y" ? "取消" : ""}轮播'><i class=" fa fa-play hx-2x"></i></a>`;
+                            return del + top + carousel;
                         }
                     }
                 ]
             });
+            function renderCheckbox(data, type, row, meta) {
+                var s = ` <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input"
+                                        value="${data}"  ${data === 'Y' ? 'checked' : ''} disabled/>
+                                <label class="custom-control-label hx-control-label" >
+                                </label>
+                            </div>`
+                return s;
+            }
+            $('table').on('click', '.btn-op', function () {
+                var $me = $(this),
+                    url = '/admin/b/do' + $me.data('type'),
+                    hexId = $me.data('id'),
+                    title = $me.attr('title');
+                alertify.confirm(`确定${title}当前博客?`, function () {
+                    hxCore.ajax(url, {
+                        data: { hexId },
+                        success(data) {
+                            if (_hxTable) _hxTable.draw();
+                            hxCore.remindSuccess(data);
+                        }
+                    });
+                });
+               
+            })
         })
     </script>
 }

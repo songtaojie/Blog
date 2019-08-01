@@ -805,6 +805,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout2.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index3.cshtml" />
     <Content Include="Plugins\dataTables\images\Sorting icons.psd" />
+    <Content Include="Areas\Admin\Views\Blog\Recycle.cshtml" />
     <None Include="Plugins\dataTables\i18n\Chinese.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -72,14 +72,12 @@ body {
 
 a {
     cursor: pointer;
-    color: #444;
 }
 
     a:hover,
     a:active,
     a:focus {
         text-decoration: none;
-        color: #000;
     }
 
 .hx-fa-same {

@@ -1,31 +1,24 @@
-/**
- * Chinese translation
- *  @name Chinese
- *  @anchor Chinese
- *  @author <a href="http://docs.jquery.com/UI">Chi Cheng</a>
- */
-
-{
-	"sProcessing":   "´¦ÀíÖĞ...",
-	"sLengthMenu":   "ÏÔÊ¾ _MENU_ Ïî½á¹û",
-	"sZeroRecords":  "Ã»ÓĞÆ¥Åä½á¹û",
-	"sInfo":         "ÏÔÊ¾µÚ _START_ ÖÁ _END_ Ïî½á¹û£¬¹² _TOTAL_ Ïî",
-	"sInfoEmpty":    "ÏÔÊ¾µÚ 0 ÖÁ 0 Ïî½á¹û£¬¹² 0 Ïî",
-	"sInfoFiltered": "(ÓÉ _MAX_ Ïî½á¹û¹ıÂË)",
+ï»¿{
+	"sProcessing":   "å¤„ç†ä¸­...",
+	"sLengthMenu":   "æ˜¾ç¤º _MENU_ é¡¹ç»“æœ",
+	"sZeroRecords":  "æ²¡æœ‰åŒ¹é…ç»“æœ",
+	"sInfo":         "æ˜¾ç¤ºç¬¬ _START_ è‡³ _END_ é¡¹ç»“æœï¼Œå…± _TOTAL_ é¡¹",
+	"sInfoEmpty":    "æ˜¾ç¤ºç¬¬ 0 è‡³ 0 é¡¹ç»“æœï¼Œå…± 0 é¡¹",
+	"sInfoFiltered": "(ç”± _MAX_ é¡¹ç»“æœè¿‡æ»¤)",
 	"sInfoPostFix":  "",
-	"sSearch":       "ËÑË÷:",
+	"sSearch":       "æœç´¢:",
 	"sUrl":          "",
-	"sEmptyTable":     "±íÖĞÊı¾İÎª¿Õ",
-	"sLoadingRecords": "ÔØÈëÖĞ...",
+	"sEmptyTable":     "è¡¨ä¸­æ•°æ®ä¸ºç©º",
+	"sLoadingRecords": "è½½å…¥ä¸­...",
 	"sInfoThousands":  ",",
 	"oPaginate": {
-		"sFirst":    "Ê×Ò³",
-		"sPrevious": "ÉÏÒ³",
-		"sNext":     "ÏÂÒ³",
-		"sLast":     "Ä©Ò³"
+		"sFirst":    "é¦–é¡µ",
+		"sPrevious": "ä¸Šé¡µ",
+		"sNext":     "ä¸‹é¡µ",
+		"sLast":     "æœ«é¡µ"
 	},
 	"oAria": {
-		"sSortAscending":  ": ÒÔÉıĞòÅÅÁĞ´ËÁĞ",
-		"sSortDescending": ": ÒÔ½µĞòÅÅÁĞ´ËÁĞ"
+		"sSortAscending":  ": ä»¥å‡åºæ’åˆ—æ­¤åˆ—",
+		"sSortDescending": ": ä»¥é™åºæ’åˆ—æ­¤åˆ—"
 	}
 }

@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - 海·星の博客</title>
     @RenderSection("beginstyles", required: false)
     @Styles.Render("~/content/site")
+    @Styles.Render("~/content/remind")
     @Styles.Render("~/content/darkblack")
     <link href="~/Content/app/hx-navbar.css?v=0.2" rel="stylesheet" />
     @Scripts.Render("~/bundles/site")
@@ -23,6 +24,7 @@
         </div>
     </div>
     @Scripts.Render("~/bundles/core")
+    @Scripts.Render("~/bundles/remind")
     @RenderSection("scripts", required: false)
 </body>
 </html>

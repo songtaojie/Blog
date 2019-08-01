@@ -10,16 +10,21 @@
     <div class="hx-aside-menu flex-fill hx-bg-light">
         <ul class="nav flex-column">
             <li class="nav-item " data-active>
-                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/admin")">
+                <a class="nav-link px-4" href="/admin">
                     <i class="fa fa-cog"></i>
                     <span class="hx-nav-text">系统设置</span>
                 </a>
             </li>
             <li class="nav-item" data-active="blog">
-                <a class="nav-link px-4" href="@WebHelper.GetFullUrl("/admin/b")">
+                <a class="nav-link px-4" href="/admin/b">
                     <i class="fa fa-file-text"></i>
                     <span class="hx-nav-text">博客管理</span>
-
+                </a>
+            </li>
+            <li class="nav-item" data-active="recycle">
+                <a class="nav-link px-4" href="/admin/b/recycle">
+                    <i class="fa fa-recycle"></i>
+                    <span class="hx-nav-text">回收站</span>
                 </a>
             </li>
             <li class="nav-item">

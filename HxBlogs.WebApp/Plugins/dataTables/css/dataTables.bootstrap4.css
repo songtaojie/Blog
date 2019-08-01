@@ -1,4 +1,4 @@
-table.dataTable {
+﻿table.dataTable {
   clear: both;
   margin-top: 6px !important;
   margin-bottom: 6px !important;
@@ -76,52 +76,6 @@ table.dataTable thead > tr > th:active,
 table.dataTable thead > tr > td:active {
   outline: none;
 }
-table.dataTable thead .sorting,
-table.dataTable thead .sorting_asc,
-table.dataTable thead .sorting_desc,
-table.dataTable thead .sorting_asc_disabled,
-table.dataTable thead .sorting_desc_disabled {
-  cursor: pointer;
-  position: relative;
-}
-table.dataTable thead .sorting:before, table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:after {
-  position: absolute;
-  bottom: 0.9em;
-  display: block;
-  opacity: 0.3;
-}
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:before {
-  right: 1em;
-  content: "\2191";
-}
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:after {
-  right: 0.5em;
-  content: "\2193";
-}
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_desc:after {
-  opacity: 1;
-}
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc_disabled:after {
-  opacity: 0;
-}
 
 div.dataTables_scrollHead table.dataTable {
   margin-bottom: 0 !important;
@@ -192,3 +146,10 @@ div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:fir
 div.table-responsive > div.dataTables_wrapper > div.row > div[class^="col-"]:last-child {
   padding-right: 0;
 }
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding:0;
+}
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+        border: 1px solid transparent;
+        background: none;
+    }
