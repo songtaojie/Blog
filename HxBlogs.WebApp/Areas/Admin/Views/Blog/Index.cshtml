@@ -1,76 +1,84 @@
-﻿@model List<HxBlogs.Model.Blog>
-@{
+﻿@{
     ViewBag.Title = "博客管理";
     ViewBag.Active = "blog";
 }
 @section endstyles{
-<link href="~/Plugins/dataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/Plugins/dataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .hx-control-label::before,
+        .hx-control-label::after {
+            top: -0.5rem;
+        }
+    </style>
 }
 <div>
     <ol class="breadcrumb hx-bg-dark border-0">
         <li class="breadcrumb-item">后台管理</li>
         <li class="breadcrumb-item active">博客管理</li>
     </ol>
-    <div class="container">
+    <div class="container bg-white">
         <table class="table table-bordered table-sm table-hover">
             <thead class="thead-dark text-center">
                 <tr>
                     <th>博客名字</th>
                     <th>是否发布</th>
-                    <th>发布人</th>
+                    <th>所属用户</th>
                     <th>发布日期</th>
                     <th>操作</th>
                 </tr>
             </thead>
-            @*<tbody>
-                @foreach (HxBlogs.Model.Blog b in Model)
-            {
-                    <tr>
-                        <td>
-                            <a target="_blank" href="@(WebHelper.GetFullUrl("/article/"+b.UserName+"/"+b.HexId))">@b.Title</a>
-                        </td>
-                        <td>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input"
-                                       value="@b.Publish" @(b.IsPublish ? "checked" : "") />
-                            </div>
-                        </td>
-                        <td>@b.UserName</td>
-                        <td>@(b.PublishDate.HasValue ? b.PublishDate.Value.ToString("yyyy-MM-dd HH:ss") : "")</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm">
-                                <i class=" fa fa-remove"></i>
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>*@
         </table>
     </div>
 </div>
 @section scripts{
-<script src="~/Plugins/dataTables/js/jquery.dataTables.js"></script>
+    <script src="~/Plugins/dataTables/js/jquery.dataTables.js"></script>
     <script>
         $(function () {
             $('table').DataTable({
+                oLanguage: {
+                    sUrl: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
+                },
                 processing: true,
                 serverSide: true,
                 pagingType: "full_numbers",
-                ajax: {
-                    url: "/admin/b/loadlist",
-                    type: "POST",
-                    data: function (d) {
-                        debugger
-                    }
+                ajax: function (data, callback, settings) {
+                    hxCore.ajax('/admin/b/loadlist', {
+                        data,
+                        success: function (data, r, a) {
+                            callback(data);
+                        }
+                    })
                 },
                 columns: [
-                    { "data": "Title" },
-                    { "data": "Title" },
-                    { "data": "Title" },
-                    { "data": "Title" },
-                    { "data": "Title" }
+                    { data: "Title" },
+                    {
+                        data: "Publish",
+                        className: 'text-center',
+                        render: function (data, type, row, meta) {
+                            var s = ` <div class="custom-control custom-checkbox custom-control-inline">
+                                        <input type="checkbox" class="custom-control-input" name="Publish""
+                                                value="${data}"  ${data === 'Y' ? 'checked' : ''} disabled/>
+                                        <label class="custom-control-label hx-control-label" >
+                                        </label>
+                                    </div>`
+                            return s;
+                        }
+                    },
+                    { data: "UserName", className: 'text-center', },
+                    { data: "PublishDate", className: 'text-center', },
+                    {
+                        data: "Id",
+                        className: 'text-center',
+                        render: function (data) {
+                            data = hxCore.toHex(data); 
+                            var del = `<button class="btn btn-danger btn-sm" data-id="${data}">
+                                            <i class=" fa fa-remove"></i>
+                                        </button>`
+                            return del;
+                        }
+                    }
                 ]
             });
         })
     </script>
-    }
+}

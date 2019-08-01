@@ -341,6 +341,31 @@
                 return new File([blog], filename, { type: b.type });
             }
             return null;
+        },
+        toHex(str) {
+            var result = "";
+            if (!this.isEmpty(str)) {
+                str = str.toString();
+                for (var i = 0; i < str.length; i++) {
+                    var temp = str.charCodeAt(i).toString(16);
+                    if (temp.length == 1) temp = "0" + temp + "00";
+                    else if (temp.length == 2) temp = temp + "00";
+                    else if (temp.length == 3) temp = temp.substring(1, 3) + "0" + temp.substring(0, 1);
+                    else if (temp.length == 4) temp = temp.substring(2, 4) + temp.substring(0, 2);
+                    result += temp;
+                }
+            }
+            return result.toUpperCase();
+        },
+        formHex(str) {
+            var result = "";
+            if (!this.isEmpty(str)) {
+                str = str.toString();
+                for (var i = 0; i < str.length; i += 4) {
+                    result = result + String.fromCharCode("0x" + str.substring(i + 2, i + 4) + str.substring(i, i + 2));
+                }
+            }
+            return result;
         }
     };
     var _hxLoad = null;
