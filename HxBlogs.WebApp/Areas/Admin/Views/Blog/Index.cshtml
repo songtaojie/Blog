@@ -4,13 +4,14 @@
 }
 @section endstyles{
     <link href="~/Plugins/dataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="~/Plugins/dataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/Plugins/dataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <style type="text/css">
         .hx-control-label::before,
         .hx-control-label::after {
             top: -0.5rem;
         }
     </style>
+    @Styles.Render("~/content/scss")
 }
 <div>
     <ol class="breadcrumb hx-bg-dark border-0">
@@ -46,7 +47,7 @@
             _hxTable = $('table').DataTable({
                 oLanguage: {
                     //sUrl: "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Chinese.json"
-                    sUrl:'/plugins/dataTables/i18n/Chinese.json'
+                    sUrl: '/plugins/dataTables/i18n/Chinese.json'
                 },
                 processing: true,
                 serverSide: true,
@@ -81,7 +82,7 @@
                         render: function (data, type, row, meta) {
                             data = hxCore.toHex(data);
                             var del = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='delete' title='删除'><i class=" fa fa-remove hx-2x"></i></a>`,
-                                top = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='top' title='${row.Top === "Y" ?"取消":""}置顶'><i class=" fa fa-upload hx-2x"></i></a>`,
+                                top = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='top' title='${row.Top === "Y" ? "取消" : ""}置顶'><i class=" fa fa-upload hx-2x"></i></a>`,
                                 carousel = `<a href= '#' data-id='${data}' class='px-1 btn-op' data-type='carousel' title='${row.Carousel === "Y" ? "取消" : ""}轮播'><i class=" fa fa-play hx-2x"></i></a>`;
                             return del + top + carousel;
                         }
@@ -90,11 +91,11 @@
             });
             function renderCheckbox(data, type, row, meta) {
                 var s = ` <div class="custom-control custom-checkbox custom-control-inline">
-                                <input type="checkbox" class="custom-control-input"
-                                        value="${data}"  ${data === 'Y' ? 'checked' : ''} disabled/>
-                                <label class="custom-control-label hx-control-label" >
-                                </label>
-                            </div>`
+                                    <input type="checkbox" class="custom-control-input"
+                                            value="${data}"  ${data === 'Y' ? 'checked' : ''} disabled/>
+                                    <label class="custom-control-label hx-control-label" >
+                                    </label>
+                                </div>`
                 return s;
             }
             $('table').on('click', '.btn-op', function () {
@@ -111,7 +112,7 @@
                         }
                     });
                 });
-               
+
             })
         })
     </script>

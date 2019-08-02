@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using BundleTransformer.Core.Bundles;
+using BundleTransformer.Core.Orderers;
+using System.Web;
 using System.Web.Optimization;
 
 namespace HxBlogs.WebApp
@@ -24,6 +26,11 @@ namespace HxBlogs.WebApp
             RegisterEditor(bundles);
             RegisterLogin(bundles);
             RegisterPlugin(bundles);
+            //var nullOrderer = new NullOrderer();
+            //commonStylesBundle.Include();
+            //commonStylesBundle.Orderer = nullOrderer;
+            bundles.Add(new CustomStyleBundle("~/content/scss")
+                .Include("~/Content/app/main.scss"));
         }
         #region 网站所用到的js和样式文件
         /// <summary>
