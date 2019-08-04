@@ -194,21 +194,46 @@ namespace HxBlogs.WebApp
         ///获取轮播图
         /// </summary>
         /// <returns></returns>
-        public static string GetCarousel(string file)
+        public static List<string> GetCarousels()
         {
-            string path = HttpContext.Current.Server.MapPath("~/images/carousel/" + file);
+            string rootPath = GetAppSettingValue(ConstInfo.UploadPath);
+            string carouselPath = GetAppSettingValue(ConstInfo.carouselPath);
+            string path = Path.Combine(rootPath, carouselPath);
+            path = HttpContext.Current.Server.MapPath(path);
+            List<string> pathList = new List<string>();
             if (Directory.Exists(path))
             {
-                string[] files = Directory.GetFiles(path);
-                Random random = new Random();
-                int index = random.Next(0, files.Length);
-                return GetFullUrl(ToRelativePath(files[index]));
+                DirectoryInfo directory = new DirectoryInfo(path);
+                FileInfo[] fileInfos = directory.GetFiles("*.*", SearchOption.AllDirectories);
+                var list = fileInfos.OrderByDescending(f => f.CreationTime)
+                    .Where(f => f.Name.EndsWith("jpg") || f.Name.EndsWith("png") ||
+                    f.Name.EndsWith("jpeg") || f.Name.EndsWith("bmp") || f.Name.EndsWith("gif"));
+                pathList = list.Select(f => f.FullName).ToList();
             }
-            else if (File.Exists(path))
+            return pathList;
+        }
+
+        /// <summary>
+        ///获取缩略图
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetThumbs()
+        {
+            string rootPath = GetAppSettingValue(ConstInfo.UploadPath);
+            string carouselPath = GetAppSettingValue(ConstInfo.thumbPath);
+            string path = Path.Combine(rootPath, carouselPath);
+            path = HttpContext.Current.Server.MapPath(path);
+            List<string> pathList = new List<string>();
+            if (Directory.Exists(path))
             {
-                return GetFullUrl(ToRelativePath(path));
+                DirectoryInfo directory = new DirectoryInfo(path);
+                FileInfo[] fileInfos =  directory.GetFiles("*.*", SearchOption.AllDirectories);
+                var list = fileInfos.OrderByDescending(f => f.CreationTime)
+                    .Where(f => f.Name.EndsWith("jpg") || f.Name.EndsWith("png") ||
+                    f.Name.EndsWith("jpeg") || f.Name.EndsWith("bmp") || f.Name.EndsWith("gif"));
+                pathList = list.Select(f => f.FullName).ToList();
             }
-            return string.Empty;
+            return pathList;
         }
         #endregion
 
@@ -249,34 +274,26 @@ namespace HxBlogs.WebApp
         /// <summary>
         /// 获取头像的url
         /// </summary>
-        /// <param name="type">0：代表50*50,1代表80*80,2代表160*160</param>
+        /// <param name="type">0：代表32*32,1代表80*80,2代表160*160</param>
         /// <returns></returns>
-        public static string GetAvatarUrl(int type)
+        public static string GetAvatarUrl(bool thumb = true)
         {
             Model.UserInfo userInfo = UserContext.LoginUser;
             string avatarUrl = string.Empty;
             if (userInfo != null && !string.IsNullOrEmpty(userInfo.AvatarUrl))
             {
                 avatarUrl = userInfo.AvatarUrl;
-                if (type == 1 || type == 2)
-                {
-                    int index = avatarUrl.LastIndexOf("50x50");
-                    string newUrl = avatarUrl.Substring(0, index);
-                    string fullPath = string.Empty;
-                    if (type == 1)
+                if (!thumb) {
+                    int index = avatarUrl.LastIndexOf("32x32");
+                    if (index >= 0)
                     {
-                        newUrl = newUrl + "80x80.png";
-                        fullPath = HttpContext.Current.Server.MapPath(newUrl);
-                    }
-                    else if (type == 2)
-                    {
+                        string newUrl = avatarUrl.Substring(0, index);
                         newUrl = newUrl + "160x160.png";
-                        fullPath = HttpContext.Current.Server.MapPath(newUrl);
+                        string fullPath = HttpContext.Current.Server.MapPath(newUrl);
+                        if (File.Exists(fullPath))
+                            avatarUrl = newUrl;
                     }
-                    if (File.Exists(fullPath))
-                        avatarUrl = newUrl;
                 }
-
             }
             if (string.IsNullOrEmpty(avatarUrl)) avatarUrl = GetFullUrl("/images/avatar.png");
             return GetFullUrl(avatarUrl);

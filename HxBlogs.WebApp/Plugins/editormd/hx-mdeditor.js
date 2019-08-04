@@ -32,6 +32,7 @@
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "/file/upload",
+        uploadName:'upload',
         toolbarIcons: function () {
             // Or return editormd.toolbarModes[name]; // full, simple, mini
             // Using "||" set icons align right.

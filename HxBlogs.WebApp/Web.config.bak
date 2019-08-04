@@ -327,7 +327,6 @@
       <remove name="MdFileHandler" />
       <add name="MiniProfiler" path="mini-profiler-resources/*" verb="*" type="System.Web.Routing.UrlRoutingModule" resourceType="Unspecified" preCondition="integratedMode" />
       <add name="MdFileHandler" verb="*" path="*.md" preCondition="integratedMode" type="System.Web.StaticFileHandler" />
-      <add name="LangFileHandler" verb="*" path="*.lang" preCondition="integratedMode" type="System.Web.StaticFileHandler" />
       <add name="dotless" path="*.less" verb="GET" type="dotless.Core.LessCssHttpHandler,dotless.AspNet" resourceType="File" preCondition="" />
       <add name="SassAssetHandler" path="*.sass" verb="GET" type="BundleTransformer.SassAndScss.HttpHandlers.SassAndScssAssetHandler, BundleTransformer.SassAndScss" resourceType="File" preCondition="" />
       <add name="ScssAssetHandler" path="*.scss" verb="GET" type="BundleTransformer.SassAndScss.HttpHandlers.SassAndScssAssetHandler, BundleTransformer.SassAndScss" resourceType="File" preCondition="" />
@@ -388,5 +387,10 @@
         </fileExtensions>
       </js>
     </core>
+    <sassAndScss useNativeMinification="true" indentType="Space" indentWidth="4" lineFeedType="Lf" precision="5" sourceComments="false">
+    <includePaths>
+      <add path="~/content/sass/" />
+    </includePaths>
+    </sassAndScss>
   </bundleTransformer>
 </configuration>

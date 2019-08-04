@@ -19,14 +19,14 @@
                 </p>
             </div>
             <div class="blog-item-user d-flex justify-content-start align-items-center">
-                <div class="ml-auto hx-gray-text">发布于@(WebHelper.GetDetailDate(blog.PublishDate))</div>
+                <div class="ml-auto hx-text-gray">发布于@(WebHelper.GetDetailDate(blog.PublishDate))</div>
                 <div class="ml-2">
-                    <span class="hx-gray-text">阅读</span>
-                    <span class="hx-blue-text">@blog.ReadCount</span>
+                    <span class="hx-text-gray">阅读</span>
+                    <span class="hx-text-blue">@blog.ReadCount</span>
                 </div>
                 <div class="ml-2">
-                    <span class="hx-gray-text">评论</span>
-                    <span class="hx-blue-text">@blog.CmtCount</span>
+                    <span class="hx-text-gray">评论</span>
+                    <span class="hx-text-blue">@blog.CmtCount</span>
                 </div>
                 @if (UserContext.IsLoginUser(ViewBag.User))
                 {

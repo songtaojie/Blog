@@ -173,7 +173,7 @@
             }
         }());
         var templates = {
-            back: `<span class="i-hx-back" style="cursor: pointer;"></span> `
+            back: `<span class="hx-i-back" style="cursor: pointer;"></span> `
         };
         function createBack(instance) {
             var backDiv = document.createElement('div'),

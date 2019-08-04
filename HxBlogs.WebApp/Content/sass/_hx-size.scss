@@ -1,0 +1,107 @@
+﻿$about-me: get-name(about-me);
+//.hx-minw-
+@for $i from 0 through 5 {
+    #{get-name(minw+'-'+$i)} {
+        min-width: (5em * $i);
+    }
+}
+//.hx-maxw-
+@for $i from 0 through 5 {
+    #{get-name(maxw+'-'+$i)} {
+        max-width: (5em * $i);
+    }
+}
+//.hx-minh-
+@for $i from 0 through 5 {
+    #{get-name(minh+'-'+$i)} {
+        min-height: (5em * $i);
+    }
+}
+//.hx-maxh-
+@for $i from 0 through 5 {
+    #{get-name(maxh+'-'+$i)} {
+        max-height: (5em * $i);
+    }
+}
+.w-30 {
+    width: $width-30 !important;
+}
+.w-70 {
+    width: $width-70 !important;
+}
+#{$about-me},
+.carousel-item {
+    height: 11.875rem;
+}
+.carousel-thumbnail {
+    height: 5.875rem;
+}
+/*小屏*/
+@media (min-width: 576px) {
+    @each $w in 25, 30, 50, 70,100 {
+        .w-sm-#{$w} {
+            width: #{$w}% !important;
+        }
+    }
+
+    .carousel-thumbnail,
+    .carousel-item {
+        height: $carousel-sm-height;
+    }
+}
+/*中屏*/
+
+@media (min-width: 768px) {
+    #{get-name(header)} .p-absolute {
+        position: static;
+        padding-right: 0.75rem;
+        right: auto;
+    }
+    @each $w in 25, 30, 50, 70,100{
+        .w-md-#{$w}{
+            width:#{$w}% !important;
+        }
+    }
+    #{$about-me},
+    .carousel-thumbnail,
+    .carousel-item {
+        height: $carousel-md-height;
+    }
+
+    #{$about-me} {
+        width: $carousel-md-width;
+    }
+}
+/*大屏*/
+@media (min-width: 992px) {
+    @each $w in 25, 30, 50, 70,100 {
+        .w-lg-#{$w} {
+            width: #{$w}% !important;
+        }
+    }
+    #{$about-me},
+    .carousel-thumbnail,
+    .carousel-item {
+        height: $carousel-lg-height;
+    }
+    #{$about-me} {
+        width: $carousel-lg-width;
+    }
+}
+/*超大屏*/
+@media (min-width: 1200px) {
+    @each $w in 25, 30, 50, 70,100 {
+        .w-xl-#{$w} {
+            width: #{$w}% !important;
+        }
+    }
+    #{$about-me},
+    .carousel-thumbnail,
+    .carousel-item {
+        height: $carousel-xl-height;
+    }
+    #{$about-me} {
+        width: $carousel-xl-width;
+    }
+}
+

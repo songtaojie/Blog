@@ -6,7 +6,7 @@
     font-style: normal;
 }
 
-[class^="i-hx-"], [class*=" i-hx-"] {
+[class^="hx-i-"], [class*=" hx-i-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'hx-font' !important;
     speak: none;
@@ -20,6 +20,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.i-hx-back:before {
+.hx-i-back:before {
     content: "\e900";
 }

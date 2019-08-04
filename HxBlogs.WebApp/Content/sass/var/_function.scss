@@ -1,0 +1,5 @@
+﻿//获取类的全名$name：类名
+@function get-name($name) {
+    @return '.'+$prefix+'-'+$name;
+}
+

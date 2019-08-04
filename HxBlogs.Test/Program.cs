@@ -23,12 +23,7 @@ namespace HxBlogs.Test
             //Console.WriteLine(reg.IsMatch("宋"));
             for (int i = 0; i < 10; i++)
             {
-                var j = i;
-                Task.Run(() =>
-                {
-                    Console.WriteLine("异步hhhhhh" + j);
-                });
-                Console.WriteLine("同步" + i);
+                Console.WriteLine(Hx.Common.Helper.Helper.GetTimestamp());
             }
             Console.ReadLine();
         }

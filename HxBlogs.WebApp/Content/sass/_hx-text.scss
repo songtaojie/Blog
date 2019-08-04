@@ -1,0 +1,35 @@
+﻿//.hx-text-green
+#{get-name(text-green)} {
+    color: $green;
+}
+//.hx-text-orange
+#{get-name(text-orange)} {
+    color: $orange;
+}
+//.hx-text-gray
+#{get-name(text-gray)} {
+    color: $gray-500;
+}
+//.hx-text-gray
+#{get-name(text-blue)} {
+    color: $blue;
+}
+//.hx-content-nowrap
+#{get-name(content-nowrap)},
+#{get-name(content-nowrap)} p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#{get-name(fa-same)} {
+    width: $font-size;
+    text-align: center;
+}
+
+@for $i from 1 through 5 {
+    $index:$i - 1;
+    #{get-name($i+'x')} {
+        font-size: $font-size + 0.25em * $index;
+    }
+}

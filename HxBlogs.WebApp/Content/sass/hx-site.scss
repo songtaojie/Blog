@@ -1,0 +1,32 @@
+﻿@import "var/all";
+@import "var/function";
+@import "var/mixin";
+* {
+    margin: 0;
+    padding: 0;
+}
+body, html {
+    height: $height-100;
+}
+body {
+    font-family: $font-family;
+    color: $font-color;
+    background: $body-bg-color;
+}
+a {
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+        text-decoration: none;
+    }
+}
+#{get-name(container)} {
+    margin: 0 auto;
+    max-width: $max-width;
+    margin-top: $header-hight+0.25rem;
+}
+@import "hx-bootstrap";
+@import "hx-text";
+@import "hx-size";
+@import "hx-header";
+@import "hx-navbar";
+@import "hx-avatar";

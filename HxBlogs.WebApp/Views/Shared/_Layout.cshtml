@@ -12,7 +12,6 @@
     @Scripts.Render("~/bundles/site")
 </head>
 <body>
-
     @{
         Html.RenderPartial("~/Views/Layout/_Header.cshtml");
     }
@@ -33,6 +32,6 @@
         //};
     </script>
     @RenderSection("scripts", required: false)
-    @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    @*@StackExchange.Profiling.MiniProfiler.RenderIncludes()*@
 </body>
 </html>

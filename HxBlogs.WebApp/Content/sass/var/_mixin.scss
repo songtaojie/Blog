@@ -1,0 +1,9 @@
+﻿//header中的
+@mixin hx-show {
+    width: 100%;
+    height: auto;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    z-index: 999;
+    top: 3.25rem;
+}

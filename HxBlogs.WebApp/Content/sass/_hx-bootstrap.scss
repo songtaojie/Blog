@@ -1,0 +1,40 @@
+﻿#{get-name(control-label)} {
+    margin: auto 0;
+    &::before {
+        left: -1.3rem;
+    }
+    &::after {
+        left: -1.3rem;
+    }
+} 
+//卡片
+#{get-name(card-header)} {padding: 0.5rem 1rem;}
+#{get-name(card-body)} {
+    padding: 0.8rem;
+}
+#{get-name(card-footer)} {
+    padding: 0.5rem 1rem;
+}
+#{get-name(card-footer-link)} {
+    a {
+        display: block;
+        font-size: 0.85em;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+    }
+
+    &:hover {
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+}
+.control-label .required {
+    color: #e02222;
+    font-size: 1.2rem;
+    padding-left: .2rem;
+}
+.d-flex:not(.flex-column) > .flex-fill {
+    width: 0;
+}

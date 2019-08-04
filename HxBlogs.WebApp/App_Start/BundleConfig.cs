@@ -1,5 +1,7 @@
 ﻿using BundleTransformer.Core.Bundles;
 using BundleTransformer.Core.Orderers;
+using BundleTransformer.Core.Transformers;
+using BundleTransformer.SassAndScss.Configuration;
 using System.Web;
 using System.Web.Optimization;
 
@@ -26,11 +28,8 @@ namespace HxBlogs.WebApp
             RegisterEditor(bundles);
             RegisterLogin(bundles);
             RegisterPlugin(bundles);
-            //var nullOrderer = new NullOrderer();
-            //commonStylesBundle.Include();
-            //commonStylesBundle.Orderer = nullOrderer;
-            bundles.Add(new CustomStyleBundle("~/content/scss")
-                .Include("~/Content/app/main.scss"));
+            //BundleTable.EnableOptimizations = true;
+
         }
         #region 网站所用到的js和样式文件
         /// <summary>
@@ -41,17 +40,20 @@ namespace HxBlogs.WebApp
         {
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                         "~/scripts/jquery-{version}.js"));
-            bundles.Add(new StyleBundle("~/content/site").Include(
-               "~/content/bootstrap.css",
-               "~/font/font-awesome.css",
-               "~/font/hx-font.css",
-               "~/content/app/hx-site.css"
-              ));
+            var nullOrderer = new NullOrderer();
+            var commonStylesBundle = new CustomStyleBundle("~/content/site");
+            commonStylesBundle.Include(
+                    "~/content/bootstrap.css",
+                    "~/font/font-awesome.css",
+                    "~/font/hx-font.css",
+                    "~/content/sass/hx-site.scss");
+            commonStylesBundle.Orderer = nullOrderer;
+            bundles.Add(commonStylesBundle);
 
             bundles.Add(new ScriptBundle("~/bundles/core").Include(
-                        "~/scripts/app/jquery.extendsion.js",
-                       "~/scripts/bootstrap.js",
-                   "~/scripts/app/hx.core.js"));
+                    "~/scripts/app/jquery.extendsion.js",
+                    "~/scripts/bootstrap.js",
+                    "~/scripts/app/hx.core.js"));
         }
 
         /// <summary>
@@ -61,10 +63,10 @@ namespace HxBlogs.WebApp
         private static void RegisterBlog(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/content/darkblack").Include(
-             "~/content/app/themes/hx-default.css"
+             "~/content/css/themes/hx-default.css"
              ));
             bundles.Add(new StyleBundle("~/content/default").Include(
-             "~/content/app/blog-default.css"
+             "~/content/css/blog-default.css"
              ));
         }
 
@@ -79,7 +81,7 @@ namespace HxBlogs.WebApp
                        "~/scripts/app/login.js",
                        "~/scripts/app/pop.login.js"));
             bundles.Add(new StyleBundle("~/content/login").Include(
-             "~/content/app/hx-login.css"
+             "~/content/css/hx-login.css"
              ));
         }
         #endregion
@@ -99,7 +101,7 @@ namespace HxBlogs.WebApp
             bundles.Add(new StyleBundle("~/content/remind").Include(
                 "~/plugins/alertifyjs/css/alertify.css",
                 "~/plugins/alertifyjs/css/themes/hx.alertify.css",
-                "~/content/app/hx-loading.css"
+                "~/content/css/hx-loading.css"
             ));
             //日期和城市选择下拉框
             bundles.Add(new ScriptBundle("~/bundles/picker").Include(

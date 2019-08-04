@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Image (upload) dialog plugin for Editor.md
  *
  * @file        image-dialog.js
@@ -27,8 +27,8 @@
             var imageLang   = lang.dialog.image;
             var classPrefix = this.classPrefix;
             var iframeName  = classPrefix + "image-iframe";
-			var dialogName  = classPrefix + pluginName, dialog;
-
+            var dialogName = classPrefix + pluginName, dialog;
+            var uploadName = settings.uploadName || (classPrefix + "image-file");
 			cm.focus();
 
             var loading = function(show) {
@@ -51,7 +51,7 @@
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
-                                                                                "<input type=\"file\" name=\"" + classPrefix + "image-file\" accept=\"image/*\" />" +
+                                                "<input type=\"file\" name=\"" + uploadName + "\" accept=\"image/*\" />" +
                                                                                 "<input type=\"submit\" value=\"" + imageLang.uploadButton + "\" />" +
                                                                             "</div>" : "";
                                         })() +
@@ -131,7 +131,7 @@
                     return ;
                 }
 
-				var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
+                var fileInput = dialog.find("[name=\"" + uploadName + "\"]");
 
 				fileInput.bind("change", function() {
 					var fileName  = fileInput.val();

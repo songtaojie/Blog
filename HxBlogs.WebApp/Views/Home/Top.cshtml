@@ -8,7 +8,7 @@
         @if (Model.Count > 0)
         {
             <div class="w-100 w-sm-70">
-                <div class="carousel slide h-100">
+                <div id="@carousel" class="carousel slide h-100" data-ride="carousel" data-interval="3000">
                     <!-- 指示符 -->
                     <ul class="carousel-indicators">
                         @for (int i = 0; i < 4; i++)

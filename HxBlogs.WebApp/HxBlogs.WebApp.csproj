@@ -109,6 +109,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NUglify, Version=1.5.13.0, Culture=neutral, PublicKeyToken=15bc7810aec21b5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUglify.1.5.13\lib\net40\NUglify.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.0.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
@@ -253,17 +256,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\blog-header-footer.css" />
-    <Content Include="Content\app\hx-navbar.css" />
-    <Content Include="Content\app\hx-size.css" />
-    <Content Include="Content\app\themes\hx-default.css" />
+    <Content Include="Content\css\blog-header-footer.css" />
+    <Content Include="Content\css\themes\hx-default.css" />
     <Content Include="font\fonts\hx-font.svg" />
     <Content Include="images\carousel\v\1.jpg" />
     <Content Include="images\carousel\v\2.jpg" />
     <Content Include="images\carousel\v\3.jpg" />
     <Content Include="images\carousel\v\4.jpg" />
     <Content Include="images\carousel\h\75842f4d1e18d692a66c38eb172a40ab.jpg" />
-    <Content Include="images\carousel\h\b02.jpg" />
     <Content Include="images\carousel\h\h1.jpg" />
     <Content Include="images\carousel\h\h2.jpg" />
     <Content Include="images\quote-bg.png" />
@@ -828,12 +828,25 @@
     <Content Include="Areas\Admin\Views\Home\Index3.cshtml" />
     <Content Include="Plugins\dataTables\images\Sorting icons.psd" />
     <Content Include="Areas\Admin\Views\Blog\Recycle.cshtml" />
-    <Content Include="Content\Scss\main.scss" />
+    <Content Include="Content\sass\var\all.scss" />
+    <Content Include="Content\sass\hx-site.scss" />
+    <Content Include="Content\sass\var\_function.scss" />
+    <Content Include="Content\sass\_hx-text.scss" />
+    <Content Include="Content\sass\var\_color.scss" />
+    <Content Include="Content\sass\var\_size.scss" />
+    <Content Include="Content\sass\hx-site.min.scss" />
+    <Content Include="Content\sass\_hx-size.scss" />
+    <Content Include="Content\sass\_hx-header.scss" />
+    <Content Include="Content\sass\_hx-navbar.scss" />
+    <Content Include="Content\sass\var\_mixin.scss" />
+    <Content Include="Content\sass\_hx-avatar.scss" />
+    <Content Include="Content\sass\_hx-bootstrap.scss" />
+    <Content Include="images\carousel\h\b02.jpg" />
     <None Include="Plugins\dataTables\i18n\Chinese.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Content\app\blog-default.css" />
-    <Content Include="Content\app\hx-loading.css" />
+    <Content Include="Content\css\blog-default.css" />
+    <Content Include="Content\css\hx-loading.css" />
     <Content Include="font\hx-font.css" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="images\avatar.png" />
@@ -1268,9 +1281,9 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Css\base.css" />
-    <Content Include="Content\Css\index.css" />
-    <Content Include="Content\Css\index2.css" />
+    <Content Include="Content\css\base.css" />
+    <Content Include="Content\css\index.css" />
+    <Content Include="Content\css\index2.css" />
     <Content Include="font\font-awesome.css" />
     <Content Include="font\font-awesome.min.css" />
     <Content Include="font\fonts\fontawesome-webfont.svg" />
@@ -1294,14 +1307,12 @@
     <Content Include="Content\Images\t03.jpg" />
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\yu.png" />
-    <Content Include="Content\app\about-us.css" />
-    <Content Include="Content\app\hx-login-soft.css" />
-    <Content Include="Content\app\hx-login.css" />
+    <Content Include="Content\css\hx-login-soft.css" />
+    <Content Include="Content\css\hx-login.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\app\hx-site.css" />
     <Content Include="Scripts\app\jquery.extendsion.js" />
-    <Content Include="Scripts\app\scrollReveal.js" />
+    <Content Include="Plugins\scrollReveal\scrollReveal.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>

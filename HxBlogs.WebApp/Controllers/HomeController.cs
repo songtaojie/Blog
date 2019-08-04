@@ -22,25 +22,36 @@ namespace HxBlogs.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            List<BlogViewModel> blogs = _blogService.GetEntitiesNoTrack(b => b.Carousel == "Y")
+            List<BlogViewModel> carouselBlogs = _blogService.GetEntitiesNoTrack(b => b.Carousel == "Y")
                      .Select(b => new BlogViewModel()
                      {
                          Id = b.Id,
                          Title = b.Title,
                          ImgUrl = b.ImgUrl,
                      }).ToList();
-            foreach (BlogViewModel item in blogs)
+            foreach (BlogViewModel item in carouselBlogs)
             {
                 item.ImgUrl = WebHelper.GetRandomImgUrl(item.ImgUrl);
             }
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/1.jpg") });
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/2.jpg") });
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/3.jpg") });
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("v/4.jpg") });
-
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("h/h1.jpg") });
-            blogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetCarousel("h/h2.jpg") });
-            return View(blogs);
+            int seed = DateTime.Now.Millisecond;
+            List<string> pathList =  WebHelper.GetCarousels();
+            foreach (string path in pathList)
+            {
+                carouselBlogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetFullUrl(WebHelper.ToRelativePath(path)) });
+            }
+            List<string> thumbList = WebHelper.GetThumbs();
+            foreach (string path in thumbList)
+            {
+                carouselBlogs.Add(new BlogViewModel { ImgUrl = WebHelper.GetFullUrl(WebHelper.ToRelativePath(path)) });
+            }
+            return View(carouselBlogs);
+        }
+        private string GetCarousel(BlogViewModel item)
+        {
+            string imgUrl = item.ImgUrl;
+            if (string.IsNullOrEmpty(imgUrl)) return string.Empty;
+            string[] imgUrls = imgUrl.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            return null;
         }
         /// <summary>
         /// 加载文章

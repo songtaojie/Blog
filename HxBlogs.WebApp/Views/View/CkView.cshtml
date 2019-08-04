@@ -17,7 +17,7 @@
                 <div>
                     <h4>@Model.Title</h4>
                 </div>
-                <div class="d-flex flex-wrap align-content-start hx-light-content">
+                <div class="d-flex flex-wrap align-content-start">
                     <span class="hx-text">@(UserContext.GetDisplayName(Model.User)+ (Model.IsPublish? "发布于":"")) </span>
                     <span class="hx-text mr-2">@WebHelper.GetDispayDate(Model.PublishDate, true)</span>
                     <span class="hx-text mr-2">阅读数:@Model.ReadCount</span>

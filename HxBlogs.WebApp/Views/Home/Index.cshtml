@@ -9,7 +9,7 @@
         @{
             Html.RenderPartial("top", Model as System.Collections.Generic.List<HxBlogs.WebApp.Models.BlogViewModel>);
         }
-        <article class="bg-white partial-content mt-2" data-url="/home/loadarticle" hidden></article>
+        <article class="partial-content mt-2" data-url="/home/loadarticle" hidden></article>
     </div>
     <div class="d-none d-md-block ml-2 pt-2">
         @{
@@ -18,6 +18,7 @@
     </div>
 </div>
 @section scripts{
+<script src="~/Plugins/scrollReveal/scrollReveal.js"></script>
     <script>
         $(function () {
             loadPartial();
@@ -28,6 +29,7 @@
                 if (url && url.length > 0) {
                     $(item).load(url, function (response, status, xhr) {
                         if (status == 'success') {
+                            window.scrollReveal = new scrollReveal({ reset: true });
                             $(this).removeAttr('hidden');
                         } else {
                             $(this).attr('hidden');

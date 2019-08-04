@@ -1,0 +1,96 @@
+﻿//用户头像
+#{get-name(avatar)} {
+    position: relative;
+    display: inline-block;
+    &._160x160 img,
+    &._80x80 img,
+    &._50x50 img,
+    &._32x32 img {
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+    }
+
+    a {
+        display: block;
+    }
+
+    #{get-name(dimmer)} {
+        z-index: 998 !important;
+        background-color: rgba(0,0,0,.1) !important;
+
+        &#{get-name(visiable)},
+        &#{get-name(active)} {
+            display: flex;
+            opacity: 1;
+        }
+    }
+}
+@each $i in 32,50,80,160 {
+    &._#{$i}x#{$i} {
+        width: ($i / 16)+rem;
+        height: ($i / 16)+rem;
+    }
+}
+#{get-name(transition)} {
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+
+    &#{get-name(hidden)} {
+        display: none;
+        visibility: hidden;
+    }
+
+    &#{get-name(hidden)} {
+        display: block;
+        visibility: visible;
+    }
+} 
+#{get-name(circle)} {
+    border-radius: 50% !important;
+    -o-object-fit: cover;
+    object-fit: cover;
+    overflow: hidden;
+}
+#{get-name(dimmer)} {
+    display: none;
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 1em;
+    background-color: rgba(0,0,0,.85);
+    opacity: 0;
+    line-height: 1;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-transition: background-color .5s linear;
+    transition: background-color .5s linear;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    will-change: opacity;
+    z-index: 1000;
+}

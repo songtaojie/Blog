@@ -35,6 +35,17 @@ namespace HxBlogs.WebApp
         /// </summary>
         public const string returnUrl = "returnUrl";
 
+        /// <summary>
+        /// 系统配置
+        /// </summary>
         public const string systemConfig = "SystemConfig";
+        /// <summary>
+        /// 轮播图存放的文件
+        /// </summary>
+        public const string carouselPath = "carouselPath";
+        /// <summary>
+        /// 缩略图存放的文件
+        /// </summary>
+        public const string thumbPath = "thumbPath";
     }
 }

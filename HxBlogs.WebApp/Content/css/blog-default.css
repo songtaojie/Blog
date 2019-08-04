@@ -97,8 +97,8 @@
     color: #8a8a8a;
 }
 
-.blog-read:hover .hx-gray-text,
-.blog-comment:hover .hx-gray-text {
+.blog-read:hover .hx-text-gray,
+.blog-comment:hover .hx-text-gray {
     color: #157dcf;
 }
 

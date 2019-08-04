@@ -5,6 +5,7 @@ using HxBlogs.IBLL;
 using HxBlogs.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -36,15 +37,30 @@ namespace HxBlogs.WebApp.Controllers
             if (imgFile == null)
             {
                 result.Add("error", new Dictionary<string, string>() { { "message", "请上传文件!" } });
+                result.Add("message", "请上传文件!");
                 return Json(result);
             }
-            string fileName = imgFile.FileName;
-            bool isImage = WebHelper.IsImage(imgFile.InputStream);
+            //判断是否是图片，并获取高度和宽度
+            bool isImage = true;
+            int imgWidth = 0, imgHeight = 0;
+            try
+            {
+                Image image = Image.FromStream(imgFile.InputStream);
+                imgWidth = image.Width;
+                imgHeight = image.Height;
+            }
+            catch
+            {
+                isImage = false;
+            }
+            
             if (!isImage)
             {
                 result.Add("error", new Dictionary<string, string>() { { "message", "请上传图片文件!" } });
+                result.Add("message", "请上传图片文件!");
                 return Json(result);
             }
+            string fileName = imgFile.FileName;
             long fileLength = imgFile.InputStream.Length;
 
             long max = WebHelper.GetAppSettingValue(ConstInfo.maxLength, 5242880);
@@ -55,40 +71,45 @@ namespace HxBlogs.WebApp.Controllers
             }
             //路径处理
             string fileExt = Path.GetExtension(fileName).ToLower();
-            string dirPath = rootPath + "/" + UserContext.LoginUser.UserName + "/blog/" + DateTime.Now.Year + "/"+ DateTime.Now.Month.ToString("00")+"/";
+            string dirPath = rootPath + "/article/" + UserContext.LoginUser.UserName + "/" + DateTime.Now.Year + "/"+ DateTime.Now.Month.ToString("00")+"/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
             //文件名
             string guid = DateTime.Now.ToString("yyyyMMddHHmmss") + DateTime.Now.Millisecond;
-            string newFileName = string.Format("{0}{1}", guid, fileExt);
             //文件全路径
-            string newFilePath = mapPath + newFileName;
-            imgFile.SaveAs(newFilePath);
+            //源文件
+            string sourceFileName = guid + fileExt;
+            string sourceFilePath = Path.Combine(mapPath,sourceFileName);
+            imgFile.SaveAs(sourceFilePath);
             Task.Run(() => {
-                //源文件
-                string sourceFileName = guid + "_" + fileName;
-                string sourceFilePath = mapPath + sourceFileName;
-                imgFile.SaveAs(sourceFilePath);
                 //缩略图文件
-                string _280FileName = string.Format("{0}_635x280{1}?&h=280&w=635", guid, fileExt);
-                string _280FilePath = Path.Combine(mapPath, _280FileName);
-                ImageManager.MakeThumbnail(sourceFilePath, _280FilePath, 635, 280, ThumbnailMode.H);
-
-                string _120FileName = string.Format("{0}_200x120{1}?&h=120&w=200", guid, fileExt);
-                string _120FilePath = Path.Combine(mapPath, _120FileName);
-                ImageManager.MakeThumbnail(sourceFilePath, _120FilePath, 200, 120, ThumbnailMode.H);
+                if (imgWidth >= 500 && imgHeight >= 260)
+                {
+                    string _268FileName = string.Format("{0}_670x268{1}", guid, fileExt);
+                    string _268FilePath = Path.Combine(mapPath, _268FileName);
+                    ImageManager.MakeThumbnail(sourceFilePath, _268FilePath, 670, 268, ThumbnailMode.H);
+                }
+                if (imgWidth >= 150 && imgHeight >= 90)
+                {
+                    string _120FileName = string.Format("{0}_200x120{1}", guid, fileExt);
+                    string _120FilePath = Path.Combine(mapPath, _120FileName);
+                    ImageManager.MakeThumbnail(sourceFilePath, _120FilePath, 200, 120, ThumbnailMode.H);
+                }
+               
             });
-            string letter = Request.Url.Scheme + ":" + Request.Url.Authority + "/" + UserContext.LoginUser.UserName;
+            //string letter = Request.Url.Scheme + ":" + Request.Url.Authority + "/" + UserContext.LoginUser.UserName;
             //加水印
-            ImageManager.LetterWatermark(newFilePath, 16, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
-
+            //ImageManager.LetterWatermark(newFilePath, 16, letter, System.Drawing.Color.WhiteSmoke, WaterLocation.RB);
             result["success"] = 1;
             result["uploaded"] = true;
-            result["url"] = WebHelper.ToRelativePath(newFilePath);
+            result["url"] = WebHelper.GetFullUrl(WebHelper.ToRelativePath(sourceFilePath));
             return Json(result);
         }
-
+        /// <summary>
+        /// 上传头像
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UploadAvatar()
         {
             AjaxResult result = new AjaxResult();
@@ -111,7 +132,7 @@ namespace HxBlogs.WebApp.Controllers
             UserInfo userInfo = MapperManager.Map<UserInfo>(logUser);
             //路径处理
             string rootPath = WebHelper.GetAppSettingValue(ConstInfo.UploadPath);
-            string dirPath = rootPath + "/" + userInfo.UserName + "/avatar/" + DateTime.Now.ToString("yyyyMM") + "/";
+            string dirPath = rootPath + "/avatar/" + userInfo.UserName + "/" +  DateTime.Now.ToString("yyyyMM") + "/";
             //绝对路径
             string mapPath = Server.MapPath(dirPath);
             FileHelper.TryCreateDirectory(mapPath);
@@ -122,13 +143,14 @@ namespace HxBlogs.WebApp.Controllers
             string _160x160FileName = _160x160File.FileName;
             string _160x160Path = Path.Combine(mapPath, _160x160FileName);
             _160x160File.SaveAs(_160x160Path);
-            string _50x50FileName = sourceName + "-50x50" + Path.GetExtension(_160x160FileName);
-            userInfo.AvatarUrl = Path.Combine(dirPath, _50x50FileName);
+            string _32FileName = sourceName + "-32x32" + Path.GetExtension(_160x160FileName);
+            userInfo.AvatarUrl = Path.Combine(dirPath, _32FileName);
             //异步保存
             Task.Run(()=> 
             {
-                string _50x50Path = Path.Combine(mapPath, _50x50FileName);
-                ImageManager.MakeThumbnail(_160x160Path, _50x50Path, 50, 50, ThumbnailMode.Cut);
+                //32x32
+                string _32Path = Path.Combine(mapPath, _32FileName);
+                ImageManager.MakeThumbnail(_160x160Path, _32Path, 32, 32, ThumbnailMode.Cut);
                 string filePath = Path.Combine(mapPath, sourceFileName);
                 file.SaveAs(filePath);
                 IUserInfoService _userService = ContainerManager.Resolve<IUserInfoService>();

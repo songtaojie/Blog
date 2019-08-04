@@ -1,9 +1,9 @@
 ﻿<header class="fixed-top hx-header py-2 bg-dark">
     <nav class="mx-auto navbar navbar-expand-md py-0 justify-content-center">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-            <span class="hx-navicon"></span>
+        <button class="navbar-toggler thin-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="hx-navbar-toggler-icon"></span>
         </button>
-        <div class="hx-logo mx-auto ml-md-0 mr-md-5">
+        <div class="hx-logo hx-3x mx-auto ml-md-0 mr-md-5">
             <a class="text-white" href="/">
                 海·星の博客
             </a>
@@ -46,7 +46,7 @@
             <ul class="nav navbar-nav p-absolute">
                 <li class="dropdown nav-item ml-2 ml-md-0">
                     <a href="#" class="dropdown-toggle text-light hx-avatar _32x32 " data-toggle="dropdown">
-                        <img class="hx-circle" src="~/images/avatar1_small.jpg" />
+                        <img class="hx-circle" src="@WebHelper.GetAvatarUrl()" />
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item text-white" href="/edit/postedit" target="_blank">

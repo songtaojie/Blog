@@ -1,0 +1,9 @@
+﻿/**
+ * @class 全局的css
+ * 全局的css变量和混入
+ */
+$prefix: 'hx' !default;//要应用于所有CSS选择器的前缀。 如果更改了，则还必须在JavaScript应用程序中进行更改。
+
+@import "color";
+@import "size";
+
