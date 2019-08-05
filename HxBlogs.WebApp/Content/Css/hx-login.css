@@ -1,0 +1,78 @@
+﻿/***
+Login page
+***/
+.hx-content {
+    padding-top: 3rem;
+    max-width: 330px;
+}
+.hx-login,
+.hx-register {
+    background-color: #fff;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/*.hx-logo,
+.hx-logo {
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+}*/
+
+    /*.hx-logo a,
+    .hx-logo a {
+        display: inline-block;
+    }*/
+
+.hx-login .hx-login-content,
+.hx-register .hx-register-content {
+    background-color: #fff;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    padding: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.hx-login .img-validate,
+.hx-register .img-validate {
+    height: 100%;
+    width: 4.68rem;
+    cursor: pointer;
+}
+.field-validation-error {
+    color:red;
+}
+.hx-login .create-account {
+    border-top: 1px dotted #eee;
+}
+
+    .hx-login .create-account a {
+        display: inline-block;
+        margin-top: 5px;
+    }
+
+.hx-copyright {
+    text-align: center;
+    margin: 0 auto;
+    padding: 10px 0;
+    color: rgb(158, 158, 158);
+    font-size: 0.85rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@media (max-width: 480px) {
+    /***
+  Login page
+  ***/
+    .hx-content {
+        padding-top: 2rem;
+        max-width: 310px;
+    }
+}

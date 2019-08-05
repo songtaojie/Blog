@@ -1,0 +1,43 @@
+﻿
+.blog-header.navbar {
+    margin-bottom: auto;
+    min-height: 4rem;
+    box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,.05);
+}
+.blog-header .navbar-inner {
+    width: 100%;
+    margin-left: 0 0 0 11rem;
+    border: 0px;
+    padding: 0px;
+    box-shadow: none;
+}
+.blog-header .toggle {
+    margin-top: .4rem;
+    margin-bottom: .3rem;
+    margin-right: 1rem;
+}
+.blog-header .navbar-brand {
+    padding: 1rem 1.5rem;
+}
+.blog-header-image {
+    width:1.9rem;
+    height:1.9rem;
+}
+.blog-footer {
+    position: relative;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: rgba(0,0,0,.4);
+}
+@media (min-width: 768px) {
+    .blog-header .navbar-nav > li > a {
+        padding: 1rem;
+    }
+    .blog-header .toggle {
+        display: none;
+    }
+}
+
+div, input, select, textarea, span, img, table, td, th, p, a, button, ul, li {
+    -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;
+}
