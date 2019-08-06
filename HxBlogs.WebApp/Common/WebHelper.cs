@@ -196,11 +196,12 @@ namespace HxBlogs.WebApp
         /// <returns></returns>
         public static List<string> GetCarousels()
         {
+            List<string> pathList = new List<string>();
             string rootPath = GetAppSettingValue(ConstInfo.UploadPath);
             string carouselPath = GetAppSettingValue(ConstInfo.carouselPath);
+            if (string.IsNullOrEmpty(rootPath) || string.IsNullOrEmpty(carouselPath)) return pathList;
             string path = Path.Combine(rootPath, carouselPath);
             path = HttpContext.Current.Server.MapPath(path);
-            List<string> pathList = new List<string>();
             if (Directory.Exists(path))
             {
                 DirectoryInfo directory = new DirectoryInfo(path);
@@ -219,11 +220,12 @@ namespace HxBlogs.WebApp
         /// <returns></returns>
         public static List<string> GetThumbs()
         {
-            string rootPath = GetAppSettingValue(ConstInfo.UploadPath);
-            string carouselPath = GetAppSettingValue(ConstInfo.thumbPath);
-            string path = Path.Combine(rootPath, carouselPath);
-            path = HttpContext.Current.Server.MapPath(path);
             List<string> pathList = new List<string>();
+            string rootPath = GetAppSettingValue(ConstInfo.UploadPath);
+            string thumbPath = GetAppSettingValue(ConstInfo.thumbPath);
+            if (string.IsNullOrEmpty(rootPath) || string.IsNullOrEmpty(thumbPath)) return pathList;
+            string path = Path.Combine(rootPath, thumbPath);
+            path = HttpContext.Current.Server.MapPath(path);
             if (Directory.Exists(path))
             {
                 DirectoryInfo directory = new DirectoryInfo(path);
@@ -295,7 +297,7 @@ namespace HxBlogs.WebApp
                     }
                 }
             }
-            if (string.IsNullOrEmpty(avatarUrl)) avatarUrl = GetFullUrl("/images/avatar.png");
+            if (string.IsNullOrEmpty(avatarUrl)) avatarUrl = "/images/avatar.png";
             return GetFullUrl(avatarUrl);
         }
         #endregion

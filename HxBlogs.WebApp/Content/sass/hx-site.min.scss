@@ -3,9 +3,11 @@
 @import "var/mixin";
 
 * {margin: 0;padding: 0;}
-body, html {height: $height-100;}
-body {font-family: $font-family;color: $font-color;background: $body-bg-color;}
-
+body {
+    font-family: $font-family;
+    color: $font-color;
+    background: $body-bg-color;
+}
 a {
     cursor: pointer;
 
@@ -13,7 +15,6 @@ a {
         text-decoration: none;
     }
 }
-
 #{get-name(container)} {
     margin: 0 auto;
     max-width: $max-width;
