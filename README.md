@@ -1,6 +1,6 @@
 # 博客系统
 系统环境
-windows 10、SQL server 2012、Visual Studio 2017、Windows Server 2008 R2
+windows 10、SQL server 2012、Visual Studio 2017
 
 后端技术：
 
