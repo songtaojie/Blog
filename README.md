@@ -5,7 +5,6 @@ windows 10、SQL server 2012、Visual Studio 2017
 后端技术：
 
   * Asp.Net MVC
-  * Memcached缓存，并使用Memcached模拟session
   * Autofac 轻量级IoC和DI依赖注入
 
 数据库技术
