@@ -18,7 +18,15 @@ namespace HxBlogs.WebApp
     {
         public static void Initialize()
         {
-            Models.Config.SystemConfig = Model.Context.DbFactory.GetDbContext().Database.SqlQuery<HxBlogs.Model.SystemConfig>("select * from SystemConfig").First();
+            var configs = Model.Context.DbFactory.GetDbContext().Database.SqlQuery<HxBlogs.Model.SystemConfig>("select * from SystemConfig");
+            if (configs.Count() > 0)
+            {
+                Models.Config.SystemConfig = configs.First();
+            }
+            else
+            {
+                Models.Config.SystemConfig = new Model.SystemConfig(); ;
+            }
         }
     }
 

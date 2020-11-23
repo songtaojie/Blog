@@ -66,7 +66,7 @@ namespace HxBlogs.WebApp.Controllers
             long max = WebHelper.GetAppSettingValue(ConstInfo.maxLength, 5242880);
             if (fileLength > max)
             {
-                result.Add("error", new Dictionary<string, string>() { { "message", string.Format("上传文件大小超过限制,最大上传[{0}]!", Helper.GetFileSizeDes(fileLength)) } });
+                result.Add("error", new Dictionary<string, string>() { { "message", string.Format("上传文件大小超过限制,最大上传[{0}]!", FileHelper.GetFileSizeDes(fileLength)) } });
                 return Json(result);
             }
             //路径处理

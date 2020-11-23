@@ -7,13 +7,13 @@ namespace HxBlogs.Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddTabls : IMigrationMetadata
+    public sealed partial class InitTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddTabls));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201907060734380_AddTabls"; }
+            get { return "202011230332146_InitTable"; }
         }
         
         string IMigrationMetadata.Source

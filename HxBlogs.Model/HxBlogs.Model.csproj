@@ -95,17 +95,9 @@
     <Compile Include="Base\IEntity.cs" />
     <Compile Include="Context\DbFactory.cs" />
     <Compile Include="Extend\DecimalPrecisionAttribute.cs" />
-    <Compile Include="Migrations\201907060734380_AddTabls.cs" />
-    <Compile Include="Migrations\201907060734380_AddTabls.Designer.cs">
-      <DependentUpon>201907060734380_AddTabls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907251323506_UpdateBlog.cs" />
-    <Compile Include="Migrations\201907251323506_UpdateBlog.Designer.cs">
-      <DependentUpon>201907251323506_UpdateBlog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907290341516_AddConfig.cs" />
-    <Compile Include="Migrations\201907290341516_AddConfig.Designer.cs">
-      <DependentUpon>201907290341516_AddConfig.cs</DependentUpon>
+    <Compile Include="Migrations\202011230332146_InitTable.cs" />
+    <Compile Include="Migrations\202011230332146_InitTable.Designer.cs">
+      <DependentUpon>202011230332146_InitTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,14 +110,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907060734380_AddTabls.resx">
-      <DependentUpon>201907060734380_AddTabls.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907251323506_UpdateBlog.resx">
-      <DependentUpon>201907251323506_UpdateBlog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907290341516_AddConfig.resx">
-      <DependentUpon>201907290341516_AddConfig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011230332146_InitTable.resx">
+      <DependentUpon>202011230332146_InitTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

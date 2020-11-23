@@ -1,9 +1,9 @@
-﻿namespace HxBlogs.Model.Migrations
+namespace HxBlogs.Model.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddTabls : DbMigration
+    public partial class InitTable : DbMigration
     {
         public override void Up()
         {
@@ -21,8 +21,7 @@
                         DeleteTime = c.DateTime(precision: 0),
                         LastModifyTime = c.DateTime(precision: 0),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t=>t.Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Blog",
@@ -55,6 +54,7 @@
                         Location = c.String(maxLength: 255, storeType: "nvarchar"),
                         City = c.String(maxLength: 50, storeType: "nvarchar"),
                         OrderFactor = c.Decimal(nullable: false, precision: 18, scale: 4),
+                        Carousel = c.String(maxLength: 1, fixedLength: true, unicode: false, storeType: "char"),
                         CreateTime = c.DateTime(nullable: false, precision: 0),
                         UserId = c.Long(nullable: false),
                         UserName = c.String(maxLength: 50, storeType: "nvarchar"),
@@ -69,8 +69,7 @@
                 .ForeignKey("dbo.UserInfo", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.TypeId)
                 .Index(t => t.CatId)
-                .Index(t => t.UserId)
-                .Index(t=>t.Id);
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.BlogType",
@@ -202,8 +201,16 @@
                         DeleteTime = c.DateTime(precision: 0),
                         LastModifyTime = c.DateTime(precision: 0),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t=>t.Id);
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.SystemConfig",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Register = c.String(maxLength: 1, fixedLength: true, unicode: false, storeType: "char"),
+                    })
+                .PrimaryKey(t => t.Id);
             
         }
         
@@ -219,6 +226,7 @@
             DropIndex("dbo.Blog", new[] { "UserId" });
             DropIndex("dbo.Blog", new[] { "CatId" });
             DropIndex("dbo.Blog", new[] { "TypeId" });
+            DropTable("dbo.SystemConfig");
             DropTable("dbo.BlogTag");
             DropTable("dbo.JobInfo");
             DropTable("dbo.BasicInfo");

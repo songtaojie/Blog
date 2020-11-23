@@ -842,6 +842,7 @@
     <Content Include="Content\sass\_hx-avatar.scss" />
     <Content Include="Content\sass\_hx-bootstrap.scss" />
     <Content Include="images\carousel\h\b02.jpg" />
+    <Content Include="Areas\Account\Views\web .config.bak" />
     <None Include="Plugins\dataTables\i18n\Chinese.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
